@@ -17,20 +17,29 @@
                             <th scope="col">Name</th>
                             <th scope="col">Type</th>
                             <th scope="col">Address</th>
+                            <th scope="col">Courtry</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>New Home</td>
-                            <td>Building</td>
-                            <td>239-B Block -2 Pechs, Sindh, Karachi, Sindh, Pakistan</td>
-                            <td>
-                                <a href="{{ url('admin/property/1/edit')}}" class="btn btn-sm btn-warning">Edit</a>
-                                <a href="{{ url('admin/property/1')}}" class="btn btn-sm btn-danger">Delete</a>
-                            </td>
-                        </tr>
+                        @foreach ($properties as $property)
+                            <tr>
+                                <th scope="row">{{ $property->id }}</th>
+                                <td>{{ $property->name }}</td>
+                                <td>{{ $property->type->name }}</td>
+                                <td>{{ $property->address }}</td>
+                                <td>{{ $property->country }}</td>
+                                <td>
+                                    <a href="{{ route('property.edit', $property->id)}}" class="btn btn-sm btn-warning">Edit</a>
+                                    <form class="d-inline" action="{{route('property.destroy', $property->id)}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                        
                     </tbody>
                 </table>
             </div>

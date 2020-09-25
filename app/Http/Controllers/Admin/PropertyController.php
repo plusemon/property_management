@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Property;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Type;
 
 class PropertyController extends Controller
 {
@@ -26,7 +27,8 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return view('admin.rent.property.create');
+        $types = Type::all();
+        return view('admin.rent.property.create', compact('types'));
     }
 
     /**
@@ -39,17 +41,19 @@ class PropertyController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'property_type_id' => 'required|integer',
+            'type_id' => 'required|integer',
             'address' => 'required|string',
+            'country' => 'required|string',
         ]);
 
         $property = new Property();
         $property->name = $request->name;
-        $property->property_type_id = $request->property_type_id;
+        $property->type_id = $request->type_id;
         $property->address = $request->address;
+        $property->country = $request->country;
         $property->save();
 
-        return redirect('admin/property')->with('success','Property Added Succefully');
+        return redirect('admin/property')->with('success','Added Succefully');
     }
 
     /**
@@ -60,7 +64,7 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-        return 'show method';
+       
     }
 
     /**
@@ -71,7 +75,8 @@ class PropertyController extends Controller
      */
     public function edit(Property $property)
     {
-        //
+        $types = Type::all();
+        return view('admin.rent.property.edit', compact('property','types'));
     }
 
     /**
@@ -83,7 +88,19 @@ class PropertyController extends Controller
      */
     public function update(Request $request, Property $property)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'type_id' => 'required|integer',
+            'address' => 'required|string',
+            'country' => 'required|string',
+        ]);
+        $property->name = $request->name;
+        $property->type_id = $request->type_id;
+        $property->address = $request->address;
+        $property->country = $request->country;
+        $property->save();
+
+        return redirect('admin/property')->with('success','Updated Succefully');
     }
 
     /**
@@ -94,6 +111,7 @@ class PropertyController extends Controller
      */
     public function destroy(Property $property)
     {
-        //
+        $property->delete();
+        return redirect('admin/property')->with('success','Deleted Succefully');
     }
 }

@@ -10,7 +10,7 @@ Route::redirect('/', 'admin/dashboard');
 Route::get('dashboard', 'AdminController@dashboard');
 
 //RENT
-Route::resource('property/type', 'PropertyTypeController');
+Route::resource('property/type', 'TypeController');
 Route::resource('property', 'PropertyController');
 
 Route::resource('expence', 'ExpenceController');

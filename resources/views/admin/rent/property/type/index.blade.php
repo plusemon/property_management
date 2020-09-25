@@ -25,10 +25,14 @@
                         <tr>
                             <th scope="row">{{$type->id}}</th>
                             <td>{{$type->name}}</td>
-                            <td>{{$type->descripton}}</td>
+                            <td>{{$type->description}}</td>
                             <td>
-                                <a href="{{ route('admin/property/type/'.$type->id)}}" class="btn btn-sm btn-warning">Edit</a>
-                                <a href="{{ url('admin/property/type/'.$type->id)}}" class="btn btn-sm btn-danger">Delete</a>
+                                <a href="{{ route('type.edit', $type->id)}}" class="btn btn-sm btn-warning">Edit</a>
+                                <form class="d-inline" action="{{route('type.destroy', $type->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

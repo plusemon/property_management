@@ -8,21 +8,22 @@
 
 <div class="col-12">
     <div class="card">
-        <h5 class="card-header">Add Property Type</h5>
+        <h5 class="card-header">Edit Property Type</h5>
         <div class="card-body">
-            <form action="{{ route('type.store') }}" method="POST">
+            <form action="{{ route('type.update', $type->id) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="form-group">
                     <label class="col-form-label">Property Type</label>
-                    <input name="name" type="text" class="form-control">
+                    <input name="name" type="text" class="form-control" value="{{ $type->name }}">
                 </div>
                 <div class="form-group">
                     <label for="textarea">Description</label>
-                    <textarea name="description" class="form-control" id="textarea" rows="3"></textarea>
+                    <textarea name="description" class="form-control" id="textarea" rows="3"> {{ $type->description }}</textarea>
                 </div>
 
                 <div class="form-group text-right mt-4">
-                    <button type="submit" class="btn btn-success">Add New</button>
+                    <button type="submit" class="btn btn-success">Update</button>
                 </div>
 
             </form>

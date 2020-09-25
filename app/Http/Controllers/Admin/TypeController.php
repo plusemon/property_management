@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Property_type;
+use App\Type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Mockery\Matcher\Type;
 
-class PropertyTypeController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class PropertyTypeController extends Controller
      */
     public function index()
     {
-        $types = Property_type::all();
+        $types = Type::all();
         return view('admin.rent.property.type.index', compact('types'));
     }
 
@@ -39,61 +38,70 @@ class PropertyTypeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required',
             'description' => 'required'
         ]);
 
-        $type = new Property_type();
+        $type = new Type();
         $type->name = $request->name;
         $type->description = $request->description;
         $type->save();
 
-        return redirect('admin/property/type')->with('success','Type Added Succefully');
-        
+        return redirect('admin/property/type')->with('success','Added Succefully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Property_type  $property_type
+     * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function show(Property_type $property_type)
+    public function show(Type $type)
     {
-        return 'show method';
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Property_type  $property_type
+     * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function edit(Property_type $property_type)
+    public function edit(Type $type)
     {
-        //
+        return view('admin.rent.property.type.edit', compact('type'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Property_type  $property_type
+     * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Property_type $property_type)
+    public function update(Request $request, Type $type)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $type->name = $request->name;
+        $type->description = $request->description;
+        $type->save();
+
+        return redirect('admin/property/type')->with('success','Updated Succefully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Property_type  $property_type
+     * @param  \App\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Property_type $property_type)
+    public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return redirect('admin/property/type')->with('success','Deleted Succefully');
     }
 }
