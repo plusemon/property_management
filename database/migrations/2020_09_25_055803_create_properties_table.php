@@ -19,6 +19,7 @@ class CreatePropertiesTable extends Migration
             $table->integer('property_type_id');
             $table->string('address');
             $table->string('country');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

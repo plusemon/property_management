@@ -16,7 +16,7 @@ class PropertyController extends Controller
     public function index()
     {
         $properties = Property::all();
-        return view('admin.rent.property.index', compact('$properties'));
+        return view('admin.rent.property.index', compact('properties'));
     }
 
     /**

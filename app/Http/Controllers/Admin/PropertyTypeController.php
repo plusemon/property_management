@@ -17,7 +17,7 @@ class PropertyTypeController extends Controller
     public function index()
     {
         $types = Property_type::all();
-        return view('admin.rent.property.type.index', compact('$types'));
+        return view('admin.rent.property.type.index', compact('types'));
     }
 
     /**
@@ -40,7 +40,7 @@ class PropertyTypeController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'description' => 'text|required'
+            'description' => 'required'
         ]);
 
         $type = new Property_type();
