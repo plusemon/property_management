@@ -25,7 +25,17 @@
                         <div id="submenu-1" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/property')}}">Properties</a>
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="true" data-target="#submenu-11" aria-controls="submenu-11">Properties</a>
+                                    <div id="submenu-11" class="submenu collapse show" style="">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{url('admin/property/type')}}">Types</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{url('admin/property')}}">Details</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{url('admin/tent')}}">Tent</a>

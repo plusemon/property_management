@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Property;
+use App\Property_type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Mockery\Matcher\Type;
 
-class PropertyController extends Controller
+class PropertyTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,8 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::all();
-        return view('admin.rent.property.index', compact('$properties'));
+        $types = Property_type::all();
+        return view('admin.rent.property.type.index', compact('$types'));
     }
 
     /**
@@ -26,7 +27,7 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        return view('admin.rent.property.create');
+        return view('admin.rent.property.type.create');
     }
 
     /**
@@ -39,26 +40,25 @@ class PropertyController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'property_type_id' => 'required|integer',
-            'address' => 'required|string',
+            'description' => 'text|required'
         ]);
 
-        $property = new Property();
-        $property->name = $request->name;
-        $property->property_type_id = $request->property_type_id;
-        $property->address = $request->address;
-        $property->save();
+        $type = new Property_type();
+        $type->name = $request->name;
+        $type->description = $request->description;
+        $type->save();
 
-        return redirect('admin/property')->with('success','Property Added Succefully');
+        return redirect('admin/property/type')->with('success','Type Added Succefully');
+        
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Property  $property
+     * @param  \App\Property_type  $property_type
      * @return \Illuminate\Http\Response
      */
-    public function show(Property $property)
+    public function show(Property_type $property_type)
     {
         return 'show method';
     }
@@ -66,10 +66,10 @@ class PropertyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Property  $property
+     * @param  \App\Property_type  $property_type
      * @return \Illuminate\Http\Response
      */
-    public function edit(Property $property)
+    public function edit(Property_type $property_type)
     {
         //
     }
@@ -78,10 +78,10 @@ class PropertyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Property  $property
+     * @param  \App\Property_type  $property_type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Property $property)
+    public function update(Request $request, Property_type $property_type)
     {
         //
     }
@@ -89,10 +89,10 @@ class PropertyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Property  $property
+     * @param  \App\Property_type  $property_type
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Property $property)
+    public function destroy(Property_type $property_type)
     {
         //
     }
