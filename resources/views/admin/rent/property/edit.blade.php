@@ -23,7 +23,7 @@
                     <select class="form-control" name="type_id" required>
                         <option value="">Select type</option>
                         @foreach ($types as $type)
-                            <option value="{{ $type->id }}" {{ $property->type->id == $type->id ? 'selected':'' }}>{{ $type->name }}</option>
+                            <option value="{{ $type->id }}" {{ $type->id == ($property->type->id ?? '') ? 'selected':'' }}>{{ $type->name }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -52,8 +52,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('admin/borrow')}}"><i
-                                class="fa fa-fw fa-user-circle"></i>Borrow <span
-                                class="badge badge-success">6</span>
+                                class="fa fa-fw fa-user-circle"></i>Borrow
                         </a>
                     </li>
 

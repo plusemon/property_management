@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="col-12 text-right mb-3">
-    <a href="{{ url('admin/property/create') }}" class="btn btn-primary">Add New Property</a>
+    <a href="{{ url('admin/borrow/create') }}" class="btn btn-primary">Add New Borrow</a>
 </div>
 <div class="col-12">
     <div class="card">
@@ -22,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($properties as $property)
+                        {{-- @foreach ($properties as $property)
                             <tr>
                                 <th scope="row">{{ $property->id }}</th>
                                 <td>{{ $property->name }}</td>
@@ -38,7 +38,7 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                        @endforeach --}}
                         
                     </tbody>
                 </table>

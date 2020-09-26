@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Tent;
+use App\Borrow;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class TentController extends Controller
+class BorrowController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,7 @@ class TentController extends Controller
      */
     public function index()
     {
-        $tents = Tent::all();
-
-        return view('admin.rent.tent.index', compact('tents'));
+        return view('admin.borrow.index');
     }
 
     /**
@@ -27,7 +25,7 @@ class TentController extends Controller
      */
     public function create()
     {
-        return view('admin.rent.tent.create');
+        return view('admin.borrow.create');
     }
 
     /**
@@ -38,29 +36,16 @@ class TentController extends Controller
      */
     public function store(Request $request)
     {
-        return 'Working on.............';
-        // return $request->all();
-
-        $tent = new Tent();
-        $tent->fname = $request->tent['fname'];
-        $tent->lname = $request->tent['lname'];
-        $tent->address = $request->tent['address'];
-        $tent->contact = $request->tent['contact'];
-
-        // $tent->cinc = $request->tent['cinc'];
-        
-        return $tent;
-
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tent  $tent
+     * @param  \App\Borrow  $borrow
      * @return \Illuminate\Http\Response
      */
-    public function show(Tent $tent)
+    public function show(Borrow $borrow)
     {
         //
     }
@@ -68,22 +53,22 @@ class TentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tent  $tent
+     * @param  \App\Borrow  $borrow
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tent $tent)
+    public function edit(Borrow $borrow)
     {
-        return view('admin.rent.tent.edit');
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tent  $tent
+     * @param  \App\Borrow  $borrow
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tent $tent)
+    public function update(Request $request, Borrow $borrow)
     {
         //
     }
@@ -91,10 +76,10 @@ class TentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tent  $tent
+     * @param  \App\Borrow  $borrow
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tent $tent)
+    public function destroy(Borrow $borrow)
     {
         //
     }

@@ -14,7 +14,7 @@ class ExpenceController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.expense.create');
     }
 
     /**

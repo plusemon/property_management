@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBrowsTable extends Migration
+class CreateBorrowsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBrowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('brows', function (Blueprint $table) {
+        Schema::create('borrows', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateBrowsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brows');
+        Schema::dropIfExists('borrows');
     }
 }

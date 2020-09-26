@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Borrow;
 use Illuminate\Http\Request;
 
-class BrowController extends Controller
+class BorrowController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class BrowController extends Controller
      */
     public function create()
     {
-        return view('admin.brow.create');
+        //
     }
 
     /**
@@ -41,10 +41,10 @@ class BrowController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Brow  $brow
+     * @param  \App\Borrow  $borrow
      * @return \Illuminate\Http\Response
      */
-    public function show(Brow $brow)
+    public function show(Borrow $borrow)
     {
         //
     }
@@ -52,10 +52,10 @@ class BrowController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Brow  $brow
+     * @param  \App\Borrow  $borrow
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brow $brow)
+    public function edit(Borrow $borrow)
     {
         //
     }
@@ -64,10 +64,10 @@ class BrowController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Brow  $brow
+     * @param  \App\Borrow  $borrow
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brow $brow)
+    public function update(Request $request, Borrow $borrow)
     {
         //
     }
@@ -75,10 +75,10 @@ class BrowController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Brow  $brow
+     * @param  \App\Borrow  $borrow
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brow $brow)
+    public function destroy(Borrow $borrow)
     {
         //
     }
