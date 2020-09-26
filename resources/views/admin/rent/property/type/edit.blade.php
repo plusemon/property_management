@@ -14,12 +14,8 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                    <label class="col-form-label">Property Type</label>
+                    <label class="col-form-label">Type Name</label>
                     <input name="name" type="text" class="form-control" value="{{ $type->name }}">
-                </div>
-                <div class="form-group">
-                    <label for="textarea">Description</label>
-                    <textarea name="description" class="form-control" id="textarea" rows="3"> {{ $type->description }}</textarea>
                 </div>
 
                 <div class="form-group text-right mt-4">

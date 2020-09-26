@@ -16,8 +16,9 @@ class PropertyController extends Controller
      */
     public function index()
     {
+        $types = Type::where('type','property')->get();
         $properties = Property::all();
-        return view('admin.rent.property.index', compact('properties'));
+        return view('admin.rent.property.index', compact('properties', 'types'));
     }
 
     /**
@@ -27,8 +28,7 @@ class PropertyController extends Controller
      */
     public function create()
     {
-        $types = Type::all();
-        return view('admin.rent.property.create', compact('types'));
+       
     }
 
     /**
@@ -40,16 +40,20 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
-            'type_id' => 'required|integer',
-            'address' => 'required|string',
-            'country' => 'required|string',
+            'name' => 'required',
+            'type_id' => 'required',
+            'district' => 'required',
+            'street' => 'required',
+            'city' => 'required',
+            'country' => 'required',
         ]);
 
         $property = new Property();
         $property->name = $request->name;
         $property->type_id = $request->type_id;
-        $property->address = $request->address;
+        $property->district = $request->district;
+        $property->street = $request->street;
+        $property->city = $request->city;
         $property->country = $request->country;
         $property->save();
 
@@ -89,14 +93,18 @@ class PropertyController extends Controller
     public function update(Request $request, Property $property)
     {
         $request->validate([
-            'name' => 'required|string',
-            'type_id' => 'required|integer',
-            'address' => 'required|string',
-            'country' => 'required|string',
+            'name' => 'required',
+            'type_id' => 'required',
+            'district' => 'required',
+            'street' => 'required',
+            'city' => 'required',
+            'country' => 'required',
         ]);
         $property->name = $request->name;
         $property->type_id = $request->type_id;
-        $property->address = $request->address;
+        $property->district = $request->district;
+        $property->street = $request->street;
+        $property->city = $request->city;
         $property->country = $request->country;
         $property->save();
 

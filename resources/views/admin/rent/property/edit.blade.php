@@ -2,8 +2,7 @@
 
 @section('content')
 
-<div class="col-12 text-right mb-3">
-    <a href="{{ url('admin/property/type/create') }}" class="btn btn-success">Add New Type</a>
+<div class="col-12 text-right">
     <a href="{{ url('admin/property') }}" class="btn btn-primary">Back to Property</a>
 </div>
 
@@ -11,33 +10,46 @@
     <div class="card">
         <h5 class="card-header">Edit Property</h5>
         <div class="card-body">
-            <form action="{{ route('property.update', $property->id) }}" method="POST"> 
+            <form action="{{ route('property.update', $property->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="form-group">
-                    <label class="col-form-label">Name</label>
-                    <input name="name" type="text" value="{{ $property->name }}" class="form-control" required>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label class="col-form-label">Name</label>
+                        <input name="name" type="text" class="form-control" value="{{ $property->name }}" required>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label class="col-form-label">Type</label>
+                        <select class="form-control" name="type_id" required>
+                            <option value="">Select type</option>
+                            @foreach ($types as $type)
+                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-form-label">Type</label>
-                    <select class="form-control" name="type_id" required>
-                        <option value="">Select type</option>
-                        @foreach ($types as $type)
-                            <option value="{{ $type->id }}" {{ $type->id == ($property->type->id ?? '') ? 'selected':'' }}>{{ $type->name }}</option>
-                        @endforeach
-                    </select>
+                
+                <div class="row">
+                    <div class="col-6 form-group">
+                        <label class="col-form-label">District</label>
+                        <input name="district" type="text" class="form-control"  value="{{ $property->district }}" required>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label class="col-form-label">Street</label>
+                        <input name="street" type="text" class="form-control"  value="{{ $property->street }}" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-form-label">Address</label>
-                    <input name="address" type="text" value="{{ $property->address }}" class="form-control" required>
-                </div>
-               
-                <div class="form-group">
-                    <label class="col-form-label">Country</label>
-                    <select class="form-control" name="country" required>
-                        <option value="">Select Country</option>
-                        <option value="Pakistan" selected>Pakistan</option>
-                    </select>
+
+                <div class="row">
+                    <div class="col-6 form-group">
+                        <label class="col-form-label">City</label>
+                        <input name="city" type="text" class="form-control"  value="{{ $property->city }}" required>
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label class="col-form-label">Country</label>
+                        <input name="country" type="text" class="form-control"  value="{{ $property->country }}" required>
+                    </div>    
                 </div>
 
                 <div class="form-group text-right mt-4">
