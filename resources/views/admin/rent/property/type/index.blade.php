@@ -37,7 +37,7 @@
                                     <tr>
                                         <th scope="row">{{$type->id}}</th>
                                         <td>{{$type->name}}</td>
-                                        <td>{{$type->created_at->diffForHumans()}}</td>
+                                        <td>{{$type->created_at->format('d/m/Y')}}</td>
                                         <td class="text-right">
                                             <a href="{{ route('type.edit', $type->id)}}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
                                             <form class="d-inline" action="{{route('type.destroy', $type->id)}}" method="POST">
@@ -60,10 +60,16 @@
                     <div class="card-body">
                         <form action="{{ route('type.store') }}" method="POST">
                             @csrf
-                            <div class="form-group">
-                                <label class="col-form-label">Type Name</label>
-                                <input name="name" type="text" class="form-control">
-                                <input type="hidden" name="type" value="property">
+                            <input type="hidden" name="type" value="property">
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label class="col-form-label">Type</label>
+                                    <input name="name" type="text" class="form-control">
+                                </div>
+                                <div class="form-group  col-6">
+                                    <label class="col-form-label">Entry Date</label>
+                                    <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}">
+                                </div>
                             </div>
                             <div class="form-group text-right mt-4">
                                 <button type="submit" class="btn btn-success">Add</button>

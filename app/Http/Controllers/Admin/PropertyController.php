@@ -40,7 +40,7 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:properties',
             'type_id' => 'required',
             'district' => 'required',
             'street' => 'required',
@@ -49,6 +49,8 @@ class PropertyController extends Controller
         ]);
 
         $property = new Property();
+
+        if ($request->created_at) {$property->created_at = $request->created_at;}
         $property->name = $request->name;
         $property->type_id = $request->type_id;
         $property->district = $request->district;
@@ -100,6 +102,8 @@ class PropertyController extends Controller
             'city' => 'required',
             'country' => 'required',
         ]);
+
+        if ($request->created_at) {$property->created_at = $request->created_at;}
         $property->name = $request->name;
         $property->type_id = $request->type_id;
         $property->district = $request->district;

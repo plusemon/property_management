@@ -2,30 +2,15 @@
 
 @section('content')
 
-<div class="col-12 text-right">
+{{-- <div class="col-12 text-right">
     <a href="{{ route('tent.index') }}" class="btn btn-primary">Back to Tent</a>
-</div>
+</div> --}}
 
 <div class="col-12">
     <div class="section-block">
-        <h4 class="section-title">Add New Tent</h4>
-        <p>* Mendotory fields!</p>
+        <h2 class="section-title">Add New Tent</h2>
     </div>
     <div class="simple-card">
-        <ul class="nav nav-tabs" id="myTab5" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link border-left-0 active show" id="home-tab-simple" data-toggle="tab" href="#home-simple"
-                    role="tab" aria-controls="home" aria-selected="true">Tent Info *</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#profile-simple" role="tab"
-                    aria-controls="profile" aria-selected="false">Granter 1 *</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="contact-tab-simple" data-toggle="tab" href="#contact-simple" role="tab"
-                    aria-controls="contact" aria-selected="false">Granter 2</a>
-            </li>
-        </ul>
         <div class="tab-content" id="myTabContent5">
             <div class="tab-pane fade active show" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
                 <form action="{{ route('tent.store') }}" method="POST" enctype="multipart/form-data">
@@ -41,29 +26,36 @@
                             <input name="tent[lname]" type="text" class="form-control" required>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-form-label">CINC</label>
-                        <input name="tent[cinc]" type="file" class="form-control">
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label class="col-form-label">CINC</label>
+                            <input name="tent[cinc]" type="text" class="form-control"> 
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="col-form-label">CINC Attachment</label>
+                            <input name="tent[cinca]" type="file" class="form-control">
+                        </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-">
                         <label class="col-form-label">Address</label>
                         <input name="tent[address]" type="text" class="form-control" required>
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-6">
-                            <label class="col-form-label">Contact 1</label>
-                            <input name="tent[contact][]" type="text" class="form-control" required>
-                        </div>
-
-                        <div class="form-group col-6">
-                            <label class="col-form-label">Contact 2</label>
-                            <input name="tent[contact][]" type="text" class="form-control" required>
-                        </div>
+                            <div class="col-11">
+                                <div class="form-group">
+                                    <label class="col-form-label">Contact 1</label>
+                                    <input name="tent[contact][]" type="text" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-1 pt-4 mt-1">
+                                <input type="button" class="btn btn-primary" value="+">
+                            </div>
                     </div>
-                    <p>Goto Granter1 and fillup fields</p>
                 </div>
+
+
                 <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
                     <div class="row">
                         <div class="form-group col-6">
@@ -97,8 +89,10 @@
                             <input name="g1[contact][]" type="text" class="form-control" required>
                         </div>
                     </div>
-                    <p>Goto Granter2</p>
                 </div>
+
+
+
                 <div class="tab-pane fade" id="contact-simple" role="tabpanel" aria-labelledby="contact-tab-simple">
                     <div class="row">
                         <div class="form-group col-6">

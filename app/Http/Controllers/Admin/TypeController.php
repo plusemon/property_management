@@ -27,8 +27,11 @@ class TypeController extends Controller
         ]);
 
         $type = new Type();
+        if ($request->created_at) {
+            $type->created_at = $request->created_at; 
+        }
         $type->name = $request->name; 
-        $type->type = $request->type; 
+        $type->type = $request->type;
         $type->save();
 
         return redirect('admin/property/type')->with('success','Added Succefully');

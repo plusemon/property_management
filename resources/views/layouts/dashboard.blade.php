@@ -37,11 +37,9 @@
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
-                        <li class="nav-item">
-                            <div id="custom-search" class="top-search-bar">
-                                <input class="form-control" type="text" placeholder="Search..">
-                            </div>
-                        </li>
+                        {{-- <li class="nav-item mt-3">
+                            {{ date('d M Y') }}
+                        </li> --}}
                         <li class="nav-item dropdown notification">
                             <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-bell"></i> <span
