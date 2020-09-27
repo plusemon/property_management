@@ -32,12 +32,10 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Type</th>
-                                        <th scope="col">District</th>
-                                        <th scope="col">Street</th>
-                                        <th scope="col">City</th>
-                                        <th scope="col">Country</th>
-                                        {{-- <th scope="col">Entry Date</th> --}}
+                                        <th scope="col">Property</th>
+                                        <th scope="col">Tent</th>
+                                        <th scope="col">Security Moneny</th>
+                                        <th scope="col">Yearly %</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -46,11 +44,10 @@
                                     <tr>
                                         <td>{{ $agreement->id }}</td>
                                         <td>{{ $agreement->name }}</td>
-                                        <td>{{ $agreement->type->name ?? 'Deleted' }}</td>
-                                        <td>{{ $agreement->district }}</td>
-                                        <td>{{ $agreement->street }}</td>
-                                        <td>{{ $agreement->city }}</td>
-                                        <td>{{ $agreement->country }}</td>
+                                        <td>{{ $agreement->property->name }}</td>
+                                        <td>{{ $agreement->tent->fname.' '.$agreement->tent->lname }}</td>
+                                        <td>{{ $agreement->advance }}</td>
+                                        <td>{{ $agreement->yearly_percent }}</td>
                                         {{-- <td>{{ $agreement->created_at->format('d/m/Y') }}</td> --}}
                                         <td class="text-right">
                                             <a href="{{ route('agreement.edit', $agreement->id)}}"
