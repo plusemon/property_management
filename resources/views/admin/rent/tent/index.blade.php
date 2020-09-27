@@ -15,6 +15,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Full Name</th>
+                            <th scope="col">Contact</th>
                             <th scope="col">Address</th>
                             <th scope="col">City</th>
                             <th scope="col">Courtry</th>
@@ -27,6 +28,11 @@
                             <tr>
                                 <th scope="row">{{ $tent->id }}</th>
                                 <td>{{ $tent->fname.' '.$tent->lname }}</td>
+                                <td>
+                                    {{ json_decode($tent->contact)[0] }}<br>
+                                    {{ json_decode($tent->contact)[1] }}<br>
+                                    {{ json_decode($tent->contact)[2] }}
+                                </td>
                                 <td>{{ $tent->address}}</td>
                                 <td>{{ $tent->city }}</td>
                                 <td>{{ $tent->country }}</td>

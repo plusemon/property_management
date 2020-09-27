@@ -84,7 +84,7 @@ class TentController extends Controller
             $tent->g2_cnica = $urlg2;
         }
 
-        return $tent;
+        // return $tent;
 
         $tent->save();
 
