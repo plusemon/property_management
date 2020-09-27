@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Agreement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Property;
+use App\Tent;
+use App\Type;
 
 class AgreementController extends Controller
 {
@@ -15,7 +18,10 @@ class AgreementController extends Controller
      */
     public function index()
     {
-        //
+        $agreements = Agreement::all();
+        $types = Type::all();
+        $tents = Tent::all();
+        return view('admin.rent.agreement.index', compact('agreements', 'types', 'tents'));
     }
 
     /**
@@ -36,7 +42,34 @@ class AgreementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
+        $request->validate([
+            'name' => 'required|unique:agreements',
+            'property_id' => 'required',
+            'tent_id' => 'required',
+            'advance' => 'required',
+            'yearly_percent' => 'required',
+            'attachment' => 'required',
+        ]);
+
+        $agreement = new Agreement();
+        $agreement->name = $request->name;
+        $agreement->user_id = 1;
+        $agreement->property_id = $request->property_id;
+        $agreement->tent_id = $request->tent_id;
+        $agreement->advance = $request->advance;
+        $agreement->yearly_percent = $request->yearly_percent;
+
+        if ($request->attachment) {
+            $url = $request->attachment->store('/agreement');
+            $agreement->attachment = $url;
+        }
+
+        if ($request->created_at) {$agreement->created_at = $request->created_at;}
+
+        $agreement->save();
+
+        return redirect('admin/agreement')->with('success','Saved Succefully');
     }
 
     /**
@@ -83,4 +116,6 @@ class AgreementController extends Controller
     {
         //
     }
+
+
 }

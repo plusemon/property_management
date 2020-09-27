@@ -76,7 +76,7 @@
                     <form action="{{ route('property.store') }}" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="col-6 form-group">
+                            <div class="col-4 form-group">
                                 <label class="col-form-label">Type</label>
                                 <select class="form-control" name="type_id" required>
                                     <option value="">Select type</option>
@@ -86,18 +86,22 @@
                                 </select>
                             </div>
 
-                            <div class="form-group col-6">
+                            <div class="form-group col-8">
                                 <label class="col-form-label">Name</label>
                                 <input name="name" type="text" class="form-control" value="" required>
                             </div>
                         </div>
                         
                         <div class="row">
-                            <div class="col-6 form-group">
+                            <div class="col-4 form-group">
+                                <label class="col-form-label">Rent (Per Month)</label>
+                                <input name="rate" type="text" class="form-control" value="10000.00" required>
+                            </div>
+                            <div class="col-4 form-group">
                                 <label class="col-form-label">District</label>
                                 <input name="district" type="text" class="form-control" required>
                             </div>
-                            <div class="col-6 form-group">
+                            <div class="col-4 form-group">
                                 <label class="col-form-label">Street</label>
                                 <input name="street" type="text" class="form-control" required>
                             </div>

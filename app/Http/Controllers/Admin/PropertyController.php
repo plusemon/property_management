@@ -42,6 +42,7 @@ class PropertyController extends Controller
         $request->validate([
             'name' => 'required|unique:properties',
             'type_id' => 'required',
+            'rate' => 'required',
             'district' => 'required',
             'street' => 'required',
             'city' => 'required',
@@ -53,6 +54,7 @@ class PropertyController extends Controller
         if ($request->created_at) {$property->created_at = $request->created_at;}
         $property->name = $request->name;
         $property->type_id = $request->type_id;
+        $property->rate = $request->rate;
         $property->district = $request->district;
         $property->street = $request->street;
         $property->city = $request->city;
@@ -97,6 +99,7 @@ class PropertyController extends Controller
         $request->validate([
             'name' => 'required',
             'type_id' => 'required',
+            'rate' => 'required',
             'district' => 'required',
             'street' => 'required',
             'city' => 'required',
@@ -106,6 +109,7 @@ class PropertyController extends Controller
         if ($request->created_at) {$property->created_at = $request->created_at;}
         $property->name = $request->name;
         $property->type_id = $request->type_id;
+        $property->rate = $request->rate;
         $property->district = $request->district;
         $property->street = $request->street;
         $property->city = $request->city;
@@ -125,5 +129,17 @@ class PropertyController extends Controller
     {
         $property->delete();
         return redirect('admin/property')->with('success','Deleted Succefully');
+    }
+
+
+
+    public function properties(Request $request)
+    {
+        if($request){
+            $properties = Property::where('type_id', $request->type)->get();
+            if($properties){
+                return response()->json($properties);
+            }
+        }
     }
 }

@@ -21,7 +21,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-1" aria-controls="submenu-1"><i
-                                class="fa fa-fw fa-rocket"></i>Rent</a>
+                                class="fas fa-home"></i>Rent</a>
                         <div id="submenu-1" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
@@ -52,13 +52,13 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('admin/borrow')}}"><i
-                                class="fa fa-fw fa-user-circle"></i>Borrow
+                                class="fas fa-address-book"></i>Borrow
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('admin/well_part')}}"><i
-                                class="fa fa-fw fa-user-circle"></i>Well Part <span
+                                class="far fa-calendar-check"></i>Well Part <span
                                 class="badge badge-success">6</span>
                         </a>
                     </li>
@@ -68,11 +68,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-4" aria-controls="submenu-4"><i
-                                class="fa fa-fw fa-rocket"></i>Expenses</a>
+                                class="fas fa-list-alt"></i>Expenses</a>
                         <div id="submenu-4" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/expence/type')}}">Expense Type</a>
+                                    <a class="nav-link" href="{{url('admin/expence/type')}}">Type</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{url('admin/expence')}}">Expenses</a>
@@ -84,7 +84,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-5" aria-controls="submenu-5"><i
-                                class="fa fa-fw fa-rocket"></i>Loan</a>
+                                class="fas fa-handshake"></i>Loan</a>
                         <div id="submenu-5" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
@@ -100,7 +100,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-6" aria-controls="submenu-6"><i
-                                class="fa fa-fw fa-rocket"></i>Report</a>
+                                class="fas fa-archive"></i>Report</a>
                         <div id="submenu-6" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
@@ -113,7 +113,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-7" aria-controls="submenu-7"><i
-                                class="fa fa-fw fa-rocket"></i>Backup and Restore</a>
+                                class="fas fa-hockey-puck"></i>Backup and Restore</a>
                         <div id="submenu-7" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
