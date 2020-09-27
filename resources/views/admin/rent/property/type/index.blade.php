@@ -26,7 +26,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID</th>
+                                        <th scope="col">#</th>
                                         <th scope="col">Type</th>
                                         <th scope="col">Created</th>
                                         <th scope="col">Action</th>

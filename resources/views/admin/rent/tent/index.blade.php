@@ -13,11 +13,12 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Type</th>
+                            <th scope="col">#</th>
+                            <th scope="col">Full Name</th>
                             <th scope="col">Address</th>
+                            <th scope="col">City</th>
                             <th scope="col">Courtry</th>
+                            <th scope="col">Granters</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -25,16 +26,22 @@
                         @foreach ($tents as $tent)
                             <tr>
                                 <th scope="row">{{ $tent->id }}</th>
-                                <td>{{ $tent->name }}</td>
-                                <td>{{ $tent->type->name ?? 'Deleted' }}</td>
-                                <td>{{ $tent->address }}</td>
+                                <td>{{ $tent->fname.' '.$tent->lname }}</td>
+                                <td>{{ $tent->address}}</td>
+                                <td>{{ $tent->city }}</td>
                                 <td>{{ $tent->country }}</td>
-                                <td>
-                                    <a href="{{ route('tent.edit', $tent->id)}}" class="btn btn-sm btn-warning">Edit</a>
-                                    <form class="d-inline" action="{{route('tent.destroy', $tent->id)}}" method="POST">
+                                <td>{{ $tent->g1_fname.' '.$tent->g1_lname }}<br>{{ $tent->g2_fname.' '.$tent->g2_lname }}</td>
+                                <td class="text-right">
+                                    <a href="{{ route('tent.show', $tent->id)}}"
+                                        class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+{{-- 
+                                    <a href="{{ route('tent.edit', $tent->id)}}"
+                                        class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a> --}}
+                                    <form class="d-inline" action="{{route('tent.destroy', $tent->id)}}"
+                                        method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
                             </tr>

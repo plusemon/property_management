@@ -30,7 +30,8 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Number</th>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
                                         <th scope="col">Type</th>
                                         <th scope="col">District</th>
                                         <th scope="col">Street</th>
@@ -43,6 +44,7 @@
                                 <tbody>
                                     @foreach ($properties as $property)
                                     <tr>
+                                        <td>{{ $property->id }}</td>
                                         <td>{{ $property->name }}</td>
                                         <td>{{ $property->type->name ?? 'Deleted' }}</td>
                                         <td>{{ $property->district }}</td>
@@ -85,8 +87,8 @@
                             </div>
 
                             <div class="form-group col-6">
-                                <label class="col-form-label">Number</label>
-                                <input name="name" type="text" class="form-control" value="10000" required>
+                                <label class="col-form-label">Name</label>
+                                <input name="name" type="text" class="form-control" value="" required>
                             </div>
                         </div>
                         

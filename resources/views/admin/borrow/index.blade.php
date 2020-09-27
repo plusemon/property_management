@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="col-12 text-right mb-3">
-    <a href="{{ url('admin/borrow/create') }}" class="btn btn-primary">Add New Borrow</a>
+    <a href="{{ url('admin/borrow/create') }}" class="btn btn-primary">Add New</a>
 </div>
 <div class="col-12">
     <div class="card">
