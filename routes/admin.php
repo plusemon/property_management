@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::redirect('/', 'admin/dashboard');
-
 
 //DASHBOARD
 Route::get('dashboard', 'AdminController@dashboard');

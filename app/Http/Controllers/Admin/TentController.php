@@ -16,7 +16,6 @@ class TentController extends Controller
     public function index()
     {
         $tents = Tent::all();
-
         return view('admin.rent.tent.index', compact('tents'));
     }
 
