@@ -31,11 +31,14 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Property</th>
+                                        <th scope="col">Aagreement</th>
                                         <th scope="col">Tent</th>
-                                        <th scope="col">Security Moneny</th>
-                                        <th scope="col">Yearly %</th>
+                                        <th scope="col">Property</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Rent</th>
+                                        <th scope="col">Security Money</th>
+                                        <th scope="col">Yearly Increment</th>
+                                        <th scope="col">Entry</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -44,14 +47,18 @@
                                     <tr>
                                         <td>{{ $agreement->id }}</td>
                                         <td>{{ $agreement->name }}</td>
-                                        <td>{{ $agreement->property->name }}</td>
                                         <td>{{ $agreement->tent->fname.' '.$agreement->tent->lname }}</td>
+                                        <td>{{ $agreement->property->name }}</td>
+                                        <td>{{ $agreement->property->type->name }}</td>
+                                        <td>{{ $agreement->property->rate }}</td>
                                         <td>{{ $agreement->advance }}</td>
-                                        <td>{{ $agreement->yearly_percent }}</td>
-                                        {{-- <td>{{ $agreement->created_at->format('d/m/Y') }}</td> --}}
+                                        <td>{{ $agreement->yearly_percent }}%</td>
+                                        <td>{{ $agreement->created_at->format('d/m/Y') }}</td>
                                         <td class="text-right">
+                                            {{-- <a href="{{ route('agreement.show', $agreement->id)}}"
+                                                class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a> --}}
                                             <a href="{{ route('agreement.edit', $agreement->id)}}"
-                                                class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
+                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form class="d-inline"
                                                 action="{{route('agreement.destroy', $agreement->id)}}" method="POST">
                                                 @csrf

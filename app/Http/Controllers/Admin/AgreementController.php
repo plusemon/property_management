@@ -91,7 +91,9 @@ class AgreementController extends Controller
      */
     public function edit(Agreement $agreement)
     {
-        //
+        $types = Type::all();
+        $tents = Tent::all();
+        return view('admin.rent.agreement.edit', compact('agreement', 'types', 'tents'));
     }
 
     /**

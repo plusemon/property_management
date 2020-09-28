@@ -125,7 +125,10 @@
                             </ul>
                         </div>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('admin/settings')}}"><i
+                                class="fas fa-sliders-h"></i>Settings</a>
+                    </li>
                    
 
                   
