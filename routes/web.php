@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 Auth::routes();
 
-Route::get('/', function () {
-    return view('admin.dashboard');
+Route::get('/', function(){
+    return view('welcome');
 });
 
 Route::get('/home', function () {

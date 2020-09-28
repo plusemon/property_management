@@ -4,8 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 
 
-//DASHBOARD
+Route::get('/', 'AdminController@dashboard');
 Route::get('dashboard', 'AdminController@dashboard');
+
+
+//DASHBOARD
 
 //RENT
     //Property
