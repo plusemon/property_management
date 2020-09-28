@@ -8,7 +8,7 @@
 
 <div class="col-12">
     <div class="section-block">
-        <h2 class="section-title">Properties</h2>
+        <h3 class="section-title">Rent / Properties</h3>
     </div>
     <div class="simple-card">
         <ul class="nav nav-tabs" id="myTab5" role="tablist">
@@ -33,11 +33,12 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Type</th>
+                                        <th scope="col">Rent</th>
                                         <th scope="col">District</th>
                                         <th scope="col">Street</th>
                                         <th scope="col">City</th>
                                         <th scope="col">Country</th>
-                                        {{-- <th scope="col">Entry Date</th> --}}
+                                        <th scope="col">Entry Date</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -47,14 +48,15 @@
                                         <td>{{ $property->id }}</td>
                                         <td>{{ $property->name }}</td>
                                         <td>{{ $property->type->name ?? 'Deleted' }}</td>
+                                        <td>{{ $property->rate }}</td>
                                         <td>{{ $property->district }}</td>
                                         <td>{{ $property->street }}</td>
                                         <td>{{ $property->city }}</td>
                                         <td>{{ $property->country }}</td>
-                                        {{-- <td>{{ $property->created_at->format('d/m/Y') }}</td> --}}
+                                        <td>{{ $property->created_at->format('d-m-Y') }}</td>
                                         <td class="text-right">
                                             <a href="{{ route('property.edit', $property->id)}}"
-                                                class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
+                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form class="d-inline" action="{{route('property.destroy', $property->id)}}"
                                                 method="POST">
                                                 @csrf
@@ -125,7 +127,7 @@
                         </div>
 
                         <div class="form-group text-right mt-4">
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="submit" class="btn btn-primary">Add Property</button>
                         </div>
 
                     </form>
