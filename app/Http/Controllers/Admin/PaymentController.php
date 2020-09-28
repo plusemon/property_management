@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Agreement;
 use App\Payment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,7 +17,8 @@ class PaymentController extends Controller
     public function index()
     {
         $payments = Payment::all();
-        return view('admin.rent.payment.index', compact('payments'));
+        $agreements = Agreement::all();
+        return view('admin.rent.payment.index', compact('payments','agreements'));
     }
 
     /**
