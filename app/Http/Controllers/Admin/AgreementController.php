@@ -116,7 +116,8 @@ class AgreementController extends Controller
      */
     public function destroy(Agreement $agreement)
     {
-        //
+       $agreement->delete();
+       return redirect('admin/agreement')->with('success','Deleted Succefully');
     }
 
 

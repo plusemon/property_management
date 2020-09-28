@@ -36,9 +36,10 @@
                                         <th scope="col">Property</th>
                                         <th scope="col">Type</th>
                                         <th scope="col">Rent</th>
-                                        <th scope="col">Security Money</th>
-                                        <th scope="col">Yearly Increment</th>
+                                        <th scope="col">Sec. Money</th>
+                                        <th scope="col">Yr Incr.</th>
                                         <th scope="col">Entry</th>
+                                        <th scope="col">Attachment</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -47,13 +48,16 @@
                                     <tr>
                                         <td>{{ $agreement->id }}</td>
                                         <td>{{ $agreement->name }}</td>
-                                        <td>{{ $agreement->tent->fname.' '.$agreement->tent->lname }}</td>
-                                        <td>{{ $agreement->property->name }}</td>
-                                        <td>{{ $agreement->property->type->name }}</td>
-                                        <td>{{ $agreement->property->rate }}</td>
+                                        <td>{{ $agreement->tent ? $agreement->tent->fname.' '.$agreement->tent->lname:'Deleted' }}</td>
+                                        <td>{{ $agreement->property->name ?? 'Deleted'}}</td>
+                                        <td>{{ $agreement->property->type->name ?? 'Deleted' }}</td>
+                                        <td>{{ $agreement->property->rate ?? 'Deleted' }}</td>
                                         <td>{{ $agreement->advance }}</td>
                                         <td>{{ $agreement->yearly_percent }}%</td>
                                         <td>{{ $agreement->created_at->format('d/m/Y') }}</td>
+                                        <td>
+                                            <a href="{{ url('public/storage/'.$agreement->attachment) }}" class="badge badge-secondary p-1">Download</a><br>
+                                        </td>
                                         <td class="text-right">
                                             {{-- <a href="{{ route('agreement.show', $agreement->id)}}"
                                                 class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a> --}}
@@ -131,7 +135,7 @@
                         <div class="row">
                             <div class="col-4 form-group">
                                 <label class="col-form-label">Attachment</label>
-                                <input name="attachment" type="file" class="form-control">
+                                <input name="attachment" type="file" class="form-control" required>
                             </div>
 
 

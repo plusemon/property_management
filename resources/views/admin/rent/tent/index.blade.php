@@ -33,6 +33,7 @@
                                         <th scope="col">City</th>
                                         <th scope="col">Courtry</th>
                                         <th scope="col">Granters</th>
+                                        <th scope="col">Attachment</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -42,12 +43,25 @@
                                         <th scope="row">{{ $tent->id }}</th>
                                         <td>{{ $tent->fname.' '.$tent->lname }}</td>
                                         <td>
-                                            {{ json_decode($tent->contact)[0] }}<br>
+                                            {{ $tent->contact1 }}<br>
+                                            {{ $tent->contact2 }}<br>
+                                            {{ $tent->contact3 }}<br>
                                         </td>
                                         <td>{{ $tent->address}}</td>
                                         <td>{{ $tent->city }}</td>
                                         <td>{{ $tent->country }}</td>
-                                        <td>{{ $tent->g1_fname.' '.$tent->g1_lname }}<br>{{ $tent->g2_fname.' '.$tent->g2_lname }}
+                                        <td>
+                                            {{ $tent->g1_fname.' '.$tent->g1_lname }}<br>
+                                            {{ $tent->g2_fname.' '.$tent->g2_lname }}<br>
+                                            {{ $tent->g3_fname.' '.$tent->g3_lname }}
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ url('public/storage/'.$tent->cnica) }}" class="badge badge-secondary mb-1">Tents</a><br>
+                                            <a href="{{ url('public/storage/'.$tent->g1_cnica) }}" class="badge badge-secondary mb-1">Granters</a><br>
+                                            @if ($tent->g2_cnica)
+                                                <a href="{{ url('public/storage/'.$tent->g2_cnica) }}" class="badge badge-secondary mb-1">Granter 2</a>    
+                                            @endif
+
                                         </td>
                                         <td class="text-right">
                                             <a href="{{ route('tent.show', $tent->id)}}" class="btn btn-sm btn-info"><i
@@ -93,12 +107,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-6">
-                                        <label class="col-form-label">CINC</label>
+                                        <label class="col-form-label">CNIC</label>
                                         <input name="tent[cnic]" type="text" class="form-control" required>
                                     </div>
                                     <div class="form-group col-6">
-                                        <label class="col-form-label">CINC Attachment</label>
-                                        <input name="tent[cnica]" type="file" class="form-control">
+                                        <label class="col-form-label">CNIC Attachment</label>
+                                        <input name="tent[cnica]" type="file" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-">
@@ -143,12 +157,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-6">
-                                        <label class="col-form-label">CINC</label>
+                                        <label class="col-form-label">CNIC</label>
                                         <input name="g1[cnic]" type="text" class="form-control" required>
                                     </div>
                                     <div class="form-group col-6">
-                                        <label class="col-form-label">CINC Attachment</label>
-                                        <input name="g1[cnica]" type="file" class="form-control">
+                                        <label class="col-form-label">CNIC Attachment</label>
+                                        <input name="g1[cnica]" type="file" class="form-control" required>
                                     </div>
                                 </div>
 
@@ -203,11 +217,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-6">
-                                        <label class="col-form-label">CINC</label>
+                                        <label class="col-form-label">CNIC</label>
                                         <input name="g2[cnic]" type="text" class="form-control">
                                     </div>
                                     <div class="form-group col-6">
-                                        <label class="col-form-label">CINC Attachment</label>
+                                        <label class="col-form-label">CNIC Attachment</label>
                                         <input name="g2[cnica]" type="file" class="form-control">
                                     </div>
                                 </div>
@@ -306,7 +320,7 @@
 
 
     $('#addg2').on('click', function(){
-        $('#g2').fadeToggle();
+        $('#g2').slideToggle();
     });
     
 

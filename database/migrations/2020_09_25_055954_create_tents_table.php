@@ -18,29 +18,35 @@ class CreateTentsTable extends Migration
             $table->string('fname');
             $table->string('lname');
             $table->string('cnic');
-            $table->string('cnica');
+            $table->string('cnica')->nullable();
             $table->string('address');
             $table->string('city');
             $table->string('country');
-            $table->json('contact');
+            $table->string('contact1')->nullable();
+            $table->string('contact2')->nullable();
+            $table->string('contact3')->nullable();
 
             $table->string('g1_fname');
             $table->string('g1_lname');
             $table->string('g1_cnic');
-            $table->string('g1_cnica');
+            $table->string('g1_cnica')->nullable();
             $table->string('g1_address');
             $table->string('g1_city');
             $table->string('g1_country');
-            $table->json('g1_contact');
+            $table->string('g1_contact1')->nullable();
+            $table->string('g1_contact2')->nullable();
+            $table->string('g1_contact3')->nullable();
 
-            $table->string('g2_fname');
-            $table->string('g2_lname');
-            $table->string('g2_cnic');
-            $table->string('g2_cnica');
-            $table->string('g2_address');
-            $table->string('g2_city');
-            $table->string('g2_country');
-            $table->json('g2_contact');
+            $table->string('g2_fname')->nullable();
+            $table->string('g2_lname')->nullable();
+            $table->string('g2_cnic')->nullable();
+            $table->string('g2_cnica')->nullable();
+            $table->string('g2_address')->nullable();
+            $table->string('g2_city')->nullable();
+            $table->string('g2_country')->nullable();
+            $table->string('g2_contact1')->nullable();
+            $table->string('g2_contact2')->nullable();
+            $table->string('g2_contact3')->nullable();
 
             $table->timestamps();
         });
