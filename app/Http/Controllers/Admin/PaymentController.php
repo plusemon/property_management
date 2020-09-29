@@ -79,7 +79,7 @@ class PaymentController extends Controller
      */
     public function edit(Payment $payment)
     {
-        //
+        return view('admin.rent.payment.edit', compact('payment'));
     }
 
     /**
@@ -91,7 +91,19 @@ class PaymentController extends Controller
      */
     public function update(Request $request, Payment $payment)
     {
-        //
+        $request->validate([
+            "method" => "required",
+            "amount" => "required",
+        ]);
+
+        $payment->method = $request->method;
+        $payment->amount = $request->amount;
+        $payment->account = $request->account;
+        $payment->remarks = $request->remarks;
+        $payment->created_at = $request->created_at;
+        $payment->save();
+
+        return redirect('admin/payment')->with('success', 'Updated Successfully');
     }
 
     /**
@@ -102,6 +114,7 @@ class PaymentController extends Controller
      */
     public function destroy(Payment $payment)
     {
-        //
+        $payment->delete();
+        return redirect('admin/payment')->with('success', 'Deleted Successfully');
     }
 }
