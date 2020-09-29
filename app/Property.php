@@ -20,5 +20,4 @@ class Property extends Model
         return $this->hasMany(Agreement::class);
     }
 
-
 }

@@ -30,3 +30,4 @@ Route::get('dashboard', 'AdminController@dashboard');
 
 // ajax routes
 Route::get('get-properties', 'PropertyController@properties');
+Route::get('get-agreement', 'AgreementController@agreement');

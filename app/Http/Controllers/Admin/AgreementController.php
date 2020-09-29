@@ -121,4 +121,20 @@ class AgreementController extends Controller
     }
 
 
+    public function agreement(Request $request)
+    {
+        if($request->has('id')){
+            $agreement = Agreement::find($request->id);
+            $data = [];
+            $data['type'] = $agreement->property->type->name;
+            $data['property'] = $agreement->property->name;
+            $data['tent'] = $agreement->tent->fname.' '.$agreement->tent->lname;
+            $data['rent'] = $agreement->property->rate;
+
+            if($data){
+                return response()->json($data);
+            }
+        }
+    }
+
 }

@@ -18,7 +18,7 @@ class PaymentController extends Controller
     {
         $payments = Payment::all();
         $agreements = Agreement::all();
-        return view('admin.rent.payment.index', compact('payments','agreements'));
+        return view('admin.rent.payment.index', compact('payments', 'agreements'));
     }
 
     /**
@@ -39,7 +39,25 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            "agreement_id" => "required",
+            "method" => "required",
+            "amount" => "required",
+        ]);
+
+        $payment = new Payment();
+        $payment->agreement_id = $request->agreement_id;
+        $payment->user_id = auth()->id();
+        $payment->method = $request->method;
+        $payment->amount = $request->amount;
+        $payment->account = $request->account;
+        $payment->remarks = $request->remarks;
+        $payment->created_at = $request->created_at;
+        $payment->save();
+
+        return redirect()->back()->with('success', 'Added Successfully');
+
     }
 
     /**
