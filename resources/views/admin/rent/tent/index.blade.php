@@ -19,74 +19,91 @@
         </ul>
         <div class="tab-content" id="myTabContent5">
             <div class="tab-pane fade active show" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
+               <div class="table-responsive">
+                <table id="example" class="table table-striped table-bordered second" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">T-Full Name</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Courtry</th>
+                            <th scope="col">T-Attachment</th>
+                            <th scope="col">G-Name</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">G-Attachment</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($tents as $tent)
+                        <tr>
+                            <th scope="row">{{ $tent->id }}</th>
+                            <td>{{ $tent->fname.' '.$tent->lname }}</td>
+                            <td>
+                                {{ $tent->contact1 }}<br>
+                                {{ $tent->contact2 }}<br>
+                                {{ $tent->contact3 }}<br>
+                            </td>
+                            <td>{{ $tent->address}}</td>
+                            <td>{{ $tent->city }}</td>
+                            <td>{{ $tent->country }}</td>
+                            <td class="text-center">
+                                @if ($tent->cnica)
+                                <a href="{{ url('public/storage/'.$tent->cnica) }}" class="badge badge-secondary mb-1">Download</a>
+                                @endif
+                            </td>
+                            <td>
+                                {{ $tent->g1_fname.' '.$tent->g1_lname }}<br>
+                                {{ $tent->g2_fname.' '.$tent->g2_lname }}<br>
+                            </td>
+                            <td>
+                                {{ $tent->g1_contact1 }}<br>
+                                {{ $tent->g1_contact2 }}<br>
+                                {{ $tent->g1_contact3 }}<br>
+                                {{ $tent->g2_contact1 }}<br>
+                                {{ $tent->g2_contact2 }}<br>
+                                {{ $tent->g2_contact3 }}<br>
+                            </td>
+                            <td>
+                                {{ $tent->g1_city }}<br>
+                            </td>
+                            <td>
+                                {{ $tent->g1_country }}<br>
+                            </td>
+                            <td class="text-center">
+                                @if ($tent->g1_cnica)
+                                     <a href="{{ url('public/storage/'.$tent->g1_cnica) }}"
+                                    class="badge badge-secondary mb-1">Granter</a><br>
+                                @endif
+                               
+                                @if ($tent->g2_cnica)
+                                <a href="{{ url('public/storage/'.$tent->g2_cnica) }}"
+                                    class="badge badge-secondary mb-1">Granter 2</a>
+                                @endif
 
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive ">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Full Name</th>
-                                        <th scope="col">Contact</th>
-                                        <th scope="col">Address</th>
-                                        <th scope="col">City</th>
-                                        <th scope="col">Courtry</th>
-                                        <th scope="col">Granters</th>
-                                        <th scope="col">Attachment</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($tents as $tent)
-                                    <tr>
-                                        <th scope="row">{{ $tent->id }}</th>
-                                        <td>{{ $tent->fname.' '.$tent->lname }}</td>
-                                        <td>
-                                            {{ $tent->contact1 }}<br>
-                                            {{ $tent->contact2 }}<br>
-                                            {{ $tent->contact3 }}<br>
-                                        </td>
-                                        <td>{{ $tent->address}}</td>
-                                        <td>{{ $tent->city }}</td>
-                                        <td>{{ $tent->country }}</td>
-                                        <td>
-                                            {{ $tent->g1_fname.' '.$tent->g1_lname }}<br>
-                                            {{ $tent->g2_fname.' '.$tent->g2_lname }}<br>
-                                            {{ $tent->g3_fname.' '.$tent->g3_lname }}
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="{{ url('public/storage/'.$tent->cnica) }}" class="badge badge-secondary mb-1">Tents</a><br>
-                                            <a href="{{ url('public/storage/'.$tent->g1_cnica) }}" class="badge badge-secondary mb-1">Granters</a><br>
-                                            @if ($tent->g2_cnica)
-                                                <a href="{{ url('public/storage/'.$tent->g2_cnica) }}" class="badge badge-secondary mb-1">Granter 2</a>    
-                                            @endif
+                            </td>
+                            <td class="text-right">
+                                {{-- <a href="{{ route('tent.edit', $tent->id)}}" class="btn btn-sm btn-warning"><i
+                                        class="fas fa-edit"></i></a> --}}
+                                <form class="d-inline" action="{{route('tent.destroy', $tent->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
 
-                                        </td>
-                                        <td class="text-right">
-                                            <a href="{{ route('tent.show', $tent->id)}}" class="btn btn-sm btn-info"><i
-                                                    class="fas fa-eye"></i></a>
-
-                                            <a href="{{ route('tent.edit', $tent->id)}}"
-                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form class="d-inline" action="{{route('tent.destroy', $tent->id)}}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i
-                                                        class="fas fa-trash-alt"></i></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
+                    </tbody>
+                </table>
+               </div>
             </div>
+
             <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
                 <div class="simple-card">
                     <div class="tab-content" id="myTabContent5">
@@ -108,24 +125,25 @@
                                 <div class="row">
                                     <div class="form-group col-6">
                                         <label class="col-form-label">CNIC</label>
-                                        <input name="tent[cnic]" type="text" class="form-control" required>
+                                        <input name="tent[cnic]" type="number" class="form-control" maxlength="15" required>
                                     </div>
                                     <div class="form-group col-6">
                                         <label class="col-form-label">CNIC Attachment</label>
-                                        <input name="tent[cnica]" type="file" class="form-control" required>
+                                        <input name="tent[cnica]" type="file" class="form-control">
                                     </div>
-                                </div>
-                                <div class="form-group col-">
-                                    <label class="col-form-label">Address</label>
-                                    <input name="tent[address]" type="text" class="form-control" required>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-6">
+                                        <label class="col-form-label">Address</label>
+                                        <input name="tent[address]" type="text" class="form-control" required>
+                                    </div>
+
+                                    <div class="form-group col-3">
                                         <label class="col-form-label">City</label>
                                         <input name="tent[city]" type="text" class="form-control" required>
                                     </div>
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-3">
                                         <label class="col-form-label">Country</label>
                                         <input name="tent[country]" type="text" class="form-control" required>
                                     </div>
@@ -135,7 +153,7 @@
                                     <div class="row">
                                         <div class="form-group col-10">
                                             <label class="col-form-label">Contact</label>
-                                            <input name="tent[contact][]" type="text" class="form-control" required>
+                                            <input name="tent[contact][]" type="number" class="form-control" required>
                                         </div>
                                         <div class="form-group col-1" style="margin: 37px auto auto;">
                                             <i type="button" class="btn btn-sm btn-success add_button fas fa-plus"></i>
@@ -158,25 +176,25 @@
                                 <div class="row">
                                     <div class="form-group col-6">
                                         <label class="col-form-label">CNIC</label>
-                                        <input name="g1[cnic]" type="text" class="form-control" required>
+                                        <input name="g1[cnic]" type="number" class="form-control" required>
                                     </div>
                                     <div class="form-group col-6">
                                         <label class="col-form-label">CNIC Attachment</label>
-                                        <input name="g1[cnica]" type="file" class="form-control" required>
+                                        <input name="g1[cnica]" type="file" class="form-control">
                                     </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-form-label">Address</label>
-                                    <input name="g1[address]" type="text" class="form-control" required>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-6">
+                                        <label class="col-form-label">Address</label>
+                                        <input name="g1[address]" type="text" class="form-control" required>
+                                    </div>
+
+                                    <div class="form-group col-3">
                                         <label class="col-form-label">City</label>
                                         <input name="g1[city]" type="text" class="form-control" required>
                                     </div>
-                                    <div class="form-group col-6">
+                                    <div class="form-group col-3">
                                         <label class="col-form-label">Country</label>
                                         <input name="g1[country]" type="text" class="form-control" required>
                                     </div>
@@ -186,7 +204,7 @@
                                     <div class="row">
                                         <div class="form-group col-10">
                                             <label class="col-form-label">Contact</label>
-                                            <input name="g1[contact][]" type="text" class="form-control" required>
+                                            <input name="g1[contact][]" type="number" class="form-control" required>
                                         </div>
                                         <div class="form-group col-1" style="margin: 37px auto auto;">
                                             <i type="button"
@@ -203,57 +221,8 @@
                                     <label for="addg2"></label></span>
                             </div>
 
-                            <div style="display:none" id="g2">
-                                <div class="row">
-                                    <div class="form-group col-6">
-                                        <label class="col-form-label">Fist Name</label>
-                                        <input name="g2[fname]" type="text" class="form-control">
-                                    </div>
-
-                                    <div class="form-group col-6">
-                                        <label class="col-form-label">Last Name</label>
-                                        <input name="g2[lname]" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-6">
-                                        <label class="col-form-label">CNIC</label>
-                                        <input name="g2[cnic]" type="text" class="form-control">
-                                    </div>
-                                    <div class="form-group col-6">
-                                        <label class="col-form-label">CNIC Attachment</label>
-                                        <input name="g2[cnica]" type="file" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-form-label">Address</label>
-                                    <input name="g2[address]" type="text" class="form-control">
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-6">
-                                        <label class="col-form-label">City</label>
-                                        <input name="g2[city]" type="text" class="form-control">
-                                    </div>
-                                    <div class="form-group col-6">
-                                        <label class="col-form-label">Country</label>
-                                        <input name="g2[country]" type="text" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="field_wrapper">
-                                    <div class="row">
-                                        <div class="form-group col-10">
-                                            <label class="col-form-label">Contact</label>
-                                            <input name="g2[contact][]" type="text" class="form-control">
-                                        </div>
-                                        <div class="form-group col-1" style="margin: 37px auto auto;">
-                                            <i type="button"
-                                                class="btn btn-sm btn-success add_buttong2 fas fa-plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div id="g2">
+                              
                             </div>
                             <div class="form-group text-right mt-4">
                                 <button type="submit" class="btn btn-primary">Save Tent</button>
@@ -273,14 +242,32 @@
 
 @section('scripts')
 <script>
-    $(document).ready(function(){
-    
-    var fieldHTML = '<div class="row"><div class="form-group col-10"><input name="tent[contact][]" type="text" class="form-control" required></div><div class="form-group col-1" style="margin:auto;"><input type="button" class="btn btn-sm btn-danger remove_button" value="-"></div></div>'; //New input field html 
-    var g1 = '<div class="row"><div class="form-group col-10"><input name="g1[contact][]" type="text" class="form-control" required></div><div class="form-group col-1" style="margin:auto;"><input type="button" class="btn btn-sm btn-danger remove_buttong1" value="-"></div></div>'; //New input field html 
-    var g2 = '<div class="row"><div class="form-group col-10"><input name="g2[contact][]" type="text" class="form-control"></div><div class="form-group col-1" style="margin:auto;"><input type="button" class="btn btn-sm btn-danger remove_buttong2" value="-"></div></div>'; //New input field html 
+    var fieldHTML = '<div class="row"><div class="form-group col-10"><input name="tent[contact][]" type="number" class="form-control" required></div><div class="form-group col-1" style="margin:auto;"><input type="button" class="btn btn-sm btn-danger remove_button" value="-"></div></div>'; //New input field html 
+    var g1 = '<div class="row"><div class="form-group col-10"><input name="g1[contact][]" type="number" class="form-control" required></div><div class="form-group col-1" style="margin:auto;"><input type="button" class="btn btn-sm btn-danger remove_buttong1" value="-"></div></div>'; //New input field html 
+    var g2 = '<div class="row"><div class="form-group col-10"><input name="g2[contact][]" type="number" class="form-control"></div><div class="form-group col-1" style="margin:auto;"><input type="button" onclick="rmvg2c(this)" class="btn btn-sm btn-danger remove_buttong2" value="-"></div></div>'; //New input field html 
     var x = 1;
     var xg1 = 1;
     var xg2 = 1;
+
+
+
+    function addg2c(){
+            // alert('abc');
+            if(xg2 < 3){ 
+                xg2++;
+                $('.add_buttong2').parent('div').parent('div').parent('div').append(g2);
+            }
+    }
+
+    function rmvg2c(a){
+        $(a).parent('div').parent('div').remove();
+        xg2--;
+    }
+
+
+    $(document).ready(function(){
+    
+
 
     $('.add_button').click(function(){
         if(x < 3){ 
@@ -295,13 +282,6 @@
             $(this).parent('div').parent('div').parent('div').append(g1);
         }
     });
-
-    $('.add_buttong2').click(function(){
-        if(xg2 < 3){ 
-            xg2++;
-            $(this).parent('div').parent('div').parent('div').append(g2);
-        }
-    });
     
     $('.field_wrapper').on('click', '.remove_button', function(){
         $(this).parent('div').parent('div').remove();
@@ -313,14 +293,17 @@
         xg1--;
     });
 
-    $('.field_wrapper').on('click', '.remove_buttong2', function(){
-        $(this).parent('div').parent('div').remove();
-        xg2--;
-    });
+
 
 
     $('#addg2').on('click', function(){
-        $('#g2').slideToggle();
+        if (this.checked) {
+            $('#g2').html('<div class="row"><div class="form-group col-6"><label class="col-form-label">Fist Name</label><input name="g2[fname]" type="text" class="form-control"></div><div class="form-group col-6"><label class="col-form-label">Last Name</label><input name="g2[lname]" type="text" class="form-control"></div></div><div class="row"><div class="form-group col-6"><label class="col-form-label">CNIC</label><input name="g2[cnic]" type="number" class="form-control"></div><div class="form-group col-6"><label class="col-form-label">CNIC Attachment</label><input name="g2[cnica]" type="file" class="form-control"></div></div><div class="row"><div class="form-group col-6"><label class="col-form-label">Address</label><input name="g2[address]" type="text" class="form-control"></div><div class="form-group col-3"><label class="col-form-label">City</label><input name="g2[city]" type="text" class="form-control"></div><div class="form-group col-3"><label class="col-form-label">Country</label><input name="g2[country]" type="text" class="form-control"></div></div><div class="field_wrapper"><div class="row"><div class="form-group col-10"><label class="col-form-label">Contact</label><input name="g2[contact][]" type="number" class="form-control"></div><div class="form-group col-1" style="margin: 37px auto auto;"><i type="button" onclick="addg2c()" class="btn btn-sm btn-success add_buttong2 fas fa-plus"></i></div></div></div>');
+        }else{
+            $('#g2').html('');
+        }
+
+
     });
     
 

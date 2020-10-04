@@ -37,28 +37,26 @@ class TentController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
 
         $tent = new Tent();
 
-        
         //  tent cnic attachment
-        if ($request->tent['cnica']) {
+        if (isset($request->tent['cnica'])) {
             $url = $request->tent['cnica']->store('/tent');
             $tent->cnica = $url;
         }
+
         //  granter 1 cnic attachment
-        if ($request->g1['cnica']) {
+        if (isset($request->g1['cnica'])) {
             $g1url = $request->g1['cnica']->store('/tent');
             $tent->g1_cnica = $g1url;
         }
 
         //  granter 2 cnic attachment
-        if ($request->file('g2[cnic]')) {
+        if (isset($request->g2['cnica'])) {
             $g2url = $request->g2['cnica']->store('/tent');
             $tent->g2_cnica = $g2url;
         }
-        
 
 
         $tent->fname = $request->tent['fname'];
@@ -68,9 +66,15 @@ class TentController extends Controller
         $tent->city = $request->tent['city'];
         $tent->country = $request->tent['country'];
         $tent->contact1 = $request->tent['contact'][0];
-        $tent->contact2 = $request->tent['contact'][1];
-        $tent->contact3 = $request->tent['contact'][2];
-        
+
+        if (isset($request->tent['contact'][1])) {
+            $tent->contact2 = $request->tent['contact'][1];
+        }
+        if (isset($request->tent['contact'][2])) {
+            $tent->contact3 = $request->tent['contact'][2];
+        }
+
+
         $tent->g1_fname = $request->g1['fname'];
         $tent->g1_lname = $request->g1['lname'];
         $tent->g1_cnic = $request->g1['cnic'];
@@ -78,8 +82,14 @@ class TentController extends Controller
         $tent->g1_city = $request->g1['city'];
         $tent->g1_country = $request->g1['country'];
         $tent->g1_contact1 = $request->g1['contact'][0];
-        $tent->g1_contact2 = $request->g1['contact'][1];
-        $tent->g1_contact3 = $request->g1['contact'][2];
+
+        if (isset($request->g1['contact'][1])) {
+            $tent->g1_contact2 = $request->g1['contact'][1];
+        }
+
+        if (isset($request->g1['contact'][2])) {
+            $tent->g1_contact3 = $request->g1['contact'][2];
+        }
 
         $tent->g2_fname = $request->g2['fname'];
         $tent->g2_lname = $request->g2['lname'];
@@ -88,13 +98,20 @@ class TentController extends Controller
         $tent->g2_city = $request->g2['city'];
         $tent->g2_country = $request->g2['country'];
         $tent->g2_contact1 = $request->g2['contact'][0];
-        $tent->g2_contact2 = $request->g2['contact'][1];
-        $tent->g2_contact3 = $request->g2['contact'][2];
-        
+
+        if (isset($request->g2['contact'][1])) {
+            $tent->g2_contact2 = $request->g2['contact'][1];
+        }
+
+        if (isset($request->g2['contact'][2])) {
+            $tent->g2_contact3 = $request->g2['contact'][2];
+        }
+
+        // return $tent;
+
         $tent->save();
 
-        return redirect('admin/tent')->with('success','Added Succefully');
-
+        return redirect('admin/tent')->with('success', 'Added Succefully');
     }
 
     /**
@@ -140,6 +157,6 @@ class TentController extends Controller
     public function destroy(Tent $tent)
     {
         $tent->delete();
-        return redirect('admin/tent')->with('success','Deleted Succefully');
+        return redirect('admin/tent')->with('success', 'Deleted Succefully');
     }
 }

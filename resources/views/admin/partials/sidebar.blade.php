@@ -32,7 +32,7 @@
                                                 <a class="nav-link" href="{{url('admin/property/type')}}">Types</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{{url('admin/property')}}">Details</a>
+                                                <a class="nav-link" href="{{url('admin/property')}}">Status</a>
                                             </li>
                                         </ul>
                                     </div>

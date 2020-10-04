@@ -8,6 +8,7 @@
         <h3 class="section-title">Rent / Property / Types</h3>
     </div>
     <div class="simple-card">
+
         <ul class="nav nav-tabs" id="myTab5" role="tablist">
             <li class="nav-item">
                 <a class="nav-link border-left-0 active show" id="home-tab-simple" data-toggle="tab" href="#home-simple"
@@ -18,42 +19,45 @@
                     aria-controls="profile" aria-selected="false">Entry</a>
             </li>
         </ul>
+
         <div class="tab-content" id="myTabContent5">
             <div class="tab-pane fade active show" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
                 <div class="card">
                     <div class="card-body">
-                        <div class="table-responsive ">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Type</th>
-                                        <th scope="col">Created</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($types as $type)
-                                    <tr>
-                                        <th scope="row">{{$type->id}}</th>
-                                        <td>{{$type->name}}</td>
-                                        <td>{{ $type->created_at->format('d-m-Y') }}</td>
-                                        <td class="text-right">
-                                            <a href="{{ route('type.edit', $type->id)}}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form class="d-inline" action="{{route('type.destroy', $type->id)}}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        <table id="example" class="table table-striped table-bordered second" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Created</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($types as $type)
+                                <tr>
+                                    <th scope="row">{{$type->id}}</th>
+                                    <td>{{$type->name}}</td>
+                                    <td>{{ $type->created_at->format('d-m-Y') }}</td>
+                                    <td class="text-right">
+                                        <a href="{{ route('type.edit', $type->id)}}" class="btn btn-sm btn-warning"><i
+                                                class="fas fa-edit"></i></a>
+                                        <form class="d-inline" action="{{route('type.destroy', $type->id)}}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"><i
+                                                    class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
                 <div class="card">
                     {{-- <h5 class="card-header">Add Property Type</h5> --}}
@@ -81,6 +85,5 @@
         </div>
     </div>
 </div>
-
 
 @endsection
