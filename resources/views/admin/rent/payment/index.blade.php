@@ -27,18 +27,16 @@
                     {{-- <h5 class="card-header">Payments</h5> --}}
                     <div class="card-body">
                         <div class="table-responsive ">
-                            <table class="table">
+                            <table id="example" class="table table-striped table-bordered second" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Agreement</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Property</th>
                                         <th scope="col">Tent</th>
-                                        <th scope="col">Amount</th>
-                                        <th scope="col">Method</th>
-                                        <th scope="col">Account</th>
-                                        <th scope="col">Remarks</th>
-                                        <th scope="col">Enter by</th>
-                                        <th scope="col">Entry Date</th>
+                                        <th scope="col">Rent(M)</th>
+                                        <th scope="col">Yearly Increment(%)</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -47,13 +45,11 @@
                                     <tr>
                                         <td>{{ $payment->id }}</td>
                                         <td>{{ $payment->agreement->name }}</td>
+                                        <td>{{ $payment->agreement->property->type->name }}</td>
+                                        <td>{{ $payment->agreement->property->name }}</td>
                                         <td>{{ $payment->agreement->tent->fname.' '.$payment->agreement->tent->lname}}</td>
-                                        <td>{{ $payment->amount }}</td>
-                                        <td>{{ $payment->method }}</td>
-                                        <td>{{ $payment->account }}</td>
-                                        <td>{{ $payment->remarks }}</td>
-                                        <td>{{ $payment->user->name }}</td>
-                                        <td>{{ $payment->created_at->format('d-m-Y') }}</td>
+                                        <td>{{ $payment->agreement->property->rate }}</td>
+                                        <td>{{ $payment->agreement->yearly_percent }}%</td>
                                         <td class="text-right">
                                             <a href="{{ route('payment.edit', $payment->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>

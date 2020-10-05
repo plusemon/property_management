@@ -27,7 +27,7 @@
                     {{-- <h5 class="card-header">Properties</h5> --}}
                     <div class="card-body">
                         <div class="table-responsive ">
-                            <table class="table">
+                            <table id="example" class="table table-striped table-bordered second" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -38,7 +38,7 @@
                                         <th scope="col">Rent</th>
                                         <th scope="col">Sec. Money</th>
                                         <th scope="col">Yr Incr.</th>
-                                        <th scope="col">Entry</th>
+                                        <th scope="col">Start Date</th>
                                         <th scope="col">Attachment</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -48,7 +48,8 @@
                                     <tr>
                                         <td>{{ $agreement->id }}</td>
                                         <td>{{ $agreement->name }}</td>
-                                        <td>{{ $agreement->tent ? $agreement->tent->fname.' '.$agreement->tent->lname:'Deleted' }}</td>
+                                        <td>{{ $agreement->tent ? $agreement->tent->fname.' '.$agreement->tent->lname:'Deleted' }}
+                                        </td>
                                         <td>{{ $agreement->property->name ?? 'Deleted'}}</td>
                                         <td>{{ $agreement->property->type->name ?? 'Deleted' }}</td>
                                         <td>{{ $agreement->property->rate ?? 'Deleted' }}</td>
@@ -56,11 +57,10 @@
                                         <td>{{ $agreement->yearly_percent }}%</td>
                                         <td>{{ $agreement->created_at->format('d/m/Y') }}</td>
                                         <td>
-                                            <a href="{{ url('public/storage/'.$agreement->attachment) }}" class="badge badge-secondary p-1">Download</a><br>
+                                            <a href="{{ url('public/storage/'.$agreement->attachment) }}"
+                                                class="badge badge-secondary p-1">Download</a><br>
                                         </td>
                                         <td class="text-right">
-                                            {{-- <a href="{{ route('agreement.show', $agreement->id)}}"
-                                                class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a> --}}
                                             <a href="{{ route('agreement.edit', $agreement->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form class="d-inline"
@@ -99,7 +99,7 @@
                                 <select id="types" class="form-control">
                                     <option>Select type</option>
                                     @foreach ($types as $type)
-                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -122,7 +122,7 @@
                                 </select>
                             </div>
                             <div class="col-4 form-group">
-                                <label class="col-form-label">Security Money</label>
+                                <label class="col-form-label">Security Deposit Money</label>
                                 <input name="advance" type="number" class="form-control" required>
                             </div>
                             <div class="col-4 form-group">
@@ -142,13 +142,41 @@
                             <div class="col-4 form-group">
                                 <label class="col-form-label">Entry Date</label>
                                 <input id="created_at" name="created_at" type="date"
-                                    value="<?php echo date('Y-m-d'); ?>" class="form-control">
+                                    value="{{ date('Y-m-d') }}" class="form-control">
                             </div>
 
                             <div class="col-4 form-group">
                                 <label class="col-form-label">Entry by</label>
-                                <input value="Admin" class="form-control" disabled>
+                                <input value="{{ Auth::user()->name }}" class="form-control" disabled>
                             </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Conditions:</h4>
+                            </div>
+                           <div class="col-md-12">
+                            <div class="custom-control custom-checkbox was-validated" style="padding-left: 20px; margin-left: 20px;">
+                                <input type="checkbox" class="custom-control-input is-invalid"
+                                    id="customControlValidation2" required>
+                                <label class="custom-control-label" for="customControlValidation2">Any Modification or damage (without notification) or paint Tent has to repair o fix to its revise status it before leave the Property or deduced from him.</label>
+                            </div>
+                            <div class="custom-control custom-checkbox was-validated" style="padding-left: 20px; margin-left: 20px;">
+                                <input type="checkbox" class="custom-control-input is-invalid"
+                                    id="customControlValidation3" required>
+                                <label class="custom-control-label" for="customControlValidation3">Tent has to pay any utility bills against his period before leave the Property or deduced from him.</label>
+                            </div>
+                            <div class="custom-control custom-checkbox was-validated" style="padding-left: 20px; margin-left: 20px;">
+                                <input type="checkbox" class="custom-control-input is-invalid"
+                                    id="customControlValidation4" required>
+                                <label class="custom-control-label" for="customControlValidation4">Tent has to pay any rent dues against his period before leave the Property or deduced from him.</label>
+                            </div>
+                            <div class="custom-control custom-checkbox was-validated" style="padding-left: 20px; margin-left: 20px;">
+                                <input type="checkbox" class="custom-control-input is-invalid"
+                                    id="customControlValidation5" required>
+                                <label class="custom-control-label" for="customControlValidation5">Tent agreed that if any clause upper mentioned I allow the owner to redeem from Security Deposit</label>
+                            </div>
+                           </div>
                         </div>
 
                         <div class="form-group text-right mt-4">
@@ -168,7 +196,6 @@
 
 @section('scripts')
 <script>
-
     $('#types').on('change', function() {
         var type = $('#types').val();
         var url = '{{ url('admin/get-properties') }}?type=' + type;
