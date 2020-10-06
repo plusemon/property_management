@@ -37,13 +37,16 @@
                                 <tbody>
                                     @foreach ($borrows as $borrow)
                                     <tr>
-                                        <th scope="row">{{$borrow->id}}</th>
-                                        <td>{{$borrow->name}}</td>
+                                        <th>{{$borrow->id}}</th>
+                                        <td>{{$borrow->created_at->format('d/m/Y')}}</td>
+                                        <td>{{$borrow->user->name}}</td>
+                                        <td>{{$borrow->description}}</td>
+                                        <td>{{$borrow->amount}}</td>
                                         <td>{{ $borrow->created_at->format('d-m-Y') }}</td>
                                         <td class="text-right">
                                             <a href="{{ route('borrow.edit', $borrow->id)}}" class="btn btn-sm btn-warning"><i
                                                     class="fas fa-edit"></i></a>
-                                            <form class="d-inline" action="{{route('borrow.destroy', $type->id)}}"
+                                            <form class="d-inline" action="{{route('borrow.destroy', $borrow->id)}}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -86,7 +89,7 @@
                                 </div>
                                 <div class="form-group col-3">
                                     <label class="col-form-label">Enter by</label>
-                                    <input type="text" name="{{ auth()->user()->name }}" class="form-control" value="{{ auth()->user()->name }}" disabled>
+                                    <input name="entry" class="form-control" value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
             
