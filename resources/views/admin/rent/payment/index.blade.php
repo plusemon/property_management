@@ -20,6 +20,10 @@
                 <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#profile-simple" role="tab"
                     aria-controls="profile" aria-selected="false">Pay</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab-simple2" data-toggle="tab" href="#profile-simple2" role="tab"
+                    aria-controls="profile" aria-selected="false">Refund</a>
+            </li>
         </ul>
         <div class="tab-content" id="myTabContent5">
             <div class="tab-pane fade active show" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
@@ -47,7 +51,8 @@
                                         <td>{{ $payment->agreement->name }}</td>
                                         <td>{{ $payment->agreement->property->type->name }}</td>
                                         <td>{{ $payment->agreement->property->name }}</td>
-                                        <td>{{ $payment->agreement->tent->fname.' '.$payment->agreement->tent->lname}}</td>
+                                        <td>{{ $payment->agreement->tent->fname.' '.$payment->agreement->tent->lname}}
+                                        </td>
                                         <td>{{ $payment->agreement->property->rate }}</td>
                                         <td>{{ $payment->agreement->yearly_percent }}%</td>
                                         <td class="text-right">
@@ -57,7 +62,8 @@
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                <button type="submit" class="btn btn-sm btn-danger"><i
+                                                        class="fas fa-trash-alt"></i></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -84,7 +90,7 @@
                         </div>
 
                         <div class="row">
-                            
+
 
                             <div class="form-group col-3">
                                 <label class="col-form-label">Type</label>
@@ -131,21 +137,97 @@
                                 <input name="remarks" type="text" class="form-control">
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-4 form-group">
                                 <label class="col-form-label">Entry Date</label>
-                                <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}" class="form-control">
-                            </div> 
+                                <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}"
+                                    class="form-control">
+                            </div>
                             <div class="col-4 form-group">
                                 <label class="col-form-label">Enter By</label>
                                 <input value="{{auth()->user()->name}}" class="form-control" disabled>
-                            </div>      
+                            </div>
                         </div>
 
 
                         <div class="form-group text-right mt-4">
                             <button type="submit" class="btn btn-primary">Pay Now</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile-simple2" role="tabpanel" aria-labelledby="profile-tab-simple">
+                <div class="card-body">
+                    <form action="{{ route('payment.store') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">Refund for</label>
+                                <select class="form-control" required>
+                                    <option value="">Select</option>
+                                    <option value="rent">Rent</option>
+                                    <option value="modify">Modification or damage or paint</option>
+                                    <option value="bill">Utility Bills</option>
+                                    <option value="security">Security Deposit</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">Agreement</label>
+                                <select class="form-control agreements" name="agreement_id" required>
+                                    <option value="">Select</option>
+                                    @foreach ($agreements as $agreement)
+                                    <option value="{{ $agreement->id }}">{{ $agreement->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label class="col-form-label">Pay Amount</label>
+                                <input name="amount" type="number" class="form-control">
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Type</label>
+                                <input type="text" class="form-control type" disabled>
+                            </div>
+
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Property</label>
+                                <input type="text" class="form-control property" disabled>
+                            </div>
+
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Tent</label>
+                                <input type="text" class="form-control tent" disabled>
+                            </div>
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Current Rent</label>
+                                <input type="text" class="form-control rent" disabled>
+                            </div>
+                        </div>
+
+                        {{-- <div class="row">
+                           
+                            {{-- <div class="col-4 form-group">
+                                <label class="col-form-label">Entry Date</label>
+                                <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}"
+                                    class="form-control">
+                            </div>
+                            <div class="col-4 form-group">
+                                <label class="col-form-label">Enter By</label>
+                                <input value="{{auth()->user()->name}}" class="form-control" disabled>
+                            </div> --}}
+                        {{-- </div> --}}
+
+
+                        <div class="form-group text-right mt-4">
+                            <button type="submit" class="btn btn-primary rounded">Refund</button>
                         </div>
 
                     </form>
@@ -163,7 +245,25 @@
 
 @section('scripts')
 <script>
+    // For pay api
+    $('.agreements').on('change', function() {
+        var agreement = $(this).val();
+        var url = '{{ url('admin/get-agreement') }}?id=' + agreement;
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'json',
+            success: function (data,status) {
 
+                $('.type').val(data.type);
+                $('.property').val(data.property);
+                $('.tent').val(data.tent);
+                $('.rent').val(data.rent);
+            }
+        });
+    });
+
+    // Refund api
     $('#agreements').on('change', function() {
         var agreement = $(this).val();
         var url = '{{ url('admin/get-agreement') }}?id=' + agreement;
@@ -172,9 +272,6 @@
             url: url,
             dataType: 'json',
             success: function (data,status) {
-                // if (!data.length) {
-                //     toastr.info('No property found');
-                // }
 
                 $('#type').val(data.type);
                 $('#property').val(data.property);

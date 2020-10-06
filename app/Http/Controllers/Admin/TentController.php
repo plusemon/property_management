@@ -91,23 +91,23 @@ class TentController extends Controller
             $tent->g1_contact3 = $request->g1['contact'][2];
         }
 
-        $tent->g2_fname = $request->g2['fname'];
-        $tent->g2_lname = $request->g2['lname'];
-        $tent->g2_cnic = $request->g2['cnic'];
-        $tent->g2_address = $request->g2['address'];
-        $tent->g2_city = $request->g2['city'];
-        $tent->g2_country = $request->g2['country'];
-        $tent->g2_contact1 = $request->g2['contact'][0];
+        if ($request->has('g2')) {
+            $tent->g2_fname = $request->g2['fname'];
+            $tent->g2_lname = $request->g2['lname'];
+            $tent->g2_cnic = $request->g2['cnic'];
+            $tent->g2_address = $request->g2['address'];
+            $tent->g2_city = $request->g2['city'];
+            $tent->g2_country = $request->g2['country'];
+            $tent->g2_contact1 = $request->g2['contact'][0];
 
-        if (isset($request->g2['contact'][1])) {
-            $tent->g2_contact2 = $request->g2['contact'][1];
+            if (isset($request->g2['contact'][1])) {
+                $tent->g2_contact2 = $request->g2['contact'][1];
+            }
+
+            if (isset($request->g2['contact'][2])) {
+                $tent->g2_contact3 = $request->g2['contact'][2];
+            }
         }
-
-        if (isset($request->g2['contact'][2])) {
-            $tent->g2_contact3 = $request->g2['contact'][2];
-        }
-
-        // return $tent;
 
         $tent->save();
 

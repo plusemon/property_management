@@ -22,7 +22,7 @@ Route::get('dashboard', 'AdminController@dashboard');
     Route::resource('payment', 'PaymentController');
 //
 
-// Route::resource('borrow', 'BorrowController');
+Route::resource('borrow', 'BorrowController');
 
 // Route::resource('expence', 'ExpenceController');
 // Route::resource('loan', 'LoanController');
