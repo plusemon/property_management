@@ -15,6 +15,10 @@ class CreateBorrowsTable extends Migration
     {
         Schema::create('borrows', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->integer('amount');
+            $table->integer('entry');
+            $table->integer('description');
             $table->timestamps();
         });
     }

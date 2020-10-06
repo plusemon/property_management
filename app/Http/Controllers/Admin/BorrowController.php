@@ -39,7 +39,9 @@ class BorrowController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request->all();
+        Borrow::create($request->all());
+        return redirect()->back()->with('success','Added Successfully');
     }
 
     /**
