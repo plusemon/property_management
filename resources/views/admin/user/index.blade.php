@@ -62,8 +62,6 @@
                     </div>
                 </div>
             </div>
-
-            
             <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
                 <div class="card">
                     <div class="card-body">
