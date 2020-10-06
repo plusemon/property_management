@@ -26,9 +26,9 @@
             </li>
         </ul>
         <div class="tab-content" id="myTabContent5">
+            {{-- List of payments  --}}
             <div class="tab-pane fade active show" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
                 <div class="card">
-                    {{-- <h5 class="card-header">Payments</h5> --}}
                     <div class="card-body">
                         <div class="table-responsive ">
                             <table id="example" class="table table-striped table-bordered second" style="width:100%">
@@ -56,8 +56,8 @@
                                         <td>{{ $payment->agreement->property->rate }}</td>
                                         <td>{{ $payment->agreement->yearly_percent }}%</td>
                                         <td class="text-right">
-                                            <a href="{{ route('payment.edit', $payment->id)}}"
-                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            {{-- <a href="{{ route('payment.edit', $payment->id)}}"
+                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
                                             <form class="d-inline" action="{{route('payment.destroy', $payment->id)}}"
                                                 method="POST">
                                                 @csrf
@@ -75,23 +75,35 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Payment --}}
             <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
                 <div class="card-body">
                     <form action="{{ route('payment.store') }}" method="POST">
                         @csrf
-                        <div class="col-12 form-group">
-                            <label class="col-form-label">Agreement</label>
-                            <select class="form-control" name="agreement_id" id="agreements" required>
-                                <option value="">Select Agreement</option>
-                                @foreach ($agreements as $agreement)
-                                <option value="{{ $agreement->id }}">{{ $agreement->name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="col-form-label">Pay for</label>
+                                <select class="form-control" required>
+                                    <option value="">Select</option>
+                                    <option value="rent">Rent</option>
+                                    <option value="modify">Modification or damage or paint</option>
+                                    <option value="bill">Utility Bills</option>
+                                    <option value="security">Security Deposit</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="col-form-label">Agreement</label>
+                                <select class="form-control" name="agreement_id" id="agreements" required>
+                                    <option value="">Select</option>
+                                    @foreach ($agreements as $agreement)
+                                    <option value="{{ $agreement->id }}">{{ $agreement->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
                         <div class="row">
-
-
                             <div class="form-group col-3">
                                 <label class="col-form-label">Type</label>
                                 <input id="type" type="text" class="form-control" disabled>
@@ -113,7 +125,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-3 form-group">
+                            <div class="col-md-6 form-group">
                                 <label class="col-form-label">Payment Method</label>
                                 <select class="form-control" name="method" id="method" required>
                                     <option value="">Select Method</option>
@@ -122,23 +134,39 @@
                                 </select>
                             </div>
 
+                            <div class="form-group col-md-6">
+                                <label class="col-form-label">Amount</label>
+                                <input name="amount" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row" id="bank-row">
                             <div class="form-group col-3">
-                                <label class="col-form-label">Pay Amount</label>
-                                <input name="amount" type="number" class="form-control">
+                                <label class="col-form-label">Bank Name</label>
+                                <input name="bank" type="text" class="form-control">
                             </div>
 
                             <div class="form-group col-3">
-                                <label class="col-form-label">Bank A/C no</label>
-                                <input id="acno" name="account" type="text" class="form-control" disabled>
+                                <label class="col-form-label">Bank A/C</label>
+                                <input name="account" type="text" class="form-control">
                             </div>
 
                             <div class="form-group col-3">
-                                <label class="col-form-label">Remarks</label>
-                                <input name="remarks" type="text" class="form-control">
+                                <label class="col-form-label">Branch</label>
+                                <input name="branch" type="text" class="form-control">
+                            </div>
+
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Cheque No</label>
+                                <input name="cheque" type="text" class="form-control">
+                            </div>
+
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Cheque scan copy</label>
+                                <input name="cheque_image" type="file" class="form-control">
                             </div>
                         </div>
 
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-4 form-group">
                                 <label class="col-form-label">Entry Date</label>
                                 <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}"
@@ -148,7 +176,7 @@
                                 <label class="col-form-label">Enter By</label>
                                 <input value="{{auth()->user()->name}}" class="form-control" disabled>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                         <div class="form-group text-right mt-4">
@@ -158,6 +186,8 @@
                     </form>
                 </div>
             </div>
+
+            {{-- // Refund --}}
             <div class="tab-pane fade" id="profile-simple2" role="tabpanel" aria-labelledby="profile-tab-simple">
                 <div class="card-body">
                     <form action="{{ route('payment.store') }}" method="POST">
@@ -186,7 +216,6 @@
                                 <label class="col-form-label">Pay Amount</label>
                                 <input name="amount" type="number" class="form-control">
                             </div>
-
                         </div>
 
                         <div class="row">
@@ -285,9 +314,9 @@
         var method = $(this).val();
         
         if (method == 'bank') {
-            $('#acno').prop("disabled", false);
+            $('#bank-row').slideDown();
         }else{
-            $('#acno').prop("disabled", true);
+            $('#bank-row').slideUp();
         }
     });
 
