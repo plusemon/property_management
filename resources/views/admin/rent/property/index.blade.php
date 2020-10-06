@@ -49,7 +49,7 @@
                                     <td>{{ $property->district }}</td>
                                     <td>{{ $property->city }}</td>
                                     <td>{{ $property->country }}</td>
-                                    <td>Vacant</td>
+                                    <td>{{ $property->agreements ? 'Occupied':'Vacant' }}</td>
                                     <td class="text-right">
                                         <a href="{{ route('property.edit', $property->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>

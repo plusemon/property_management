@@ -57,7 +57,7 @@
                                         <td>{{ $payment->agreement->yearly_percent }}%</td>
                                         <td class="text-right">
                                             {{-- <a href="{{ route('payment.edit', $payment->id)}}"
-                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
+                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
                                             <form class="d-inline" action="{{route('payment.destroy', $payment->id)}}"
                                                 method="POST">
                                                 @csrf
@@ -84,7 +84,7 @@
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label class="col-form-label">Pay for</label>
-                                <select class="form-control" required>
+                                <select class="form-control" name="name" required>
                                     <option value="">Select</option>
                                     <option value="rent">Rent</option>
                                     <option value="modify">Modification or damage or paint</option>
@@ -125,7 +125,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
                                 <label class="col-form-label">Payment Method</label>
                                 <select class="form-control" name="method" id="method" required>
                                     <option value="">Select Method</option>
@@ -134,10 +134,22 @@
                                 </select>
                             </div>
 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label class="col-form-label">Amount</label>
                                 <input name="amount" type="text" class="form-control" required>
                             </div>
+                            <div class="form-group col-md-2 my-auto">
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" id="gstbox" checked class="custom-control-input"><span
+                                        class="custom-control-label">Allow GST</span>
+                                </label>
+                            </div>
+                            <div class="form-group col-md-2" id="gst" >
+                                <label class="col-form-label">GST(%)</label>
+                                <input name="gst" type="text" class="form-control">
+                            </div>
+
+
                         </div>
                         <div class="row" id="bank-row">
                             <div class="form-group col-3">
@@ -162,7 +174,7 @@
 
                             <div class="form-group col-3">
                                 <label class="col-form-label">Cheque scan copy</label>
-                                <input name="cheque_image" type="file" class="form-control">
+                                <input name="attachment" type="file" class="form-control">
                             </div>
                         </div>
 
@@ -170,100 +182,100 @@
                             <div class="col-4 form-group">
                                 <label class="col-form-label">Entry Date</label>
                                 <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}"
-                                    class="form-control">
-                            </div>
-                            <div class="col-4 form-group">
-                                <label class="col-form-label">Enter By</label>
-                                <input value="{{auth()->user()->name}}" class="form-control" disabled>
-                            </div>
-                        </div> --}}
-
-
-                        <div class="form-group text-right mt-4">
-                            <button type="submit" class="btn btn-primary">Pay Now</button>
-                        </div>
-
-                    </form>
+                        class="form-control">
                 </div>
+                <div class="col-4 form-group">
+                    <label class="col-form-label">Enter By</label>
+                    <input value="{{auth()->user()->name}}" class="form-control" disabled>
+                </div>
+            </div> --}}
+
+
+            <div class="form-group text-right mt-4">
+                <button type="submit" class="btn btn-primary">Pay Now</button>
             </div>
 
-            {{-- // Refund --}}
-            <div class="tab-pane fade" id="profile-simple2" role="tabpanel" aria-labelledby="profile-tab-simple">
-                <div class="card-body">
-                    <form action="{{ route('payment.store') }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-4 form-group">
-                                <label class="col-form-label">Refund for</label>
-                                <select class="form-control" required>
-                                    <option value="">Select</option>
-                                    <option value="rent">Rent</option>
-                                    <option value="modify">Modification or damage or paint</option>
-                                    <option value="bill">Utility Bills</option>
-                                    <option value="security">Security Deposit</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                <label class="col-form-label">Agreement</label>
-                                <select class="form-control agreements" name="agreement_id" required>
-                                    <option value="">Select</option>
-                                    @foreach ($agreements as $agreement)
-                                    <option value="{{ $agreement->id }}">{{ $agreement->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group col-4">
-                                <label class="col-form-label">Pay Amount</label>
-                                <input name="amount" type="number" class="form-control">
-                            </div>
-                        </div>
+            </form>
+        </div>
+    </div>
 
-                        <div class="row">
+    {{-- // Refund --}}
+    <div class="tab-pane fade" id="profile-simple2" role="tabpanel" aria-labelledby="profile-tab-simple">
+        <div class="card-body">
+            <form action="{{ route('payment.store') }}" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label class="col-form-label">Refund for</label>
+                        <select class="form-control" required>
+                            <option value="">Select</option>
+                            <option value="rent">Rent</option>
+                            <option value="modify">Modification or damage or paint</option>
+                            <option value="bill">Utility Bills</option>
+                            <option value="security">Security Deposit</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label class="col-form-label">Agreement</label>
+                        <select class="form-control agreements" name="agreement_id" required>
+                            <option value="">Select</option>
+                            @foreach ($agreements as $agreement)
+                            <option value="{{ $agreement->id }}">{{ $agreement->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-4">
+                        <label class="col-form-label">Pay Amount</label>
+                        <input name="amount" type="number" class="form-control">
+                    </div>
+                </div>
+
+                <div class="row">
 
 
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Type</label>
-                                <input type="text" class="form-control type" disabled>
-                            </div>
+                    <div class="form-group col-3">
+                        <label class="col-form-label">Type</label>
+                        <input type="text" class="form-control type" disabled>
+                    </div>
 
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Property</label>
-                                <input type="text" class="form-control property" disabled>
-                            </div>
+                    <div class="form-group col-3">
+                        <label class="col-form-label">Property</label>
+                        <input type="text" class="form-control property" disabled>
+                    </div>
 
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Tent</label>
-                                <input type="text" class="form-control tent" disabled>
-                            </div>
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Current Rent</label>
-                                <input type="text" class="form-control rent" disabled>
-                            </div>
-                        </div>
+                    <div class="form-group col-3">
+                        <label class="col-form-label">Tent</label>
+                        <input type="text" class="form-control tent" disabled>
+                    </div>
+                    <div class="form-group col-3">
+                        <label class="col-form-label">Current Rent</label>
+                        <input type="text" class="form-control rent" disabled>
+                    </div>
+                </div>
 
-                        {{-- <div class="row">
+                {{-- <div class="row">
                            
                             {{-- <div class="col-4 form-group">
                                 <label class="col-form-label">Entry Date</label>
                                 <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}"
-                                    class="form-control">
-                            </div>
-                            <div class="col-4 form-group">
-                                <label class="col-form-label">Enter By</label>
-                                <input value="{{auth()->user()->name}}" class="form-control" disabled>
-                            </div> --}}
-                        {{-- </div> --}}
-
-
-                        <div class="form-group text-right mt-4">
-                            <button type="submit" class="btn btn-primary rounded">Refund</button>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
+                class="form-control">
         </div>
+        <div class="col-4 form-group">
+            <label class="col-form-label">Enter By</label>
+            <input value="{{auth()->user()->name}}" class="form-control" disabled>
+        </div> --}}
+        {{-- </div> --}}
+
+
+        <div class="form-group text-right mt-4">
+            <button type="submit" class="btn btn-primary rounded">Refund</button>
+        </div>
+
+        </form>
     </div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -318,6 +330,10 @@
         }else{
             $('#bank-row').slideUp();
         }
+    });
+
+    $('#gstbox').click(function() {
+        $("#gst").toggle(this.checked);
     });
 
 
