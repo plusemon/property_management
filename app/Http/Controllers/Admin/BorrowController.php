@@ -63,7 +63,8 @@ class BorrowController extends Controller
      */
     public function edit(Borrow $borrow)
     {
-        //
+        $users = User::all();
+        return view('admin.borrow.edit', compact('borrow','users'));
     }
 
     /**
@@ -75,7 +76,8 @@ class BorrowController extends Controller
      */
     public function update(Request $request, Borrow $borrow)
     {
-        //
+        $borrow->update($request->all());
+        return redirect('admin/borrow')->with('success','Updated Successfully');
     }
 
     /**

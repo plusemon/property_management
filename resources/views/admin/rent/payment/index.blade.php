@@ -81,7 +81,16 @@
                 <div class="card-body">
                     <form action="{{ route('payment.store') }}" method="POST">
                         @csrf
-                        <div class="row">
+                        <div class="row"> 
+                            <div class="col-md-6 form-group">
+                                <label class="col-form-label">Agreement</label>
+                                <select class="form-control" name="agreement_id" id="agreements" required>
+                                    <option value="">Select</option>
+                                    @foreach ($agreements as $agreement)
+                                    <option value="{{ $agreement->id }}">{{ $agreement->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-md-6 form-group">
                                 <label class="col-form-label">Pay for</label>
                                 <select class="form-control" name="name" required>
@@ -92,15 +101,7 @@
                                     <option value="security">Security Deposit</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 form-group">
-                                <label class="col-form-label">Agreement</label>
-                                <select class="form-control" name="agreement_id" id="agreements" required>
-                                    <option value="">Select</option>
-                                    @foreach ($agreements as $agreement)
-                                    <option value="{{ $agreement->id }}">{{ $agreement->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                           
                         </div>
 
                         <div class="row">
@@ -205,6 +206,16 @@
             <form action="{{ route('payment.store') }}" method="POST">
                 @csrf
                 <div class="row">
+                    
+                    <div class="col-md-4 form-group">
+                        <label class="col-form-label">Agreement</label>
+                        <select class="form-control agreements" name="agreement_id" required>
+                            <option value="">Select</option>
+                            @foreach ($agreements as $agreement)
+                            <option value="{{ $agreement->id }}">{{ $agreement->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="col-md-4 form-group">
                         <label class="col-form-label">Refund for</label>
                         <select class="form-control" required>
@@ -213,15 +224,6 @@
                             <option value="modify">Modification or damage or paint</option>
                             <option value="bill">Utility Bills</option>
                             <option value="security">Security Deposit</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label class="col-form-label">Agreement</label>
-                        <select class="form-control agreements" name="agreement_id" required>
-                            <option value="">Select</option>
-                            @foreach ($agreements as $agreement)
-                            <option value="{{ $agreement->id }}">{{ $agreement->name }}</option>
-                            @endforeach
                         </select>
                     </div>
                     <div class="form-group col-4">
