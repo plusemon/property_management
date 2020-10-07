@@ -105,7 +105,23 @@ class AgreementController extends Controller
      */
     public function update(Request $request, Agreement $agreement)
     {
-        //
+        $agreement->name = $request->name;
+        $agreement->user_id = auth()->id();
+        $agreement->property_id = $request->property_id;
+        $agreement->tent_id = $request->tent_id;
+        $agreement->advance = $request->advance;
+        $agreement->yearly_percent = $request->yearly_percent;
+
+        if ($request->attachment) {
+            $url = $request->attachment->store('/agreement');
+            $agreement->attachment = $url;
+        }
+
+        if ($request->created_at) {$agreement->created_at = $request->created_at;}
+
+        $agreement->save();
+
+        return redirect('admin/agreement')->with('success','Saved Succefully');
     }
 
     /**

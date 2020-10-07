@@ -35,9 +35,9 @@
                                         <th scope="col">Tent</th>
                                         <th scope="col">Property</th>
                                         <th scope="col">Type</th>
-                                        <th scope="col">Rent</th>
+                                        <th scope="col">Rent(M)</th>
                                         <th scope="col">Sec. Money</th>
-                                        <th scope="col">Yr Incr.</th>
+                                        <th scope="col">Yr Incr. %</th>
                                         <th scope="col">Start Date</th>
                                         <th scope="col">Attachment</th>
                                         <th scope="col">Action</th>

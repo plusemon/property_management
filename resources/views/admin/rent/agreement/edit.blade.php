@@ -7,8 +7,9 @@
     <h3 class="section-title">Rent / Edit Agreement</h3>
 </div>
     <div class="card-body">
-        <form action="{{ route('agreement.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('agreement.update', $agreement->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="row">
                 <div class="form-group col-4">
                     <label class="col-form-label">Agreement Name</label>
@@ -20,7 +21,7 @@
                         <option>Select type</option>
                         @foreach ($types as $type)
                             <option value="{{ $type->id }}">{{ $type->name }}</option>
-                            {{-- {{ $type->id = $agreement->property->type->id ? 'selected':'' }} --}}
+                           
                         @endforeach
                     </select>
                 </div>
@@ -39,7 +40,7 @@
                     <select class="form-control" name="tent_id" required>
                         <option value="">Select Tent</option>
                         @foreach ($tents as $tent)
-                        <option value="{{ $tent->id }}">{{ $tent->fname.' '.$tent->lname }}</option>
+                        <option value="{{ $tent->id }}" {{ $tent->id == $agreement->tent->id ? 'selected':'' }}>{{ $tent->fname.' '.$tent->lname }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -69,7 +70,7 @@
     
                 <div class="col-4 form-group">
                     <label class="col-form-label">Entry by</label>
-                    <input value="Admin" class="form-control" disabled>
+                    <input value="{{ Auth::user()->name }}" class="form-control" disabled>
                 </div>
             </div>
     
