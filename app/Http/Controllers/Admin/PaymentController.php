@@ -41,38 +41,47 @@ class PaymentController extends Controller
     {
         // return $request;
 
-        $request->validate([
-            "agreement_id" => "required",
-            "name" => "required",
-            "method" => "required",
-            "amount" => "required",
-        ]);
-        
-        
-        $payment = new Payment();
-        $payment->agreement_id = $request->agreement_id;
-        $payment->user_id = auth()->id();
-        $payment->name = $request->name;
-        $payment->method = $request->method;
-        $payment->amount = $request->amount;
+        // Payment
+        if ($request->for == 'payment') {
+            $request->validate([
+                "agreement_id" => "required",
+                "type" => "required",
+                "method" => "required",
+                "amount" => "required",
+            ]);
 
-        if ($request->gst) {
-            $payment->gst = $request->gst;
+            $payment = new Payment();
+            $payment->agreement_id = $request->agreement_id;
+            $payment->user_id = auth()->id();
+            $payment->type = $request->type;
+            $payment->method = $request->method;
+            $payment->amount = $request->amount;
+            $payment->tnxid = uniqid();
+            if ($request->gst) {
+                $payment->gst = $request->gst;
+            }
+            if ($request->method == 'bank') {
+                $payment->bank = $request->bank;
+                $payment->account = $request->account;
+                $payment->branch = $request->branch;
+                $payment->cheque = $request->cheque;
+                $payment->attachment = $request->attachment;
+            }
+            $payment->save();
         }
 
-        if ($request->method == 'bank') {
-            $payment->bank = $request->bank;
-            $payment->account = $request->account;
-            $payment->branch = $request->branch;
-            $payment->cheque = $request->cheque;
-            $payment->attachment = $request->attachment;
-        }
 
-        // $payment->created_at = $request->created_at;
-        $payment->save();
-        $agreement = Agreement::findOrFail($request->agreement_id);
-        $agreement->advance += $request->amount;
-        $agreement->save();
+        // Payment
+        if ($request->for == 'refund') {
+            $payment = new Payment();
+            $payment->agreement_id = $request->agreement_id;
+            $payment->user_id = auth()->id();
+            $payment->method = 'Refund';
+            $payment->type = $request->type;
+            $payment->amount = $request->amount;
+            $payment->tnxid = uniqid();
+            $payment->save();
+        }
 
         return redirect()->back()->with('success', 'Added Successfully');
     }

@@ -15,7 +15,7 @@
                         <select class="form-control" name="type_id" required>
                             <option value="">Select type</option>
                             @foreach ($types as $type)
-                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                <option value="{{ $type->id }}" {{ $type->id == $property->type->id ? 'selected':'' }}>{{ $type->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-4 form-group">
                         <label class="col-form-label">City</label>
-                        <input name="city" type="text" class="form-control" value="city" required>
+                        <input name="city" type="text" class="form-control" value="{{ $property->city }}" required>
                     </div>
 
                     <div class="col-4 form-group">

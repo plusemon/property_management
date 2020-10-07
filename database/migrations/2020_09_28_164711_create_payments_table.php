@@ -17,7 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->integer('agreement_id');
             $table->integer('user_id');
-            $table->string('name');
+            $table->string('type');
             $table->string('method');
             $table->string('amount');
             $table->string('gst')->nullable();

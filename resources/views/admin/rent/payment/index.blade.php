@@ -34,27 +34,31 @@
                             <table id="example" class="table table-striped table-bordered second" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Pay for</th>
+                                        <th scope="col">Transaction id</th>
                                         <th scope="col">Agreement</th>
                                         <th scope="col">Type</th>
                                         <th scope="col">Property</th>
                                         <th scope="col">Tent</th>
-                                        <th scope="col">Rent(M)</th>
-                                        <th scope="col">Yearly Increment(%)</th>
+                                        <th scope="col">Amount</th>
+                                        {{-- <th scope="col">Yearly Increment(%)</th> --}}
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($payments as $payment)
                                     <tr>
-                                        <td>{{ $payment->id }}</td>
+                                        <td>{{ $payment->created_at->format('d-m-y') }}</td>
+                                        <td>{{ $payment->type }}</td>
+                                        <td>{{ $payment->tnxid }}</td>
                                         <td>{{ $payment->agreement->name }}</td>
                                         <td>{{ $payment->agreement->property->type->name }}</td>
                                         <td>{{ $payment->agreement->property->name }}</td>
                                         <td>{{ $payment->agreement->tent->fname.' '.$payment->agreement->tent->lname}}
                                         </td>
-                                        <td>{{ $payment->agreement->property->rate }}</td>
-                                        <td>{{ $payment->agreement->yearly_percent }}%</td>
+                                        <td>{{ $payment->amount }}</td>
+                                        {{-- <td>{{ $payment->agreement->yearly_percent }}%</td> --}}
                                         <td class="text-right">
                                             {{-- <a href="{{ route('payment.edit', $payment->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
@@ -81,7 +85,8 @@
                 <div class="card-body">
                     <form action="{{ route('payment.store') }}" method="POST">
                         @csrf
-                        <div class="row"> 
+                        <input type="hidden" name="for" value="payment">
+                        <div class="row">
                             <div class="col-md-6 form-group">
                                 <label class="col-form-label">Agreement</label>
                                 <select class="form-control" name="agreement_id" id="agreements" required>
@@ -93,7 +98,7 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label class="col-form-label">Pay for</label>
-                                <select class="form-control" name="name" required>
+                                <select class="form-control" name="type" required>
                                     <option value="">Select</option>
                                     <option value="rent">Rent</option>
                                     <option value="modify">Modification or damage or paint</option>
@@ -101,7 +106,7 @@
                                     <option value="security">Security Deposit</option>
                                 </select>
                             </div>
-                           
+
                         </div>
 
                         <div class="row">
@@ -145,7 +150,7 @@
                                         class="custom-control-label">Allow GST</span>
                                 </label>
                             </div>
-                            <div class="form-group col-md-2" id="gst" >
+                            <div class="form-group col-md-2" id="gst">
                                 <label class="col-form-label">GST(%)</label>
                                 <input name="gst" type="text" class="form-control">
                             </div>
@@ -178,105 +183,77 @@
                                 <input name="attachment" type="file" class="form-control">
                             </div>
                         </div>
+                        <div class="form-group text-right mt-4">
+                            <button type="submit" class="btn btn-primary">Pay Now</button>
+                        </div>
 
-                        {{-- <div class="row">
-                            <div class="col-4 form-group">
-                                <label class="col-form-label">Entry Date</label>
-                                <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}"
-                        class="form-control">
+                    </form>
                 </div>
-                <div class="col-4 form-group">
-                    <label class="col-form-label">Enter By</label>
-                    <input value="{{auth()->user()->name}}" class="form-control" disabled>
-                </div>
-            </div> --}}
-
-
-            <div class="form-group text-right mt-4">
-                <button type="submit" class="btn btn-primary">Pay Now</button>
             </div>
 
-            </form>
-        </div>
-    </div>
+            {{-- // Refund --}}
+            <div class="tab-pane fade" id="profile-simple2" role="tabpanel" aria-labelledby="profile-tab-simple">
+                <div class="card-body">
+                    <form action="{{ route('payment.store') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <input type="hidden" name="for" value="refund">
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">Agreement</label>
+                                <select class="form-control agreements" name="agreement_id" required>
+                                    <option value="">Select</option>
+                                    @foreach ($agreements as $agreement)
+                                    <option value="{{ $agreement->id }}">{{ $agreement->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">Refund for</label>
+                                <select class="form-control" name="type" required>
+                                    <option value="">Select</option>
+                                    <option value="rent">Rent</option>
+                                    <option value="modify">Modification or damage or paint</option>
+                                    <option value="bill">Utility Bills</option>
+                                    <option value="security">Security Deposit</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label class="col-form-label">Pay Amount</label>
+                                <input name="amount" type="number" class="form-control">
+                            </div>
+                        </div>
 
-    {{-- // Refund --}}
-    <div class="tab-pane fade" id="profile-simple2" role="tabpanel" aria-labelledby="profile-tab-simple">
-        <div class="card-body">
-            <form action="{{ route('payment.store') }}" method="POST">
-                @csrf
-                <div class="row">
-                    
-                    <div class="col-md-4 form-group">
-                        <label class="col-form-label">Agreement</label>
-                        <select class="form-control agreements" name="agreement_id" required>
-                            <option value="">Select</option>
-                            @foreach ($agreements as $agreement)
-                            <option value="{{ $agreement->id }}">{{ $agreement->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label class="col-form-label">Refund for</label>
-                        <select class="form-control" required>
-                            <option value="">Select</option>
-                            <option value="rent">Rent</option>
-                            <option value="modify">Modification or damage or paint</option>
-                            <option value="bill">Utility Bills</option>
-                            <option value="security">Security Deposit</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-4">
-                        <label class="col-form-label">Pay Amount</label>
-                        <input name="amount" type="number" class="form-control">
-                    </div>
+                        <div class="row">
+
+
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Type</label>
+                                <input type="text" class="form-control type" disabled>
+                            </div>
+
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Property</label>
+                                <input type="text" class="form-control property" disabled>
+                            </div>
+
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Tent</label>
+                                <input type="text" class="form-control tent" disabled>
+                            </div>
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Current Rent</label>
+                                <input type="text" class="form-control rent" disabled>
+                            </div>
+                        </div>
+
+                <div class="form-group text-right mt-4">
+                    <button type="submit" class="btn btn-primary rounded">Refund</button>
                 </div>
 
-                <div class="row">
-
-
-                    <div class="form-group col-3">
-                        <label class="col-form-label">Type</label>
-                        <input type="text" class="form-control type" disabled>
-                    </div>
-
-                    <div class="form-group col-3">
-                        <label class="col-form-label">Property</label>
-                        <input type="text" class="form-control property" disabled>
-                    </div>
-
-                    <div class="form-group col-3">
-                        <label class="col-form-label">Tent</label>
-                        <input type="text" class="form-control tent" disabled>
-                    </div>
-                    <div class="form-group col-3">
-                        <label class="col-form-label">Current Rent</label>
-                        <input type="text" class="form-control rent" disabled>
-                    </div>
-                </div>
-
-                {{-- <div class="row">
-                           
-                            {{-- <div class="col-4 form-group">
-                                <label class="col-form-label">Entry Date</label>
-                                <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}"
-                class="form-control">
+                </form>
+            </div>
         </div>
-        <div class="col-4 form-group">
-            <label class="col-form-label">Enter By</label>
-            <input value="{{auth()->user()->name}}" class="form-control" disabled>
-        </div> --}}
-        {{-- </div> --}}
-
-
-        <div class="form-group text-right mt-4">
-            <button type="submit" class="btn btn-primary rounded">Refund</button>
-        </div>
-
-        </form>
     </div>
-</div>
-</div>
 </div>
 </div>
 
