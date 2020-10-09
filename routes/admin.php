@@ -25,7 +25,7 @@ Route::get('dashboard', 'AdminController@dashboard');
 Route::resource('borrow', 'BorrowController');
 
 // Route::resource('expence', 'ExpenceController');
-// Route::resource('loan', 'LoanController');
+Route::resource('loan', 'LoanController');
 
 
 // ajax routes
