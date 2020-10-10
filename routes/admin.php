@@ -28,6 +28,8 @@ Route::resource('borrow', 'BorrowController');
 Route::resource('loan', 'LoanController');
 
 Route::resource('user', 'UserController');
+Route::get('settings', 'AdminController@setting');
+Route::post('settings', 'AdminController@settingUpdate');
 
 // ajax routes
 Route::get('get-properties', 'PropertyController@properties');
