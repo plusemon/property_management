@@ -88,6 +88,7 @@ class BorrowController extends Controller
      */
     public function destroy(Borrow $borrow)
     {
-        //
+        $borrow->delete();
+        return redirect()->back()->with('success','Added Successfully');
     }
 }

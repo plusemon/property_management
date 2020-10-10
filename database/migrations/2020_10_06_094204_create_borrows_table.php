@@ -18,7 +18,7 @@ class CreateBorrowsTable extends Migration
             $table->integer('user_id');
             $table->integer('amount');
             $table->string('entry');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
