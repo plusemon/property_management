@@ -27,6 +27,7 @@ Route::resource('borrow', 'BorrowController');
 // Route::resource('expence', 'ExpenceController');
 Route::resource('loan', 'LoanController');
 
+Route::resource('user', 'UserController');
 
 // ajax routes
 Route::get('get-properties', 'PropertyController@properties');

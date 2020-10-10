@@ -5,7 +5,7 @@
 
 <div class="col-12">
     <div class="section-block">
-        <h2 class="section-title">Borrows</h2>
+        <h2 class="section-title">Users</h2>
     </div>
     <div class="simple-card">
         <ul class="nav nav-tabs" id="myTab5" role="tablist">
@@ -27,26 +27,25 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Borrower</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Amount</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Joined</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($borrows as $borrow)
+                                    @foreach ($users as $user)
                                     <tr>
-                                        <th>{{$borrow->id}}</th>
-                                        <td>{{$borrow->created_at->format('d/m/Y')}}</td>
-                                        <td>{{$borrow->user->name}}</td>
-                                        <td>{{$borrow->description}}</td>
-                                        <td>{{$borrow->amount}}</td>
-                                        <td>{{ $borrow->created_at->format('d-m-Y') }}</td>
+                                        <th>{{$user->id}}</th>
+                                        <th>{{$user->name}}</th>
+                                        <th>{{$user->email}}</th>
+                                        <th>{{$user->role}}</th>
+                                        <td>{{ $user->created_at->format('d-m-Y') }}</td>
                                         <td class="text-right">
-                                            <a href="{{ route('borrow.edit', $borrow->id)}}" class="btn btn-sm btn-warning"><i
+                                            <a href="{{ route('user.edit', $user->id)}}" class="btn btn-sm btn-warning"><i
                                                     class="fas fa-edit"></i></a>
-                                            <form class="d-inline" action="{{route('borrow.destroy', $borrow->id)}}"
+                                            <form class="d-inline" action="{{route('user.destroy', $user->id)}}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -65,46 +64,64 @@
             <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('borrow.store') }}" method="POST">
+                        <form method="POST" action="{{ route('user.index') }}">
                             @csrf
-                            <div class="row">
-                                <div class="form-group col-3">
-                                    <label class="col-form-label">Borrowers</label>
-                                    <select class="form-control" name="user_id">
-                                        <option value="">Select User</option>
-                                        @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
     
-                                <div class="form-group col-3">
-                                    <label class="col-form-label">Amount</label>
-                                    <input type="number" name="amount" class="form-control">
-                                </div>
-                                
-                                <div class="form-group col-3">
-                                    <label class="col-form-label">Entry Date</label>
-                                    <input type="date" name="created_at" class="form-control" value="{{ date("Y-m-d") }}">
-                                </div>
-                                <div class="form-group col-3">
-                                    <label class="col-form-label">Enter by</label>
-                                    <input name="entry" class="form-control" value="{{ auth()->user()->name }}">
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+    
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
-            
-                            <div class="form-group">
-                                <label for="textarea">Description</label>
-                                <textarea name="description" class="form-control" rows="3"></textarea>
+    
+                            <div class="form-group row">
+                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+    
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-            
+    
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+    
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+    
+                            <div class="form-group row">
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                </div>
+                            </div>
+    
                             <div class="form-group text-right mt-4">
-                                <button type="submit" class="btn btn-primary">Add Borrow</button>
+                                <button type="submit" class="btn btn-primary">Add</button>
                             </div>
-            
-                            
-            
                         </form>
+                        
                     </div>
                 </div>
             </div>

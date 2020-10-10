@@ -104,7 +104,7 @@
                         <div id="submenu-10" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/users')}}">Manage Users</a>
+                                    <a class="nav-link" href="{{url('admin/user')}}">Manage Users</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{url('admin/roles')}}">Roles & Permissions</a>
