@@ -98,7 +98,7 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label class="col-form-label">Pay for</label>
-                                <select class="form-control" name="type" required>
+                                <select class="form-control" name="type" id="pay-type" required>
                                     <option value="">Select</option>
                                     <option value="rent">Rent</option>
                                     <option value="modify">Modification or damage or paint</option>
@@ -107,6 +107,49 @@
                                 </select>
                             </div>
 
+                        </div>
+
+
+
+                        <div class="row" id="month-row">
+                            <div class="form-group" data-toggle="buttons">
+                                <label class="btn btn-dark">
+                                    <input name="jan" value="1" type="checkbox"> J                                
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="feb" value="2" type="checkbox"> F
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="mar" value="3" type="checkbox"> M
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="apr" value="4" type="checkbox"> A
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="may" value="5" type="checkbox"> M
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="jun" value="6" type="checkbox"> J
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="jul" value="7" type="checkbox"> J
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="aug" value="8" type="checkbox"> A
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="sep" value="9" type="checkbox"> S
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="oct" value="10" type="checkbox"> O
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="nov" value="11" type="checkbox"> N
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="dec" value="12" type="checkbox"> D
+                                </label>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -157,6 +200,8 @@
 
 
                         </div>
+
+
                         <div class="row" id="bank-row">
                             <div class="form-group col-3">
                                 <label class="col-form-label">Bank Name</label>
@@ -246,15 +291,15 @@
                             </div>
                         </div>
 
-                <div class="form-group text-right mt-4">
-                    <button type="submit" class="btn btn-primary rounded">Refund</button>
-                </div>
+                        <div class="form-group text-right mt-4">
+                            <button type="submit" class="btn btn-primary rounded">Refund</button>
+                        </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 
@@ -311,8 +356,19 @@
         }
     });
 
+
+    $('#pay-type').on('change', function() {
+        var type = $(this).val();
+        
+        if (type == 'rent') {
+            $('#month-row').slideDown();
+        }else{
+            $('#month-row').slideUp();
+        }
+    });
+
     $('#gstbox').click(function() {
-        $("#gst").toggle(this.checked);
+        $("#gst").toggle();
     });
 
 
