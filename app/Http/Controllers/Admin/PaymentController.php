@@ -46,6 +46,7 @@ class PaymentController extends Controller
             $request->validate([
                 "agreement_id" => "required",
                 "type" => "required",
+                "month" => "unique:payments",
                 "method" => "required",
                 "amount" => "required",
             ]);
@@ -54,6 +55,11 @@ class PaymentController extends Controller
             $payment->agreement_id = $request->agreement_id;
             $payment->user_id = auth()->id();
             $payment->type = $request->type;
+
+            if ($request->type == 'rent') {
+                $payment->month = $request->month;
+            }
+
             $payment->method = $request->method;
             $payment->amount = $request->amount;
             $payment->tnxid = uniqid();
@@ -65,8 +71,11 @@ class PaymentController extends Controller
                 $payment->account = $request->account;
                 $payment->branch = $request->branch;
                 $payment->cheque = $request->cheque;
-                $payment->attachment = $request->attachment;
+                if ($request->has('attachment')) {
+                    $payment->attachment = $request->attachment->store('/cheque');
+                }
             }
+            // return $payment;
             $payment->save();
         }
 
