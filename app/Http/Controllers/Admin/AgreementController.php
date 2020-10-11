@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Agreement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Property;
 use App\Tent;
 use App\Type;
 
@@ -141,12 +140,17 @@ class AgreementController extends Controller
     {
         if($request->has('id')){
             $agreement = Agreement::find($request->id);
+            $paid = [];
+            foreach ($agreement->payments as $payment) {
+               $paid[] += $payment->month;
+            }
+            // return $paid;
             $data = [];
             $data['type'] = $agreement->property->type->name;
             $data['property'] = $agreement->property->name;
             $data['tent'] = $agreement->tent->fname.' '.$agreement->tent->lname;
             $data['rent'] = $agreement->property->rate;
-
+            $data['paid'] = $paid;
             if($data){
                 return response()->json($data);
             }

@@ -39,6 +39,7 @@
                                         <th scope="col">Sec. Money</th>
                                         <th scope="col">Yr Incr. %</th>
                                         <th scope="col">Start Date</th>
+                                        <th scope="col">Month Paid</th>
                                         <th scope="col">Attachment</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -56,6 +57,13 @@
                                         <td>{{ $agreement->advance }}</td>
                                         <td>{{ $agreement->yearly_percent }}%</td>
                                         <td>{{ $agreement->created_at->format('d/m/Y') }}</td>
+                                       <td>@if ($agreement->payments->count() == 12)
+                                           Completed
+                                            @else
+                                                @foreach ($agreement->payments as $payment)
+                                                {{ $payment->month }},
+                                                @endforeach
+                                            @endif</td>
                                         <td>
                                             <a href="{{ url('public/storage/'.$agreement->attachment) }}"
                                                 class="badge badge-secondary p-1">Download</a><br>

@@ -35,7 +35,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Date</th>
-                                        <th scope="col">Pay for</th>
+                                        <th scope="col">Pay (m)</th>
                                         <th scope="col">Transaction id</th>
                                         <th scope="col">Agreement</th>
                                         <th scope="col">Type</th>
@@ -50,7 +50,7 @@
                                     @foreach ($payments as $payment)
                                     <tr>
                                         <td>{{ $payment->created_at->format('d-m-y') }}</td>
-                                        <td>{{ $payment->type }}</td>
+                                        <td>{{ $payment->type }} - {{ $payment->month ?? '' }}</td>
                                         <td>{{ $payment->tnxid }}</td>
                                         <td>{{ $payment->agreement->name }}</td>
                                         <td>{{ $payment->agreement->property->type->name }}</td>
@@ -87,7 +87,7 @@
                         @csrf
                         <input type="hidden" name="for" value="payment">
                         <div class="row">
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
                                 <label class="col-form-label">Agreement</label>
                                 <select class="form-control" name="agreement_id" id="agreements" required>
                                     <option value="">Select</option>
@@ -96,9 +96,9 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
                                 <label class="col-form-label">Pay for</label>
-                                <select class="form-control" name="type" required>
+                                <select class="form-control" name="type" id="pay-type" required>
                                     <option value="">Select</option>
                                     <option value="rent">Rent</option>
                                     <option value="modify">Modification or damage or paint</option>
@@ -107,8 +107,25 @@
                                 </select>
                             </div>
 
-                        </div>
+                            <div class="col-md-4 form-group" id="month-row">
+                                <label class="col-form-label">Select month</label>
+                                <select class="form-control" name="month" id="month">
+                                    <option value="1" {{ date('m') == 1 ? 'selected':'' }}>January</option>
+                                    <option value="2" {{ date('m') == 2 ? 'selected':'' }}>February</option>
+                                    <option value="3" {{ date('m') == 3 ? 'selected':'' }}>March</option>
+                                    <option value="4" {{ date('m') == 4 ? 'selected':'' }}>April</option>
+                                    <option value="5" {{ date('m') == 5 ? 'selected':'' }}>May</option>
+                                    <option value="6" {{ date('m') == 6 ? 'selected':'' }}>June</option>
+                                    <option value="7" {{ date('m') == 7 ? 'selected':'' }}>July</option>
+                                    <option value="8" {{ date('m') == 8 ? 'selected':'' }}>August</option>
+                                    <option value="9" {{ date('m') == 9 ? 'selected':'' }}>September</option>
+                                    <option value="10" {{ date('m') == 10 ? 'selected':'' }}>October</option>
+                                    <option value="11" {{ date('m') == 11 ? 'selected':'' }}>November</option>
+                                    <option value="12" {{ date('m') == 12 ? 'selected':'' }}>December</option>
+                                </select>
+                            </div>
 
+                        </div>
                         <div class="row">
                             <div class="form-group col-3">
                                 <label class="col-form-label">Type</label>
@@ -130,6 +147,47 @@
                             </div>
                         </div>
 
+                        {{-- <div class="row" id="month-row">
+                            <div class="form-group" data-toggle="buttons">
+                                <label class="btn btn-dark">
+                                    <input name="jan" value="1" type="checkbox"> J                                
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="feb" value="2" type="checkbox"> F
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="mar" value="3" type="checkbox"> M
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="apr" value="4" type="checkbox"> A
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="may" value="5" type="checkbox"> M
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="jun" value="6" type="checkbox"> J
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="jul" value="7" type="checkbox"> J
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="aug" value="8" type="checkbox"> A
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="sep" value="9" type="checkbox"> S
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="oct" value="10" type="checkbox"> O
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="nov" value="11" type="checkbox"> N
+                                </label>
+                                <label class="btn btn-dark">
+                                    <input name="dec" value="12" type="checkbox"> D
+                                </label>
+                            </div>
+                        </div> --}}
+
                         <div class="row">
                             <div class="col-md-4 form-group">
                                 <label class="col-form-label">Payment Method</label>
@@ -142,7 +200,7 @@
 
                             <div class="form-group col-md-4">
                                 <label class="col-form-label">Amount</label>
-                                <input name="amount" type="text" class="form-control" required>
+                                <input name="amount" id="amount" type="text" class="form-control" required>
                             </div>
                             <div class="form-group col-md-2 my-auto">
                                 <label class="custom-control custom-checkbox">
@@ -154,9 +212,8 @@
                                 <label class="col-form-label">GST(%)</label>
                                 <input name="gst" type="text" class="form-control">
                             </div>
-
-
                         </div>
+
                         <div class="row" id="bank-row">
                             <div class="form-group col-3">
                                 <label class="col-form-label">Bank Name</label>
@@ -183,6 +240,7 @@
                                 <input name="attachment" type="file" class="form-control">
                             </div>
                         </div>
+
                         <div class="form-group text-right mt-4">
                             <button type="submit" class="btn btn-primary">Pay Now</button>
                         </div>
@@ -246,15 +304,15 @@
                             </div>
                         </div>
 
-                <div class="form-group text-right mt-4">
-                    <button type="submit" class="btn btn-primary rounded">Refund</button>
-                </div>
+                        <div class="form-group text-right mt-4">
+                            <button type="submit" class="btn btn-primary rounded">Refund</button>
+                        </div>
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 
@@ -265,7 +323,7 @@
 
 @section('scripts')
 <script>
-    // For pay api
+    // For Refund api
     $('.agreements').on('change', function() {
         var agreement = $(this).val();
         var url = '{{ url('admin/get-agreement') }}?id=' + agreement;
@@ -279,11 +337,12 @@
                 $('.property').val(data.property);
                 $('.tent').val(data.tent);
                 $('.rent').val(data.rent);
+                
             }
         });
     });
 
-    // Refund api
+    // Pay api
     $('#agreements').on('change', function() {
         var agreement = $(this).val();
         var url = '{{ url('admin/get-agreement') }}?id=' + agreement;
@@ -297,6 +356,10 @@
                 $('#property').val(data.property);
                 $('#tent').val(data.tent);
                 $('#rent').val(data.rent);
+                $('#amount').val(data.rent);
+                // data.paid.forEach(element => {
+                    
+                // });
             }
         });
     });
@@ -311,8 +374,19 @@
         }
     });
 
+
+    $('#pay-type').on('change', function() {
+        var type = $(this).val();
+        
+        if (type == 'rent') {
+            $('#month-row').slideDown();
+        }else{
+            $('#month-row').slideUp();
+        }
+    });
+
     $('#gstbox').click(function() {
-        $("#gst").toggle(this.checked);
+        $("#gst").toggle();
     });
 
 
