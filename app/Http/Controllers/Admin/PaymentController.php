@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Agreement;
 use App\Payment;
+use App\Agreement;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -41,60 +42,75 @@ class PaymentController extends Controller
     {
         // return $request;
 
-        // Monthly Rent Payment
-        if ($request->for == 'payment' and $request->type == 'rent' ) {
-            $request->validate([
-                "agreement_id" => "required",
-                "type" => "required",
-                "month" => "required",
-                "method" => "required",
-                "amount" => "required",
-            ]);
+        // Payment
+        if ($request->for == 'payment') {
 
-            // calculate payment status
-            $agreement = Agreement::findOrFail($request->agreement_id);
-            $payments = $agreement->payments->where('month',$request->month)->pluck('amount')->sum();
-            $rent = $agreement->property->rate;
-            $due = 0;
+            // Monthly Rent payment
+            if ($request->type == 'rent') {
+                $request->validate([
+                    "agreement_id" => "required",
+                    "type" => "required",
+                    "month" => "required",
+                    "method" => "required",
+                    "amount" => "required",
+                ]);
 
-            if ($payments >= $rent) {
-                return redirect()->back()->with('info','Payment Already Completed');
-             }
-             else{
-               $due = ($rent - $payments);
-             }
-             
-     
-             
-            $payment = new Payment();
-            $payment->agreement_id = $request->agreement_id;
-            $payment->user_id = auth()->id();
-            $payment->type = $request->type;
-            $payment->month = $request->month;
-            
-            $payment->method = $request->method;
-            
-            if ($request->amount <= $due) {
-                $payment->amount = $request->amount;
-             }else{
-                $payment->amount = $due;
-                $wallet = ($request->amount - $due);
-             }
+                // calculate payment status by agreement
+                $agreement = Agreement::findOrFail($request->agreement_id);
+                $payments = $agreement->payments->where('month', $request->month)->pluck('amount')->sum();
+                $rent = $agreement->property->rate;
+                $due = 0;
 
-            $payment->tnxid = uniqid();
+                if ($payments >= $rent) {
+                    // full payment completed
+                    return redirect()->back()->with('info', 'Payment Already Completed');
+                } else {
+                    // some due
+                    $due = ($rent - $payments);
+                }
 
-            if ($request->gst) {
-                $payment->gst = $request->gst;
-            }
-            if ($request->method == 'bank') {
-                $payment->bank = $request->bank;
-                $payment->account = $request->account;
-                $payment->branch = $request->branch;
-                $payment->cheque = $request->cheque;
-                if ($request->has('attachment')) {
-                    $payment->attachment = $request->attachment->store('/cheque');
+                $payment = new Payment();
+                $payment->agreement_id = $request->agreement_id;
+                $payment->user_id = auth()->id();
+                $payment->type = $request->type;
+                $payment->method = $request->method;
+
+                if ($request->method == 'wallet' and $request->amount <= Auth::user()->wallet ) {
+                    $user = Auth::user();
+                    $user->wallet -= $request->amount;
+                    $user->save();
+                }
+
+                $payment->month = $request->month;
+
+                if ($request->amount <= $due) {
+                    $payment->amount = $request->amount;
+                } else {
+                    $payment->amount = $due;
+
+                    //rest will save in wallet
+                    $user = Auth::user();
+                    $user->wallet += ($request->amount - $due);
+                    $user->save();
+                }
+
+                $payment->tnxid = uniqid();
+                if ($request->gst) {
+                    $payment->gst = $request->gst;
+                }
+                if ($request->method == 'bank') {
+                    $payment->bank = $request->bank;
+                    $payment->account = $request->account;
+                    $payment->branch = $request->branch;
+                    $payment->cheque = $request->cheque;
+                    if ($request->has('attachment')) {
+                        $payment->attachment = $request->attachment->store('/cheque');
+                    }
                 }
             }
+
+            // other payment
+
             $payment->save();
         }
 

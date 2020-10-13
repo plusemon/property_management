@@ -6,6 +6,7 @@ use App\Agreement;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Property;
+use Illuminate\Support\Facades\Auth;
 
 class AjaxController extends Controller
 {
@@ -66,7 +67,7 @@ class AjaxController extends Controller
 
     public function walletBalance()
     {
-        $data = 20000;
+        $data = Auth::user()->wallet;
         if($data){
             return response()->json($data);
         }

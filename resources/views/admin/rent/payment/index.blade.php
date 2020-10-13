@@ -153,7 +153,7 @@
                                 <input id="tent" type="text" class="form-control" disabled>
                             </div>
                             <div class="form-group col-3">
-                                <label class="col-form-label">Rent</label>
+                                <label class="col-form-label">Rent(Montly)</label>
                                 <input id="rent" type="text" class="form-control" disabled>
                             </div>
                         </div>
