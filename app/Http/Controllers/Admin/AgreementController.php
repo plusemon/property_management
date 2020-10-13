@@ -135,26 +135,4 @@ class AgreementController extends Controller
        return redirect('admin/agreement')->with('success','Deleted Succefully');
     }
 
-
-    public function agreement(Request $request)
-    {
-        if($request->has('id')){
-            $agreement = Agreement::find($request->id);
-            $paid = [];
-            foreach ($agreement->payments as $payment) {
-               $paid[] += $payment->month;
-            }
-            // return $paid;
-            $data = [];
-            $data['type'] = $agreement->property->type->name;
-            $data['property'] = $agreement->property->name;
-            $data['tent'] = $agreement->tent->fname.' '.$agreement->tent->lname;
-            $data['rent'] = $agreement->property->rate;
-            $data['paid'] = $paid;
-            if($data){
-                return response()->json($data);
-            }
-        }
-    }
-
 }

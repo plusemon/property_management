@@ -42,7 +42,7 @@ class PaymentController extends Controller
         // return $request;
 
         // Payment
-        if ($request->for == 'payment') {
+        if ($request->for == 'payment' and $request->type == 'rent' ) {
             $request->validate([
                 "agreement_id" => "required",
                 "type" => "required",

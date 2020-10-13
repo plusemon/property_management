@@ -131,15 +131,4 @@ class PropertyController extends Controller
         return redirect('admin/property')->with('success','Deleted Succefully');
     }
 
-
-
-    public function properties(Request $request)
-    {
-        if($request){
-            $properties = Property::where('type_id', $request->type)->get();
-            if($properties){
-                return response()->json($properties);
-            }
-        }
-    }
 }

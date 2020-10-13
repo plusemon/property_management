@@ -148,7 +148,7 @@
 
 
                             <div class="col-4 form-group">
-                                <label class="col-form-label">Entry Date</label>
+                                <label class="col-form-label">Start Date</label>
                                 <input id="created_at" name="created_at" type="date"
                                     value="{{ date('Y-m-d') }}" class="form-control">
                             </div>
@@ -204,9 +204,10 @@
 
 @section('scripts')
 <script>
+    // Get properties by type
     $('#types').on('change', function() {
         var type = $('#types').val();
-        var url = '{{ url('admin/get-properties') }}?type=' + type;
+        var url = '{{ url('admin/ajax/properties') }}?type=' + type;
         $.ajax({
             type: "GET",
             url: url,
@@ -224,8 +225,6 @@
             }
         });
     });
-
-
     
 </script>
 @endsection

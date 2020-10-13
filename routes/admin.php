@@ -32,5 +32,7 @@ Route::get('settings', 'AdminController@setting');
 Route::post('settings', 'AdminController@settingUpdate');
 
 // ajax routes
-Route::get('get-properties', 'PropertyController@properties');
-Route::get('get-agreement', 'AgreementController@agreement');
+Route::get('ajax/properties', 'AjaxController@properties');
+Route::get('ajax/agreement-info', 'AjaxController@agreementInfo');
+Route::get('ajax/payment-status', 'AjaxController@paymentMonthStatus');
+Route::get('ajax/wallet-balance', 'AjaxController@walletBalance');
