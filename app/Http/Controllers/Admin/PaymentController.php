@@ -41,28 +41,48 @@ class PaymentController extends Controller
     {
         // return $request;
 
-        // Payment
+        // Monthly Rent Payment
         if ($request->for == 'payment' and $request->type == 'rent' ) {
             $request->validate([
                 "agreement_id" => "required",
                 "type" => "required",
-                "month" => "unique:payments",
+                "month" => "required",
                 "method" => "required",
                 "amount" => "required",
             ]);
 
+            // calculate payment status
+            $agreement = Agreement::findOrFail($request->agreement_id);
+            $payments = $agreement->payments->where('month',$request->month)->pluck('amount')->sum();
+            $rent = $agreement->property->rate;
+            $due = 0;
+
+            if ($payments >= $rent) {
+                return redirect()->back()->with('info','Payment Already Completed');
+             }
+             else{
+               $due = ($rent - $payments);
+             }
+             
+     
+             
             $payment = new Payment();
             $payment->agreement_id = $request->agreement_id;
             $payment->user_id = auth()->id();
             $payment->type = $request->type;
-
-            if ($request->type == 'rent') {
-                $payment->month = $request->month;
-            }
-
+            $payment->month = $request->month;
+            
             $payment->method = $request->method;
-            $payment->amount = $request->amount;
+            
+            if ($request->amount <= $due) {
+                $payment->amount = $request->amount;
+             }else{
+                $payment->amount = $due;
+                $wallet = ($request->amount - $due);
+             }
+
             $payment->tnxid = uniqid();
+
             if ($request->gst) {
                 $payment->gst = $request->gst;
             }
@@ -75,7 +95,6 @@ class PaymentController extends Controller
                     $payment->attachment = $request->attachment->store('/cheque');
                 }
             }
-            // return $payment;
             $payment->save();
         }
 
