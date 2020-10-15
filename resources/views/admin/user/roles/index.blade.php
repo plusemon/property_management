@@ -47,7 +47,7 @@
                                         <td class="text-right">
                                             <a href="{{ route('role.edit', $role->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            <form class="d-inline" action="{{route('role.destroy', $role->name)}}"
+                                            <form class="d-inline" action="{{route('role.destroy', $role->id)}}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')

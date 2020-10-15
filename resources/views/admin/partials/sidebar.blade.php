@@ -107,11 +107,9 @@
                                     <a class="nav-link" href="{{url('admin/user')}}">Manage</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/role')}}">Roles</a>
+                                    <a class="nav-link" href="{{url('admin/permission')}}">Permissions </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/permission')}}">Permissions</a>
-                                </li>
+
                             </ul>
                         </div>
                     </li>
