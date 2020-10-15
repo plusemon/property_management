@@ -15,10 +15,11 @@ class CreateAgreementsTable extends Migration
     {
         Schema::create('agreements', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->integer('user_id');
             $table->integer('property_id');
             $table->integer('tent_id');
+            $table->string('status')->default('pending');
+            $table->string('name');
             $table->integer('advance');
             $table->integer('yearly_percent');
             $table->string('attachment');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2020 at 10:16 AM
+-- Generation Time: Oct 14, 2020 at 06:08 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -45,7 +45,7 @@ CREATE TABLE `agreements` (
 --
 
 INSERT INTO `agreements` (`id`, `name`, `user_id`, `property_id`, `tent_id`, `advance`, `yearly_percent`, `attachment`, `created_at`, `updated_at`) VALUES
-(1, 'House Rent Agreement', 1, 1, 1, 50000, 12, 'agreement/fCwxnlscKwY95DwIu7UCnxTqUqKvyaqnAFcz53F3.png', '2020-09-30 18:00:00', '2020-10-11 01:44:10');
+(2, 'Electronic Shop Agreement', 1, 4, 2, 50000, 10, 'agreement/NlPdRvIBMNJZhOzlin4KzAUJYQkx2dTe6sachmL5.jpeg', '2020-10-11 18:00:00', '2020-10-12 08:07:53');
 
 -- --------------------------------------------------------
 
@@ -161,7 +161,7 @@ CREATE TABLE `payments` (
   `agreement_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `month` int(11) DEFAULT NULL,
+  `month` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `method` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tnxid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -180,11 +180,12 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`id`, `agreement_id`, `user_id`, `type`, `month`, `method`, `amount`, `tnxid`, `gst`, `bank`, `account`, `branch`, `cheque`, `attachment`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'rent', 1, 'cash', '10000', '5f82be216bfb8', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-11 02:11:13', '2020-10-11 02:11:13'),
-(2, 1, 1, 'rent', 2, 'cash', '10000', '5f82bf0237ccb', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-11 02:14:58', '2020-10-11 02:14:58'),
-(3, 1, 1, 'rent', 3, 'cash', '10000', '5f82bf21795e8', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-11 02:15:29', '2020-10-11 02:15:29'),
-(4, 1, 1, 'rent', 4, 'cash', '10000', '5f82c0ac72ea0', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-11 02:22:04', '2020-10-11 02:22:04'),
-(5, 1, 1, 'rent', 5, 'cash', '10000', '5f82c0e95372f', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-11 02:23:05', '2020-10-11 02:23:05');
+(13, 2, 1, 'rent', 'jan', 'wallet', '10000', '5f8525e6d120e', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-12 21:58:30', '2020-10-12 21:58:30'),
+(14, 2, 1, 'rent', 'feb', 'wallet', '10000', '5f8526c78e2c7', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-12 22:02:15', '2020-10-12 22:02:15'),
+(15, 2, 1, 'rent', 'mar', 'wallet', '10000', '5f852752d512e', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-12 22:04:34', '2020-10-12 22:04:34'),
+(16, 2, 1, 'rent', 'apr', 'wallet', '10000', '5f8527b93bc72', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-12 22:06:17', '2020-10-12 22:06:17'),
+(17, 2, 1, 'rent', 'may', 'wallet', '10000', '5f8527c9ae299', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-12 22:06:33', '2020-10-12 22:06:33'),
+(18, 2, 1, 'rent', 'jun', 'wallet', '10000', '5f8527dfd827c', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-12 22:06:55', '2020-10-12 22:06:55');
 
 -- --------------------------------------------------------
 
@@ -210,7 +211,7 @@ CREATE TABLE `properties` (
 --
 
 INSERT INTO `properties` (`id`, `type_id`, `name`, `rate`, `district`, `street`, `city`, `country`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Home', 10000, 'Dhaka', 'Ashulia', 'Dhaka', 'Bangladesh', '2020-10-09 18:00:00', '2020-10-10 10:14:32');
+(4, 2, 'Electronic Shop', 10000, 'Dhaka', 'Uttara', 'Dhaka', 'Bangladesh', '2020-10-11 18:00:00', '2020-10-12 08:04:48');
 
 -- --------------------------------------------------------
 
@@ -259,7 +260,7 @@ CREATE TABLE `tents` (
 --
 
 INSERT INTO `tents` (`id`, `fname`, `lname`, `cnic`, `cnica`, `address`, `city`, `country`, `contact1`, `contact2`, `contact3`, `g1_fname`, `g1_lname`, `g1_cnic`, `g1_cnica`, `g1_address`, `g1_city`, `g1_country`, `g1_contact1`, `g1_contact2`, `g1_contact3`, `g2_fname`, `g2_lname`, `g2_cnic`, `g2_cnica`, `g2_address`, `g2_city`, `g2_country`, `g2_contact1`, `g2_contact2`, `g2_contact3`, `created_at`, `updated_at`) VALUES
-(1, 'Emon', 'Khan', '123456', NULL, 'Ashulia', 'dhaka', 'Bangladesh', '01995329555', NULL, NULL, 'Mamun', 'Khan', '123', NULL, 'Ashulia', 'dhaka', 'Bangladesh', '111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-10 10:15:35', '2020-10-10 10:15:35');
+(2, 'Mr.', 'John', '123', NULL, 'Ashulia', 'Dhaka', 'Bangladesh', '123', NULL, NULL, 'Mr.', 'Jene', '321', NULL, 'Ashulia', 'dhaka', 'Bangladesh', '4757', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-12 08:06:43', '2020-10-12 08:06:43');
 
 -- --------------------------------------------------------
 
@@ -292,7 +293,7 @@ CREATE TABLE `types` (
 --
 
 INSERT INTO `types` (`id`, `name`, `type`, `created_at`, `updated_at`) VALUES
-(1, 'House', 'property', '2020-10-09 18:00:00', '2020-10-10 10:13:59');
+(2, 'Shop', 'property', '2020-10-11 18:00:00', '2020-10-12 08:03:28');
 
 -- --------------------------------------------------------
 
@@ -302,6 +303,7 @@ INSERT INTO `types` (`id`, `name`, `type`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `wallet` int(11) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -315,8 +317,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Super Admin', 'bdemon00@gmail.com', NULL, '$2y$10$uOX8aWrtyHZUF6ZS/L5o4.d.o/YwzP2wQc3ZPcz1xtnfMUs7Tc8Gy', 'DoxEtTFfxS1S62jJ9kJ67q8sUDCfEqczLMIfBr4vG1BoVRrvcC7AeY31aq1a', '2020-10-06 02:53:22', '2020-10-06 02:53:22');
+INSERT INTO `users` (`id`, `wallet`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 0, 'Super Admin', 'bdemon00@gmail.com', NULL, '$2y$10$uOX8aWrtyHZUF6ZS/L5o4.d.o/YwzP2wQc3ZPcz1xtnfMUs7Tc8Gy', 'DoxEtTFfxS1S62jJ9kJ67q8sUDCfEqczLMIfBr4vG1BoVRrvcC7AeY31aq1a', '2020-10-06 02:53:22', '2020-10-12 22:06:33');
 
 --
 -- Indexes for dumped tables
@@ -409,7 +411,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `agreements`
 --
 ALTER TABLE `agreements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `borrows`
@@ -445,19 +447,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `properties`
 --
 ALTER TABLE `properties`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tents`
 --
 ALTER TABLE `tents`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `transactions`
@@ -469,7 +471,7 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`

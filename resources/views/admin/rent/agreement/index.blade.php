@@ -32,6 +32,7 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Aagreement</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Tent</th>
                                         <th scope="col">Property</th>
                                         <th scope="col">Type</th>
@@ -49,6 +50,7 @@
                                     <tr>
                                         <td>{{ $agreement->id }}</td>
                                         <td>{{ $agreement->name }}</td>
+                                        <td style="{{ $agreement->status == 'pending' ?'color:red':'' }}">{{ $agreement->status }}</td>
                                         <td>{{ $agreement->tent ? $agreement->tent->fname.' '.$agreement->tent->lname:'Deleted' }}
                                         </td>
                                         <td>{{ $agreement->property->name ?? 'Deleted'}}</td>
@@ -69,8 +71,9 @@
                                                 class="badge badge-secondary p-1">Download</a><br>
                                         </td>
                                         <td class="text-right">
-                                            <a href="{{ route('agreement.edit', $agreement->id)}}"
+                                            {{-- <a href="{{ route('agreement.edit', $agreement->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+--}}
                                             <form class="d-inline"
                                                 action="{{route('agreement.destroy', $agreement->id)}}" method="POST">
                                                 @csrf
@@ -221,10 +224,10 @@
 
                 data.forEach(element => {
                         $('#properties').append('<option value="'+element.id+'">'+element.name+'</option>')
-                });   
+                });
             }
         });
     });
-    
+
 </script>
 @endsection
