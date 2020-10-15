@@ -63,7 +63,7 @@
                         </a>
                     </li>
 
-                    
+
 
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
@@ -100,14 +100,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-10" aria-controls="submenu-10"><i
-                                class=" fas fa-user"></i>HR</a>
+                                class=" fas fa-user"></i>User</a>
                         <div id="submenu-10" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/user')}}">Manage Users</a>
+                                    <a class="nav-link" href="{{url('admin/user')}}">Manage</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/roles')}}">Roles & Permissions</a>
+                                    <a class="nav-link" href="{{url('admin/role')}}">Roles</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('admin/permission')}}">Permissions</a>
                                 </li>
                             </ul>
                         </div>
@@ -145,9 +148,9 @@
                         <a class="nav-link" href="{{url('admin/settings')}}"><i
                                 class="fas fa-sliders-h"></i>Settings</a>
                     </li>
-                   
 
-                  
+
+
 
 
                 </ul>

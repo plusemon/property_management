@@ -1,6 +1,5 @@
 <?php
 
-use Faker\DefaultGenerator;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UserSeeder::class);
         $this->call(DefaultAdminSeeder::class);
+        $this->call(RolesPermissionSeeder::class);
     }
 }
