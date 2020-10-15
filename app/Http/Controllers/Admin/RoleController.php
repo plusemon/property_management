@@ -21,8 +21,6 @@ class RoleController extends Controller
         return redirect()->back()->with('success', 'Added Succefully');
     }
 
-
-
     public function edit(Role $role)
     {
         $permissions = Permission::all();

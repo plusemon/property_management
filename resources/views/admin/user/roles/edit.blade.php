@@ -26,7 +26,7 @@
                 @foreach ($permissions as $permission)
                 <div class="form-group">
                     <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                        <input type="checkbox" class="custom-control-input" name="permissions[]" value="{{ $permission->name }}" id="{{ $permission->id }}">
+                        <input type="checkbox" class="custom-control-input" name="permissions[]" value="{{ $permission->name }}" id="{{ $permission->id }}" {{ $role->hasPermissionTo($permission->name) ? 'checked':''}}>
                         <label class="custom-control-label" for="{{ $permission->id }}">{{ $permission->name }}</label>
                       </div>
                 </div>
