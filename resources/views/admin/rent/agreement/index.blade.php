@@ -50,7 +50,8 @@
                                     <tr>
                                         <td>{{ $agreement->id }}</td>
                                         <td>{{ $agreement->name }}</td>
-                                        <td style="{{ $agreement->status == 'pending' ?'color:red':'' }}">{{ $agreement->status }}</td>
+                                        <td style="{{ $agreement->status == 0 ?'color:red':'color:green' }}">
+                                            {{ $agreement->status == 0 ?'Cancelled':'Active' }}</td>
                                         <td>{{ $agreement->tent ? $agreement->tent->fname.' '.$agreement->tent->lname:'Deleted' }}
                                         </td>
                                         <td>{{ $agreement->property->name ?? 'Deleted'}}</td>
@@ -59,12 +60,12 @@
                                         <td>{{ $agreement->advance }}</td>
                                         <td>{{ $agreement->yearly_percent }}%</td>
                                         <td>{{ $agreement->created_at->format('d/m/Y') }}</td>
-                                       <td>@if ($agreement->payments->count() == 12)
-                                           Completed
+                                        <td>@if ($agreement->payments->count() == 12)
+                                            Completed
                                             @else
-                                                @foreach ($agreement->payments as $payment)
-                                                {{ $payment->month }},
-                                                @endforeach
+                                            @foreach ($agreement->payments as $payment)
+                                            {{ $payment->month }},
+                                            @endforeach
                                             @endif</td>
                                         <td>
                                             <a href="{{ url('public/storage/'.$agreement->attachment) }}"
@@ -72,14 +73,27 @@
                                         </td>
                                         <td class="text-right">
                                             {{-- <a href="{{ route('agreement.edit', $agreement->id)}}"
-                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
---}}
-                                            <form class="d-inline"
+                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            --}}
+                                            {{-- <form class="d-inline"
                                                 action="{{route('agreement.destroy', $agreement->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"><i
+                                                    class="fas fa-trash-alt"></i></button>
+                                            </form> --}}
+
+                                            <form class="d-inline"
+                                                action="{{route('agreement.update', $agreement->id)}}" method="POST">
                                                 @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i
-                                                        class="fas fa-trash-alt"></i></button>
+                                                @method('PUT')
+                                                @if ($agreement->status)
+                                                    {{-- <input type="hidden" name="status" value="0">
+                                                    <button type="submit" class="btn btn-sm btn-danger">Undo</button> --}}
+                                                    @else
+                                                    <input type="hidden" name="status" value="1">
+                                                    <button type="submit" class="btn btn-sm btn-success">Accept</button>
+                                                @endif
                                             </form>
                                         </td>
                                     </tr>
@@ -152,8 +166,8 @@
 
                             <div class="col-4 form-group">
                                 <label class="col-form-label">Start Date</label>
-                                <input id="created_at" name="created_at" type="date"
-                                    value="{{ date('Y-m-d') }}" class="form-control">
+                                <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}"
+                                    class="form-control">
                             </div>
 
                             <div class="col-4 form-group">
@@ -166,28 +180,40 @@
                             <div class="col-md-12">
                                 <h4>Conditions:</h4>
                             </div>
-                           <div class="col-md-12">
-                            <div class="custom-control custom-checkbox was-validated" style="padding-left: 20px; margin-left: 20px;">
-                                <input type="checkbox" class="custom-control-input is-invalid"
-                                    id="customControlValidation2" required>
-                                <label class="custom-control-label" for="customControlValidation2">Any Modification or damage (without notification) or paint Tent has to repair o fix to its revise status it before leave the Property or deduced from him.</label>
+                            <div class="col-md-12">
+                                <div class="custom-control custom-checkbox was-validated"
+                                    style="padding-left: 20px; margin-left: 20px;">
+                                    <input type="checkbox" class="custom-control-input is-invalid"
+                                        id="customControlValidation2" required>
+                                    <label class="custom-control-label" for="customControlValidation2">Any Modification
+                                        or damage (without notification) or paint Tent has to repair o fix to its revise
+                                        status it before leave the Property or deduced from him.</label>
+                                </div>
+                                <div class="custom-control custom-checkbox was-validated"
+                                    style="padding-left: 20px; margin-left: 20px;">
+                                    <input type="checkbox" class="custom-control-input is-invalid"
+                                        id="customControlValidation3" required>
+                                    <label class="custom-control-label" for="customControlValidation3">Tent has to pay
+                                        any utility bills against his period before leave the Property or deduced from
+                                        him.</label>
+                                </div>
+                                <div class="custom-control custom-checkbox was-validated"
+                                    style="padding-left: 20px; margin-left: 20px;">
+                                    <input type="checkbox" class="custom-control-input is-invalid"
+                                        id="customControlValidation4" required>
+                                    <label class="custom-control-label" for="customControlValidation4">Tent has to pay
+                                        any rent dues against his period before leave the Property or deduced from
+                                        him.</label>
+                                </div>
+                                <div class="custom-control custom-checkbox was-validated"
+                                    style="padding-left: 20px; margin-left: 20px;">
+                                    <input type="checkbox" class="custom-control-input is-invalid"
+                                        id="customControlValidation5" required>
+                                    <label class="custom-control-label" for="customControlValidation5">Tent agreed that
+                                        if any clause upper mentioned I allow the owner to redeem from Security
+                                        Deposit</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-checkbox was-validated" style="padding-left: 20px; margin-left: 20px;">
-                                <input type="checkbox" class="custom-control-input is-invalid"
-                                    id="customControlValidation3" required>
-                                <label class="custom-control-label" for="customControlValidation3">Tent has to pay any utility bills against his period before leave the Property or deduced from him.</label>
-                            </div>
-                            <div class="custom-control custom-checkbox was-validated" style="padding-left: 20px; margin-left: 20px;">
-                                <input type="checkbox" class="custom-control-input is-invalid"
-                                    id="customControlValidation4" required>
-                                <label class="custom-control-label" for="customControlValidation4">Tent has to pay any rent dues against his period before leave the Property or deduced from him.</label>
-                            </div>
-                            <div class="custom-control custom-checkbox was-validated" style="padding-left: 20px; margin-left: 20px;">
-                                <input type="checkbox" class="custom-control-input is-invalid"
-                                    id="customControlValidation5" required>
-                                <label class="custom-control-label" for="customControlValidation5">Tent agreed that if any clause upper mentioned I allow the owner to redeem from Security Deposit</label>
-                            </div>
-                           </div>
                         </div>
 
                         <div class="form-group text-right mt-4">

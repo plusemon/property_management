@@ -54,6 +54,7 @@ class AgreementController extends Controller
         $agreement = new Agreement();
         $agreement->name = $request->name;
         $agreement->user_id = 1;
+        $agreement->status = 0;
         $agreement->property_id = $request->property_id;
         $agreement->tent_id = $request->tent_id;
         $agreement->advance = $request->advance;
@@ -104,6 +105,12 @@ class AgreementController extends Controller
      */
     public function update(Request $request, Agreement $agreement)
     {
+        if ($request->has('status')) {
+           $agreement->status = $request->status;
+           $agreement->save();
+           return redirect()->back()->with('success','Updated Succefully');
+        }
+
         $agreement->name = $request->name;
         $agreement->user_id = auth()->id();
         $agreement->property_id = $request->property_id;

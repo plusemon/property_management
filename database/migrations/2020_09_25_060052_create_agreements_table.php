@@ -18,7 +18,7 @@ class CreateAgreementsTable extends Migration
             $table->integer('user_id');
             $table->integer('property_id');
             $table->integer('tent_id');
-            $table->string('status')->default('pending');
+            $table->boolean('status')->default(0);
             $table->string('name');
             $table->integer('advance');
             $table->integer('yearly_percent');
