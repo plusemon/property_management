@@ -6,18 +6,20 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
     public function index()
     {
         $users = User::all();
-        return view('admin.user.index', compact('users'));
+        $permissions = Permission::all();
+        return view('admin.user.index', compact('users','permissions'));
     }
 
     public function create()
     {
-        
+
     }
 
     public function store(Request $request)
@@ -28,11 +30,13 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        User::create([
+        $user = User::create([
         'name' => $request['name'],
         'email' => $request['email'],
         'password' => Hash::make($request['password']),
        ]);
+
+       $user->givePermissionTo($request->permissions);
 
         return redirect()->back()->with('success', 'Added Succefully');
     }
@@ -44,27 +48,31 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('admin.user.edit', compact('user'));
+        $permissions = Permission::all();
+        return view('admin.user.edit', compact('user','permissions'));
     }
 
     public function update(Request $request, User $user)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['string', 'email', 'max:255', 'unique:users'],
-            'password' => ['string', 'min:8', 'confirmed'],
+            'email' => ['email', 'max:255'],
+            'password' => ['confirmed'],
         ]);
 
         $user->name = $request->name;
-    
-        if ($request->has('email')) {
+
+        if ($request->filled('email')) {
             $user->email = $request->email;
         }
-        if ($request->has('password')) {
+        if ($request->filled('password')) {
             $user->password = Hash::make($request['password']);
         }
+
+        $user->givePermissionTo($request->permissions);
+
         $user->save();
-       
+
         return redirect('admin/user')->with('success', 'Updated Succefully');
     }
 
