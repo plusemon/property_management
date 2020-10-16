@@ -22,6 +22,7 @@ class CreatePropertiesTable extends Migration
             $table->string('street');
             $table->string('city');
             $table->string('country');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

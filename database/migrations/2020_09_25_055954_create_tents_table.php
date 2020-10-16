@@ -48,6 +48,7 @@ class CreateTentsTable extends Migration
             $table->string('g2_contact2')->nullable();
             $table->string('g2_contact3')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

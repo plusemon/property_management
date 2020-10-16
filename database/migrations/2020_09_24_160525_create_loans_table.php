@@ -21,6 +21,7 @@ class CreateLoansTable extends Migration
             $table->integer('return_amount');
             $table->dateTime('return_date');
             $table->integer('entry');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

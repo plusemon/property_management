@@ -12,6 +12,7 @@ class TypeController extends Controller
     public function index()
     {
         $types = Type::all();
+        // $report = Type::withTrashed()->get();
         return view('rent.property.type.index', compact('types'));
     }
 

@@ -28,6 +28,7 @@ class CreatePaymentsTable extends Migration
             $table->string('branch')->nullable();
             $table->string('cheque')->nullable();
             $table->string('attachment')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
