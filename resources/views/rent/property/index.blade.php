@@ -2,10 +2,6 @@
 
 @section('content')
 
-{{-- <div class="col-12 text-right">
-    <a href="{{ url('admin/property/type') }}" class="btn btn-primary">Add New Type</a>
-</div> --}}
-
 <div class="col-12">
     <div class="section-block">
         <h3 class="section-title">Rent / Properties</h3>

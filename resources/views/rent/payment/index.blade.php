@@ -313,7 +313,7 @@ $(document).ready(function() {
     // Get and show agreement information - payment
     $('#agreements').on('change', function() {
         var id = $(this).val();
-        var url = '{{ url('/ajax/agreement-info') }}?agreement=' + id;
+        var url = '{{ url('api/agreement-info') }}?agreement=' + id;
         $.ajax({
             type: "GET",
             url: url,
@@ -344,7 +344,7 @@ $(document).ready(function() {
         $('#status-row').slideDown();
         var agreement = $('#agreements').val();
         var month = $(this).val();
-        var url = '{{ url('/ajax/payment-status') }}?agreement=' + agreement + '&month='+ month;
+        var url = '{{ url('api/payment-status') }}?agreement=' + agreement + '&month='+ month;
         $.ajax({
             type: "GET",
             url: url,
@@ -367,7 +367,7 @@ $(document).ready(function() {
 
         if (method == 'wallet') {
             $('#wallet').fadeIn();
-            var url = '{{ url('/ajax/wallet-balance') }}';
+            var url = '{{ url('api/wallet-balance') }}';
             $.ajax({
             type: "GET",
             url: url,
@@ -394,7 +394,7 @@ $(document).ready(function() {
     // Get and show agreement information - Refund
     $('.agreements').on('change', function() {
         var id = $(this).val();
-        var url = '{{ url('/ajax/agreement-info') }}?agreement=' + id;
+        var url = '{{ url('api/agreement-info') }}?agreement=' + id;
         $.ajax({
             type: "GET",
             url: url,

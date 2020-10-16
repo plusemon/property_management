@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// ajax routes
+Route::get('properties', 'ApiController@properties');
+Route::get('agreement-info', 'ApiController@agreementInfo');
+Route::get('payment-status', 'ApiController@paymentMonthStatus');
+Route::get('wallet-balance', 'ApiController@walletBalance');

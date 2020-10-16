@@ -236,7 +236,7 @@
     // Get properties by type
     $('#types').on('change', function() {
         var type = $('#types').val();
-        var url = '{{ url('/ajax/properties') }}?type=' + type;
+        var url = '{{ url('api/properties') }}?type=' + type;
         $.ajax({
             type: "GET",
             url: url,

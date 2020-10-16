@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Property;
 use Illuminate\Support\Facades\Auth;
 
-class AjaxController extends Controller
+class ApiController extends Controller
 {
     // get properties by type
     public function properties(Request $request)

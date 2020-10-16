@@ -34,9 +34,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('role', 'RoleController');
     Route::resource('setting', 'SettingController');
 
-    // ajax routes
-    Route::get('ajax/properties', 'AjaxController@properties');
-    Route::get('ajax/agreement-info', 'AjaxController@agreementInfo');
-    Route::get('ajax/payment-status', 'AjaxController@paymentMonthStatus');
-    Route::get('ajax/wallet-balance', 'AjaxController@walletBalance');
+    
 });
