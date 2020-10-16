@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Borrow;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\User;
 
 class BorrowController extends Controller
@@ -18,7 +17,7 @@ class BorrowController extends Controller
     {
         $borrows = Borrow::all();
         $users = User::all();
-        return view('admin.borrow.index', compact('borrows','users'));
+        return view('borrow.index', compact('borrows','users'));
     }
 
     /**
@@ -64,7 +63,7 @@ class BorrowController extends Controller
     public function edit(Borrow $borrow)
     {
         $users = User::all();
-        return view('admin.borrow.edit', compact('borrow','users'));
+        return view('borrow.edit', compact('borrow','users'));
     }
 
     /**

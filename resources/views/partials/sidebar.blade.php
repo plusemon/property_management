@@ -12,7 +12,7 @@
                         Menu
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('admin/dashboard')}}"><i
+                        <a class="nav-link" href="{{ route('dashboard.index') }}"><i
                                 class="fa fa-fw fa-user-circle"></i>Dashboard <span
                                 class="badge badge-success">6</span>
                         </a>
@@ -29,35 +29,35 @@
                                     <div id="submenu-11" class="submenu collapse show" style="">
                                         <ul class="nav flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{{url('admin/property/type')}}">Types</a>
+                                                <a class="nav-link" href="{{url( route('type.index') )}}">Types</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{{url('admin/property')}}">Status</a>
+                                                <a class="nav-link" href="{{ route('property.index') }}">Status</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/tent')}}">Tent</a>
+                                    <a class="nav-link" href="{{ route('tent.index') }}">Tent</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/agreement')}}">Agreement</a>
+                                    <a class="nav-link" href="{{ route('agreement.index') }}">Agreement</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/payment')}}">Payment</a>
+                                    <a class="nav-link" href="{{ route('payment.index') }}">Payment</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('admin/borrow')}}"><i
+                        <a class="nav-link" href="{{ route('borrow.index') }}"><i
                                 class="fas fa-address-book"></i>Borrow
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('admin/well_part')}}"><i
+                        <a class="nav-link" href="{{ url('wellpart') }}"><i
                                 class="far fa-calendar-check"></i>Well Part <span
                                 class="badge badge-success">6</span>
                         </a>
@@ -88,10 +88,10 @@
                         <div id="submenu-5" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/loan')}}">Loan</a>
+                                    <a class="nav-link" href="{{ route('loan.index') }}">Loan</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/return')}}">Return</a>
+                                    <a class="nav-link" href="{{ url('return') }}">Return</a>
                                 </li>
                             </ul>
                         </div>
@@ -104,10 +104,10 @@
                         <div id="submenu-10" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/user')}}">Manage User</a>
+                                    <a class="nav-link" href="{{ route('user.index') }}">Manage User</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/role')}}">Role and Permission </a>
+                                    <a class="nav-link" href="{{ route('role.index') }}">Role and Permission </a>
                                 </li>
 
                             </ul>
@@ -121,7 +121,7 @@
                         <div id="submenu-6" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/welpart/create')}}">ABC</a>
+                                    <a class="nav-link" href="{{url('abc')}}">ABC</a>
                                 </li>
                             </ul>
                         </div>
@@ -134,16 +134,16 @@
                         <div id="submenu-7" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/welpart/create')}}">Backup</a>
+                                    <a class="nav-link" href="{{url('abc')}}">Backup</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/welpart')}}">Restore</a>
+                                    <a class="nav-link" href="{{url('acv')}}">Restore</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('admin/settings')}}"><i
+                        <a class="nav-link" href="{{ route('setting.index') }}"><i
                                 class="fas fa-sliders-h"></i>Settings</a>
                     </li>
 

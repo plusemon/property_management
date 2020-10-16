@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -15,7 +14,7 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        return view('admin.user.index', compact('users'));
+        return view('user.index', compact('users'));
     }
 
     public function create()
@@ -49,7 +48,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $permissions = Permission::all();
-        return view('admin.user.edit', compact('user','roles','permissions'));
+        return view('user.edit', compact('user','roles','permissions'));
     }
 
     public function update(Request $request, User $user)

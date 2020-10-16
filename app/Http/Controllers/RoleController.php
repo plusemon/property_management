@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Spatie\Permission\Models\Role;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 
@@ -14,7 +13,7 @@ class RoleController extends Controller
     {
         $roles = Role::all();
         $permissions = Permission::all();
-        return view('admin.user.roles.index',compact('roles','permissions'));
+        return view('user.roles.index',compact('roles','permissions'));
     }
 
     public function store(Request $request)
@@ -29,7 +28,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $permissions = Permission::all();
-        return view('admin.user.roles.edit', compact('role', 'permissions'));
+        return view('user.roles.edit', compact('role', 'permissions'));
     }
 
     public function update(Request $request, Role $role)

@@ -1,22 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Type;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Setting;
+
 
 class TypeController extends Controller
 {
     public function index()
     {
         $types = Type::all();
-        return view('admin.rent.property.type.index', compact('types'));
-    }
-
-    public function create()
-    {
-        return view('admin.rent.property.type.create');
+        return view('rent.property.type.index', compact('types'));
     }
 
     public function store(Request $request)
@@ -27,24 +23,25 @@ class TypeController extends Controller
         ]);
 
         $type = new Type();
-        if ($request->created_at) {
-            $type->created_at = $request->created_at; 
+
+        if (!Type::count()) {
+            $type->id = Setting::first()->serial;
         }
-        $type->name = $request->name; 
+
+        if ($request->created_at) {
+            $type->created_at = $request->created_at;
+        }
+        $type->name = $request->name;
         $type->type = $request->type;
         $type->save();
 
-        return redirect('admin/property/type')->with('success','Added Succefully');
+        return redirect()->back()->with('success', 'Added Succefully');
     }
 
-    public function show(Type $type)
-    {
-        //
-    }
 
     public function edit(Type $type)
     {
-        return view('admin.rent.property.type.edit', compact('type'));
+        return view('rent.property.type.edit', compact('type'));
     }
 
     public function update(Request $request, Type $type)
@@ -56,12 +53,12 @@ class TypeController extends Controller
         $type->name = $request->name;
         $type->save();
 
-        return redirect('admin/property/type')->with('success','Updated Succefully');
+        return redirect(route('type.index'))->with('success', 'Updated Succefully');
     }
 
     public function destroy(Type $type)
     {
         $type->delete();
-        return redirect('admin/property/type')->with('success','Deleted Succefully');
+        return redirect()->back()->with('success', 'Deleted Succefully');
     }
 }

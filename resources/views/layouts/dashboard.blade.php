@@ -23,7 +23,7 @@
     <!-- main wrapper -->
     <!-- ============================================================== -->
     <div class="dashboard-main-wrapper">
-        
+
         <!-- ============================================================== -->
         <!-- navbar -->
         <!-- ============================================================== -->
@@ -61,7 +61,7 @@
                                                     </div>
                                                 </div>
                                             </a>
-                                           
+
                                         </div>
                                     </div>
                                 </li>
@@ -70,7 +70,7 @@
                                 </li>
                             </ul>
                         </li>
-                       
+
                         <li class="nav-item dropdown nav-user">
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
@@ -88,7 +88,7 @@
                                                                 document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-                                
+
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
@@ -104,7 +104,7 @@
         <!-- ============================================================== -->
         <!-- left sidebar -->
         <!-- ============================================================== -->
-        @include('admin.partials.sidebar')
+        @include('partials.sidebar')
         <!-- ============================================================== -->
         <!-- end left sidebar -->
         <!-- ============================================================== -->
@@ -146,7 +146,7 @@
     <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
     <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
     @yield('scripts')
-    @include('admin.partials.toastr')
+    @include('partials.toastr')
 </body>
 
 </html>

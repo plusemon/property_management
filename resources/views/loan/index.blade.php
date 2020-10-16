@@ -71,12 +71,12 @@
                         <form action="{{ route('loan.store') }}" method="POST">
                             @csrf
                             <div class="row">
-                                @if (!App\Loan::count())
+                                {{-- @if (!App\Loan::count())
                                     <div class="form-group col-6">
                                         <label class="col-form-label">Serial Number</label>
                                         <input name="id" type="text" class="form-control">
                                     </div>
-                                @endif
+                                @endif --}}
                                 <div class="form-group col-6">
                                     <label class="col-form-label">Loan Taker</label>
                                     <select name="user_id" class="form-control" required>

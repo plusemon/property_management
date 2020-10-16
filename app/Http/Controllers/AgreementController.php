@@ -1,47 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Agreement;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Tent;
 use App\Type;
+use App\Agreement;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AgreementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $agreements = Agreement::all();
         $types = Type::all();
         $tents = Tent::all();
-        return view('admin.rent.agreement.index', compact('agreements', 'types', 'tents'));
+        return view('rent.agreement.index', compact('agreements', 'types', 'tents'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        // return $request;
         $request->validate([
             'name' => 'required|unique:agreements',
             'property_id' => 'required',
@@ -52,8 +30,13 @@ class AgreementController extends Controller
         ]);
 
         $agreement = new Agreement();
+
+        if (!Agreement::count()) {
+            $agreement->id = \App\Setting::first()->serial;
+        }
+
         $agreement->name = $request->name;
-        $agreement->user_id = 1;
+        $agreement->user_id = Auth::id();
         $agreement->status = 0;
         $agreement->property_id = $request->property_id;
         $agreement->tent_id = $request->tent_id;
@@ -69,40 +52,18 @@ class AgreementController extends Controller
 
         $agreement->save();
 
-        return redirect('admin/agreement')->with('success','Saved Succefully');
+        return redirect()->back()->with('success','Saved Succefully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Agreement  $agreement
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Agreement $agreement)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Agreement  $agreement
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Agreement $agreement)
     {
         $types = Type::all();
         $tents = Tent::all();
-        return view('admin.rent.agreement.edit', compact('agreement', 'types', 'tents'));
+        return view('rent.agreement.edit', compact('agreement', 'types', 'tents'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Agreement  $agreement
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Agreement $agreement)
     {
         if ($request->has('status')) {
@@ -130,16 +91,11 @@ class AgreementController extends Controller
         return redirect('admin/agreement')->with('success','Saved Succefully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Agreement  $agreement
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Agreement $agreement)
     {
        $agreement->delete();
-       return redirect('admin/agreement')->with('success','Deleted Succefully');
+       return redirect()->back()->with('success','Deleted Succefully');
     }
 
 }

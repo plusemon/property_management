@@ -20,7 +20,6 @@
                     </div>
                 </div>
                 <div class="form-group text-right mt-4">
-                    <a href="{{ url('admin/property/type') }}" class="btn btn-info">Close</a>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </div>
 

@@ -42,7 +42,6 @@
                                         <th scope="col">Property</th>
                                         <th scope="col">Tent</th>
                                         <th scope="col">Amount</th>
-                                        {{-- <th scope="col">Yearly Increment(%)</th> --}}
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -55,10 +54,9 @@
                                         <td>{{ $payment->agreement->name }}</td>
                                         <td>{{ $payment->agreement->property->type->name ?? 'Deleted' }}</td>
                                         <td>{{ $payment->agreement->property->name }}</td>
-                                        <td>{{ $payment->agreement->tent->fname.' '.$payment->agreement->tent->lname}}
+                                        <td>{{ $payment->agreement->tent->fname ?? 'deleted' }} {{ $payment->agreement->tent->lname ?? ''}}
                                         </td>
                                         <td>{{ $payment->amount }}</td>
-                                        {{-- <td>{{ $payment->agreement->yearly_percent }}%</td> --}}
                                         <td class="text-right">
                                             {{-- <a href="{{ route('payment.edit', $payment->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
@@ -315,7 +313,7 @@ $(document).ready(function() {
     // Get and show agreement information - payment
     $('#agreements').on('change', function() {
         var id = $(this).val();
-        var url = '{{ url('admin/ajax/agreement-info') }}?agreement=' + id;
+        var url = '{{ url('/ajax/agreement-info') }}?agreement=' + id;
         $.ajax({
             type: "GET",
             url: url,
@@ -346,7 +344,7 @@ $(document).ready(function() {
         $('#status-row').slideDown();
         var agreement = $('#agreements').val();
         var month = $(this).val();
-        var url = '{{ url('admin/ajax/payment-status') }}?agreement=' + agreement + '&month='+ month;
+        var url = '{{ url('/ajax/payment-status') }}?agreement=' + agreement + '&month='+ month;
         $.ajax({
             type: "GET",
             url: url,
@@ -360,7 +358,7 @@ $(document).ready(function() {
     // show related field by method
     $('#method').on('change', function() {
         var method = $(this).val();
-        
+
         if (method == 'bank') {
             $('#bank-row').fadeIn();
         }else{
@@ -369,7 +367,7 @@ $(document).ready(function() {
 
         if (method == 'wallet') {
             $('#wallet').fadeIn();
-            var url = '{{ url('admin/ajax/wallet-balance') }}';
+            var url = '{{ url('/ajax/wallet-balance') }}';
             $.ajax({
             type: "GET",
             url: url,
@@ -384,7 +382,7 @@ $(document).ready(function() {
 
     });
 
-    
+
     // gst field show
     $('#gstbox').on('change',function() {
         $("#gst").toggle();
@@ -396,7 +394,7 @@ $(document).ready(function() {
     // Get and show agreement information - Refund
     $('.agreements').on('change', function() {
         var id = $(this).val();
-        var url = '{{ url('admin/ajax/agreement-info') }}?agreement=' + id;
+        var url = '{{ url('/ajax/agreement-info') }}?agreement=' + id;
         $.ajax({
             type: "GET",
             url: url,
@@ -409,6 +407,6 @@ $(document).ready(function() {
             }
         });
     });
-    
+
 </script>
 @endsection

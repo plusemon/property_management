@@ -1,44 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Tent;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class TentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $tents = Tent::all();
-        return view('admin.rent.tent.index', compact('tents'));
+        return view('rent.tent.index', compact('tents'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('admin.rent.tent.create');
+        return view('rent.tent.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
         $tent = new Tent();
+
+        if (!Tent::count()) {
+            $tent->id = \App\Setting::first()->serial;
+        }
 
         //  tent cnic attachment
         if (isset($request->tent['cnica'])) {
@@ -111,52 +98,17 @@ class TentController extends Controller
 
         $tent->save();
 
-        return redirect('admin/tent')->with('success', 'Added Succefully');
+        return redirect(route('tent.index'))->with('success', 'Added Succefully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tent  $tent
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tent $tent)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Tent  $tent
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Tent $tent)
     {
-        return view('admin.rent.tent.edit');
+        return view('rent.tent.edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tent  $tent
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Tent $tent)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Tent  $tent
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Tent $tent)
     {
         $tent->delete();
-        return redirect('admin/tent')->with('success', 'Deleted Succefully');
+        return redirect()->back()->with('success', 'Deleted Succefully');
     }
 }
