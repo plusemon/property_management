@@ -26,7 +26,7 @@ class TypeController extends Controller
         $type = new Type();
 
         if (!Type::count()) {
-            $type->id = Setting::first()->serial;
+            $type->id = Setting::firstOrCreate([])->serial;
         }
 
         if ($request->created_at) {

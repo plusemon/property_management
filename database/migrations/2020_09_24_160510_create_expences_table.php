@@ -15,6 +15,7 @@ class CreateExpencesTable extends Migration
     {
         Schema::create('expences', function (Blueprint $table) {
             $table->id();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

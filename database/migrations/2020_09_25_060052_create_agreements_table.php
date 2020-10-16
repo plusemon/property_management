@@ -23,6 +23,7 @@ class CreateAgreementsTable extends Migration
             $table->integer('advance');
             $table->integer('yearly_percent');
             $table->string('attachment');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
