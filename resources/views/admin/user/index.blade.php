@@ -23,30 +23,36 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive ">
-                            <table id="example" class="table table-striped table-bordered second" style="width:100%">
+                            <table id="example" class="table table-striped table-bordered second">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        {{-- <th scope="col">#</th> --}}
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
+                                        <th scope="col">Roles</th>
                                         <th scope="col">Permissions</th>
-                                        {{-- <th scope="col">Joined</th> --}}
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($users as $user)
                                     <tr>
-                                        <th>{{$user->id}}</th>
+                                        {{-- <th>{{$user->id}}</th> --}}
                                         <th>{{$user->name}}</th>
                                         <th>{{$user->email}}</th>
-                                        <th>@foreach ($user->permissions as $permission)
+                                        <th>
+                                            @foreach ($user->roles as $role)
+                                            {{ $role->name }},
+                                            @endforeach
+                                        </th>
+                                        <th>
+                                            @foreach ($user->getAllPermissions() as $permission)
                                             {{ $permission->name }},
-                                        @endforeach</th>
-                                        {{-- <td>{{ $user->created_at->format('d-m-Y') }}</td> --}}
+                                            @endforeach
+                                        </th>
                                         <td class="text-right">
-                                            <a href="{{ route('user.edit', $user->id)}}" class="btn btn-sm btn-warning"><i
-                                                    class="fas fa-edit"></i></a>
+                                            <a href="{{ route('user.edit', $user->id)}}"
+                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form class="d-inline" action="{{route('user.destroy', $user->id)}}"
                                                 method="POST">
                                                 @csrf
@@ -73,62 +79,60 @@
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    <input id="name" type="text"
+                                        class="form-control @error('name') is-invalid @enderror" name="name"
+                                        value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                     @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                <label for="email"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                    <input id="email" type="email"
+                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        value="{{ old('email') }}" required autocomplete="email">
 
                                     @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                <label for="password"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                    <input id="password" type="password"
+                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        required autocomplete="new-password">
 
                                     @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                                <label for="password-confirm"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    <input id="password-confirm" type="password" class="form-control"
+                                        name="password_confirmation" required autocomplete="new-password">
                                 </div>
-                            </div>
-
-                            <h3>Permissions:</h3>
-                            <div class="form-group row px-5">
-                                @foreach ($permissions as $permission)
-                                <div class="col-3">
-                                    <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                                        <input type="checkbox" class="custom-control-input" name="permissions[]" value="{{ $permission->name }}" id="{{ $permission->id }}">
-                                        <label class="custom-control-label" for="{{ $permission->id }}">{{ $permission->name }}</label>
-                                    </div>
-                                </div>
-                            @endforeach
                             </div>
 
                             <div class="form-group text-right mt-4">

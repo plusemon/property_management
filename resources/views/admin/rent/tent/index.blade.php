@@ -20,7 +20,7 @@
         <div class="tab-content" id="myTabContent5">
             <div class="tab-pane fade active show" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
                <div class="table-responsive">
-                <table id="example" class="table table-striped table-bordered second" style="width:100%">
+                <table id="example" class="table table-striped table-bordered second">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -79,7 +79,7 @@
                                      <a href="{{ url('public/storage/'.$tent->g1_cnica) }}"
                                     class="badge badge-secondary mb-1">Granter</a><br>
                                 @endif
-                               
+
                                 @if ($tent->g2_cnica)
                                 <a href="{{ url('public/storage/'.$tent->g2_cnica) }}"
                                     class="badge badge-secondary mb-1">Granter 2</a>
@@ -222,7 +222,7 @@
                             </div>
 
                             <div id="g2">
-                              
+
                             </div>
                             <div class="form-group text-right mt-4">
                                 <button type="submit" class="btn btn-primary">Save Tent</button>
@@ -242,9 +242,9 @@
 
 @section('scripts')
 <script>
-    var fieldHTML = '<div class="row"><div class="form-group col-10"><input name="tent[contact][]" type="number" class="form-control" required></div><div class="form-group col-1" style="margin:auto;"><input type="button" class="btn btn-sm btn-danger remove_button" value="-"></div></div>'; //New input field html 
-    var g1 = '<div class="row"><div class="form-group col-10"><input name="g1[contact][]" type="number" class="form-control" required></div><div class="form-group col-1" style="margin:auto;"><input type="button" class="btn btn-sm btn-danger remove_buttong1" value="-"></div></div>'; //New input field html 
-    var g2 = '<div class="row"><div class="form-group col-10"><input name="g2[contact][]" type="number" class="form-control"></div><div class="form-group col-1" style="margin:auto;"><input type="button" onclick="rmvg2c(this)" class="btn btn-sm btn-danger remove_buttong2" value="-"></div></div>'; //New input field html 
+    var fieldHTML = '<div class="row"><div class="form-group col-10"><input name="tent[contact][]" type="number" class="form-control" required></div><div class="form-group col-1" style="margin:auto;"><input type="button" class="btn btn-sm btn-danger remove_button" value="-"></div></div>'; //New input field html
+    var g1 = '<div class="row"><div class="form-group col-10"><input name="g1[contact][]" type="number" class="form-control" required></div><div class="form-group col-1" style="margin:auto;"><input type="button" class="btn btn-sm btn-danger remove_buttong1" value="-"></div></div>'; //New input field html
+    var g2 = '<div class="row"><div class="form-group col-10"><input name="g2[contact][]" type="number" class="form-control"></div><div class="form-group col-1" style="margin:auto;"><input type="button" onclick="rmvg2c(this)" class="btn btn-sm btn-danger remove_buttong2" value="-"></div></div>'; //New input field html
     var x = 1;
     var xg1 = 1;
     var xg2 = 1;
@@ -253,7 +253,7 @@
 
     function addg2c(){
             // alert('abc');
-            if(xg2 < 3){ 
+            if(xg2 < 3){
                 xg2++;
                 $('.add_buttong2').parent('div').parent('div').parent('div').append(g2);
             }
@@ -266,23 +266,23 @@
 
 
     $(document).ready(function(){
-    
+
 
 
     $('.add_button').click(function(){
-        if(x < 3){ 
+        if(x < 3){
             x++;
             $(this).parent('div').parent('div').parent('div').append(fieldHTML);
         }
     });
 
     $('.add_buttong1').click(function(){
-        if(xg1 < 3){ 
+        if(xg1 < 3){
             xg1++;
             $(this).parent('div').parent('div').parent('div').append(g1);
         }
     });
-    
+
     $('.field_wrapper').on('click', '.remove_button', function(){
         $(this).parent('div').parent('div').remove();
         x--;
@@ -305,14 +305,14 @@
 
 
     });
-    
 
 
 
 
 
 
-    
+
+
 });
 </script>
 @endsection

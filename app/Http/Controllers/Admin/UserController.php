@@ -7,14 +7,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     public function index()
     {
         $users = User::all();
-        $permissions = Permission::all();
-        return view('admin.user.index', compact('users','permissions'));
+
+        return view('admin.user.index', compact('users'));
     }
 
     public function create()
@@ -36,8 +37,6 @@ class UserController extends Controller
         'password' => Hash::make($request['password']),
        ]);
 
-       $user->givePermissionTo($request->permissions);
-
         return redirect()->back()->with('success', 'Added Succefully');
     }
 
@@ -48,8 +47,9 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $roles = Role::all();
         $permissions = Permission::all();
-        return view('admin.user.edit', compact('user','permissions'));
+        return view('admin.user.edit', compact('user','roles','permissions'));
     }
 
     public function update(Request $request, User $user)
@@ -69,7 +69,8 @@ class UserController extends Controller
             $user->password = Hash::make($request['password']);
         }
 
-        $user->givePermissionTo($request->permissions);
+        $user->syncPermissions($request->permissions);
+        $user->syncRoles($request->roles);
 
         $user->save();
 
