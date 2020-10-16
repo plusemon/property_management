@@ -73,7 +73,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('admin/user')->with('success', 'Updated Succefully');
+        return redirect(route('user.index'))->with('success', 'Updated Succefully');
     }
 
     public function destroy(User $user)

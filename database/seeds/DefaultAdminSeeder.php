@@ -19,6 +19,8 @@ class DefaultAdminSeeder extends Seeder
             'password' => Hash::make('admin')
         ];
 
-        User::create($admin);
+        $admin = User::create($admin);
+
+        $admin->assignRole('super-admin');
     }
 }

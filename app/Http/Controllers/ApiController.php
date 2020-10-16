@@ -42,7 +42,7 @@ class ApiController extends Controller
         }
     }
 
-
+// PAYMENT MONTH STATUS
     public function paymentMonthStatus(Request $request)
     {
         $agreement = Agreement::findOrFail($request->agreement);
@@ -64,6 +64,7 @@ class ApiController extends Controller
         }
     }
 
+    // GET WALLET BALANCE
     public function walletBalance()
     {
         $data = Auth::user()->wallet;
