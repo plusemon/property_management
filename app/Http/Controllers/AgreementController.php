@@ -31,10 +31,7 @@ class AgreementController extends Controller
 
         $agreement = new Agreement();
 
-        if (!Agreement::count()) {
-            $agreement->id = \App\Setting::first()->serial;
-        }
-
+        $agreement->id = $request->serial;
         $agreement->name = $request->name;
         $agreement->user_id = Auth::id();
         $agreement->status = 0;
@@ -48,8 +45,7 @@ class AgreementController extends Controller
             $agreement->attachment = $url;
         }
 
-        if ($request->created_at) {$agreement->created_at = $request->created_at;}
-
+        $agreement->created_at = $request->created_at;
         $agreement->save();
 
         return redirect()->back()->with('success','Saved Succefully');

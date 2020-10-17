@@ -18,10 +18,11 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:properties',
-            'type_id' => 'required',
-            'rate' => 'required',
-            'district' => 'required',
+            'serial' => 'required',
+            'name' => 'required',
+            'type_id' => 'required|integer',
+            'rate' => 'required|integer',
+            'district' => 'required|string',
             'street' => 'required',
             'city' => 'required',
             'country' => 'required',
@@ -29,11 +30,7 @@ class PropertyController extends Controller
 
         $property = new Property();
 
-        if (!Property::count()) {
-            $property->id = \App\Setting::first()->serial;
-        }
-
-        if ($request->created_at) {$property->created_at = $request->created_at;}
+        $property->id = $request->serial;
         $property->name = $request->name;
         $property->type_id = $request->type_id;
         $property->rate = $request->rate;
@@ -41,6 +38,7 @@ class PropertyController extends Controller
         $property->street = $request->street;
         $property->city = $request->city;
         $property->country = $request->country;
+        $property->created_at = $request->created_at;
         $property->save();
 
         return redirect()->back()->with('success','Added Succefully');

@@ -48,11 +48,7 @@ class PaymentController extends Controller
                 }
 
                 $payment = new Payment();
-
-                if (!Payment::count()) {
-                    $payment->id = \App\Setting::first()->serial;
-                }
-
+                $payment->id = $request->serial;
                 $payment->agreement_id = $request->agreement_id;
                 $payment->user_id = auth()->id();
                 $payment->type = $request->type;

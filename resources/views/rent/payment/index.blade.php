@@ -85,9 +85,14 @@
                         @csrf
                         <input type="hidden" name="for" value="payment">
 
-                        {{-- Agreement --}}
                         <div class="row">
-                            {{-- agreement --}}
+
+                            <div class="form-group col-md-2">
+                                <label class="col-form-label">Serial (#) </label>
+                                <input type="hidden" name="serial" value="{{ $id = App\Payment::nextId() }}">
+                                <input value="{{ $id }}" class="form-control" disabled>
+                            </div>
+
                             <div class="col-md-4 form-group">
                                 <label class="col-form-label">Agreement</label>
                                 <select class="form-control" name="agreement_id" id="agreements" required>
@@ -145,7 +150,6 @@
                                 <label class="col-form-label">Property</label>
                                 <input id="property" type="text" class="form-control" disabled>
                             </div>
-
                             <div class="form-group col-3">
                                 <label class="col-form-label">Tent</label>
                                 <input id="tent" type="text" class="form-control" disabled>

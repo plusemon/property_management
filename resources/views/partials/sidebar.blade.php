@@ -121,7 +121,7 @@
                         <div id="submenu-6" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('abc')}}">ABC</a>
+                                    <a class="nav-link" href="{{ route('report.index') }}">Types</a>
                                 </li>
                             </ul>
                         </div>

@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('user', 'UserController');
     Route::resource('role', 'RoleController');
     Route::resource('setting', 'SettingController');
+    Route::get('report', 'TypeController@report')->name('report.index');
 
-    
+
 });

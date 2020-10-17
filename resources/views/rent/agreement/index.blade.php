@@ -113,13 +113,20 @@
                 <div class="card-body">
                     <form action="{{ route('agreement.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        {{-- <h4>Agreement Details</h4> --}}
                         <div class="row">
-                            <div class="form-group col-4">
+
+                            <div class="form-group col-md-2">
+                                <label class="col-form-label">Serial (#) </label>
+                                <input type="hidden" name="serial" value="{{ $id = App\Agreement::nextId() }}">
+                                <input value="{{ $id }}" class="form-control" disabled>
+                            </div>
+
+                            <div class="form-group col-md-4">
                                 <label class="col-form-label">Agreement Name</label>
                                 <input name="name" type="text" class="form-control" required>
                             </div>
-                            <div class="col-4 form-group">
+
+                            <div class="col-md-3 form-group">
                                 <label class="col-form-label">Property Type</label>
                                 <select id="types" class="form-control">
                                     <option>Select type</option>
@@ -129,15 +136,15 @@
                                 </select>
                             </div>
 
-                            <div class="col-4 form-group">
-                                <label class="col-form-label">Property Name</label>
+                            <div class="col-md-3 form-group">
+                                <label class="col-form-label">Property</label>
                                 <select id="properties" class="form-control" name="property_id" required>
                                 </select>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-4 form-group">
+                            <div class="col-md-4 form-group">
                                 <label class="col-form-label">Tent</label>
                                 <select class="form-control" name="tent_id" required>
                                     <option value="">Select Tent</option>
@@ -146,11 +153,11 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-4 form-group">
+                            <div class="col-md-4 form-group">
                                 <label class="col-form-label">Security Deposit Money</label>
                                 <input name="advance" type="number" class="form-control" required>
                             </div>
-                            <div class="col-4 form-group">
+                            <div class="col-md-4 form-group">
                                 <label class="col-form-label">Yearly Increment (%)</label>
                                 <input name="yearly_percent" type="number" class="form-control" required>
                             </div>
@@ -158,19 +165,19 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-4 form-group">
+                            <div class="col-md-4 form-group">
                                 <label class="col-form-label">Attachment</label>
                                 <input name="attachment" type="file" class="form-control" required>
                             </div>
 
 
-                            <div class="col-4 form-group">
+                            <div class="col-md-4 form-group">
                                 <label class="col-form-label">Start Date</label>
                                 <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}"
                                     class="form-control">
                             </div>
 
-                            <div class="col-4 form-group">
+                            <div class="col-md-4 form-group">
                                 <label class="col-form-label">Entry by</label>
                                 <input value="{{ Auth::user()->name }}" class="form-control" disabled>
                             </div>
@@ -217,7 +224,7 @@
                         </div>
 
                         <div class="form-group text-right mt-4">
-                            <button type="submit" class="btn btn-primary">Save Agreement</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
 
                     </form>

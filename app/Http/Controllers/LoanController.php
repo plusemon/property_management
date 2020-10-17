@@ -27,11 +27,7 @@ class LoanController extends Controller
         ]);
 
         $loan = new Loan();
-
-        if (!Loan::count()) {
-            $loan->id = \App\Setting::first()->serial;
-        }
-
+        $loan->id = $request->serial;
         $loan->user_id = $request->user_id;
         $loan->description = $request->description;
         $loan->amount = $request->amount;

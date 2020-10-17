@@ -44,8 +44,8 @@
                                         <td>{{$borrow->amount}}</td>
                                         <td>{{ $borrow->created_at->format('d-m-Y') }}</td>
                                         <td class="text-right">
-                                            <a href="{{ route('borrow.edit', $borrow->id)}}" class="btn btn-sm btn-warning"><i
-                                                    class="fas fa-edit"></i></a>
+                                            <a href="{{ route('borrow.edit', $borrow->id)}}"
+                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form class="d-inline" action="{{route('borrow.destroy', $borrow->id)}}"
                                                 method="POST">
                                                 @csrf
@@ -63,49 +63,57 @@
                 </div>
             </div>
 
-            
+
             <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
                 <div class="card">
                     <div class="card-body">
                         <form action="{{ route('borrow.store') }}" method="POST">
                             @csrf
                             <div class="row">
-                                <div class="form-group col-3">
+                                <div class="form-group col-md-2">
+                                    <label class="col-form-label"># Serial</label>
+                                    <input type="hidden" name="serial" value="{{ $id = App\Borrow::nextId() }}">
+                                    <input value="{{ $id }}" class="form-control" disabled>
+                                </div>
+
+                                <div class="form-group col-md-4">
                                     <label class="col-form-label">Borrowers</label>
                                     <select class="form-control" name="user_id">
                                         <option value="">Select User</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-    
-                                <div class="form-group col-3">
+
+                                <div class="form-group col-md-3">
                                     <label class="col-form-label">Amount</label>
                                     <input type="number" name="amount" class="form-control">
                                 </div>
-                                
-                                <div class="form-group col-3">
-                                    <label class="col-form-label">Entry Date</label>
-                                    <input type="date" name="created_at" class="form-control" value="{{ date("Y-m-d") }}">
-                                </div>
-                                <div class="form-group col-3">
-                                    <label class="col-form-label">Enter by</label>
-                                    <input name="entry" class="form-control" value="{{ auth()->user()->name }}">
-                                </div>
                             </div>
-            
+
                             <div class="form-group">
                                 <label for="textarea">Description</label>
                                 <textarea name="description" class="form-control" rows="3"></textarea>
                             </div>
-            
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label class="col-form-label">Entry Date</label>
+                                    <input type="date" name="created_at" class="form-control"
+                                        value="{{ date("Y-m-d") }}">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="col-form-label">Enter by</label>
+                                    <input name="entry" class="form-control" value="{{ auth()->user()->name }}">
+                                </div>
+                            </div>
+
                             <div class="form-group text-right mt-4">
                                 <button type="submit" class="btn btn-primary">Add Borrow</button>
                             </div>
-            
-                            
-            
+
+
+
                         </form>
                     </div>
                 </div>

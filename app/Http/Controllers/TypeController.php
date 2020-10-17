@@ -16,6 +16,12 @@ class TypeController extends Controller
         return view('rent.property.type.index', compact('types'));
     }
 
+    public function report()
+    {
+        $types = Type::withTrashed()->get();
+        return view('report.index', compact('types'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -24,16 +30,12 @@ class TypeController extends Controller
         ]);
 
         $type = new Type();
-
-        if (!Type::count()) {
-            $type->id = Setting::firstOrCreate([])->serial;
-        }
-
+        $type->id = $request->serial;
+        $type->name = $request->name;
+        $type->type = $request->type;
         if ($request->created_at) {
             $type->created_at = $request->created_at;
         }
-        $type->name = $request->name;
-        $type->type = $request->type;
         $type->save();
 
         return redirect()->back()->with('success', 'Added Succefully');
@@ -59,7 +61,7 @@ class TypeController extends Controller
 
     public function destroy(Type $type)
     {
-        $type->delete();
+        $type->Delete();
         return redirect()->back()->with('success', 'Deleted Succefully');
     }
 }

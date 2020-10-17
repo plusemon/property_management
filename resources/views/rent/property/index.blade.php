@@ -72,6 +72,12 @@
                     <form action="{{ route('property.store') }}" method="POST">
                         @csrf
                         <div class="row">
+                            <div class="form-group col-4">
+                                <label class="col-form-label"># Serial</label>
+                                    <input type="hidden" name="serial" value="{{ $id = App\Property::nextId() }}">
+                                    <input value="{{ $id }}" class="form-control" disabled>
+                            </div>
+
                             <div class="col-4 form-group">
                                 <label class="col-form-label">Type</label>
                                 <select class="form-control" name="type_id" required>
@@ -82,7 +88,7 @@
                                 </select>
                             </div>
 
-                            <div class="form-group col-8">
+                            <div class="form-group col-4">
                                 <label class="col-form-label">Property</label>
                                 <input name="name" type="text" class="form-control" value="" required>
                             </div>
@@ -91,7 +97,7 @@
                         <div class="row">
                             <div class="col-4 form-group">
                                 <label class="col-form-label">Rent (Per Month)</label>
-                                <input name="rate" type="text" class="form-control" value="10000.00" required>
+                                <input name="rate" type="text" class="form-control" value="10000" required>
                             </div>
                             <div class="col-4 form-group">
                                 <label class="col-form-label">District</label>
@@ -122,7 +128,7 @@
                         </div>
 
                         <div class="form-group text-right mt-4">
-                            <button type="submit" class="btn btn-primary">Add Property</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
 
                     </form>

@@ -71,13 +71,13 @@
                         <form action="{{ route('loan.store') }}" method="POST">
                             @csrf
                             <div class="row">
-                                {{-- @if (!App\Loan::count())
-                                    <div class="form-group col-6">
-                                        <label class="col-form-label">Serial Number</label>
-                                        <input name="id" type="text" class="form-control">
-                                    </div>
-                                @endif --}}
-                                <div class="form-group col-6">
+
+                                <div class="form-group col-md-2">
+                                    <label class="col-form-label"># Serial</label>
+                                    <input type="hidden" name="serial" value="{{ $id = App\Loan::nextId() }}">
+                                    <input value="{{ $id }}" class="form-control" disabled>
+                                </div>
+                                <div class="form-group col-md-4">
                                     <label class="col-form-label">Loan Taker</label>
                                     <select name="user_id" class="form-control" required>
                                         @foreach ($users as $user)
@@ -85,33 +85,40 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group col-12">
-                                    <label class="col-form-label">Description</label>
-                                   <textarea name="description" class="form-control" id="" cols="15" rows="5"></textarea>
-                                </div>
-                                <div class="form-group col-6">
+
+                                <div class="form-group col-md-3">
                                     <label class="col-form-label">Amount</label>
                                     <input name="amount" type="number" class="form-control" required>
                                 </div>
-                                <div class="form-group col-6">
+
+                                <div class="form-group col-md-3">
                                     <label class="col-form-label">Return Amount</label>
                                     <input name="return_amount" type="number" class="form-control" required>
                                 </div>
-                                <div class="form-group col-6">
+
+                                <div class="form-group col-md-12">
+                                    <label class="col-form-label">Description</label>
+                                    <textarea name="description" class="form-control" id="" cols="15"
+                                        rows="5"></textarea>
+                                </div>
+
+                                <div class="form-group col-md-4">
                                     <label class="col-form-label">Loan Return Date</label>
                                     <input name="return_date" type="date" class="form-control" required>
                                 </div>
-                                <div class="form-group col-6">
+                                <div class="form-group col-md-4">
                                     <label class="col-form-label">Entry Date</label>
-                                    <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}" required>
+                                    <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}"
+                                        required>
                                 </div>
-                                <div class="form-group  col-6">
+                                <div class="form-group  col-md-4">
                                     <label class="col-form-label">Entry by</label>
-                                    <input name="entry" type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
+                                    <input name="entry" type="text" class="form-control"
+                                        value="{{ Auth::user()->name }}" disabled>
                                 </div>
                             </div>
                             <div class="form-group text-right mt-4">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Enter</button>
                             </div>
                         </form>
                     </div>
