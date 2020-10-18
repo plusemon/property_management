@@ -93,7 +93,7 @@
                                 <input value="{{ $id }}" class="form-control" disabled>
                             </div>
 
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-3 form-group">
                                 <label class="col-form-label">Agreement</label>
                                 <select class="form-control" name="agreement_id" id="agreements" required>
                                     <option value="">Select</option>
@@ -103,7 +103,7 @@
                                 </select>
                             </div>
                             {{-- Pay for --}}
-                            <div class="col-md-4 form-group" id="pay-for">
+                            <div class="col-md-3 form-group" id="pay-for">
                                 <label class="col-form-label">Pay for</label>
                                 <select class="form-control" name="type" id="pay-type" required>
                                     <option value="">Select</option>

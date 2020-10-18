@@ -9,10 +9,13 @@ use App\Setting;
 
 class TypeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $types = Type::all();
-        // $report = Type::withTrashed()->get();
+        if ($request->has('filter')) {
+            $types = Type::where('type',$request->filter)->get();
+        }else{
+            $types = Type::all();
+        }
         return view('rent.property.type.index', compact('types'));
     }
 
@@ -50,13 +53,15 @@ class TypeController extends Controller
     public function update(Request $request, Type $type)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
         ]);
-
         $type->name = $request->name;
+        if ($request->created_at) {
+            $type->created_at = $request->created_at;
+        }
         $type->save();
 
-        return redirect(route('type.index'))->with('success', 'Updated Succefully');
+        return redirect(route('type.index','filter='.$type->type))->with('success', 'Updated Succefully');
     }
 
     public function destroy(Type $type)

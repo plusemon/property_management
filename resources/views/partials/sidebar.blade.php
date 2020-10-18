@@ -28,7 +28,7 @@
                                     <div id="submenu-11" class="submenu collapse show" style="">
                                         <ul class="nav flex-column">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{{url( route('type.index') )}}">Types</a>
+                                                <a class="nav-link" href="{{url( route('type.index') )}}?filter=property">Types</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="{{ route('property.index') }}">Status</a>
@@ -69,10 +69,10 @@
                         <div id="submenu-4" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/expence/type')}}">Type</a>
+                                    <a class="nav-link" href="{{ route('type.index') }}?filter=expense">Type</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('admin/expence')}}">Expenses</a>
+                                    <a class="nav-link" href="{{ route('expense.index') }}">Expenses</a>
                                 </li>
                             </ul>
                         </div>
