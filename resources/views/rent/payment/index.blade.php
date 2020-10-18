@@ -99,43 +99,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            {{-- Pay for --}}
-                            <div class="col- form-group" id="pay-for">
-                                <label class="col-form-label">Pay for</label>
-                                <select class="form-control" name="type" id="pay-type" required>
-                                    <option value="">Select</option>
-                                    <option value="rent">Rent</option>
-                                    <option value="modify">Modification or damage or paint</option>
-                                    <option value="bill">Utility Bills</option>
-                                    <option value="security">Security Deposit</option>
-                                </select>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            {{-- month list  --}}
-                            <div class="col- form-group" id="month-row">
-                                <label class="col-form-label">Select month</label>
-                                <select class="form-control" name="month" id="month">
-                                    <option value="jan" {{ date('m') == 1 ? 'selected':'' }}>January</option>
-                                    <option value="feb" {{ date('m') == 2 ? 'selected':'' }}>February</option>
-                                    <option value="mar" {{ date('m') == 3 ? 'selected':'' }}>March</option>
-                                    <option value="apr" {{ date('m') == 4 ? 'selected':'' }}>April</option>
-                                    <option value="may" {{ date('m') == 5 ? 'selected':'' }}>May</option>
-                                    <option value="jun" {{ date('m') == 6 ? 'selected':'' }}>June</option>
-                                    <option value="jul" {{ date('m') == 7 ? 'selected':'' }}>July</option>
-                                    <option value="aug" {{ date('m') == 8 ? 'selected':'' }}>August</option>
-                                    <option value="sep" {{ date('m') == 9 ? 'selected':'' }}>September</option>
-                                    <option value="oct" {{ date('m') == 10 ? 'selected':'' }}>October</option>
-                                    <option value="nov" {{ date('m') == 11 ? 'selected':'' }}>November</option>
-                                    <option value="dec" {{ date('m') == 12 ? 'selected':'' }}>December</option>
-                                </select>
-                            </div>
-                            {{-- status --}}
-                            <div class="form-group col-md" id="status-row">
-                                <label class="col-form-label">Status</label>
-                                <input id="status" type="text" class="form-control" disabled>
-                            </div>
                         </div>
 
 
@@ -161,6 +125,49 @@
                         </div>
 
                         <div class="row">
+                            {{-- Pay for --}}
+                            <div class="col-md form-group" id="pay-for">
+                                <label class="col-form-label">Pay for</label>
+                                <select class="form-control" name="type" id="pay-type" required>
+                                    <option value="">Select</option>
+                                    <option value="rent">Rent</option>
+                                    <option value="modify">Modification or damage or paint</option>
+                                    <option value="bill">Utility Bills</option>
+                                    <option value="security">Security Deposit</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- montly payment  --}}
+                        <div class="row" id="rent-row">
+                            {{-- month list  --}}
+                            <div class="form-group col-md">
+                                <label class="col-form-label">Select month</label>
+                                <select class="form-control" name="month" id="month">
+                                    <option value="jan" {{ date('m') == 1 ? 'selected':'' }}>January</option>
+                                    <option value="feb" {{ date('m') == 2 ? 'selected':'' }}>February</option>
+                                    <option value="mar" {{ date('m') == 3 ? 'selected':'' }}>March</option>
+                                    <option value="apr" {{ date('m') == 4 ? 'selected':'' }}>April</option>
+                                    <option value="may" {{ date('m') == 5 ? 'selected':'' }}>May</option>
+                                    <option value="jun" {{ date('m') == 6 ? 'selected':'' }}>June</option>
+                                    <option value="jul" {{ date('m') == 7 ? 'selected':'' }}>July</option>
+                                    <option value="aug" {{ date('m') == 8 ? 'selected':'' }}>August</option>
+                                    <option value="sep" {{ date('m') == 9 ? 'selected':'' }}>September</option>
+                                    <option value="oct" {{ date('m') == 10 ? 'selected':'' }}>October</option>
+                                    <option value="nov" {{ date('m') == 11 ? 'selected':'' }}>November</option>
+                                    <option value="dec" {{ date('m') == 12 ? 'selected':'' }}>December</option>
+                                </select>
+                            </div>
+                            {{-- status --}}
+                            <div class="form-group col-md">
+                                <label class="col-form-label">Status</label>
+                                <input id="status" type="text" class="form-control" disabled>
+                            </div>
+                        </div>
+
+
+                        {{-- Amount row --}}
+                        <div class="row">
                             <div class="form-group col">
                                 <label class="col-form-label">Amount</label>
                                 <input name="amount" type="number" class="form-control"
@@ -175,7 +182,6 @@
                             <div class="col-md-4 form-group">
                                 <label class="col-form-label">Payment Method</label>
                                 <select class="form-control" name="method" id="method" required>
-                                    <option value="">Select</option>
                                     <option value="cash">Cash</option>
                                     <option value="bank">Bank</option>
                                     <option value="wallet">Wallet</option>
@@ -228,6 +234,18 @@
                                     <label class="col-form-label">Cheque scan copy</label>
                                     <input name="attachment" type="file" class="form-control">
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md form-group">
+                                <label class="col-form-label">Payment Date</label>
+                                <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}"
+                                    class="form-control">
+                            </div>
+
+                            <div class="col-md form-group">
+                                <label class="col-form-label">Entry by</label>
+                                <input value="{{ Auth::user()->name }}" class="form-control" disabled>
                             </div>
                         </div>
                         {{-- Submit --}}
@@ -316,9 +334,7 @@
     $(document).ready(function() {
         $('#agreement-info').slideUp();
         $('#pay-for').slideUp();
-        $('#month-row').slideUp();
-        $('#status-row').slideUp();
-        // $('#payment-info').slideUp();
+        $('#rent-row').slideUp();
         $('#gst').slideUp();
         $('#bank-row').fadeOut();
         $('#wallet').fadeOut();
@@ -347,26 +363,26 @@
         // $('#payment-info').slideDown();
         var type = $(this).val();
         if (type == 'rent') {
-            $('#month-row').show();
+            $('#rent-row').slideDown();
         }else{
-            $('#month-row').hide();
+            $('#rent-row').slideUp();
         }
     });
-    // Get selected month status
-    $('#month').on('change', function() {
-        $('#status-row').slideDown();
-        var agreement = $('#agreements').val();
-        var month = $(this).val();
-        var url = '{{ url('api/payment-status') }}?agreement=' + agreement + '&month='+ month;
-        $.ajax({
-            type: "GET",
-            url: url,
-            dataType: 'json',
-            success: function (data,status) {
-                $('#status').val(data);
-            }
-        });
-    });
+    // // Get selected month status
+    // $('#month').on('change', function() {
+    //     $('#status-row').slideDown();
+    //     var agreement = $('#agreements').val();
+    //     var month = $(this).val();
+    //     var url = '{{ url('api/payment-status') }}?agreement=' + agreement + '&month='+ month;
+    //     $.ajax({
+    //         type: "GET",
+    //         url: url,
+    //         dataType: 'json',
+    //         success: function (data,status) {
+    //             $('#status').val(data);
+    //         }
+    //     });
+    // });
 
     // show related field by method
     $('#method').on('change', function() {
@@ -397,7 +413,7 @@
 
     // gst field show
     $('#gstbox').on('change',function() {
-        $("#gst").toggle();
+        $("#gst").fadeToggle();
     });
 
     // Get and show agreement information - Refund

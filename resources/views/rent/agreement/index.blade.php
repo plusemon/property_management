@@ -50,7 +50,7 @@
                                         <td>{{ $agreement->id }}</td>
                                         <td>{{ $agreement->name }}</td>
                                         <td style="{{ $agreement->status == 0 ?'color:red':'color:green' }}">
-                                            {{ $agreement->status == 0 ?'Cancelled':'Active' }}</td>
+                                            {{ $agreement->status == 0 ?'Inactive':'Active' }}</td>
                                         <td>{{ $agreement->tent ? $agreement->tent->fname.' '.$agreement->tent->lname:'Deleted' }}
                                         </td>
                                         <td>{{ $agreement->property->name ?? 'Deleted'}}</td>
@@ -87,11 +87,11 @@
                                                 @csrf
                                                 @method('PUT')
                                                 @if ($agreement->status)
-                                                    {{-- <input type="hidden" name="status" value="0">
-                                                    <button type="submit" class="btn btn-sm btn-danger">Undo</button> --}}
+                                                    <input type="hidden" name="status" value="0">
+                                                    <button type="submit" class="btn btn-sm btn-danger">Inactive</button>
                                                     @else
                                                     <input type="hidden" name="status" value="1">
-                                                    <button type="submit" class="btn btn-sm btn-success">Accept</button>
+                                                    <button type="submit" class="btn btn-sm btn-success">Active</button>
                                                 @endif
                                             </form>
                                         </td>
