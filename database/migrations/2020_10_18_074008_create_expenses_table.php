@@ -20,6 +20,7 @@ class CreateExpensesTable extends Migration
             $table->integer('invoice');
             $table->text('description');
             $table->integer('amount');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

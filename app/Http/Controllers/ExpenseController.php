@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Expense;
+use App\Type;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -14,7 +15,9 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        //
+        $expenses = Expense::all();
+        $types = Type::whereType('expense')->get();
+        return view('expense.index',compact('expenses','types'));
     }
 
     /**

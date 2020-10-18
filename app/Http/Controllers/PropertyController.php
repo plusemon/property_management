@@ -11,7 +11,7 @@ class PropertyController extends Controller
     public function index()
     {
         $properties = Property::all();
-        $types = Type::where('type','property')->get();
+        $types = Type::whereType('property')->get();
         return view('rent.property.index', compact('properties', 'types'));
     }
 
@@ -46,7 +46,7 @@ class PropertyController extends Controller
 
     public function edit(Property $property)
     {
-        $types = Type::all();
+        $types = Type::whereType('property')->get();
         return view('rent.property.edit', compact('property','types'));
     }
 
