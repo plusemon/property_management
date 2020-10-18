@@ -80,7 +80,6 @@
                 <div class="card-body">
                     <form action="{{ route('payment.store') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="for" value="payment">
 
                         <div class="row">
                             {{-- serial no  --}}
@@ -142,26 +141,21 @@
                         <div class="row" id="rent-row">
                             {{-- month list  --}}
                             <div class="form-group col-md">
-                                <label class="col-form-label">Select month</label>
-                                <select class="form-control" name="month" id="month">
-                                    <option value="jan" {{ date('m') == 1 ? 'selected':'' }}>January</option>
-                                    <option value="feb" {{ date('m') == 2 ? 'selected':'' }}>February</option>
-                                    <option value="mar" {{ date('m') == 3 ? 'selected':'' }}>March</option>
-                                    <option value="apr" {{ date('m') == 4 ? 'selected':'' }}>April</option>
-                                    <option value="may" {{ date('m') == 5 ? 'selected':'' }}>May</option>
-                                    <option value="jun" {{ date('m') == 6 ? 'selected':'' }}>June</option>
-                                    <option value="jul" {{ date('m') == 7 ? 'selected':'' }}>July</option>
-                                    <option value="aug" {{ date('m') == 8 ? 'selected':'' }}>August</option>
-                                    <option value="sep" {{ date('m') == 9 ? 'selected':'' }}>September</option>
-                                    <option value="oct" {{ date('m') == 10 ? 'selected':'' }}>October</option>
-                                    <option value="nov" {{ date('m') == 11 ? 'selected':'' }}>November</option>
-                                    <option value="dec" {{ date('m') == 12 ? 'selected':'' }}>December</option>
-                                </select>
-                            </div>
-                            {{-- status --}}
-                            <div class="form-group col-md">
-                                <label class="col-form-label">Status</label>
-                                <input id="status" type="text" class="form-control" disabled>
+                                <h4>Select Month</h4>
+                                <ul class="ks-cboxtags">
+                                    <li><input type="checkbox" id="jan" value=""><label for="jan">January</label></li>
+                                    <li><input type="checkbox" id="feb" value=""><label for="feb">February</label></li>
+                                    <li><input type="checkbox" id="mar" value=""><label for="mar">March</label></li>
+                                    <li><input type="checkbox" id="apr" value=""><label for="apr">April</label></li>
+                                    <li><input type="checkbox" id="may" value=""><label for="may">May</label></li>
+                                    <li><input type="checkbox" id="jun" value=""><label for="jun">June</label></li>
+                                    <li><input type="checkbox" id="jul" value=""><label for="jul">July</label></li>
+                                    <li><input type="checkbox" id="aug" value=""><label for="aug">Aug</label></li>
+                                    <li><input type="checkbox" id="sep" value=""><label for="sep">September</label></li>
+                                    <li><input type="checkbox" id="oct" value=""><label for="oct">October</label></li>
+                                    <li><input type="checkbox" id="nov" value=""><label for="nov">November</label></li>
+                                    <li><input type="checkbox" id="dec" value=""><label for="dec">December</label></li>
+                                  </ul>
                             </div>
                         </div>
 
