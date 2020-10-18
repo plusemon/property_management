@@ -8,23 +8,22 @@
 
 <div class="col-12">
     <div class="section-block">
-        <h2 class="section-title">Agreement</h2>
+        <h3 class="section-title">Agreements</h3>
     </div>
     <div class="simple-card">
-        <ul class="nav nav-tabs" id="myTab5" role="tablist">
+        <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link border-left-0 active show" id="home-tab-simple" data-toggle="tab" href="#home-simple"
-                    role="tab" aria-controls="home" aria-selected="true">List</a>
+                <a class="nav-link border-left-0 active show" id="" data-toggle="tab" href="#list"
+                    role="tab" aria-controls="list" aria-selected="true">List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#profile-simple" role="tab"
-                    aria-controls="profile" aria-selected="false">Entry</a>
+                <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#add" role="tab"
+                    aria-controls="profile" aria-selected="false">Add</a>
             </li>
         </ul>
-        <div class="tab-content" id="myTabContent5">
-            <div class="tab-pane fade active show" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
+        <div class="tab-content">
+            <div class="tab-pane fade active show" id="list" role="tabpanel" aria-labelledby="list">
                 <div class="card">
-                    {{-- <h5 class="card-header">Properties</h5> --}}
                     <div class="card-body">
                         <div class="table-responsive ">
                             <table id="example" class="table table-striped table-bordered second" style="width:100%">
@@ -109,24 +108,27 @@
 
 
 
-            <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
+            <div class="tab-pane fade" id="add" role="tabpanel" aria-labelledby="add">
                 <div class="card-body">
                     <form action="{{ route('agreement.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
 
-                            <div class="form-group col-md-2">
-                                <label class="col-form-label">Serial (#) </label>
+                            <div class="form-group col-md">
+                                <label class="col-form-label">Serial No. </label>
                                 <input type="hidden" name="serial" value="{{ $id = App\Agreement::nextId() }}">
                                 <input value="{{ $id }}" class="form-control" disabled>
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md">
                                 <label class="col-form-label">Agreement Name</label>
                                 <input name="name" type="text" class="form-control" required>
                             </div>
 
-                            <div class="col-md-3 form-group">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md form-group">
                                 <label class="col-form-label">Property Type</label>
                                 <select id="types" class="form-control">
                                     <option>Select type</option>
@@ -136,7 +138,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-3 form-group">
+                            <div class="col-md form-group">
                                 <label class="col-form-label">Property</label>
                                 <select id="properties" class="form-control" name="property_id" required>
                                 </select>
@@ -144,7 +146,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4 form-group">
+                            <div class="col-md form-group">
                                 <label class="col-form-label">Tent</label>
                                 <select class="form-control" name="tent_id" required>
                                     <option value="">Select Tent</option>
@@ -153,41 +155,46 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-4 form-group">
-                                <label class="col-form-label">Security Deposit Money</label>
-                                <input name="advance" type="number" class="form-control" required>
+                            <div class="col-md form-group">
+                                <label class="col-form-label">Attachment</label>
+                                <input name="attachment" type="file" class="form-control" required>
                             </div>
-                            <div class="col-md-4 form-group">
+                            <div class="col-md form-group">
                                 <label class="col-form-label">Yearly Increment (%)</label>
-                                <input name="yearly_percent" type="number" class="form-control" required>
+                                <input name="yearly_percent" type="number" class="form-control" max="99" required>
                             </div>
+
 
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4 form-group">
-                                <label class="col-form-label">Attachment</label>
-                                <input name="attachment" type="file" class="form-control" required>
+                            <div class="form-group col">
+                                <label class="col-form-label">Security Money</label>
+                                <input name="advance" type="number" class="form-control"
+                                    onkeyup="word.innerHTML=toWord(this.value)" autocomplete required>
+                                <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
+                                        id="word"></span></div>
                             </div>
+                        </div>
 
-
-                            <div class="col-md-4 form-group">
+                        <div class="row">
+                            <div class="col-md form-group">
                                 <label class="col-form-label">Start Date</label>
                                 <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}"
                                     class="form-control">
                             </div>
 
-                            <div class="col-md-4 form-group">
+                            <div class="col-md form-group">
                                 <label class="col-form-label">Entry by</label>
                                 <input value="{{ Auth::user()->name }}" class="form-control" disabled>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-12">
                                 <h4>Conditions:</h4>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md">
                                 <div class="custom-control custom-checkbox was-validated"
                                     style="padding-left: 20px; margin-left: 20px;">
                                     <input type="checkbox" class="custom-control-input is-invalid"

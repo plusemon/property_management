@@ -16,7 +16,7 @@ class TypeController extends Controller
         }else{
             $types = Type::all();
         }
-        return view('rent.property.type.index', compact('types'));
+        return view('type.index', compact('types'));
     }
 
     public function report()
@@ -47,7 +47,7 @@ class TypeController extends Controller
 
     public function edit(Type $type)
     {
-        return view('rent.property.type.edit', compact('type'));
+        return view('type.edit', compact('type'));
     }
 
     public function update(Request $request, Type $type)

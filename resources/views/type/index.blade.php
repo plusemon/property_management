@@ -16,14 +16,14 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#add" role="tab"
-                    aria-controls="add" aria-selected="false">Entry</a>
+                    aria-controls="add" aria-selected="false">Add</a>
             </li>
         </ul>
 
         <div class="tab-content">
             <div class="tab-pane fade active show" id="list" role="tabpanel" aria-labelledby="list">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body table-resonsive">
                         <table id="example" class="table table-striped table-bordered second">
                             <thead>
                                 <tr>
@@ -66,23 +66,23 @@
                         <form action="{{ route('type.store') }}" method="POST">
                             @csrf
                             <div class="row">
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md">
                                     <label class="col-form-label"># Serial</label>
                                     <input type="hidden" name="serial" value="{{ $id = App\Type::nextId() }}">
                                     <input value="{{ $id }}" class="form-control" disabled>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md">
                                     <label class="col-form-label">Type Name</label>
                                     <input name="name" type="text" class="form-control">
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md">
                                     <label class="col-form-label">Under</label>
                                     <select name="type" class="form-control" required>
                                         <option value="property" {{ request()->flter == 'property' ? 'selected':'' }}>Property</option>
                                         <option value="expense" {{ request()->flter == 'expense' ? 'selected':'' }}>Expense</option>
                                     </select>
                                 </div>
-                                <div class="form-group  col-md-3">
+                                <div class="form-group  col-md">
                                     <label class="col-form-label">Entry Date</label>
                                     <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}">
                                 </div>

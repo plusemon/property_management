@@ -2,32 +2,28 @@
 
 @section('content')
 
-{{-- <div class="col-12 text-right">
-    <a href="{{ url('admin/payment/type') }}" class="btn btn-primary">Add New Type</a>
-</div> --}}
-
 <div class="col-12">
     <div class="section-block">
-        <h3 class="section-title">Rent / Payments</h3>
+        <h3 class="section-title">Payments</h3>
     </div>
     <div class="simple-card">
-        <ul class="nav nav-tabs" id="myTab5" role="tablist">
+        <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link border-left-0 active show" id="home-tab-simple" data-toggle="tab" href="#home-simple"
-                    role="tab" aria-controls="home" aria-selected="true">List</a>
+                <a class="nav-link border-left-0 active show" id="" data-toggle="tab" href="#list" role="tab"
+                    aria-controls="list" aria-selected="true">List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#profile-simple" role="tab"
-                    aria-controls="profile" aria-selected="false">Pay</a>
+                <a class="nav-link" id="" data-toggle="tab" href="#pay" role="tab" aria-controls="pay"
+                    aria-selected="false">Pay</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab-simple2" data-toggle="tab" href="#profile-simple2" role="tab"
-                    aria-controls="profile" aria-selected="false">Refund</a>
+                <a class="nav-link" id="" data-toggle="tab" href="#refund" role="tab" aria-controls="refund"
+                    aria-selected="false">Refund</a>
             </li>
         </ul>
-        <div class="tab-content" id="myTabContent5">
+        <div class="tab-content">
             {{-- List of payments  --}}
-            <div class="tab-pane fade active show" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
+            <div class="tab-pane fade active show" id="list" role="tabpanel" aria-labelledby="home-tab-simple">
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive ">
@@ -54,7 +50,8 @@
                                         <td>{{ $payment->agreement->name }}</td>
                                         <td>{{ $payment->agreement->property->type->name ?? 'Deleted' }}</td>
                                         <td>{{ $payment->agreement->property->name }}</td>
-                                        <td>{{ $payment->agreement->tent->fname ?? 'deleted' }} {{ $payment->agreement->tent->lname ?? ''}}
+                                        <td>{{ $payment->agreement->tent->fname ?? 'deleted' }}
+                                            {{ $payment->agreement->tent->lname ?? ''}}
                                         </td>
                                         <td>{{ $payment->amount }}</td>
                                         <td class="text-right">
@@ -79,21 +76,21 @@
             </div>
 
             {{-- Payment --}}
-            <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
+            <div class="tab-pane fade" id="pay" role="tabpanel" aria-labelledby="pay">
                 <div class="card-body">
                     <form action="{{ route('payment.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="for" value="payment">
 
                         <div class="row">
-
-                            <div class="form-group col-md-2">
-                                <label class="col-form-label">Serial (#) </label>
+                            {{-- serial no  --}}
+                            <div class="form-group col-md">
+                                <label class="col-form-label">Serial No. </label>
                                 <input type="hidden" name="serial" value="{{ $id = App\Payment::nextId() }}">
                                 <input value="{{ $id }}" class="form-control" disabled>
                             </div>
-
-                            <div class="col-md-3 form-group">
+                            {{-- Agreement --}}
+                            <div class="col-md form-group">
                                 <label class="col-form-label">Agreement</label>
                                 <select class="form-control" name="agreement_id" id="agreements" required>
                                     <option value="">Select</option>
@@ -103,7 +100,7 @@
                                 </select>
                             </div>
                             {{-- Pay for --}}
-                            <div class="col-md-3 form-group" id="pay-for">
+                            <div class="col- form-group" id="pay-for">
                                 <label class="col-form-label">Pay for</label>
                                 <select class="form-control" name="type" id="pay-type" required>
                                     <option value="">Select</option>
@@ -113,8 +110,11 @@
                                     <option value="security">Security Deposit</option>
                                 </select>
                             </div>
+                        </div>
+
+                        <div class="row">
                             {{-- month list  --}}
-                            <div class="col-md-2 form-group" id="month-row">
+                            <div class="col- form-group" id="month-row">
                                 <label class="col-form-label">Select month</label>
                                 <select class="form-control" name="month" id="month">
                                     <option value="jan" {{ date('m') == 1 ? 'selected':'' }}>January</option>
@@ -132,14 +132,14 @@
                                 </select>
                             </div>
                             {{-- status --}}
-                            <div class="form-group col-md-2" id="status-row">
+                            <div class="form-group col-md" id="status-row">
                                 <label class="col-form-label">Status</label>
                                 <input id="status" type="text" class="form-control" disabled>
                             </div>
-
                         </div>
 
-                        {{-- Agreement Details --}}
+
+                        {{-- Agreement information --}}
                         <div class="row" id="agreement-info">
                             <div class="form-group col-3">
                                 <label class="col-form-label">Type</label>
@@ -160,6 +160,16 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="form-group col">
+                                <label class="col-form-label">Amount</label>
+                                <input name="amount" type="number" class="form-control"
+                                    onkeyup="word.innerHTML=toWord(this.value)" autocomplete required>
+                                <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
+                                        id="word"></span></div>
+                            </div>
+                        </div>
+
                         {{-- Payment Method  --}}
                         <div class="row" id="payment-info">
                             <div class="col-md-4 form-group">
@@ -177,10 +187,6 @@
                                 <input id="balance" type="text" class="form-control" disabled>
                             </div>
 
-                            <div class="form-group col-md-2">
-                                <label class="col-form-label">Amount</label>
-                                <input name="amount" id="amount" type="text" class="form-control" required>
-                            </div>
 
                             <div class="form-group col-md-2 my-auto" id="gst-row">
                                 <label class="custom-control custom-checkbox">
@@ -193,31 +199,35 @@
                                 <input name="gst" type="text" class="form-control">
                             </div>
                         </div>
-                        {{-- Bank Options --}}
-                        <div class="row" id="bank-row">
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Bank Name</label>
-                                <input name="bank" type="text" class="form-control">
+                        {{-- Bank Row --}}
+                        <div id="bank-row">
+                            <div class="row">
+                                <div class="form-group col-md">
+                                    <label class="col-form-label">Bank Name</label>
+                                    <input name="bank" type="text" class="form-control">
+                                </div>
+
+                                <div class="form-group col-md">
+                                    <label class="col-form-label">Bank A/C</label>
+                                    <input name="account" type="number" class="form-control">
+                                </div>
                             </div>
 
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Bank A/C</label>
-                                <input name="account" type="text" class="form-control">
-                            </div>
+                            <div class="row">
+                                <div class="form-group col-md">
+                                    <label class="col-form-label">Branch</label>
+                                    <input name="branch" type="text" class="form-control">
+                                </div>
 
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Branch</label>
-                                <input name="branch" type="text" class="form-control">
-                            </div>
+                                <div class="form-group col-md">
+                                    <label class="col-form-label">Cheque No</label>
+                                    <input name="cheque" type="text" class="form-control">
+                                </div>
 
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Cheque No</label>
-                                <input name="cheque" type="text" class="form-control">
-                            </div>
-
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Cheque scan copy</label>
-                                <input name="attachment" type="file" class="form-control">
+                                <div class="form-group col-md">
+                                    <label class="col-form-label">Cheque scan copy</label>
+                                    <input name="attachment" type="file" class="form-control">
+                                </div>
                             </div>
                         </div>
                         {{-- Submit --}}
@@ -230,7 +240,7 @@
             </div>
 
             {{-- Refund --}}
-            <div class="tab-pane fade" id="profile-simple2" role="tabpanel" aria-labelledby="profile-tab-simple">
+            <div class="tab-pane fade" id="refund" role="tabpanel" aria-labelledby="refund">
                 <div class="card-body">
                     <form action="{{ route('payment.store') }}" method="POST">
                         @csrf
@@ -303,17 +313,16 @@
 
 @section('scripts')
 <script>
-
-$(document).ready(function() {
-    $('#agreement-info').slideUp();
-    $('#pay-for').slideUp();
-    $('#month-row').slideUp();
-    $('#status-row').slideUp();
-    // $('#payment-info').slideUp();
-    $('#gst').slideUp();
-    $('#bank-row').fadeOut();
-    $('#wallet').fadeOut();
-})
+    $(document).ready(function() {
+        $('#agreement-info').slideUp();
+        $('#pay-for').slideUp();
+        $('#month-row').slideUp();
+        $('#status-row').slideUp();
+        // $('#payment-info').slideUp();
+        $('#gst').slideUp();
+        $('#bank-row').fadeOut();
+        $('#wallet').fadeOut();
+    })
     // Get and show agreement information - payment
     $('#agreements').on('change', function() {
         var id = $(this).val();
@@ -386,14 +395,10 @@ $(document).ready(function() {
 
     });
 
-
     // gst field show
     $('#gstbox').on('change',function() {
         $("#gst").toggle();
     });
-
-
-
 
     // Get and show agreement information - Refund
     $('.agreements').on('change', function() {

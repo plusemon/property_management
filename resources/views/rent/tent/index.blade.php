@@ -4,21 +4,21 @@
 
 <div class="col-12">
     <div class="section-block">
-        <h3 class="section-title">Rent / Tents</h3>
+        <h3 class="section-title">Tents</h3>
     </div>
     <div class="simple-card">
         <ul class="nav nav-tabs" id="myTab5" role="tablist">
             <li class="nav-item">
-                <a class="nav-link border-left-0 active show" id="home-tab-simple" data-toggle="tab" href="#home-simple"
-                    role="tab" aria-controls="home" aria-selected="true">List</a>
+                <a class="nav-link border-left-0 active show" id="" data-toggle="tab" href="#list"
+                    role="tab" aria-controls="list" aria-selected="true">List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#profile-simple" role="tab"
-                    aria-controls="profile" aria-selected="false">Entry</a>
+                <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#add" role="tab"
+                    aria-controls="profile" aria-selected="false">Add</a>
             </li>
         </ul>
-        <div class="tab-content" id="myTabContent5">
-            <div class="tab-pane fade active show" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
+        <div class="tab-content">
+            <div class="tab-pane fade active show" id="list" role="tabpanel" aria-labelledby="add">
                <div class="table-responsive">
                 <table id="example" class="table table-striped table-bordered second">
                     <thead>
@@ -104,7 +104,7 @@
                </div>
             </div>
 
-            <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
+            <div class="tab-pane fade" id="add" role="tabpanel" aria-labelledby="add">
                 <div class="simple-card">
                     <div class="tab-content" id="myTabContent5">
                         <form action="{{ route('tent.store') }}" method="POST" enctype="multipart/form-data">

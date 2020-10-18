@@ -4,23 +4,23 @@
 
 <div class="col-12">
     <div class="section-block">
-        <h3 class="section-title">Rent / Properties</h3>
+        <h3 class="section-title">Properties</h3>
     </div>
 
     <div class="simple-card">
-        <ul class="nav nav-tabs" id="myTab5" role="tablist">
+        <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link border-left-0 active show" id="home-tab-simple" data-toggle="tab" href="#home-simple"
-                    role="tab" aria-controls="home" aria-selected="true">List</a>
+                <a class="nav-link border-left-0 active show" id="" data-toggle="tab" href="#list"
+                    role="tab" aria-controls="list" aria-selected="true">List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#profile-simple" role="tab"
-                    aria-controls="profile" aria-selected="false">Add</a>
+                <a class="nav-link" id="" data-toggle="tab" href="#add" role="tab"
+                    aria-controls="add" aria-selected="false">Add</a>
             </li>
         </ul>
 
-        <div class="tab-content" id="myTabContent5">
-            <div class="tab-pane fade active show" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
+        <div class="tab-content">
+            <div class="tab-pane fade active show" id="list" role="tabpanel" aria-labelledby="home-tab-simple">
                 <div class="card">
                     <div class="card-body">
                         <table id="example" class="table table-striped table-bordered second" style="width:100%">
@@ -45,7 +45,7 @@
                                     <td>{{ $property->district }}</td>
                                     <td>{{ $property->city }}</td>
                                     <td>{{ $property->country }}</td>
-                                    <td>{{ $property->agreements->count() ? 'Occupied':'Vacant' }}</td>
+                                    <td class="{{ $property->agreements->count() ? 'text-success':'text-danger' }}">{{ $property->agreements->count() ? 'Occupied':'Vacant' }}</td>
                                     <td class="text-right">
                                         <a href="{{ route('property.edit', $property->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -67,18 +67,18 @@
 
 
 
-            <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
+            <div class="tab-pane fade" id="add" role="tabpanel" aria-labelledby="add">
                 <div class="card-body">
                     <form action="{{ route('property.store') }}" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="form-group col-4">
-                                <label class="col-form-label"># Serial</label>
+                            <div class="form-group col-md">
+                                <label class="col-form-label">Serial No.</label>
                                     <input type="hidden" name="serial" value="{{ $id = App\Property::nextId() }}">
                                     <input value="{{ $id }}" class="form-control" disabled>
                             </div>
 
-                            <div class="col-4 form-group">
+                            <div class="col-md form-group">
                                 <label class="col-form-label">Type</label>
                                 <select class="form-control" name="type_id" required>
                                     <option value="">Select type</option>
@@ -88,42 +88,51 @@
                                 </select>
                             </div>
 
-                            <div class="form-group col-4">
+                            <div class="form-group col-md">
                                 <label class="col-form-label">Property</label>
                                 <input name="name" type="text" class="form-control" value="" required>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-4 form-group">
+                            <div class="form-group col">
                                 <label class="col-form-label">Rent (Per Month)</label>
-                                <input name="rate" type="text" class="form-control" value="10000" required>
+                                <input name="rate" type="number" value="1000" class="form-control"
+                                    onkeyup="word.innerHTML=toWord(this.value)" autocomplete required>
+                                <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
+                                        id="word"></span></div>
                             </div>
-                            <div class="col-4 form-group">
+                        </div>
+                        <div class="row">
+                            <div class="col-md form-group">
                                 <label class="col-form-label">District</label>
                                 <input name="district" type="text" class="form-control" required>
                             </div>
-                            <div class="col-4 form-group">
+                            <div class="col-md form-group">
                                 <label class="col-form-label">Street</label>
                                 <input name="street" type="text" class="form-control" required>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-4 form-group">
+                            <div class="col-md form-group">
                                 <label class="col-form-label">City</label>
                                 <input name="city" type="text" class="form-control" required>
                             </div>
 
-                            <div class="col-4 form-group">
+                            <div class="col-md form-group">
                                 <label class="col-form-label">Country</label>
                                 <input name="country" type="text" class="form-control" required>
                             </div>
 
-                            <div class="col-4 form-group">
+                        </div>
+                        <div class="row">
+                            <div class="col-md form-group">
                                 <label class="col-form-label">Entry Date</label>
                                 <input id="created_at" name="created_at" type="date"
                                     value="<?php echo date('Y-m-d'); ?>" class="form-control">
+                            </div>
+                            <div class="col-md form-group">
+                                <label class="col-form-label">Entry By</label>
+                                <input type="text" value="{{ Auth::user()->name }}" class="form-control" disabled>
                             </div>
                         </div>
 

@@ -100,7 +100,6 @@
                                     <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
                                             id="word"></span></div>
                                 </div>
-
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
