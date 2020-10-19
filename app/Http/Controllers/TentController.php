@@ -23,9 +23,9 @@ class TentController extends Controller
 
         $tent = new Tent();
 
-        if (!Tent::count()) {
-            $tent->id = \App\Setting::first()->serial;
-        }
+        // if (!Tent::count()) {
+        //     $tent->id = \App\Setting::first()->serial;
+        // }
 
         //  tent cnic attachment
         if (isset($request->tent['cnica'])) {

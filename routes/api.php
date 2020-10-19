@@ -22,4 +22,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('properties', 'ApiController@properties');
 Route::get('agreement-info', 'ApiController@agreementInfo');
 Route::get('payment-status', 'ApiController@paymentMonthStatus');
-Route::get('wallet-balance', 'ApiController@walletBalance');
+Route::get('balance', 'ApiController@walletBalance');

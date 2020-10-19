@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Agreement;
 use Illuminate\Http\Request;
 use App\Property;
-use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class ApiController extends Controller
 {
@@ -65,9 +65,9 @@ class ApiController extends Controller
     }
 
     // GET WALLET BALANCE
-    public function walletBalance()
+    public function walletBalance(Request $request)
     {
-        $data = Auth::user()->wallet;
+       return $data = User::find($request->user)->wallet;
         if($data){
             return response()->json($data);
         }

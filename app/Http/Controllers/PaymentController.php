@@ -19,93 +19,48 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
+        // return $request;
+        // PAYMENT
+        $payment = new Payment();
+        $payment->id = $request->serial;
+        $payment->agreement_id = $request->agreement_id;
+        $payment->user_id = auth()->id();
+        $payment->type = $request->type;
+        $payment->state = 'payment';
+        $payment->amount = $request->amount;
+        $payment->method = $request->method;
+        $payment->year = $request->year;
+        $payment->month = $request->month;
+        $payment->description = $request->description;
+        $payment->tnxid = uniqid();
+        if ($request->gst) {
+            $payment->gst = $request->gst;
+        }
 
-        // Payment
-        if ($request->for == 'payment') {
+        if ($request->type == 'rent' || $request->type == 'bill') {
+            $this->rentPayment($request, $payment);
+        }
 
-            // Monthly Rent payment
-            if ($request->type == 'rent') {
-                $request->validate([
-                    "agreement_id" => "required",
-                    "type" => "required",
-                    "month" => "required",
-                    "method" => "required",
-                    "amount" => "required",
-                ]);
-
-                // calculate payment status by agreement
-                $agreement = Agreement::findOrFail($request->agreement_id);
-                $payments = $agreement->payments->where('month', $request->month)->pluck('amount')->sum();
-                $rent = $agreement->property->rate;
-                $due = 0;
-
-                if ($payments >= $rent) {
-                    // full payment completed
-                    return redirect()->back()->with('info', 'Payment Already Completed');
-                } else {
-                    // some due
-                    $due = ($rent - $payments);
-                }
-
-                $payment = new Payment();
-                $payment->id = $request->serial;
-                $payment->agreement_id = $request->agreement_id;
-                $payment->user_id = auth()->id();
-                $payment->type = $request->type;
-                $payment->method = $request->method;
-
-                if ($request->method == 'wallet' and $request->amount <= Auth::user()->wallet) {
-                    $user = Auth::user();
-                    $user->wallet -= $request->amount;
-                    $user->save();
-                }
-
-                $payment->month = $request->month;
-
-                if ($request->amount <= $due) {
-                    $payment->amount = $request->amount;
-                } else {
-                    $payment->amount = $due;
-
-                    //rest will save in wallet
-                    $user = Auth::user();
-                    $user->wallet += ($request->amount - $due);
-                    $user->save();
-                }
-
-                $payment->tnxid = uniqid();
-                if ($request->gst) {
-                    $payment->gst = $request->gst;
-                }
-                if ($request->method == 'bank') {
-                    $payment->bank = $request->bank;
-                    $payment->account = $request->account;
-                    $payment->branch = $request->branch;
-                    $payment->cheque = $request->cheque;
-                    if ($request->has('attachment')) {
-                        $payment->attachment = $request->attachment->store('/cheque');
-                    }
-                }
+        // PAYMENT METHODS
+        if ($request->method == 'cash') {
+            $this->cashPayment($request);
+        }
+        elseif ($request->method == 'bank') {
+            $this->bankPayment( $request, $payment );
+        }
+        elseif ($request->method == 'wallet') {
+            if (Auth::user()->wallet >= $request->amount) {
+                $user = Auth::user();
+                $user->wallet -= $request->amount;
+                $user->save();
+            } else {
+                return redirect()->back()->with('warning', 'Dont have enough balace in wallet');
             }
-
-            // other payment
-
-            $payment->save();
         }
 
 
-        // refund
-        if ($request->for == 'refund') {
-            $payment = new Payment();
-            $payment->agreement_id = $request->agreement_id;
-            $payment->user_id = auth()->id();
-            $payment->method = 'Refund';
-            $payment->type = $request->type;
-            $payment->amount = $request->amount;
-            $payment->tnxid = uniqid();
-            $payment->save();
-        }
-
+        // return $payment;
+        $payment->save();
         return redirect()->back()->with('success', 'Added Successfully');
     }
 
@@ -137,5 +92,40 @@ class PaymentController extends Controller
     {
         $payment->delete();
         return redirect()->back()->with('success', 'Deleted Successfully');
+    }
+
+
+
+    public function rentPayment($request, $payment)
+    {
+        // rent payment
+        $request->validate([
+            "agreement_id" => "required|integer",
+            "type" => "required|string",
+            "year" => "required|integer",
+            "month" => "required|array",
+            "method" => "required|string",
+            "amount" => "required|integer|gt:0",
+        ]);
+    }
+
+    public function walletPayment($request)
+    {
+
+    }
+
+    public function bankPayment( $request, $payment )
+    {
+        $payment->bank = $request->bank;
+        $payment->account = $request->account;
+        $payment->branch = $request->branch;
+        $payment->cheque = $request->cheque;
+        if ($request->has('attachment')) {
+            $payment->attachment = $request->attachment->store('/cheque');
+        }
+    }
+    public function cashPayment()
+    {
+        //
     }
 }

@@ -18,7 +18,7 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'serial' => 'required',
+            // 'serial' => 'required',
             'name' => 'required',
             'type_id' => 'required|integer',
             'rate' => 'required|integer',
@@ -30,7 +30,7 @@ class PropertyController extends Controller
 
         $property = new Property();
 
-        $property->id = $request->serial;
+        // $property->id = $request->serial;
         $property->name = $request->name;
         $property->type_id = $request->type_id;
         $property->rate = $request->rate;

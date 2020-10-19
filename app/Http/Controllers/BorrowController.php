@@ -38,7 +38,22 @@ class BorrowController extends Controller
      */
     public function store(Request $request)
     {
-        Borrow::create($request->all());
+
+        $request->validate([
+            'serial' => 'required|integer|unique:borrows,id',
+            'user_id' => 'required|integer',
+            'amount' => 'required|integer|gt:0',
+            'description' => 'required',
+        ]);
+
+        $borrow = new Borrow();
+        $borrow->id = $request->serial;
+        $borrow->user_id = $request->user_id;
+        $borrow->amount = $request->amount;
+        $borrow->description = $request->description;
+        $borrow->entry = $request->entry;
+        $borrow->created_at = $request->created_at;
+        $borrow->save();
         return redirect()->back()->with('success','Added Successfully');
     }
 

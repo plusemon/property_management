@@ -18,16 +18,20 @@ class CreatePaymentsTable extends Migration
             $table->integer('agreement_id');
             $table->integer('user_id');
             $table->string('type');
-            $table->string('month')->nullable();
+            $table->string('state');
+            $table->integer('year')->nullable();
+            $table->json('month')->nullable();
             $table->string('method');
-            $table->string('amount');
+            $table->integer('amount');
             $table->string('tnxid')->nullable();
             $table->string('gst')->nullable();
             $table->string('bank')->nullable();
-            $table->string('account')->nullable();
+            $table->integer('account')->nullable();
             $table->string('branch')->nullable();
             $table->string('cheque')->nullable();
             $table->string('attachment')->nullable();
+
+            $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

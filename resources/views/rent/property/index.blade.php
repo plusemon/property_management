@@ -72,11 +72,11 @@
                     <form action="{{ route('property.store') }}" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="form-group col-md">
+                            {{-- <div class="form-group col-md">
                                 <label class="col-form-label">Serial No.</label>
                                     <input type="hidden" name="serial" value="{{ $id = App\Property::nextId() }}">
                                     <input value="{{ $id }}" class="form-control" disabled>
-                            </div>
+                            </div> --}}
 
                             <div class="col-md form-group">
                                 <label class="col-form-label">Type</label>

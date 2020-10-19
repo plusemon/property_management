@@ -31,16 +31,17 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Aagreement</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Tent</th>
-                                        <th scope="col">Property</th>
                                         <th scope="col">Type</th>
+                                        <th scope="col">Property</th>
                                         <th scope="col">Rent(M)</th>
-                                        <th scope="col">Sec. Money</th>
-                                        <th scope="col">Yr Incr. %</th>
-                                        <th scope="col">Start Date</th>
-                                        <th scope="col">Month Paid</th>
-                                        <th scope="col">Attachment</th>
+                                        <th scope="col">Tent</th>
+                                        <th scope="col">Status</th>
+                                        {{-- <th scope="col">Sec. Money</th>
+                                        <th scope="col">Paid</th> --}}
+                                        {{-- <th scope="col">Yr Incr. %</th> --}}
+                                        {{-- <th scope="col">Start Date</th> --}}
+                                        {{-- <th scope="col">Month Paid</th> --}}
+                                        {{-- <th scope="col">Attachment</th> --}}
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -49,50 +50,51 @@
                                     <tr>
                                         <td>{{ $agreement->id }}</td>
                                         <td>{{ $agreement->name }}</td>
-                                        <td style="{{ $agreement->status == 0 ?'color:red':'color:green' }}">
-                                            {{ $agreement->status == 0 ?'Inactive':'Active' }}</td>
+                                        <td>{{ $agreement->property->type->name ?? 'Deleted' }}</td>
+                                        <td>{{ $agreement->property->name ?? 'Deleted'}}</td>
+                                        <td>{{ $agreement->property->rate ?? 'Deleted' }}</td>
                                         <td>{{ $agreement->tent ? $agreement->tent->fname.' '.$agreement->tent->lname:'Deleted' }}
                                         </td>
-                                        <td>{{ $agreement->property->name ?? 'Deleted'}}</td>
-                                        <td>{{ $agreement->property->type->name ?? 'Deleted' }}</td>
-                                        <td>{{ $agreement->property->rate ?? 'Deleted' }}</td>
-                                        <td>{{ $agreement->advance }}</td>
-                                        <td>{{ $agreement->yearly_percent }}%</td>
-                                        <td>{{ $agreement->created_at->format('d/m/Y') }}</td>
-                                        <td>@if ($agreement->payments->count() == 12)
-                                            Completed
-                                            @else
-                                            @foreach ($agreement->payments as $payment)
-                                            {{ $payment->month }},
-                                            @endforeach
-                                            @endif</td>
                                         <td>
-                                            <a href="{{ url('public/storage/'.$agreement->attachment) }}"
-                                                class="badge badge-secondary p-1">Download</a><br>
-                                        </td>
-                                        <td class="text-right">
-                                            {{-- <a href="{{ route('agreement.edit', $agreement->id)}}"
-                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            --}}
-                                            {{-- <form class="d-inline"
-                                                action="{{route('agreement.destroy', $agreement->id)}}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"><i
-                                                    class="fas fa-trash-alt"></i></button>
-                                            </form> --}}
-
                                             <form class="d-inline"
                                                 action="{{route('agreement.update', $agreement->id)}}" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 @if ($agreement->status)
                                                     <input type="hidden" name="status" value="0">
-                                                    <button type="submit" class="btn btn-sm btn-danger">Inactive</button>
+                                                    <button type="submit" class="btn btn-sm btn-success">Actived</button>
                                                     @else
                                                     <input type="hidden" name="status" value="1">
-                                                    <button type="submit" class="btn btn-sm btn-success">Active</button>
+                                                    <button type="submit" class="btn btn-sm btn-danger">Inactived</button>
                                                 @endif
+                                            </form>
+                                        </td>
+                                        {{-- <td>{{ $agreement->advance }}</td> --}}
+                                        {{-- <td>{{ $agreement->payments->where('type','security')->sum('amount')}}</td> --}}
+                                        {{-- <td>{{ $agreement->yearly_percent }}%</td> --}}
+                                        {{-- <td>{{ $agreement->created_at->format('d/m/Y') }}</td> --}}
+                                        {{-- <td>
+                                            @foreach ($agreement->payments as $payment)
+                                            {{ $payment->month }},
+                                            @endforeach
+                                        </td> --}}
+                                        {{-- <td>
+                                            <a href="{{ url('public/storage/'.$agreement->attachment) }}"
+                                                class="badge badge-secondary p-1">Download</a><br>
+                                        </td> --}}
+                                        <td class="text-right">
+                                            <a href="#"
+                                                class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+                                            {{-- <a href="{{ route('agreement.edit', $agreement->id)}}"
+                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            --}}
+
+                                            <form class="d-inline"
+                                                action="{{route('agreement.destroy', $agreement->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"><i
+                                                    class="fas fa-trash-alt"></i></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -114,11 +116,11 @@
                         @csrf
                         <div class="row">
 
-                            <div class="form-group col-md">
+                            {{-- <div class="form-group col-md">
                                 <label class="col-form-label">Serial No. </label>
                                 <input type="hidden" name="serial" value="{{ $id = App\Agreement::nextId() }}">
                                 <input value="{{ $id }}" class="form-control" disabled>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group col-md">
                                 <label class="col-form-label">Agreement Name</label>

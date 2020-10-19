@@ -33,7 +33,7 @@ class TypeController extends Controller
         ]);
 
         $type = new Type();
-        $type->id = $request->serial;
+        // $type->id = $request->serial;
         $type->name = $request->name;
         $type->type = $request->type;
         if ($request->created_at) {

@@ -66,11 +66,11 @@
                         <form action="{{ route('type.store') }}" method="POST">
                             @csrf
                             <div class="row">
-                                <div class="form-group col-md">
+                                {{-- <div class="form-group col-md">
                                     <label class="col-form-label"># Serial</label>
                                     <input type="hidden" name="serial" value="{{ $id = App\Type::nextId() }}">
                                     <input value="{{ $id }}" class="form-control" disabled>
-                                </div>
+                                </div> --}}
                                 <div class="form-group col-md">
                                     <label class="col-form-label">Type Name</label>
                                     <input name="name" type="text" class="form-control">
@@ -78,8 +78,8 @@
                                 <div class="form-group col-md">
                                     <label class="col-form-label">Under</label>
                                     <select name="type" class="form-control" required>
-                                        <option value="property" {{ request()->flter == 'property' ? 'selected':'' }}>Property</option>
-                                        <option value="expense" {{ request()->flter == 'expense' ? 'selected':'' }}>Expense</option>
+                                        <option value="property" {{request()->filter == 'property' ? 'selected':''}}>Property</option>
+                                        <option value="expense" {{request()->filter == 'expense' ? 'selected':''}}>Expense</option>
                                     </select>
                                 </div>
                                 <div class="form-group  col-md">

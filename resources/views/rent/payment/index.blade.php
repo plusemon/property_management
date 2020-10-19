@@ -31,13 +31,15 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Date</th>
-                                        <th scope="col">Pay (m)</th>
-                                        <th scope="col">Transaction id</th>
-                                        <th scope="col">Agreement</th>
-                                        <th scope="col">Type</th>
-                                        <th scope="col">Property</th>
                                         <th scope="col">Tent</th>
+                                        <th scope="col">Payment</th>
+                                        <th scope="col">Property</th>
+                                        <th scope="col">Method</th>
                                         <th scope="col">Amount</th>
+                                        {{-- <th scope="col">Agreement</th> --}}
+                                        {{-- <th scope="col">Type</th> --}}
+                                        <th scope="col">Tnx No</th>
+                                        {{-- <th scope="col">State</th> --}}
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -45,18 +47,29 @@
                                     @foreach ($payments as $payment)
                                     <tr>
                                         <td>{{ $payment->created_at->format('d-m-y') }}</td>
-                                        <td>{{ $payment->type }} - {{ $payment->month ?? '' }}</td>
-                                        <td>{{ $payment->tnxid }}</td>
-                                        <td>{{ $payment->agreement->name }}</td>
-                                        <td>{{ $payment->agreement->property->type->name ?? 'Deleted' }}</td>
-                                        <td>{{ $payment->agreement->property->name }}</td>
                                         <td>{{ $payment->agreement->tent->fname ?? 'deleted' }}
                                             {{ $payment->agreement->tent->lname ?? ''}}
                                         </td>
-                                        <td>{{ $payment->amount }}</td>
+                                        <td>{{ $payment->type }}</td>
+                                        <td>{{ $payment->agreement->property->name }}</td>
+                                        <td>{{ $payment->method }}</td>
+                                        <td class="{{  $payment->state == 'payment' ? 'text-success':'text-secondary' }}">{{ $payment->amount }}</td>
+                                        <td>{{ $payment->tnxid }}</td>
+                                        {{-- <td>{{ $payment->state }}</td> --}}
+                                        {{-- <td>(@foreach ($payment->month as $month)
+                                            {{$month}},
+                                        @endforeach)
+                                        </td> --}}
+                                        {{-- <td>{{ $payment->agreement->name }}</td> --}}
+                                        {{-- <td>{{ $payment->agreement->property->type->name ?? 'Deleted' }}</td> --}}
                                         <td class="text-right">
+
                                             {{-- <a href="{{ route('payment.edit', $payment->id)}}"
-                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
+                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
+
+                                            <a href="#"
+                                                class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+
                                             <form class="d-inline" action="{{route('payment.destroy', $payment->id)}}"
                                                 method="POST">
                                                 @csrf
@@ -130,7 +143,7 @@
                                 <select class="form-control" name="type" id="pay-type" required>
                                     <option value="">Select</option>
                                     <option value="rent">Rent</option>
-                                    <option value="modify">Modification or damage or paint</option>
+                                    <option value="modification">Modification or damage or paint</option>
                                     <option value="bill">Utility Bills</option>
                                     <option value="security">Security Deposit</option>
                                 </select>
@@ -139,24 +152,45 @@
 
                         {{-- montly payment  --}}
                         <div class="row" id="rent-row">
+                            <div class="form-group col-md-2">
+                                <label class="col-form-label">Year</label>
+                                <select name="year" class="form-control">
+                                    @foreach (range(2020, strftime("%Y", time()+10)) as $year)
+                                    <option value="{{ $year }}">{{ $year }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             {{-- month list  --}}
                             <div class="form-group col-md">
-                                <h4>Select Month</h4>
+                                <label class="col-form-label">Month</label>
                                 <ul class="ks-cboxtags">
-                                    <li><input type="checkbox" id="jan" value=""><label for="jan">January</label></li>
-                                    <li><input type="checkbox" id="feb" value=""><label for="feb">February</label></li>
-                                    <li><input type="checkbox" id="mar" value=""><label for="mar">March</label></li>
-                                    <li><input type="checkbox" id="apr" value=""><label for="apr">April</label></li>
-                                    <li><input type="checkbox" id="may" value=""><label for="may">May</label></li>
-                                    <li><input type="checkbox" id="jun" value=""><label for="jun">June</label></li>
-                                    <li><input type="checkbox" id="jul" value=""><label for="jul">July</label></li>
-                                    <li><input type="checkbox" id="aug" value=""><label for="aug">Aug</label></li>
-                                    <li><input type="checkbox" id="sep" value=""><label for="sep">September</label></li>
-                                    <li><input type="checkbox" id="oct" value=""><label for="oct">October</label></li>
-                                    <li><input type="checkbox" id="nov" value=""><label for="nov">November</label></li>
-                                    <li><input type="checkbox" id="dec" value=""><label for="dec">December</label></li>
-                                  </ul>
+                                    <li><input name="month[]" type="checkbox" id="jan" value="1"><label
+                                            for="jan">January</label></li>
+                                    <li><input name="month[]" type="checkbox" id="feb" value="2"><label
+                                            for="feb">February</label></li>
+                                    <li><input name="month[]" type="checkbox" id="mar" value="3"><label
+                                            for="mar">March</label></li>
+                                    <li><input name="month[]" type="checkbox" id="apr" value="4"><label
+                                            for="apr">April</label></li>
+                                    <li><input name="month[]" type="checkbox" id="may" value="5"><label
+                                            for="may">May</label></li>
+                                    <li><input name="month[]" type="checkbox" id="jun" value="6"><label
+                                            for="jun">June</label></li>
+                                    <li><input name="month[]" type="checkbox" id="jul" value="7"><label
+                                            for="jul">July</label></li>
+                                    <li><input name="month[]" type="checkbox" id="aug" value="8"><label
+                                            for="aug">Aug</label></li>
+                                    <li><input name="month[]" type="checkbox" id="sep" value="9"><label
+                                            for="sep">September</label></li>
+                                    <li><input name="month[]" type="checkbox" id="oct" value="10"><label
+                                            for="oct">October</label></li>
+                                    <li><input name="month[]" type="checkbox" id="nov" value="11"><label
+                                            for="nov">November</label></li>
+                                    <li><input name="month[]" type="checkbox" id="dec" value="12"><label
+                                            for="dec">December</label></li>
+                                </ul>
                             </div>
+
                         </div>
 
 
@@ -228,6 +262,14 @@
                                     <label class="col-form-label">Cheque scan copy</label>
                                     <input name="attachment" type="file" class="form-control">
                                 </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md form-group">
+                                <label class="col-form-label">Description</label>
+                                <textarea name="remarks" class="form-control" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -356,10 +398,10 @@
     $('#pay-type').on('change', function() {
         // $('#payment-info').slideDown();
         var type = $(this).val();
-        if (type == 'rent') {
-            $('#rent-row').slideDown();
-        }else{
+        if ( type == 'security' || type == 'modification' ) {
             $('#rent-row').slideUp();
+        }else{
+            $('#rent-row').slideDown();
         }
     });
     // // Get selected month status
@@ -390,7 +432,7 @@
 
         if (method == 'wallet') {
             $('#wallet').fadeIn();
-            var url = '{{ url('api/wallet-balance') }}';
+            var url = '{{ url('api/balance'.'?user='.Auth::id()) }}';
             $.ajax({
             type: "GET",
             url: url,

@@ -68,7 +68,7 @@
             <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('loan.store') }}" method="POST">
+                        <form action="{{ route('expense.store') }}" method="POST">
                             @csrf
                             <div class="row">
 
