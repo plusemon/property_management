@@ -29,10 +29,10 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Date</th>
-                                    <th scope="col">Loan Taker</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Invoice</th>
                                     <th scope="col">Amount</th>
-                                    <th scope="col">Return Amount</th>
-                                    <th scope="col">Return Date</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -41,15 +41,15 @@
                                 <tr>
                                     <td scope="row">{{ $expense->id }}</td>
                                     <td scope="row">{{ $expense->created_at->format('d-m-Y') }}</td>
-                                    <td scope="row">{{ $expense->user->name }}</td>
+                                    <td scope="row">{{ $expense->type->name}}</td>
+                                    <td scope="row">{{ $expense->description }}</td>
+                                    <td scope="row">{{ $expense->invoice}}</td>
                                     <td scope="row">{{ $expense->amount }}</td>
-                                    <td scope="row">{{ $expense->return_amount }}</td>
-                                    <td scope="row">{{ $expense->return_date->format('d-m-Y') }}</td>
 
                                     <td class="text-right">
                                         <a href="{{ route('expense.edit', $expense->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                        <form class="d-inline" action="{{route('expense.destroy', $loan->id)}}"
+                                        <form class="d-inline" action="{{route('expense.destroy', $expense->id)}}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -85,7 +85,7 @@
 
                                 <div class="form-group col-md">
                                     <label class="col-form-label">Type</label>
-                                    <select name="user_id" class="form-control" required>
+                                    <select name="type_id" class="form-control" required>
                                         @foreach ($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                                         @endforeach

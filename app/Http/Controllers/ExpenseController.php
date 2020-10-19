@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Expense;
 use App\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
 {
@@ -17,7 +18,7 @@ class ExpenseController extends Controller
     {
         $expenses = Expense::all();
         $types = Type::whereType('expense')->get();
-        return view('expense.index',compact('expenses','types'));
+        return view('expense.index', compact('expenses', 'types'));
     }
 
     /**
@@ -38,7 +39,25 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
+        $request->validate([
+            "serial" => "required|integer",
+            "invoice" => "required|string",
+            "type_id" => "required|integer",
+            "amount" => "required|integer|gt:0",
+        ]);
+
+        $loan = new Expense();
+        $loan->id = $request->serial;
+        $loan->type_id = $request->type_id;
+        $loan->user_id = Auth::id();
+        $loan->invoice = $request->invoice;
+        $loan->amount = $request->amount;
+        $loan->description = $request->description;
+        $loan->created_at = $request->created_at;
+        $loan->save();
+
+        return redirect()->back()->with('success', 'Oparation Successfull');
     }
 
     /**

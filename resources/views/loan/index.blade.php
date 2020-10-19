@@ -28,10 +28,11 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Date</th>
                                     <th scope="col">Loan Taker</th>
+                                    <th scope="col">Description</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Return Amount</th>
+                                    <th scope="col">Loan Date</th>
                                     <th scope="col">Return Date</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -40,15 +41,16 @@
                                 @foreach ($loans as $loan)
                                 <tr>
                                     <td scope="row">{{ $loan->id }}</td>
-                                    <td scope="row">{{ $loan->created_at->format('d-m-Y') }}</td>
                                     <td scope="row">{{ $loan->user->name }}</td>
+                                    <td scope="row">{{ $loan->description }}</td>
                                     <td scope="row">{{ $loan->amount }}</td>
                                     <td scope="row">{{ $loan->return_amount }}</td>
+                                    <td scope="row">{{ $loan->created_at->format('d-m-Y') }}</td>
                                     <td scope="row">{{ $loan->return_date->format('d-m-Y') }}</td>
 
                                     <td class="text-right">
-                                        <a href="{{ route('loan.edit', $loan->id)}}" class="btn btn-sm btn-warning"><i
-                                                class="fas fa-edit"></i></a>
+                                        {{-- <a href="{{ route('loan.edit', $loan->id)}}" class="btn btn-sm btn-warning"><i
+                                                class="fas fa-edit"></i></a> --}}
                                         <form class="d-inline" action="{{route('loan.destroy', $loan->id)}}"
                                             method="POST">
                                             @csrf
