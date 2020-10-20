@@ -71,9 +71,8 @@
                             @csrf
                             <div class="row">
                                 <div class="form-group col-md-2">
-                                    <label class="col-form-label"># Serial</label>
-                                    <input type="hidden" name="serial" value="{{ $id = App\Borrow::nextId() }}">
-                                    <input value="{{ $id }}" class="form-control" disabled>
+                                    <label class="col-form-label">Serial No. </label>
+                                    <input type="number" name="serial" value="{{ $id = App\Borrow::nextId() }}" class="form-control" {{ $id ? 'disabled':'' }}>
                                 </div>
 
                                 <div class="form-group col-md-4">

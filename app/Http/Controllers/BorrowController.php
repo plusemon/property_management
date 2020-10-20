@@ -40,7 +40,7 @@ class BorrowController extends Controller
     {
 
         $request->validate([
-            'serial' => 'required|integer|unique:borrows,id',
+            'serial' => 'integer|unique:borrows,id',
             'user_id' => 'required|integer',
             'amount' => 'required|integer|gt:0',
             'description' => 'required',
