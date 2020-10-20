@@ -67,7 +67,7 @@
                                             {{-- <a href="{{ route('payment.edit', $payment->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
 
-                                            <a href="#"
+                                                <a href="#" data-toggle="modal" data-target="#details"
                                                 class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
 
                                             <form class="d-inline" action="{{route('payment.destroy', $payment->id)}}"
@@ -357,6 +357,29 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsLabel">Detailed Information</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                Another information will show here
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                {{-- <a href="#" class="btn btn-primary">Save changes</a> --}}
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
