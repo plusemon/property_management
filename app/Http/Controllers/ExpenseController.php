@@ -41,7 +41,6 @@ class ExpenseController extends Controller
     {
         // return $request;
         $request->validate([
-            "serial" => "required|integer",
             "invoice" => "required|string",
             "type_id" => "required|integer",
             "amount" => "required|integer|gt:0",
@@ -102,6 +101,7 @@ class ExpenseController extends Controller
      */
     public function destroy(Expense $expense)
     {
-        //
+        $expense->delete();
+       return redirect()->back()->with('success','Deleted Succefully');
     }
 }

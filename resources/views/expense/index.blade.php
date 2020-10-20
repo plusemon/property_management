@@ -73,9 +73,8 @@
                             <div class="row">
 
                                 <div class="form-group col-md">
-                                    <label class="col-form-label"># Serial</label>
-                                    <input type="hidden" name="serial" value="{{ $id = App\Expense::nextId() }}">
-                                    <input value="{{ $id }}" class="form-control" disabled>
+                                    <label class="col-form-label">Serial No. </label>
+                                    <input type="number" name="serial" value="{{ $id = App\Expense::nextId() }}" class="form-control" {{ $id ? 'disabled':'' }}>
                                 </div>
 
                                 <div class="form-group col-md">

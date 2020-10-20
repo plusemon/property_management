@@ -90,8 +90,8 @@ class AgreementController extends Controller
 
     public function destroy(Agreement $agreement)
     {
-       $agreement->delete();
-       return redirect()->back()->with('success','Deleted Succefully');
+        $agreement->delete();
+        return redirect()->back()->with('success','Deleted Succefully');
     }
 
 }

@@ -98,8 +98,7 @@
                             {{-- serial no  --}}
                             <div class="form-group col-md">
                                 <label class="col-form-label">Serial No. </label>
-                                <input type="hidden" name="serial" value="{{ $id = App\Payment::nextId() }}">
-                                <input value="{{ $id }}" class="form-control" disabled>
+                                <input type="number" name="serial" value="{{ $id = App\Payment::nextId() }}" class="form-control" {{ $id ? 'disabled':'' }}>
                             </div>
                             {{-- Agreement --}}
                             <div class="col-md form-group">

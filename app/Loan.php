@@ -14,8 +14,6 @@ class Loan extends Model
     {
         if (parent::withTrashed()->count()) {
             return parent::withTrashed()->get()->last()->id + $increment;
-        }else{
-            return Setting::firstOrCreate([])->serial;
         }
 
     }
