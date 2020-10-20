@@ -11,10 +11,10 @@ class TypeController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->has('filter')) {
+        if ($request->filled('filter')) {
             $types = Type::where('type',$request->filter)->get();
         }else{
-            $types = Type::all();
+            return redirect(route('dashboard.index'))->with('warning','Not a valid request');
         }
         return view('type.index', compact('types'));
     }
@@ -33,7 +33,6 @@ class TypeController extends Controller
         ]);
 
         $type = new Type();
-        // $type->id = $request->serial;
         $type->name = $request->name;
         $type->type = $request->type;
         if ($request->created_at) {
