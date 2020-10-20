@@ -31,10 +31,10 @@
                             <th scope="col">Courtry</th>
                             <th scope="col">T-Attachment</th>
                             <th scope="col">G-Name</th>
-                            <th scope="col">Contact</th>
+                            {{-- <th scope="col">Contact</th>
                             <th scope="col">City</th>
                             <th scope="col">Country</th>
-                            <th scope="col">G-Attachment</th>
+                            <th scope="col">G-Attachment</th> --}}
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -56,11 +56,11 @@
                                 <a href="{{ url('public/storage/'.$tent->cnica) }}" class="badge badge-secondary mb-1">Download</a>
                                 @endif
                             </td>
-                            <td>
+                          <td>
                                 {{ $tent->g1_fname.' '.$tent->g1_lname }}<br>
                                 {{ $tent->g2_fname.' '.$tent->g2_lname }}<br>
                             </td>
-                            <td>
+                           {{--    <td>
                                 {{ $tent->g1_contact1 }}<br>
                                 {{ $tent->g1_contact2 }}<br>
                                 {{ $tent->g1_contact3 }}<br>
@@ -73,8 +73,8 @@
                             </td>
                             <td>
                                 {{ $tent->g1_country }}<br>
-                            </td>
-                            <td class="text-center">
+                            </td> --}}
+                            {{-- <td class="text-center">
                                 @if ($tent->g1_cnica)
                                      <a href="{{ url('public/storage/'.$tent->g1_cnica) }}"
                                     class="badge badge-secondary mb-1">Granter</a><br>
@@ -85,7 +85,7 @@
                                     class="badge badge-secondary mb-1">Granter 2</a>
                                 @endif
 
-                            </td>
+                            </td> --}}
                             <td class="text-right">
                                 {{-- <a href="{{ route('tent.edit', $tent->id)}}" class="btn btn-sm btn-warning"><i
                                         class="fas fa-edit"></i></a> --}}
