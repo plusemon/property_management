@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Agreement;
 use App\Borrow;
+use App\Expense;
 use App\Loan;
 use App\Payment;
-use App\Property;
-use App\Tent;
 use App\User;
+
 
 class DashboardController extends Controller
 {
     public function index()
     {
+
+        $expences = Expense::all();
+        $loans = Loan::all();
+        $payments = Payment::all();
+
+        $report = $expences->mergeRecursive($loans)->mergeRecursive($payments);
+
         $total = (object) [];
         $value = (object) [];
 
@@ -40,7 +46,7 @@ class DashboardController extends Controller
 
         $value->cash = 10000;
 
-        return view('dashboard', compact('total','value'));
+        return view('dashboard', compact('total','value','report'));
     }
 
 }

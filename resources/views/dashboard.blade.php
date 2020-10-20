@@ -109,30 +109,24 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Created</th>
-                        <th scope="col">Status</th>
-                        {{-- <th scope="col">Action</th> --}}
+                        <th scope="col">Date</th>
+                        <th scope="col">Action</th>
+                        <th scope="col">Taker/Reciever</th>
+                        <th scope="col">Amount In</th>
+                        <th scope="col">Amount Out</th>
+                        <th scope="col">Total</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (App\Type::all() as $type)
+                    @foreach ($report as $item)
                     <tr>
-                        <th scope="row">{{$type->id}}</th>
-                        <td>{{$type->name}}</td>
-                        <td>{{ $type->created_at->format('d-m-Y') }}</td>
-                        <td>{{$type->deleted_at ? 'Deleted':'Active'}}</td>
-                        {{-- <td class="text-right">
-                            <a href="{{ route('type.edit', $type->id)}}" class="btn btn-sm btn-warning"><i
-                                    class="fas fa-edit"></i></a>
-                            <form class="d-inline" action="{{route('type.destroy', $type->id)}}"
-                                method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger"><i
-                                        class="fas fa-trash-alt"></i></button>
-                            </form>
-                        </td> --}}
+                        <th scope="row">{{ $item->id }}</th>
+                        <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                        <td>{{ $item->invoice ? 'Expense':'Loan'}}</td>
+                        <td>{{ $item->user->name ?? '' }}</td>
+                        <td>{{ $item->amount }}</td>
+                        <td>{{ $item->amount }}</td>
+                        <td>{{ $item->deleted_at ? 'Deleted':'Active'}}</td>
                     </tr>
                     @endforeach
                 </tbody>
