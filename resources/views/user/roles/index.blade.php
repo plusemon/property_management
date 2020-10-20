@@ -74,14 +74,15 @@
                                 </div>
                             </div>
                             <h4>Permissions:</h4>
-                            @foreach ($permissions as $permission)
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" name="permissions[]" value="{{ $permission->name }}" id="{{ $permission->id }}">
-                                    <label class="custom-control-label" for="{{ $permission->id }}">{{ $permission->name }}</label>
-                                  </div>
-                            </div>
-                            @endforeach
+                            <div class="row">
+                                @foreach ($permissions as $permission)
+                             <div class="form-group col-md-3">
+                                 <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                                     <input type="checkbox" class="custom-control-input" name="permissions[]" value="{{ $permission->name }}" id="{{ $permission->id }}">
+                                     <label class="custom-control-label" for="{{ $permission->id }}">{{ $permission->name }}</label>
+                                   </div>
+                             </div>
+                             @endforeach</div>
                         </form>
                     </div>
                 </div>
