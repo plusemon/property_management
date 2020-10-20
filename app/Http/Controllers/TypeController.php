@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Type;
 use Illuminate\Http\Request;
-use App\Setting;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 
 class TypeController extends Controller
-{
+{ 
     public function index(Request $request)
     {
         if ($request->filled('filter')) {
-            $types = Type::where('type',$request->filter)->get();
-        }else{
-            return redirect(route('dashboard.index'))->with('warning','Not a valid request');
+            $types = Type::where('type', $request->filter)->get();
+        } else {
+            return redirect(route('dashboard.index'))->with('warning', 'Not a valid request');
         }
         return view('type.index', compact('types'));
     }
@@ -60,7 +61,7 @@ class TypeController extends Controller
         }
         $type->save();
 
-        return redirect(route('type.index','filter='.$type->type))->with('success', 'Updated Succefully');
+        return redirect(route('type.index', 'filter=' . $type->type))->with('success', 'Updated Succefully');
     }
 
     public function destroy(Type $type)

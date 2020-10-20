@@ -17,25 +17,25 @@ Route::get('/home', function () {
 Route::group(['middleware' => 'auth'], function () {
 
     //DASHBOARD
-    Route::resource('dashboard', 'DashboardController');
+    Route::resource('dashboard', 'DashboardController')->middleware('permission:manage dashboard');
 
     //RENT
-    Route::resource('property/type', 'TypeController');
-    Route::resource('property', 'PropertyController');
-    Route::resource('tent', 'TentController');
-    Route::resource('agreement', 'AgreementController');
-    Route::resource('payment', 'PaymentController');
+    Route::resource('property/type', 'TypeController')->middleware('permission:manage type');
+    Route::resource('property', 'PropertyController')->middleware('permission:manage property');
+    Route::resource('tent', 'TentController')->middleware('permission:manage tent');
+    Route::resource('agreement', 'AgreementController')->middleware('permission:manage agreement');
+    Route::resource('payment', 'PaymentController')->middleware('permission:manage payment');
     //
 
-    Route::resource('borrow', 'BorrowController');
-    Route::resource('wellpart', 'WellpartController');
-    Route::resource('expense/type', 'TypeController');
-    Route::resource('expense', 'ExpenseController');
-    Route::resource('loan', 'LoanController');
-    Route::resource('user', 'UserController');
-    Route::resource('role', 'RoleController');
-    Route::resource('setting', 'SettingController');
-    Route::get('report', 'TypeController@report')->name('report.index');
+    Route::resource('borrow', 'BorrowController')->middleware('permission:manage borrow');
+    Route::resource('wellpart', 'WellpartController')->middleware('permission:manage wellpart');
+    Route::resource('expense/type', 'TypeController')->middleware('permission:manage type');
+    Route::resource('expense', 'ExpenseController')->middleware('permission:manage expense');
+    Route::resource('loan', 'LoanController')->middleware('permission:manage loan');
+    Route::resource('user', 'UserController')->middleware('permission:manage user');
+    Route::resource('role', 'RoleController')->middleware('permission:manage permission');
+    Route::get('report', 'TypeController@report')->name('report.index')->middleware('permission:manage report');
+    Route::resource('setting', 'SettingController')->middleware('permission:manage setting');
 
 
 });
