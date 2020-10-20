@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     //
 
     Route::resource('borrow', 'BorrowController');
+    Route::resource('wellpart', 'WellpartController');
     Route::resource('expense/type', 'TypeController');
     Route::resource('expense', 'ExpenseController');
     Route::resource('loan', 'LoanController');

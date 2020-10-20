@@ -6,7 +6,7 @@
     <div class="card">
         <h5 class="card-header">Edit Borrow</h5>
         <div class="card-body">
-            <form action="{{ route('borrow.update', $borrow->id) }}" method="POST">
+            <form action="{{ route('wellpart.update', $wellpart->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -16,14 +16,14 @@
                         <select class="form-control" name="user_id">
                             <option value="">Select User</option>
                             @foreach ($users as $user)
-                                <option value="{{ $user->id }}" {{ $borrow->user->id == $user->id ? 'selected':'' }}>{{ $user->name }}</option>
+                                <option value="{{ $user->id }}" {{ $wellpart->user->id == $user->id ? 'selected':'' }}>{{ $user->name }}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="form-group col-3">
                         <label class="col-form-label">Amount</label>
-                        <input type="number" name="amount" class="form-control" value="{{ $borrow->amount }}">
+                        <input type="number" name="amount" class="form-control" value="{{ $wellpart->amount }}">
                     </div>
 
                     <div class="form-group col-3">
@@ -38,10 +38,10 @@
 
                 <div class="form-group">
                     <label for="textarea">Description</label>
-                    <textarea name="description" class="form-control" rows="3">{{ $borrow->description }}</textarea>
+                    <textarea name="description" class="form-control" rows="3">{{ $wellpart->description }}</textarea>
                 </div>
                 <div class="form-group text-right mt-4">
-                    <a href="{{ route('borrow.index') }}" class="btn btn-info">Close</a>
+                    <a href="{{ route('wellpart.index') }}" class="btn btn-info">Close</a>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </div>
 

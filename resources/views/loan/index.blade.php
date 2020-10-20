@@ -11,12 +11,16 @@
 
         <ul class="nav nav-tabs" id="myTab5" role="tablist">
             <li class="nav-item">
-                <a class="nav-link border-left-0 active show" id="home-tab-simple" data-toggle="tab" href="#home-simple"
-                    role="tab" aria-controls="home" aria-selected="true">List</a>
+                <a class="nav-link border-left-0 active show" data-toggle="tab" href="#list"
+                    role="tab" aria-selected="true">List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#profile-simple" role="tab"
+                <a class="nav-link" data-toggle="tab" href="#add" role="tab"
                     aria-controls="profile" aria-selected="false">Entry</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#return" role="tab"
+                    aria-controls="profile" aria-selected="false">Return</a>
             </li>
         </ul>
 
@@ -67,7 +71,66 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
+            <div class="tab-pane fade" id="add" role="tabpanel">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ route('loan.store') }}" method="POST">
+                            @csrf
+                            <div class="row">
+
+                                <div class="form-group col-md-2">
+                                    <label class="col-form-label">Serial No. </label>
+                                    <input type="number" name="serial" value="{{ $id = App\Loan::nextId() }}" class="form-control" {{ $id ? 'disabled':'' }}>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="col-form-label">Loan Taker</label>
+                                    <select name="user_id" class="form-control" required>
+                                        @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label class="col-form-label">Amount</label>
+                                    <input name="amount" type="number" class="form-control" required>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label class="col-form-label">Return Amount</label>
+                                    <input name="return_amount" type="number" class="form-control" required>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label class="col-form-label">Description</label>
+                                    <textarea name="description" class="form-control" id="" cols="15"
+                                        rows="5"></textarea>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label class="col-form-label">Loan Return Date</label>
+                                    <input name="return_date" type="date" class="form-control" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="col-form-label">Entry Date</label>
+                                    <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}"
+                                        required>
+                                </div>
+                                <div class="form-group  col-md-4">
+                                    <label class="col-form-label">Entry by</label>
+                                    <input name="entry" type="text" class="form-control"
+                                        value="{{ Auth::user()->name }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group text-right mt-4">
+                                <button type="submit" class="btn btn-primary">Enter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="return" role="tabpanel">
                 <div class="card">
                     <div class="card-body">
                         <form action="{{ route('loan.store') }}" method="POST">
