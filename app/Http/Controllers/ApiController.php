@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Agreement;
+use App\Loan;
 use Illuminate\Http\Request;
 use App\Property;
 use App\User;
@@ -68,6 +69,18 @@ class ApiController extends Controller
     public function walletBalance(Request $request)
     {
        return $data = User::find($request->user)->wallet;
+        if($data){
+            return response()->json($data);
+        }
+    }
+
+    // GET LOAN BALANCE
+    public function loanInfo(Request $request)
+    {
+        $data = [];
+        $data['loan'] = User::find($request->user)->loans()->whereType('loan')->sum('return_amount');
+        $data['return'] = User::find($request->user)->loans()->whereType('return')->sum('amount');
+        $data['due'] = ($data['loan']-$data['return']);
         if($data){
             return response()->json($data);
         }

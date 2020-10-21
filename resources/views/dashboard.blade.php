@@ -118,7 +118,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($report as $item)
+                    {{-- @foreach ($report as $item)
                     <tr>
                         <th scope="row">{{ $item->id }}</th>
                         <td>{{ $item->created_at->format('d-m-Y') }}</td>
@@ -128,7 +128,7 @@
                         <td>{{ $item->amount }}</td>
                         <td>{{ $item->deleted_at ? 'Deleted':'Active'}}</td>
                     </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
         </div>

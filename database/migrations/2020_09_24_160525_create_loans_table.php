@@ -16,10 +16,11 @@ class CreateLoansTable extends Migration
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->string('type');
             $table->text('description')->nullable();
             $table->integer('amount');
-            $table->integer('return_amount');
-            $table->dateTime('return_date');
+            $table->integer('return_amount')->nullable();
+            $table->dateTime('return_date')->nullable();
             $table->integer('entry');
             $table->softDeletes();
             $table->timestamps();
