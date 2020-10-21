@@ -128,7 +128,7 @@
                         <td>{{ $item->amount }}</td>
                         <td>{{ $item->deleted_at ? 'Deleted':'Active'}}</td>
                     </tr>
-                    @endforeach --}}
+                    @endforeach --}}    
                 </tbody>
             </table>
         </div>

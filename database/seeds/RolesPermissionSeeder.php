@@ -19,26 +19,49 @@ class RolesPermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'manage dashboard']);
-        Permission::create(['name' => 'manage rent']);
-            Permission::create(['name' => 'manage type']);
-            Permission::create(['name' => 'manage property']);
-            Permission::create(['name' => 'manage tent']);
-            Permission::create(['name' => 'manage agreement']);
-            Permission::create(['name' => 'manage payment']);
-        Permission::create(['name' => 'manage borrow']);
-        Permission::create(['name' => 'manage wellpart']);
-        Permission::create(['name' => 'manage expense']);
-        Permission::create(['name' => 'manage loan']);
-        Permission::create(['name' => 'manage user']);
-            Permission::create(['name' => 'manage permission']);
-        Permission::create(['name' => 'manage report']);
-        Permission::create(['name' => 'manage backup']);
-        Permission::create(['name' => 'manage setting']);
+        Permission::create(['name' => 'type entry']);
+        Permission::create(['name' => 'type view']);
+
+        Permission::create(['name' => 'property entry']);
+        Permission::create(['name' => 'property view']);
+
+        Permission::create(['name' => 'tent entry']);
+        Permission::create(['name' => 'tent view']);
+
+        Permission::create(['name' => 'agreement entry']);
+        Permission::create(['name' => 'agreement view']);
+
+        Permission::create(['name' => 'payment entry']);
+        Permission::create(['name' => 'payment view']);
+
+        Permission::create(['name' => 'borrow entry']);
+        Permission::create(['name' => 'borrow view']);
+
+        Permission::create(['name' => 'wellpart entry']);
+        Permission::create(['name' => 'wellpart view']);
+
+        Permission::create(['name' => 'expense entry']);
+        Permission::create(['name' => 'expense view']);
+
+        Permission::create(['name' => 'loan entry']);
+        Permission::create(['name' => 'loan view']);
+
+        Permission::create(['name' => 'user entry']);
+        Permission::create(['name' => 'user view']);
+
+        Permission::create(['name' => 'permission manage']);
+
+        Permission::create(['name' => 'report view']);
+
+        Permission::create(['name' => 'backup manage']);
+
+        Permission::create(['name' => 'setting manage']);
 
         // create roles
         Role::create(['name' => 'user']);
-        Role::create(['name' => 'admin']);
+
+        $admin = Role::create(['name' => 'admin']);
+        $admin->syncPermissions(Permission::all());
 
         $super_admin = Role::create(['name' => 'super-admin']);
         $super_admin->syncPermissions(Permission::all());

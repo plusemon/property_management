@@ -14,10 +14,12 @@
                 <a class="nav-link border-left-0 active show" data-toggle="tab" href="#list"
                     role="tab" aria-controls="list" aria-selected="true">List</a>
             </li>
+            @can('type entry')
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#add" role="tab"
                     aria-controls="add" aria-selected="false">Add</a>
             </li>
+            @endcan
         </ul>
 
         <div class="tab-content">
@@ -29,7 +31,6 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Type</th>
-                                    {{-- <th scope="col">Under</th> --}}
                                     <th scope="col">Created</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -39,9 +40,9 @@
                                 <tr>
                                     <th scope="row">{{$type->id}}</th>
                                     <td>{{$type->name}}</td>
-                                    {{-- <td>{{$type->type}}</td> --}}
                                     <td>{{ $type->created_at->format('d-m-Y') }}</td>
                                     <td class="text-right">
+                                        @can('type entry')
                                         <a href="{{ route('type.edit', $type->id)}}" class="btn btn-sm btn-warning"><i
                                                 class="fas fa-edit"></i></a>
                                         <form class="d-inline" action="{{route('type.destroy', $type->id)}}"
@@ -51,6 +52,7 @@
                                             <button type="submit" class="btn btn-sm btn-danger"><i
                                                     class="fas fa-trash-alt"></i></button>
                                         </form>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @endforeach
