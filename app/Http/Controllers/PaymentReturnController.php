@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Payment;
 use App\PaymentReturn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentReturnController extends Controller
 {
@@ -35,7 +37,23 @@ class PaymentReturnController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'payment_id' => 'required|integer',
+            'amount' => 'required|integer|gt:0',
+        ]);
+
+        if (!Payment::find($request->payment_id)) {
+            return redirect()->back()->with('info','Payment not found');
+        }
+
+        $refund = new PaymentReturn();
+        $refund->payment_id = $request->payment_id;
+        $refund->user_id = Auth::id();
+        $refund->amount = $request->amount;
+        $refund->description = $request->description;
+        $refund->save();
+        return redirect()->back()->with('success', 'Payment Refund Successfull');
+
     }
 
     /**

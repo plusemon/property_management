@@ -15,6 +15,11 @@ class CreatePaymentReturnsTable extends Migration
     {
         Schema::create('payment_returns', function (Blueprint $table) {
             $table->id();
+            $table->integer('payment_id');
+            $table->integer('user_id');
+            $table->integer('amount');
+            $table->text('description')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -24,3 +24,4 @@ Route::get('agreement-info', 'ApiController@agreementInfo');
 Route::get('payment-status', 'ApiController@paymentMonthStatus');
 Route::get('balance', 'ApiController@walletBalance');
 Route::get('loan-info', 'ApiController@loanInfo');
+Route::get('payment-info', 'ApiController@paymentInfo');

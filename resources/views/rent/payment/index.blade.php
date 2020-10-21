@@ -53,7 +53,9 @@
                                         <td>{{ $payment->type }}</td>
                                         <td>{{ $payment->agreement->property->name }}</td>
                                         <td>{{ $payment->method }}</td>
-                                        <td class="{{  $payment->state == 'payment' ? 'text-success':'text-secondary' }}">{{ $payment->amount }}</td>
+                                        <td
+                                            class="{{  $payment->state == 'payment' ? 'text-success':'text-secondary' }}">
+                                            {{ $payment->amount }}</td>
                                         <td>{{ $payment->tnxid }}</td>
                                         {{-- <td>{{ $payment->state }}</td> --}}
                                         {{-- <td>(@foreach ($payment->month as $month)
@@ -65,9 +67,9 @@
                                         <td class="text-right">
 
                                             {{-- <a href="{{ route('payment.edit', $payment->id)}}"
-                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
+                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
 
-                                                <a href="#" data-toggle="modal" data-target="#details"
+                                            <a href="#" data-toggle="modal" data-target="#details"
                                                 class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
 
                                             <form class="d-inline" action="{{route('payment.destroy', $payment->id)}}"
@@ -98,7 +100,8 @@
                             {{-- serial no  --}}
                             <div class="form-group col-md">
                                 <label class="col-form-label">Serial No. </label>
-                                <input type="number" name="serial" value="{{ $id = App\Payment::nextId() }}" class="form-control" {{ $id ? 'disabled':'' }}>
+                                <input type="number" name="serial" value="{{ $id = App\Payment::nextId() }}"
+                                    class="form-control" {{ $id ? 'disabled':'' }}>
                             </div>
                             {{-- Agreement --}}
                             <div class="col-md form-group">
@@ -295,67 +298,70 @@
             {{-- Refund --}}
             <div class="tab-pane fade" id="refund" role="tabpanel" aria-labelledby="refund">
                 <div class="card-body">
-                    <form action="{{ route('payment.store') }}" method="POST">
+                    <form action="{{ route('refund.store') }}" method="POST">
                         @csrf
                         <div class="row">
-                            <input type="hidden" name="for" value="refund">
-                            <div class="col-md-4 form-group">
-                                <label class="col-form-label">Agreement</label>
-                                <select class="form-control agreements" name="agreement_id" required>
-                                    <option value="">Select</option>
-                                    @foreach ($agreements as $agreement)
-                                    <option value="{{ $agreement->id }}">{{ $agreement->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                <label class="col-form-label">Refund for</label>
-                                <select class="form-control" name="type" required>
-                                    <option value="">Select</option>
-                                    <option value="rent">Rent</option>
-                                    <option value="modify">Modification or damage or paint</option>
-                                    <option value="bill">Utility Bills</option>
-                                    <option value="security">Security Deposit</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-4">
-                                <label class="col-form-label">Pay Amount</label>
-                                <input name="amount" type="number" class="form-control">
+                            {{-- <div class="form-group col-md-2">
+                                <label class="col-form-label">Serial No. </label>
+                                <input type="number" name="serial" value="{{ $id = App\Return::nextId() }}"
+                            class="form-control" {{ $id ? 'disabled':'' }}>
+                            </div> --}}
+                        <div class="form-group col-md-3">
+                            <label class="col-form-label">Payment #</label>
+                            <div class="d-flex">
+                                <input type="number" name="payment_id" id="payment_id" class="form-control">
+                                <button id="check_button" class="btn btn-xs btn-primary">Check</button>
                             </div>
                         </div>
 
-                        <div class="row">
-
-
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Type</label>
-                                <input type="text" class="form-control type" disabled>
-                            </div>
-
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Property</label>
-                                <input type="text" class="form-control property" disabled>
-                            </div>
-
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Tent</label>
-                                <input type="text" class="form-control tent" disabled>
-                            </div>
-                            <div class="form-group col-3">
-                                <label class="col-form-label">Current Rent</label>
-                                <input type="text" class="form-control rent" disabled>
-                            </div>
+                        <div class="form-group col-md-3">
+                            <label class="col-form-label">Paid</label>
+                            <input id="paid" class="form-control" disabled>
                         </div>
 
-                        <div class="form-group text-right mt-4">
-                            <button type="submit" class="btn btn-primary rounded">Refund</button>
+                        <div class="form-group col-md-3">
+                            <label class="col-form-label">For</label>
+                            <input id="for" class="form-control" disabled>
                         </div>
 
-                    </form>
-                </div>
+                        <div class="form-group col-md-3">
+                            <label class="col-form-label">method</label>
+                            <input id="by" class="form-control" disabled>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label class="col-form-label">Return Amount</label>
+                            <input name="amount" type="number" class="form-control"
+                                onkeyup="word3.innerHTML=toWord(this.value)" autocomplete required>
+                            <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
+                                    id="word3"></span></div>
+                        </div>
+
+
+                        <div class="form-group col-md-12">
+                            <label class="col-form-label">Description</label>
+                            <textarea name="description" class="form-control" id="" cols="15" rows="5"></textarea>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label class="col-form-label">Date</label>
+                            <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}"
+                                required>
+                        </div>
+                        <div class="form-group  col-md-4">
+                            <label class="col-form-label">Refund by</label>
+                            <input name="entry" type="text" class="form-control" value="{{ Auth::user()->name }}"
+                                disabled>
+                        </div>
+                    </div>
+                    <div class="form-group text-right mt-4">
+                        <button type="submit" class="btn btn-primary rounded">Refund</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
@@ -426,21 +432,6 @@
             $('#rent-row').slideDown();
         }
     });
-    // // Get selected month status
-    // $('#month').on('change', function() {
-    //     $('#status-row').slideDown();
-    //     var agreement = $('#agreements').val();
-    //     var month = $(this).val();
-    //     var url = '{{ url('api/payment-status') }}?agreement=' + agreement + '&month='+ month;
-    //     $.ajax({
-    //         type: "GET",
-    //         url: url,
-    //         dataType: 'json',
-    //         success: function (data,status) {
-    //             $('#status').val(data);
-    //         }
-    //     });
-    // });
 
     // show related field by method
     $('#method').on('change', function() {
@@ -474,19 +465,19 @@
         $("#gst").fadeToggle();
     });
 
-    // Get and show agreement information - Refund
-    $('.agreements').on('change', function() {
-        var id = $(this).val();
-        var url = '{{ url('api/agreement-info') }}?agreement=' + id;
+    // Get and show payment information - Refund
+    $('#check_button').on('click', function(e) {
+        e.preventDefault();
+        var id = $('#payment_id').val();
+        var url = '{{ url('api/payment-info') }}?payment=' + id;
         $.ajax({
             type: "GET",
             url: url,
             dataType: 'json',
             success: function (data,status) {
-                $('.type').val(data.type);
-                $('.property').val(data.property);
-                $('.tent').val(data.tent);
-                $('.rent').val(data.rent);
+                $('#paid').val(data.paid);
+                $('#for').val(data.for);
+                $('#by').val(data.method);
             }
         });
     });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Loan;
 use App\LoanReturn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,10 @@ class LoanReturnController extends Controller
             'loan_id' => 'required',
             'amount' => 'required|integer|gt:0',
         ]);
+
+        if (!Loan::find($request->loan_id)) {
+            return redirect()->back()->with('info','Loan not found');
+        }
 
         $return = new LoanReturn();
         $return->user_id = Auth::id();

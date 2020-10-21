@@ -47,21 +47,24 @@
                                     <td scope="row">{{ $loan->created_at->format('d-m-Y') }}</td>
                                     <td scope="row">{{ $loan->type }}</td>
                                     <td scope="row">{{ $loan->user->name }}</td>
-                                    <td scope="row" class="{{ $loan->type == 'return' ? 'text-success':'text-danger' }}">{{ $loan->amount }}</td>
+                                    <td scope="row"
+                                        class="{{ $loan->type == 'return' ? 'text-success':'text-danger' }}">
+                                        {{ $loan->amount }}</td>
                                     <td scope="row">{{ $loan->return_amount ?? '' }}</td>
-                                    <td scope="row">{{  $loan->return_date ? $loan->return_date->format('d-m-Y'):'' }}</td>
+                                    <td scope="row">{{  $loan->return_date ? $loan->return_date->format('d-m-Y'):'' }}
+                                    </td>
                                     <td scope="row">{{  $loan->description }}</td>
 
                                     {{-- <td class="text-right"> --}}
-                                        {{-- <a href="{{ route('loan.edit', $loan->id)}}" class="btn btn-sm
-                                        btn-warning"><i class="fas fa-edit"></i></a> --}}
-                                        {{-- <form class="d-inline" action="{{route('loan.destroy', $loan->id)}}"
-                                            method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"><i
-                                                    class="fas fa-trash-alt"></i></button>
-                                        </form> --}}
+                                    {{-- <a href="{{ route('loan.edit', $loan->id)}}" class="btn btn-sm
+                                    btn-warning"><i class="fas fa-edit"></i></a> --}}
+                                    {{-- <form class="d-inline" action="{{route('loan.destroy', $loan->id)}}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                    </form> --}}
                                     {{-- </td> --}}
                                 </tr>
                                 @endforeach
@@ -78,8 +81,6 @@
                             @csrf
                             <div class="row">
 
-                                <input type="hidden" name="type" value="loan">
-
                                 <div class="form-group col-md-3">
                                     <label class="col-form-label">Serial No. </label>
                                     <input type="number" name="serial" value="{{ $id = App\Loan::nextId() }}"
@@ -93,7 +94,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
 
                                 <div class="form-group col-md-3">
                                     <label class="col-form-label">Entry Date</label>
@@ -147,8 +147,6 @@
                         <form action="{{ route('return.store') }}" method="POST">
                             @csrf
                             <div class="row">
-                                <input type="hidden" name="type" value="return">
-
                                 {{-- <div class="form-group col-md-2">
                                     <label class="col-form-label">Serial No. </label>
                                     <input type="number" name="serial" value="{{ $id = App\Loan::nextId() }}"
@@ -180,9 +178,9 @@
                             <div class="form-group col-md-12">
                                 <label class="col-form-label">Return Amount</label>
                                 <input name="amount" type="number" class="form-control"
-                                onkeyup="word3.innerHTML=toWord(this.value)" autocomplete required>
-                            <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
-                                    id="word3"></span></div>
+                                    onkeyup="word3.innerHTML=toWord(this.value)" autocomplete required>
+                                <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
+                                        id="word3"></span></div>
                             </div>
 
 
@@ -201,10 +199,10 @@
                                 <input name="entry" type="text" class="form-control" value="{{ Auth::user()->name }}"
                                     disabled>
                             </div>
-                    </div>
-                    <div class="form-group text-right mt-4">
-                        <button type="submit" class="btn btn-primary">Enter</button>
-                    </div>
+                        </div>
+                        <div class="form-group text-right mt-4">
+                            <button type="submit" class="btn btn-primary">Enter</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -216,7 +214,7 @@
 @endsection
 
 @section('scripts')
-    <script>
+<script>
     // Get and show Loan information
     $('#check_button').on('click', function(e) {
         e.preventDefault();
@@ -236,5 +234,5 @@
             }
         });
     });
-    </script>
+</script>
 @endsection

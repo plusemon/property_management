@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('property', 'PropertyController');
     Route::resource('tent', 'TentController');
     Route::resource('agreement', 'AgreementController');
+    Route::resource('payment/refund', 'PaymentReturnController');
     Route::resource('payment', 'PaymentController');
     //
     Route::resource('borrow', 'BorrowController');

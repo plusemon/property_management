@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Agreement;
 use App\Loan;
-use Illuminate\Http\Request;
-use App\Property;
 use App\User;
+use App\Payment;
+use App\Property;
+use App\Agreement;
+use Illuminate\Http\Request;
 use Illuminate\Queue\Events\Looping;
 
 class ApiController extends Controller
@@ -83,6 +84,19 @@ class ApiController extends Controller
         $data['loan'] = $loan->return_amount;
         $data['return'] = $loan->returns->sum('amount');
         $data['due'] = ($data['loan']-$data['return']);
+        if($data){
+            return response()->json($data);
+        }
+    }
+
+    // GET LOAN BALANCE
+    public function paymentInfo(Request $request)
+    {
+        $data = [];
+        $payment = Payment::findOrFail($request->payment);
+        $data['paid'] = $payment->amount;
+        $data['for'] = $payment->type;
+        $data['method'] = $payment->method;
         if($data){
             return response()->json($data);
         }

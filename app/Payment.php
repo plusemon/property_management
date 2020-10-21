@@ -23,13 +23,15 @@ class Payment extends Model
         return $this->belongsTo(Agreement::class);
     }
 
+    public function returns()
+    {
+        return $this->hasMany(PaymentReturn::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-
-
 
     protected $casts = [
         'month' => 'json',
