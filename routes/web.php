@@ -30,7 +30,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('wellpart', 'WellpartController');
     Route::resource('expense/type', 'TypeController');
     Route::resource('expense', 'ExpenseController');
+
+    Route::resource('loan/return', 'LoanReturnController');
     Route::resource('loan', 'LoanController');
+
     Route::resource('user', 'UserController');
     Route::resource('role', 'RoleController');
     Route::get('report', 'TypeController@report')->name('report.index')->middleware('permission:view report');

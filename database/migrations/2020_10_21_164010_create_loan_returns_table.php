@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLoansTable extends Migration
+class CreateLoanReturnsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateLoansTable extends Migration
      */
     public function up()
     {
-        Schema::create('loans', function (Blueprint $table) {
+        Schema::create('loan_returns', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->text('description')->nullable();
+            $table->integer('loan_id');
             $table->integer('amount');
-            $table->integer('return_amount');
-            $table->dateTime('return_date')->nullable();
-            $table->integer('entry');
-            $table->softDeletes();
+            $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -33,6 +31,6 @@ class CreateLoansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('loans');
+        Schema::dropIfExists('loan_returns');
     }
 }

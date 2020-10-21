@@ -7,6 +7,7 @@ use App\Loan;
 use Illuminate\Http\Request;
 use App\Property;
 use App\User;
+use Illuminate\Queue\Events\Looping;
 
 class ApiController extends Controller
 {
@@ -78,8 +79,9 @@ class ApiController extends Controller
     public function loanInfo(Request $request)
     {
         $data = [];
-        $data['loan'] = User::find($request->user)->loans()->whereType('loan')->sum('return_amount');
-        $data['return'] = User::find($request->user)->loans()->whereType('return')->sum('amount');
+        $loan = Loan::findOrFail($request->loan);
+        $data['loan'] = $loan->return_amount;
+        $data['return'] = $loan->returns->sum('amount');
         $data['due'] = ($data['loan']-$data['return']);
         if($data){
             return response()->json($data);

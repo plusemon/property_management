@@ -5,9 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Loan extends Model
+class LoanReturn extends Model
 {
-
     use SoftDeletes;
 
     public static function nextId(int $increment = 1 )
@@ -18,9 +17,9 @@ class Loan extends Model
 
     }
 
-    public function returns()
+    public function loan()
     {
-        return $this->hasMany(LoanReturn::class);
+        return $this->hasOne(Loan::class);
     }
 
     public function user()
@@ -28,7 +27,4 @@ class Loan extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected $casts = [
-            'return_date' => 'datetime',
-        ];
 }

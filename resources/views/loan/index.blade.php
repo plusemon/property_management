@@ -144,7 +144,7 @@
             <div class="tab-pane fade" id="return" role="tabpanel">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('loan.store') }}" method="POST">
+                        <form action="{{ route('return.store') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <input type="hidden" name="type" value="return">
@@ -155,13 +155,11 @@
                                 class="form-control" {{ $id ? 'disabled':'' }}>
                             </div> --}}
                             <div class="form-group col-md-3">
-                                <label class="col-form-label">Loan Taker</label>
-                                <select name="user_id" id="taker" class="form-control" required>
-                                    @foreach ($users as $user)
-                                    <option>Select</option>
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label class="col-form-label">Loan Number #</label>
+                                <div class="d-flex">
+                                    <input type="number" name="loan_id" id="laon_id" class="form-control">
+                                    <button id="check_button" class="btn btn-xs btn-primary">Check</button>
+                                </div>
                             </div>
 
                             <div class="form-group col-md-3">
@@ -220,9 +218,10 @@
 @section('scripts')
     <script>
     // Get and show Loan information
-    $('#taker').on('change', function() {
-        var id = $(this).val();
-        var url = '{{ url('api/loan-info') }}?user=' + id;
+    $('#check_button').on('click', function(e) {
+        e.preventDefault();
+        var id = $('#laon_id').val();
+        var url = '{{ url('api/loan-info') }}?loan=' + id;
         $.ajax({
             type: "GET",
             url: url,
@@ -231,6 +230,9 @@
                 $('#loaned').val(data.loan);
                 $('#returned').val(data.return);
                 $('#due').val(data.due);
+            },
+            error: function(){
+                toastr.info('Not found');
             }
         });
     });
