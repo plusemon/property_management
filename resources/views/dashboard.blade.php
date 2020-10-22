@@ -108,13 +108,12 @@
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        {{-- <th scope="col">#</th> --}}
                         <th scope="col">Date</th>
+                        <th scope="col">Loan #</th>
                         <th scope="col">Loan Taker</th>
                         <th scope="col">Action</th>
                         <th scope="col">Amount</th>
-                        <th scope="col">R Amount</th>
-                        <th scope="col">R Date</th>
                         <th scope="col">Description</th>
                         {{-- <th scope="col">Action</th> --}}
                     </tr>
@@ -122,15 +121,13 @@
                 <tbody>
                     @foreach ($loans as $loan)
                     <tr>
-                        <td scope="row">{{ $loan->id }}</td>
+                        {{-- <td scope="row">{{ $loan->id }}</td> --}}
                         <td scope="row">{{ $loan->created_at->format('d-m-Y') }}</td>
+                        <td scope="row">{{ $loan->loan_id ?? $loan->id }}</td>
                         <td scope="row">{{ $loan->user->name }}</td>
                         <td scope="row">{{ $loan->type }}</td>
-                        <td scope="row"
-                            class="{{ $loan->type == 'loan' ? 'text-danger':'text-success' }}">
+                        <td scope="row" class="{{ $loan->type == 'loan' ? 'text-danger':'text-success' }}">
                             {{ $loan->amount }}</td>
-                        <td scope="row">{{ $loan->return_amount ?? '' }}</td>
-                        <td scope="row">{{  $loan->return_date ? $loan->return_date->format('d-m-Y'):'' }}
                         </td>
                         <td scope="row">{{  $loan->description }}</td>
 

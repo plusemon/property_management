@@ -10,11 +10,15 @@
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link border-left-0 active show" id="" data-toggle="tab" href="#list" role="tab"
-                    aria-controls="list" aria-selected="true">List</a>
+                    aria-controls="list" aria-selected="true">Payment List</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="" data-toggle="tab" href="#refund_list" role="tab" aria-controls="pay"
+                    aria-selected="false">Refund List</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="" data-toggle="tab" href="#pay" role="tab" aria-controls="pay"
-                    aria-selected="false">Pay</a>
+                    aria-selected="false">Payment</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="" data-toggle="tab" href="#refund" role="tab" aria-controls="refund"
@@ -33,15 +37,15 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Tent</th>
-                                        <th scope="col">Payment</th>
                                         <th scope="col">Property</th>
-                                        <th scope="col">Method</th>
+                                        <th scope="col">Payment</th>
                                         <th scope="col">Amount</th>
+                                        <th scope="col">Method</th>
                                         {{-- <th scope="col">Agreement</th> --}}
                                         {{-- <th scope="col">Type</th> --}}
                                         <th scope="col">Tnx No</th>
                                         {{-- <th scope="col">State</th> --}}
-                                        <th scope="col">Action</th>
+                                        {{-- <th scope="col">Action</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,15 +53,12 @@
                                     <tr>
                                         <td>{{ $payment->id }}</td>
                                         <td>{{ $payment->created_at->format('d-m-y') }}</td>
-                                        <td>{{ $payment->agreement->tent->fname ?? 'deleted' }}
-                                            {{ $payment->agreement->tent->lname ?? ''}}
+                                        <td>{{ $payment->agreement->tent->fname ?? 'deleted' }} {{ $payment->agreement->tent->lname ?? ''}}
                                         </td>
-                                        <td>{{ $payment->type }}</td>
                                         <td>{{ $payment->agreement->property->name }}</td>
+                                        <td>{{ $payment->type }}</td>
+                                        <td class="text-success">{{ $payment->amount }}</td>
                                         <td>{{ $payment->method }}</td>
-                                        <td
-                                            class="{{  $payment->state == 'payment' ? 'text-success':'text-secondary' }}">
-                                            {{ $payment->amount }}</td>
                                         <td>{{ $payment->tnxid }}</td>
                                         {{-- <td>{{ $payment->state }}</td> --}}
                                         {{-- <td>(@foreach ($payment->month as $month)
@@ -74,6 +75,70 @@
                                             <a href="#" data-toggle="modal" data-target="#details"
                                                 class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
 
+                                            {{-- <form class="d-inline" action="{{route('payment.destroy', $payment->id)}}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger"><i
+                                                        class="fas fa-trash-alt"></i></button>
+                                            </form> --}}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- List of Refunds  --}}
+            <div class="tab-pane fade" id="refund_list" role="tabpanel" aria-labelledby="home-tab-simple">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive ">
+                            <table id="example" class="table table-striped table-bordered second" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Payment #</th>
+                                        <th scope="col">Tent</th>
+                                        <th scope="col">Payment for</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Description</th>
+                                        {{-- <th scope="col">Action</th> --}}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($refunds as $refund)
+                                    <tr>
+                                        {{-- <td>{{ $refund->id }}</td> --}}
+                                        <td>{{ $refund->created_at->format('d-m-y') }}</td>
+                                        <td>{{ $refund->payment_id }}</td>
+                                        <td>{{ $refund->payment->agreement->tent->fname ?? 'deleted' }}
+                                            {{ $refund->payment->agreement->tent->lname ?? ''}}
+                                        </td>
+                                        {{-- <td>{{ $refund->agreement->property->name }}</td> --}}
+                                        <td>{{ $refund->payment->type }}</td>
+                                        <td class="text-danger">{{ $refund->amount }}</td>
+                                        <td>{{ $refund->description }}</td>
+                                        {{-- class="{{  $refund->state == 'refund' ? 'text-success':'text-secondary' }}"> --}}
+                                        {{-- <td>{{ $refund->tnxid }}</td> --}}
+                                        {{-- <td>{{ $refund->state }}</td> --}}
+                                        {{-- <td>(@foreach ($refund->month as $month)
+                                            {{$month}},
+                                        @endforeach)
+                                        </td> --}}
+                                        {{-- <td>{{ $refund->agreement->name }}</td> --}}
+                                        {{-- <td>{{ $refund->agreement->property->type->name ?? 'Deleted' }}</td> --}}
+                                        {{-- <td class="text-right"> --}}
+
+                                            {{-- <a href="{{ route('refund.edit', $refund->id)}}"
+                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
+
+                                            {{-- <a href="#" data-toggle="modal" data-target="#details"
+                                                class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+
                                             <form class="d-inline" action="{{route('payment.destroy', $payment->id)}}"
                                                 method="POST">
                                                 @csrf
@@ -81,7 +146,7 @@
                                                 <button type="submit" class="btn btn-sm btn-danger"><i
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     @endforeach
 

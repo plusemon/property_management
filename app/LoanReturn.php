@@ -26,5 +26,6 @@ class LoanReturn extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
 
 }

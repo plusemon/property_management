@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Payment;
 use App\Agreement;
+use App\PaymentReturn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,8 +14,9 @@ class PaymentController extends Controller
     public function index()
     {
         $payments = Payment::all();
+        $refunds = PaymentReturn::all();
         $agreements = Agreement::all();
-        return view('rent.payment.index', compact('payments', 'agreements'));
+        return view('rent.payment.index', compact('payments', 'agreements','refunds'));
     }
 
     public function store(Request $request)

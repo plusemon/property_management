@@ -30,9 +30,9 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Type</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Invoice</th>
                                     <th scope="col">Amount</th>
+                                    <th scope="col">Invoice</th>
+                                    <th scope="col">Description</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -42,9 +42,9 @@
                                     <td scope="row">{{ $expense->id }}</td>
                                     <td scope="row">{{ $expense->created_at->format('d-m-Y') }}</td>
                                     <td scope="row">{{ $expense->type->name}}</td>
-                                    <td scope="row">{{ $expense->description }}</td>
+                                    <td scope="row" class="text-danger">{{ $expense->amount }}</td>
                                     <td scope="row">{{ $expense->invoice}}</td>
-                                    <td scope="row">{{ $expense->amount }}</td>
+                                    <td scope="row">{{ $expense->description }}</td>
 
                                     <td class="text-right">
                                         <a href="{{ route('expense.edit', $expense->id)}}"
