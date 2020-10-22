@@ -30,6 +30,7 @@
                             <table id="example" class="table table-striped table-bordered second" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th scope="col">#</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Tent</th>
                                         <th scope="col">Payment</th>
@@ -46,6 +47,7 @@
                                 <tbody>
                                     @foreach ($payments as $payment)
                                     <tr>
+                                        <td>{{ $payment->id }}</td>
                                         <td>{{ $payment->created_at->format('d-m-y') }}</td>
                                         <td>{{ $payment->agreement->tent->fname ?? 'deleted' }}
                                             {{ $payment->agreement->tent->lname ?? ''}}
@@ -478,6 +480,12 @@
                 $('#paid').val(data.paid);
                 $('#for').val(data.for);
                 $('#by').val(data.method);
+            },
+            error: function () {
+                toastr.warning('No payments found');
+                $('#paid').val('');
+                $('#for').val('');
+                $('#by').val('');
             }
         });
     });

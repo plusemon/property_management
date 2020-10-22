@@ -38,11 +38,10 @@
                                     @foreach ($borrows as $borrow)
                                     <tr>
                                         <th>{{$borrow->id}}</th>
-                                        <td>{{$borrow->created_at->format('d/m/Y')}}</td>
+                                        <td>{{ $borrow->created_at->format('d-m-Y') }}</td>
                                         <td>{{$borrow->user->name}}</td>
                                         <td>{{$borrow->description}}</td>
                                         <td>{{$borrow->amount}}</td>
-                                        <td>{{ $borrow->created_at->format('d-m-Y') }}</td>
                                         <td class="text-right">
                                             <a href="{{ route('borrow.edit', $borrow->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -84,10 +83,15 @@
                                         @endforeach
                                     </select>
                                 </div>
+                            </div>
 
-                                <div class="form-group col-md-3">
+                            <div class="row">
+                                <div class="form-group col">
                                     <label class="col-form-label">Amount</label>
-                                    <input type="number" name="amount" class="form-control">
+                                    <input name="amount" type="number" class="form-control"
+                                        onkeyup="word.innerHTML=toWord(this.value)" autocomplete required>
+                                    <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
+                                            id="word"></span></div>
                                 </div>
                             </div>
 

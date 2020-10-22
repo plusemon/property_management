@@ -17,6 +17,7 @@ class CreateLoanReturnsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('loan_id');
+            $table->string('type')->default('return');
             $table->integer('amount');
             $table->text('description')->nullable();
             $table->timestamps();

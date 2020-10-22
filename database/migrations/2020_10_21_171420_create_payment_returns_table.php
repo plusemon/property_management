@@ -17,6 +17,7 @@ class CreatePaymentReturnsTable extends Migration
             $table->id();
             $table->integer('payment_id');
             $table->integer('user_id');
+            $table->string('type')->default('return');
             $table->integer('amount');
             $table->text('description')->nullable();
             $table->softDeletes();

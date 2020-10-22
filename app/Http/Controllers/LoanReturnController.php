@@ -48,6 +48,7 @@ class LoanReturnController extends Controller
         }
 
         $return = new LoanReturn();
+        $return->id = $request->serial;
         $return->user_id = Auth::id();
         $return->loan_id = $request->loan_id;
         $return->amount = $request->amount;

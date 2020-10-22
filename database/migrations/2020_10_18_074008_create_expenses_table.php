@@ -17,7 +17,7 @@ class CreateExpensesTable extends Migration
             $table->id();
             $table->integer('type_id');
             $table->integer('user_id');
-            $table->integer('invoice');
+            $table->string('invoice');
             $table->text('description');
             $table->integer('amount');
             $table->softDeletes();

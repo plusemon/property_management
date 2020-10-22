@@ -11,11 +11,14 @@
 
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link border-left-0 active show" data-toggle="tab" href="#list" role="tab"
-                    aria-selected="true">List</a>
+                <a class="nav-link border-left-0 active show" data-toggle="tab" href="#loan_list" role="tab"
+                    aria-selected="true">Loan List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#add" role="tab" aria-selected="false">Entry</a>
+                <a class="nav-link" data-toggle="tab" href="#return_list" role="tab" aria-selected="false">Return list</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#add" role="tab" aria-selected="false">Loan</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#return" role="tab" aria-selected="false">Return</a>
@@ -23,19 +26,19 @@
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane fade active show" id="list" role="tabpanel">
+            <div class="tab-pane fade active show" id="loan_list" role="tabpanel">
                 <div class="card">
                     <div class="card-body">
-                        <table id="example" class="table table-striped table-bordered second" style="width:100%">
+                        <table id="example" class="table table-striped table-bordered " style="width:100%">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Loan Date</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">R Date</th>
                                     <th scope="col">Loan Taker</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">R Amount</th>
-                                    <th scope="col">R Date</th>
+                                    <th scope="col">Paid</th>
                                     <th scope="col">Description</th>
                                     {{-- <th scope="col">Action</th> --}}
                                 </tr>
@@ -44,14 +47,12 @@
                                 @foreach ($loans as $loan)
                                 <tr>
                                     <td scope="row">{{ $loan->id }}</td>
+                                    <td scope="row">{{ $loan->return_date ? $loan->return_date->format('d-m-Y'):'' }}
                                     <td scope="row">{{ $loan->created_at->format('d-m-Y') }}</td>
-                                    <td scope="row">{{ $loan->type }}</td>
                                     <td scope="row">{{ $loan->user->name }}</td>
-                                    <td scope="row"
-                                        class="{{ $loan->type == 'return' ? 'text-success':'text-danger' }}">
-                                        {{ $loan->amount }}</td>
+                                    <td scope="row" class="text-danger">{{ $loan->amount }}</td>
                                     <td scope="row">{{ $loan->return_amount ?? '' }}</td>
-                                    <td scope="row">{{  $loan->return_date ? $loan->return_date->format('d-m-Y'):'' }}
+                                    <td scope="row" class="text-success">{{ $loan->returns->sum('amount') }}</td>
                                     </td>
                                     <td scope="row">{{  $loan->description }}</td>
 
@@ -59,6 +60,51 @@
                                     {{-- <a href="{{ route('loan.edit', $loan->id)}}" class="btn btn-sm
                                     btn-warning"><i class="fas fa-edit"></i></a> --}}
                                     {{-- <form class="d-inline" action="{{route('loan.destroy', $loan->id)}}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                    </form> --}}
+                                    {{-- </td> --}}
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="return_list" role="tabpanel">
+                <div class="card">
+                    <div class="card-body">
+                        <table id="example" class="table table-striped table-bordered " style="width:100%">
+                            <thead>
+                                <tr>
+                                    {{-- <th scope="col">#</th> --}}
+                                    <th scope="col">Return Date</th>
+                                    <th scope="col">Taker</th>
+                                    <th scope="col">Loan #</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Description</th>
+                                    {{-- <th scope="col">Action</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($returns as $return)
+                                <tr>
+                                    {{-- <td scope="row">{{ $return->id }}</td> --}}
+                                    <td scope="row">{{ $return->created_at->format('d-m-Y') }}</td>
+                                    <td scope="row">{{ $return->user->name }}</td>
+                                    <td scope="row">{{ $return->loan_id }}</td>
+                                    <td scope="row" class="text-success">
+                                        {{ $return->amount }}</td>
+                                    </td>
+                                    <td scope="row">{{  $return->description }}</td>
+
+                                    {{-- <td class="text-right"> --}}
+                                    {{-- <a href="{{ route('return.edit', $return->id)}}" class="btn btn-sm
+                                    btn-warning"><i class="fas fa-edit"></i></a> --}}
+                                    {{-- <form class="d-inline" action="{{route('return.destroy', $loan->id)}}"
                                     method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -89,7 +135,7 @@
                                 <div class="form-group col-md-3">
                                     <label class="col-form-label">Loan Taker</label>
                                     <select name="user_id" class="form-control" required>
-                                        @foreach ($users as $user)
+                                        @foreach (App\User::all() as $user)
                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
@@ -147,30 +193,30 @@
                         <form action="{{ route('return.store') }}" method="POST">
                             @csrf
                             <div class="row">
-                                {{-- <div class="form-group col-md-2">
+                                <div class="form-group col-md-2">
                                     <label class="col-form-label">Serial No. </label>
-                                    <input type="number" name="serial" value="{{ $id = App\Loan::nextId() }}"
+                                    <input type="number" name="serial" value="{{ $id = App\LoanReturn::nextId() }}"
                                 class="form-control" {{ $id ? 'disabled':'' }}>
-                            </div> --}}
+                            </div>
                             <div class="form-group col-md-3">
                                 <label class="col-form-label">Loan Number #</label>
                                 <div class="d-flex">
-                                    <input type="number" name="loan_id" id="laon_id" class="form-control">
+                                    <input type="number" name="loan_id" id="laon_id" class="form-control" required>
                                     <button id="check_button" class="btn btn-xs btn-primary">Check</button>
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <label class="col-form-label">Total Loan</label>
                                 <input id="loaned" class="form-control" disabled>
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <label class="col-form-label">Total Return</label>
                                 <input id="returned" class="form-control" disabled>
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <label class="col-form-label">Total Due</label>
                                 <input id="due" class="form-control" disabled>
                             </div>
@@ -215,6 +261,7 @@
 
 @section('scripts')
 <script>
+
     // Get and show Loan information
     $('#check_button').on('click', function(e) {
         e.preventDefault();
@@ -230,7 +277,10 @@
                 $('#due').val(data.due);
             },
             error: function(){
-                toastr.info('Not found');
+                toastr.warning('No Loan found');
+                $('#loaned').val('');
+                $('#returned').val('');
+                $('#due').val('');
             }
         });
     });

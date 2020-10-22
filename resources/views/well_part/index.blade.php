@@ -77,20 +77,24 @@
 
                                 <div class="form-group col-md-4">
                                     <label class="col-form-label">Borrowers</label>
-                                    <select class="form-control" name="user_id">
+                                    <select class="form-control" name="user_id" required
                                         <option value="">Select User</option>
                                         @foreach ($users as $user)
                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-
-                                <div class="form-group col-md-3">
-                                    <label class="col-form-label">Amount</label>
-                                    <input type="number" name="amount" class="form-control">
-                                </div>
                             </div>
 
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label class="col-form-label">Amount</label>
+                                    <input name="amount" type="number" class="form-control"
+                                        onkeyup="word.innerHTML=toWord(this.value)" autocomplete required>
+                                    <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
+                                            id="word"></span></div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="textarea">Description</label>
                                 <textarea name="description" class="form-control" rows="3" required></textarea>

@@ -105,30 +105,48 @@
     <div class="card col-12">
         <h5 class="card-header">Over All Reports</h5>
         <div class="card-body">
-            <table id="example" class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Date</th>
+                        <th scope="col">Loan Taker</th>
                         <th scope="col">Action</th>
-                        <th scope="col">Taker/Reciever</th>
-                        <th scope="col">Amount In</th>
-                        <th scope="col">Amount Out</th>
-                        <th scope="col">Total</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">R Amount</th>
+                        <th scope="col">R Date</th>
+                        <th scope="col">Description</th>
+                        {{-- <th scope="col">Action</th> --}}
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($report as $item)
+                    @foreach ($loans as $loan)
                     <tr>
-                        <th scope="row">{{ $item->id }}</th>
-                        <td>{{ $item->created_at->format('d-m-Y') }}</td>
-                        <td>{{ $item->invoice ? 'Expense':'Loan'}}</td>
-                        <td>{{ $item->user->name ?? '' }}</td>
-                        <td>{{ $item->amount }}</td>
-                        <td>{{ $item->amount }}</td>
-                        <td>{{ $item->deleted_at ? 'Deleted':'Active'}}</td>
+                        <td scope="row">{{ $loan->id }}</td>
+                        <td scope="row">{{ $loan->created_at->format('d-m-Y') }}</td>
+                        <td scope="row">{{ $loan->user->name }}</td>
+                        <td scope="row">{{ $loan->type }}</td>
+                        <td scope="row"
+                            class="{{ $loan->type == 'loan' ? 'text-danger':'text-success' }}">
+                            {{ $loan->amount }}</td>
+                        <td scope="row">{{ $loan->return_amount ?? '' }}</td>
+                        <td scope="row">{{  $loan->return_date ? $loan->return_date->format('d-m-Y'):'' }}
+                        </td>
+                        <td scope="row">{{  $loan->description }}</td>
+
+                        {{-- <td class="text-right"> --}}
+                        {{-- <a href="{{ route('loan.edit', $loan->id)}}" class="btn btn-sm
+                        btn-warning"><i class="fas fa-edit"></i></a> --}}
+                        {{-- <form class="d-inline" action="{{route('loan.destroy', $loan->id)}}"
+                        method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger"><i
+                                class="fas fa-trash-alt"></i></button>
+                        </form> --}}
+                        {{-- </td> --}}
                     </tr>
-                    @endforeach --}}    
+                    @endforeach
                 </tbody>
             </table>
         </div>

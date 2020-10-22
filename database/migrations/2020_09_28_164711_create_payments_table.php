@@ -17,7 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->integer('agreement_id');
             $table->integer('user_id');
-            $table->string('type');
+            $table->string('type')->default('payment');
             $table->string('state');
             $table->integer('year')->nullable();
             $table->json('month')->nullable();

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Loan;
+use App\User;
 use App\Borrow;
 use App\Expense;
-use App\Loan;
 use App\Payment;
-use App\User;
+use App\LoanReturn;
 
 
 class DashboardController extends Controller
@@ -46,7 +47,13 @@ class DashboardController extends Controller
 
         $value->cash = 10000;
 
-        return view('dashboard', compact('total','value','report'));
+        // expense
+        $loans = Loan::all();
+        $returns = LoanReturn::all();
+        $loans = $loans->mergeRecursive($returns);
+        $loans = $loans->sortByDesc('updated_at');
+
+        return view('dashboard', compact('total','value','report', 'loans'));
     }
 
 }
