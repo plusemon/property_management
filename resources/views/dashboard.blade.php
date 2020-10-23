@@ -8,7 +8,7 @@
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Rent Payment</h4>
                 <h3 class="mb-1 ">
-                    {{ App\Payment::whereType('rent')->count() }} | Total <span class="float-right text-danger">${{ $rentPayment = App\Payment::whereType('rent')->sum('amount') }}</span>
+                    {{ App\Payment::whereType('rent')->count() }} | Total <span class="float-right text-success">${{ $rentPayment = App\Payment::whereType('rent')->sum('amount') }}</span>
                 </h3>
                 <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
 
@@ -34,7 +34,7 @@
                 <h3 class="mb-1 ">
                     {{ App\Borrow::count() }} | Total <span class="float-right text-danger">${{ $borro = App\Borrow::sum('amount') }}</span>
                 </h3>
-                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
+                <div class="text-right"><a href="{{ route('borrow.index') }}">View</a></div>
 
             </div>
         </div>
@@ -46,7 +46,7 @@
                 <h3 class="mb-1 ">
                     {{ App\Loan::count() }} | Total <span class="float-right text-danger">${{ $loan = App\Loan::sum('amount') }}</span>
                 </h3>
-                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
+                <div class="text-right"><a href="{{ route('loan.index') }}">View</a></div>
 
             </div>
         </div>
@@ -56,9 +56,9 @@
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Loan Return</h4>
                 <h3 class="mb-1 ">
-                    {{  App\LoanReturn::count() }} | Total <span class="float-right text-danger">${{ $loanReturn =  App\LoanReturn::sum('amount') }}</span>
+                    {{  App\LoanReturn::count() }} | Total <span class="float-right text-success">${{ $loanReturn =  App\LoanReturn::sum('amount') }}</span>
                 </h3>
-                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
+                <div class="text-right"><a href="{{ route('loan.index') }}">View</a></div>
 
             </div>
         </div>
@@ -70,7 +70,7 @@
                 <h3 class="mb-1 ">
                     {{ App\Expense::count() }} | Total <span class="float-right text-danger">${{ $expense = App\Expense::sum('amount') }}</span>
                 </h3>
-                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
+                <div class="text-right"><a href="{{ route('expense.index') }}">View</a></div>
 
             </div>
         </div>
@@ -82,7 +82,7 @@
                 <h3 class="mb-1 ">
                     {{ App\WellPart::count() }} | Total <span class="float-right text-danger">${{ $wellPart = App\WellPart::sum('amount') }}</span>
                 </h3>
-                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
+                <div class="text-right"><a href="{{ route('wellpart.index') }}">View</a></div>
 
             </div>
         </div>
@@ -94,7 +94,7 @@
                 <h3 class="mb-1 ">
                     Total <span class="float-right text-danger">{{ App\User::count() }}</span>
                 </h3>
-                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
+                <div class="text-right"><a href="{{ route('user.index') }}">View</a></div>
 
             </div>
         </div>
@@ -104,10 +104,9 @@
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Cash on hand</h4>
                 <h2 class="mb-1 ">
-                    Total <span class="float-right text-primary">${{ ($rentPayment-$rentReturn)-($borro)+($loan-$loanReturn)-($expense)+($wellPart) }}</span>
+                    <span class="float-right text-primary">
+                    ${{ ($rentPayment+$loanReturn)-($rentReturn+$borro+$loan+$expense+$wellPart) }}</span>
                 </h2>
-                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
-
             </div>
         </div>
     </div>
