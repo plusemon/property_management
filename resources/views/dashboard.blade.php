@@ -3,102 +3,115 @@
 @section('content')
 
 <div class="row">
-    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-        <div class="card border-3 border-top border-top-primary">
-            <div class="card-body">
-                <h4 class="text-muted text-uppercase">Borrow</h4>
-                <div class="metric-value d-inline-block">
-                    <h2 class="mb-1">{{ $total->borrow }} | ${{ $value->borrow }}</h2>
-                </div>
-                <div class="text-right"><a href="{{ route('borrow.index') }}">View</a></div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-        <div class="card border-3 border-top border-top-primary">
-            <div class="card-body">
-                <h4 class="text-muted text-uppercase">Employee</h4>
-                <div class="metric-value d-inline-block">
-                    <h2 class="mb-1">{{ $total->employee }} | ${{ $value->employee }}</h2>
-                </div>
-                <div class="text-right"><a href="{{ route('user.index') }}">View</a></div>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-        <div class="card border-3 border-top border-top-primary">
-            <div class="card-body">
-                <h4 class="text-muted text-uppercase">Well Part</h4>
-                <div class="metric-value d-inline-block">
-                    <h2 class="mb-1">{{ $total->wellpart }} | ${{ $value->wellpart }}</h2>
-                </div>
-                <div class="text-right"><a href="{{ route('borrow.index') }}">View</a></div>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-        <div class="card border-3 border-top border-top-primary">
-            <div class="card-body">
-                <h4 class="text-muted text-uppercase">Loan</h4>
-                <div class="metric-value d-inline-block">
-                    <h2 class="mb-1">{{ $total->loan }} | ${{ $value->loan }}</h2>
-                </div>
-                <div class="text-right"><a href="{{ route('loan.index') }}">View</a></div>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-        <div class="card border-3 border-top border-top-primary">
-            <div class="card-body">
-                <h4 class="text-muted text-uppercase">Loan Return</h4>
-                <div class="metric-value d-inline-block">
-                    <h2 class="mb-1">{{ $total->return }} | ${{ $value->return }}</h2>
-                </div>
-                <div class="text-right"><a href="{{ route('loan.index') }}">View</a></div>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
         <div class="card border-3 border-top border-top-primary">
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Rent Payment</h4>
-                <div class="metric-value d-inline-block">
-                    <h2 class="mb-1">{{ $total->payment }} | ${{ $value->payment }}</h2>
-                </div>
+                <h3 class="mb-1 ">
+                    {{ App\Payment::whereType('rent')->count() }} | Total <span class="float-right text-danger">${{ $rentPayment = App\Payment::whereType('rent')->sum('amount') }}</span>
+                </h3>
                 <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
 
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
         <div class="card border-3 border-top border-top-primary">
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Rent Refund</h4>
-                <div class="metric-value d-inline-block">
-                    <h2 class="mb-1">{{ $total->refund }} | ${{ $value->refund }}</h2>
-                </div>
-                <div class="text-right"><a href="{{ route('borrow.index') }}">View</a></div>
+                <h3 class="mb-1 ">
+                    {{ App\PaymentReturn::count() }} | Total <span class="float-right text-danger">${{ $rentReturn = App\PaymentReturn::sum('amount') }}</span>
+                </h3>
+                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
 
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
         <div class="card border-3 border-top border-top-primary">
             <div class="card-body">
-                <h4 class="text-muted text-uppercase">Cash On Hand</h4>
-                <div class="metric-value d-inline-block">
-                    <h2 class="mb-1">${{ $value->cash }}</h2>
-                </div>
+                <h4 class="text-muted text-uppercase">Borrow</h4>
+                <h3 class="mb-1 ">
+                    {{ App\Borrow::count() }} | Total <span class="float-right text-danger">${{ $borro = App\Borrow::sum('amount') }}</span>
+                </h3>
+                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
 
             </div>
         </div>
     </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div class="card border-3 border-top border-top-primary">
+            <div class="card-body">
+                <h4 class="text-muted text-uppercase">Loan</h4>
+                <h3 class="mb-1 ">
+                    {{ App\Loan::count() }} | Total <span class="float-right text-danger">${{ $loan = App\Loan::sum('amount') }}</span>
+                </h3>
+                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div class="card border-3 border-top border-top-primary">
+            <div class="card-body">
+                <h4 class="text-muted text-uppercase">Loan Return</h4>
+                <h3 class="mb-1 ">
+                    {{  App\LoanReturn::count() }} | Total <span class="float-right text-danger">${{ $loanReturn =  App\LoanReturn::sum('amount') }}</span>
+                </h3>
+                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div class="card border-3 border-top border-top-primary">
+            <div class="card-body">
+                <h4 class="text-muted text-uppercase">Expense</h4>
+                <h3 class="mb-1 ">
+                    {{ App\Expense::count() }} | Total <span class="float-right text-danger">${{ $expense = App\Expense::sum('amount') }}</span>
+                </h3>
+                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div class="card border-3 border-top border-top-primary">
+            <div class="card-body">
+                <h4 class="text-muted text-uppercase">Well Part</h4>
+                <h3 class="mb-1 ">
+                    {{ App\WellPart::count() }} | Total <span class="float-right text-danger">${{ $wellPart = App\WellPart::sum('amount') }}</span>
+                </h3>
+                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div class="card border-3 border-top border-top-primary">
+            <div class="card-body">
+                <h4 class="text-muted text-uppercase">User</h4>
+                <h3 class="mb-1 ">
+                    Total <span class="float-right text-danger">{{ App\User::count() }}</span>
+                </h3>
+                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+        <div class="card border-3 border-top border-top-primary">
+            <div class="card-body">
+                <h4 class="text-muted text-uppercase">Cash on hand</h4>
+                <h2 class="mb-1 ">
+                    Total <span class="float-right text-primary">${{ ($rentPayment-$rentReturn)+($borro)+($loan-$loanReturn)-($expense)+($wellPart) }}</span>
+                </h2>
+                <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div class="row">
@@ -138,8 +151,7 @@
                         method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"><i
-                                class="fas fa-trash-alt"></i></button>
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
                         </form> --}}
                         {{-- </td> --}}
                     </tr>
