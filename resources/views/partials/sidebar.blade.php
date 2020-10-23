@@ -112,7 +112,7 @@
 
                     @canany(['loan view','loan entry'])
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('loan.index') }}"><i class="fas fa-handshake"></i> Loan</a>
+                        <a class="nav-link" href="{{ route('loan.index') }}"><i class="fas fa-handshake"></i>Loan</a>
                     </li>
                     @endcanany
 

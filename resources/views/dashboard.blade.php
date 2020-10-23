@@ -104,7 +104,7 @@
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Cash on hand</h4>
                 <h2 class="mb-1 ">
-                    Total <span class="float-right text-primary">${{ ($rentPayment-$rentReturn)+($borro)+($loan-$loanReturn)-($expense)+($wellPart) }}</span>
+                    Total <span class="float-right text-primary">${{ ($rentPayment-$rentReturn)-($borro)+($loan-$loanReturn)-($expense)+($wellPart) }}</span>
                 </h2>
                 <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
 
