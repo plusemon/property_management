@@ -15,7 +15,7 @@
                     {{-- @can('dashboard') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard.index') }}"><i
-                                class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span>
+                                class="fab fa-fw fa-wpforms"></i>Dashboard <span class="badge badge-success">6</span>
                         </a>
                     </li>
                     {{-- @endcan --}}
@@ -116,20 +116,45 @@
                     </li>
                     @endcanany
 
-                    @canany(['user view','user entry','permission manage'])
+                    @canany(['expense view','expense entry'])
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                            data-target="#submenu-10" aria-controls="submenu-10"><i class=" fas fa-user"></i>User</a>
-                        <div id="submenu-10" class="collapse submenu" style="">
+                            data-target="#submenu-14" aria-controls="submenu-14"><i
+                                class="fas fa-list-alt"></i>Manage</a>
+                        <div id="submenu-14" class="collapse submenu" style="">
                             <ul class="nav flex-column">
-                                @canany(['user view','user entry'])
+                                @canany(['user view','user entry','permission manage'])
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('user.index') }}">Manage User</a>
+                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                                        data-target="#submenu-10" aria-controls="submenu-10"><i class=" fas fa-user"></i>User</a>
+                                    <div id="submenu-10" class="collapse submenu" style="">
+                                        <ul class="nav flex-column">
+                                            @canany(['user view','user entry'])
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ route('user.index') }}">Manage User</a>
+                                            </li>
+                                            @endcan
+                                            @can('permission manage')
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ route('role.index') }}">Role & Permission </a>
+                                            </li>
+                                            @endcan
+                                        </ul>
+                                    </div>
+                                </li>
+                                @endcanany
+
+                                @can('backup manage')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('setting.index') }}"><i class="fas fa-hockey-puck"></i>Bacup
+                                        & Restore</a>
                                 </li>
                                 @endcan
-                                @can('permission manage')
+
+                                @can('setting manage')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('role.index') }}">Role & Permission </a>
+                                    <a class="nav-link" href="{{ route('setting.index') }}"><i
+                                            class="fas fa-sliders-h"></i>Settings</a>
                                 </li>
                                 @endcan
                             </ul>
@@ -137,25 +162,7 @@
                     </li>
                     @endcanany
 
-                    @can('report view')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('report.index') }}"><i class="fas fa-archive"></i>Reports</a>
-                    </li>
-                    @endcan
 
-                    @can('backup manage')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('setting.index') }}"><i class="fas fa-hockey-puck"></i>Bacup
-                            & Restore</a>
-                    </li>
-                    @endcan
-
-                    @can('setting manage')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('setting.index') }}"><i
-                                class="fas fa-sliders-h"></i>Settings</a>
-                    </li>
-                    @endcan
 
                 </ul>
             </div>
