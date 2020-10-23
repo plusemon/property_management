@@ -8,52 +8,51 @@ use App\Borrow;
 use App\Expense;
 use App\Payment;
 use App\LoanReturn;
-
+use App\PaymentReturn;
+use App\Wellpart;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+        $expenses = Expense::all()->each(function ($data) {
+            $data->type = 'Expense';
+        });
 
-        $expences = Expense::all();
-        $loans = Loan::all();
-        $payments = Payment::all();
+        $borrows = Borrow::all()->each(function ($data) {
+            $data->type = 'Borrow';
+        });
 
-        $report = $expences->mergeRecursive($loans)->mergeRecursive($payments);
+        $loans = Loan::all()->each(function ($data) {
+            $data->type = 'Loan';
+        });
 
-        $total = (object) [];
-        $value = (object) [];
+        $loanReturns = LoanReturn::all()->each(function ($data) {
+            $data->type = 'Loan Return';
+        });
 
-        $total->borrow = Borrow::count();
-        $value->borrow = Borrow::pluck('amount')->sum();
+        $wellparts = Wellpart::all()->each(function ($data) {
+            $data->type = 'Well Part';
+        });
 
-        $total->employee = User::count();
-        $value->employee = 0;
+        $payments = Payment::all()->each(function ($data) {
+            $data->type = 'Payment';
+        });
 
-        $total->wellpart = 0;
-        $value->wellpart = 0;
+        $paymentRefunds = PaymentReturn::all()->each(function ($data) {
+            $data->type = 'Payment Return';
+        });
 
-        $total->loan = Loan::count();
-        $value->loan = Loan::pluck('amount')->sum();
+        $data = $expenses
+            ->mergeRecursive($borrows)
+            ->mergeRecursive($loans)
+            ->mergeRecursive($loanReturns)
+            ->mergeRecursive($wellparts)
+            ->mergeRecursive($payments)
+            ->mergeRecursive($paymentRefunds);
 
-        $total->return = Loan::count();
-        $value->return = Loan::pluck('amount')->sum();
+        $reports = $data->sortBy('updated_at');
 
-        $total->payment = Payment::count();
-        $value->payment = Payment::pluck('amount')->sum();
-
-        $total->refund = Loan::count();
-        $value->refund = Loan::pluck('amount')->sum();
-
-        $value->cash = 10000;
-
-        // expense
-        $loans = Loan::all();
-        $returns = LoanReturn::all();
-        $loans = $loans->mergeRecursive($returns);
-        $loans = $loans->sortByDesc('updated_at');
-
-        return view('dashboard', compact('total','value','report', 'loans'));
+        return view('dashboard', compact('reports'));
     }
-
 }

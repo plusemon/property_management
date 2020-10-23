@@ -19,13 +19,13 @@ class LoanReturn extends Model
 
     public function loan()
     {
-        return $this->hasOne(Loan::class);
+        return $this->belongsTo(Loan::class);
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    
+
 
 }

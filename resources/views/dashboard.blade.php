@@ -121,39 +121,28 @@
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
-                        {{-- <th scope="col">#</th> --}}
+                        {{-- <th scope="col">No</th> --}}
+                        <th scope="col">#</th>
                         <th scope="col">Date</th>
-                        <th scope="col">Loan #</th>
-                        <th scope="col">Loan Taker</th>
                         <th scope="col">Action</th>
+                        <th scope="col">Taker/Receiver</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Description</th>
-                        {{-- <th scope="col">Action</th> --}}
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($loans as $loan)
-                    <tr>
-                        {{-- <td scope="row">{{ $loan->id }}</td> --}}
-                        <td scope="row">{{ $loan->created_at->format('d-m-Y') }}</td>
-                        <td scope="row">{{ $loan->loan_id ?? $loan->id }}</td>
-                        <td scope="row">{{ $loan->user->name }}</td>
-                        <td scope="row">{{ $loan->type }}</td>
-                        <td scope="row" class="{{ $loan->type == 'loan' ? 'text-danger':'text-success' }}">
-                            {{ $loan->amount }}</td>
-                        </td>
-                        <td scope="row">{{  $loan->description }}</td>
-
-                        {{-- <td class="text-right"> --}}
-                        {{-- <a href="{{ route('loan.edit', $loan->id)}}" class="btn btn-sm
-                        btn-warning"><i class="fas fa-edit"></i></a> --}}
-                        {{-- <form class="d-inline" action="{{route('loan.destroy', $loan->id)}}"
-                        method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
-                        </form> --}}
-                        {{-- </td> --}}
+                    @php
+                        $i = 1;
+                    @endphp
+                    @foreach ($reports as $report)
+                    <tr class="{{ $report->type == 'Payment' || $report->type == 'Loan Return' ? 'text-success':'text-danger' }}">
+                        {{-- <td scope="row">{{ $i++ }}</td> --}}
+                        <td scope="row">{{ $report->loancounter ?? $report->id }}</td>
+                        <td scope="row">{{ $report->created_at->format('d-m-Y') }}</td>
+                        <td scope="row">{{ $report->type }}</td>
+                        <td scope="row">{{ $report->user->name ?? 'a' }}</td>
+                        <td scope="row">{{ $report->amount }}</td>
+                        <td scope="row">{{  $report->description }}</td>
                     </tr>
                     @endforeach
                 </tbody>

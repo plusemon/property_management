@@ -81,9 +81,9 @@
                             <thead>
                                 <tr>
                                     {{-- <th scope="col">#</th> --}}
-                                    <th scope="col">Return Date</th>
-                                    <th scope="col">Taker</th>
+                                    {{-- <th scope="col">Return Date</th> --}}
                                     <th scope="col">Loan #</th>
+                                    <th scope="col">Taker</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Description</th>
                                     {{-- <th scope="col">Action</th> --}}
@@ -93,9 +93,9 @@
                                 @foreach ($returns as $return)
                                 <tr>
                                     {{-- <td scope="row">{{ $return->id }}</td> --}}
-                                    <td scope="row">{{ $return->created_at->format('d-m-Y') }}</td>
+                                    {{-- <td scope="row">{{ $return->created_at->format('d-m-Y') }}</td> --}}
+                                    <td scope="row">{{ $return->loancounter }}</td>
                                     <td scope="row">{{ $return->user->name }}</td>
-                                    <td scope="row">{{ $return->loan_id }}</td>
                                     <td scope="row" class="text-success">
                                         {{ $return->amount }}</td>
                                     </td>
@@ -193,11 +193,7 @@
                         <form action="{{ route('return.store') }}" method="POST">
                             @csrf
                             <div class="row">
-                                <div class="form-group col-md-2">
-                                    <label class="col-form-label">Serial No. </label>
-                                    <input type="number" name="serial" value="{{ $id = App\LoanReturn::nextId() }}"
-                                class="form-control" {{ $id ? 'disabled':'' }}>
-                            </div>
+
                             <div class="form-group col-md-3">
                                 <label class="col-form-label">Loan Number #</label>
                                 <div class="d-flex">
@@ -206,17 +202,17 @@
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 <label class="col-form-label">Total Loan</label>
                                 <input id="loaned" class="form-control" disabled>
                             </div>
 
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 <label class="col-form-label">Total Return</label>
                                 <input id="returned" class="form-control" disabled>
                             </div>
 
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-3">
                                 <label class="col-form-label">Total Due</label>
                                 <input id="due" class="form-control" disabled>
                             </div>

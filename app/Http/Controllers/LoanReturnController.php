@@ -47,8 +47,18 @@ class LoanReturnController extends Controller
             return redirect()->back()->with('info','Loan not found');
         }
 
+
+
         $return = new LoanReturn();
-        $return->id = $request->serial;
+
+        $loan = Loan::findOrFail($request->loan_id);
+
+        if ($loan->return_amount != $request->amount) {
+            $return->loancounter = $loan->id.'-'.($loan->returns->count()+1);
+        }else{
+            $return->loancounter = $request->loan_id;
+        }
+
         $return->user_id = Auth::id();
         $return->loan_id = $request->loan_id;
         $return->amount = $request->amount;
