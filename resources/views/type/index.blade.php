@@ -14,12 +14,10 @@
                 <a class="nav-link border-left-0 active show" data-toggle="tab" href="#list"
                     role="tab" aria-controls="list" aria-selected="true">List</a>
             </li>
-            @can('type entry')
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#add" role="tab"
                     aria-controls="add" aria-selected="false">Add</a>
             </li>
-            @endcan
         </ul>
 
         <div class="tab-content">

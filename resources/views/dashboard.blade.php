@@ -152,3 +152,10 @@
 
 
 @endsection
+
+
+@section('scripts')
+<script>
+    alert('User Roles and Permission Does not Completed Yet! Please consider it, will update soon');
+</script>
+@endsection
