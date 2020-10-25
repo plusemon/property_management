@@ -125,8 +125,8 @@
                         <th scope="col">Date</th>
                         <th scope="col">Action</th>
                         <th scope="col">Taker/Receiver</th>
-                        <th scope="col">Amount</th>
                         <th scope="col">Description</th>
+                        <th scope="col">Amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -140,8 +140,8 @@
                         <td scope="row">{{ $report->created_at->format('d-m-Y') }}</td>
                         <td scope="row">{{ $report->type }}</td>
                         <td scope="row">{{ $report->user->name ?? 'a' }}</td>
-                        <td scope="row">{{ $report->amount }}</td>
                         <td scope="row">{{  $report->description }}</td>
+                        <td scope="row">{{ $report->amount }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -156,6 +156,6 @@
 
 @section('scripts')
 <script>
-    alert('User Roles and Permission Does not Completed Yet! Please consider it, will update soon');
+    alert('Loan return and Payment refund select option added.');
 </script>
 @endsection
