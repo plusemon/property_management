@@ -39,6 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('role', 'RoleController');
     Route::get('report', 'TypeController@report')->name('report.index');
     Route::resource('setting', 'SettingController');
+    Route::get('accountant', 'SettingController@accountant')->name('accountant');
+    Route::post('accountant', 'SettingController@accountant');
 
 
 });

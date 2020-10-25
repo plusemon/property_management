@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Setting;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Void_;
 
 class SettingController extends Controller
 {
-   
+
     public function index()
     {
         $setting = Setting::firstOrCreate([]);
@@ -34,6 +35,17 @@ class SettingController extends Controller
         $setting->save();
 
         return redirect()->back()->with('success','Saved Successfully');
+    }
+
+
+    public function accountant()
+    {
+        return view('accountant.index');
+    }
+
+    public function accountantStore(Request $request)
+    {
+        return $request;
     }
 
 }

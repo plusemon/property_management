@@ -147,6 +147,10 @@
                                     <a class="nav-link" href="{{ route('setting.index') }}"><i
                                             class="fas fa-sliders-h"></i>Settings</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('accountant') }}"><i
+                                            class="fas fa-user"></i>Accounted Assigned</a>
+                                </li>
                                 {{-- @endcan --}}
                             </ul>
                         </div>
