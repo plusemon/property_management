@@ -43,21 +43,37 @@ class LoanReturnController extends Controller
             'amount' => 'required|integer|gt:0',
         ]);
 
+        // check if request loan found or not
         if (!Loan::find($request->loan_id)) {
             return redirect()->back()->with('info','Loan not found');
         }
 
-
-
         $return = new LoanReturn();
 
-        $loan = Loan::findOrFail($request->loan_id);
+            // find or fail get loan
+            $loan = Loan::findOrFail($request->loan_id);
 
-        if ($loan->return_amount != $request->amount) {
+            $return->remain = ($loan->return_amount)-($loan->returns->sum('amount'));
+
+            // check if loan completed
+            if ( $return->remain == 0 ) {
+                return redirect()->back()->with('info','Loan fully returned');
+            }
+
+            // Check if user pay more then remaining amount
+            if( $return->remain < $request->amount ) {
+                return redirect()->back()->with('error','You can\'t return more then remaining amount');
+            }
+
+            // set return counter
             $return->loancounter = $loan->id.'-'.($loan->returns->count()+1);
-        }else{
-            $return->loancounter = $request->loan_id;
-        }
+
+            // set remain
+            if ($return->remain == $request->amount) {
+                $return->remain = 0;
+            }else{
+                $return->remain = ($return->remain) - ($request->amount);
+            }
 
         $return->user_id = Auth::id();
         $return->loan_id = $request->loan_id;
@@ -65,6 +81,7 @@ class LoanReturnController extends Controller
         $return->description = $request->description;
         $return->created_at = $request->created_at;
         $return->save();
+
         return redirect()->back()->with('success', 'Successfull');
     }
 

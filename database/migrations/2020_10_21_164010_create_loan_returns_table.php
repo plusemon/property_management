@@ -21,6 +21,7 @@ class CreateLoanReturnsTable extends Migration
             $table->string('loancounter');
             $table->string('type')->default('return');
             $table->integer('amount');
+            $table->integer('remain');
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

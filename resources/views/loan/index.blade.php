@@ -33,13 +33,13 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">R Date</th>
+                                    {{-- <th scope="col">Date</th> --}}
+                                    {{-- <th scope="col">R Date</th> --}}
                                     <th scope="col">Loan Taker</th>
                                     <th scope="col">Amount</th>
-                                    <th scope="col">R Amount</th>
-                                    <th scope="col">Paid</th>
-                                    <th scope="col">Description</th>
+                                    <th scope="col">Return Amount</th>
+                                    {{-- <th scope="col">Remain Amount</th> --}}
+                                    {{-- <th scope="col">Description</th> --}}
                                     {{-- <th scope="col">Action</th> --}}
                                 </tr>
                             </thead>
@@ -47,14 +47,14 @@
                                 @foreach ($loans as $loan)
                                 <tr>
                                     <td scope="row">{{ $loan->id }}</td>
-                                    <td scope="row">{{ $loan->return_date ? $loan->return_date->format('d-m-Y'):'' }}
-                                    <td scope="row">{{ $loan->created_at->format('d-m-Y') }}</td>
+                                    {{-- <td scope="row">{{ $loan->return_date ? $loan->return_date->format('d-m-Y'):'' }} --}}
+                                    {{-- <td scope="row">{{ $loan->created_at->format('d-m-Y') }}</td> --}}
                                     <td scope="row">{{ $loan->user->name }}</td>
-                                    <td scope="row" class="text-danger">{{ $loan->amount }}</td>
-                                    <td scope="row">{{ $loan->return_amount ?? '' }}</td>
-                                    <td scope="row" class="text-success">{{ $loan->returns->sum('amount') }}</td>
+                                    <td scope="row">{{ $loan->amount }}</td>
+                                    <td scope="row" class="text-danger">{{ $loan->return_amount ?? '' }}</td>
+                                    {{-- <td scope="row" class="text-danger">{{ ($loan->return_amount)-($loan->returns->sum('amount')) }}</td> --}}
                                     </td>
-                                    <td scope="row">{{  $loan->description }}</td>
+                                    {{-- <td scope="row">{{  $loan->description }}</td> --}}
 
                                     {{-- <td class="text-right"> --}}
                                     {{-- <a href="{{ route('loan.edit', $loan->id)}}" class="btn btn-sm
@@ -85,7 +85,9 @@
                                     <th scope="col">Loan #</th>
                                     <th scope="col">Taker</th>
                                     <th scope="col">Amount</th>
-                                    <th scope="col">Description</th>
+                                    <th scope="col">Remain Amount</th>
+                                    <th scope="col">Accually Loan</th>
+                                    {{-- <th scope="col">Description</th> --}}
                                     {{-- <th scope="col">Action</th> --}}
                                 </tr>
                             </thead>
@@ -96,10 +98,10 @@
                                     {{-- <td scope="row">{{ $return->created_at->format('d-m-Y') }}</td> --}}
                                     <td scope="row">{{ $return->loancounter }}</td>
                                     <td scope="row">{{ $return->user->name }}</td>
-                                    <td scope="row" class="text-success">
-                                        {{ $return->amount }}</td>
-                                    </td>
-                                    <td scope="row">{{  $return->description }}</td>
+                                    <td scope="row" class="text-success">{{ $return->amount }}</td>
+                                    <td scope="row" class="text-danger">{{ $return->remain }}</td>
+                                    <td scope="row">{{ $return->loan->amount }}</td>
+                                    {{-- <td scope="row">{{  $return->description }}</td> --}}
 
                                     {{-- <td class="text-right"> --}}
                                     {{-- <a href="{{ route('return.edit', $return->id)}}" class="btn btn-sm
@@ -203,22 +205,22 @@
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label class="col-form-label">Total Loan</label>
+                                <label class="col-form-label">Total Amount</label>
                                 <input id="loaned" class="form-control" disabled>
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label class="col-form-label">Total Return</label>
+                                <label class="col-form-label">Returned</label>
                                 <input id="returned" class="form-control" disabled>
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label class="col-form-label">Total Due</label>
+                                <label class="col-form-label">Remaining</label>
                                 <input id="due" class="form-control" disabled>
                             </div>
 
                             <div class="form-group col-md-12">
-                                <label class="col-form-label">Return Amount</label>
+                                <label class="col-form-label">Amount</label>
                                 <input name="amount" type="number" class="form-control"
                                     onkeyup="word3.innerHTML=toWord(this.value)" autocomplete required>
                                 <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
