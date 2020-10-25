@@ -375,10 +375,12 @@
                             </div> --}}
                         <div class="form-group col-md-3">
                             <label class="col-form-label">Payment #</label>
-                            <div class="d-flex">
-                                <input type="number" name="payment_id" id="payment_id" class="form-control">
-                                <button id="check_button" class="btn btn-xs btn-primary">Check</button>
-                            </div>
+                            <select name="payment_id" id="payment_id" class="form-control">
+                                <option value="">Select</option>
+                                @foreach (App\Payment::all() as $payment)
+                                <option value="{{ $payment->id }}">{{ $payment->id }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group col-md-3">
@@ -533,8 +535,8 @@
     });
 
     // Get and show payment information - Refund
-    $('#check_button').on('click', function(e) {
-        e.preventDefault();
+    $('#payment_id').on('change', function() {
+        // e.preventDefault();
         var id = $('#payment_id').val();
         var url = '{{ url('api/payment-info') }}?payment=' + id;
         $.ajax({
