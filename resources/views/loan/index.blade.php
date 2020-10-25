@@ -15,7 +15,8 @@
                     aria-selected="true">Loan List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#return_list" role="tab" aria-selected="false">Return list</a>
+                <a class="nav-link" data-toggle="tab" href="#return_list" role="tab" aria-selected="false">Return
+                    list</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#add" role="tab" aria-selected="false">Loan</a>
@@ -47,12 +48,14 @@
                                 @foreach ($loans as $loan)
                                 <tr>
                                     <td scope="row">{{ $loan->id }}</td>
-                                    {{-- <td scope="row">{{ $loan->return_date ? $loan->return_date->format('d-m-Y'):'' }} --}}
+                                    {{-- <td scope="row">{{ $loan->return_date ? $loan->return_date->format('d-m-Y'):'' }}
+                                    --}}
                                     {{-- <td scope="row">{{ $loan->created_at->format('d-m-Y') }}</td> --}}
                                     <td scope="row">{{ $loan->user->name }}</td>
                                     <td scope="row">{{ $loan->amount }}</td>
                                     <td scope="row" class="text-danger">{{ $loan->return_amount ?? '' }}</td>
-                                    {{-- <td scope="row" class="text-danger">{{ ($loan->return_amount)-($loan->returns->sum('amount')) }}</td> --}}
+                                    {{-- <td scope="row" class="text-danger">{{ ($loan->return_amount)-($loan->returns->sum('amount')) }}
+                                    </td> --}}
                                     </td>
                                     {{-- <td scope="row">{{  $loan->description }}</td> --}}
 
@@ -196,74 +199,75 @@
                             @csrf
                             <div class="row">
 
-                            <div class="form-group col-md-3">
-                                <label class="col-form-label">Loan Number #</label>
-                                <div class="d-flex">
-                                    <input type="number" name="loan_id" id="laon_id" class="form-control" required>
-                                    <button id="check_button" class="btn btn-xs btn-primary">Check</button>
+                                <div class="form-group col-md-3">
+                                    <label class="col-form-label">Loan Number #</label>
+                                    <select name="loan_id" id="loan_id" class="form-control">
+                                        <option value="">Select</option>
+                                        @foreach (App\Loan::all() as $loan)
+                                        <option value="{{ $loan->id }}">{{ $loan->id }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label class="col-form-label">Total Amount</label>
+                                    <input id="loaned" class="form-control" disabled>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label class="col-form-label">Returned</label>
+                                    <input id="returned" class="form-control" disabled>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label class="col-form-label">Remaining</label>
+                                    <input id="due" class="form-control" disabled>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label class="col-form-label">Amount</label>
+                                    <input name="amount" type="number" class="form-control"
+                                        onkeyup="word3.innerHTML=toWord(this.value)" autocomplete required>
+                                    <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
+                                            id="word3"></span></div>
+                                </div>
+
+
+                                <div class="form-group col-md-12">
+                                    <label class="col-form-label">Description</label>
+                                    <textarea name="description" class="form-control" id="" cols="15"
+                                        rows="5"></textarea>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label class="col-form-label">Entry Date</label>
+                                    <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}"
+                                        required>
+                                </div>
+                                <div class="form-group  col-md-4">
+                                    <label class="col-form-label">Entry by</label>
+                                    <input name="entry" type="text" class="form-control"
+                                        value="{{ Auth::user()->name }}" disabled>
                                 </div>
                             </div>
-
-                            <div class="form-group col-md-3">
-                                <label class="col-form-label">Total Amount</label>
-                                <input id="loaned" class="form-control" disabled>
+                            <div class="form-group text-right mt-4">
+                                <button type="submit" class="btn btn-primary">Enter</button>
                             </div>
-
-                            <div class="form-group col-md-3">
-                                <label class="col-form-label">Returned</label>
-                                <input id="returned" class="form-control" disabled>
-                            </div>
-
-                            <div class="form-group col-md-3">
-                                <label class="col-form-label">Remaining</label>
-                                <input id="due" class="form-control" disabled>
-                            </div>
-
-                            <div class="form-group col-md-12">
-                                <label class="col-form-label">Amount</label>
-                                <input name="amount" type="number" class="form-control"
-                                    onkeyup="word3.innerHTML=toWord(this.value)" autocomplete required>
-                                <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
-                                        id="word3"></span></div>
-                            </div>
-
-
-                            <div class="form-group col-md-12">
-                                <label class="col-form-label">Description</label>
-                                <textarea name="description" class="form-control" id="" cols="15" rows="5"></textarea>
-                            </div>
-
-                            <div class="form-group col-md-4">
-                                <label class="col-form-label">Entry Date</label>
-                                <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}"
-                                    required>
-                            </div>
-                            <div class="form-group  col-md-4">
-                                <label class="col-form-label">Entry by</label>
-                                <input name="entry" type="text" class="form-control" value="{{ Auth::user()->name }}"
-                                    disabled>
-                            </div>
-                        </div>
-                        <div class="form-group text-right mt-4">
-                            <button type="submit" class="btn btn-primary">Enter</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 @endsection
 
 @section('scripts')
 <script>
-
     // Get and show Loan information
-    $('#check_button').on('click', function(e) {
-        e.preventDefault();
-        var id = $('#laon_id').val();
+    $('#loan_id').on('change', function() {
+        var id = $('#loan_id').val();
         var url = '{{ url('api/loan-info') }}?loan=' + id;
         $.ajax({
             type: "GET",
