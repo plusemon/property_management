@@ -15,7 +15,7 @@ class PaymentController extends Controller
     {
         $payments = Payment::all();
         $refunds = PaymentReturn::all();
-        $agreements = Agreement::all();
+        $agreements = Agreement::where('status',1)->get();
         return view('rent.payment.index', compact('payments', 'agreements','refunds'));
     }
 
