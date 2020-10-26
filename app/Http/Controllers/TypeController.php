@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Loan;
 use App\Type;
+use App\Borrow;
+use App\Expense;
+use App\Payment;
+use App\Wellpart;
+use App\LoanReturn;
+use App\PaymentReturn;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 
 
 class TypeController extends Controller
-{ 
+{
     public function index(Request $request)
     {
         if ($request->filled('filter')) {
@@ -22,8 +30,47 @@ class TypeController extends Controller
 
     public function report()
     {
-        $types = Type::withTrashed()->get();
-        return view('report.index', compact('types'));
+        $expenses = Expense::all()->each(function ($data) {
+            $data->type = 'Expense';
+        });
+
+        $borrows = Borrow::all()->each(function ($data) {
+            $data->type = 'Borrow';
+        });
+
+        $loans = Loan::all()->each(function ($data) {
+            $data->type = 'Loan';
+        });
+
+        $loanReturns = LoanReturn::all()->each(function ($data) {
+            $data->type = 'Loan Return';
+            $data->state = 'add';
+        });
+
+        $wellparts = Wellpart::all()->each(function ($data) {
+            $data->type = 'Well Part';
+        });
+
+        $payments = Payment::all()->each(function ($data) {
+            $data->type = 'Payment';
+        });
+
+        $paymentRefunds = PaymentReturn::all()->each(function ($data) {
+            $data->type = 'Payment Return';
+            $data->state = 'add';
+        });
+
+        $data = $expenses
+            ->mergeRecursive($borrows)
+            ->mergeRecursive($loans)
+            ->mergeRecursive($loanReturns)
+            ->mergeRecursive($wellparts)
+            ->mergeRecursive($payments)
+            ->mergeRecursive($paymentRefunds);
+
+        $reports = $data->sortBy('updated_at');
+
+        return view('report.index', compact('reports'));
     }
 
     public function store(Request $request)

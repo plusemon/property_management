@@ -7,6 +7,30 @@
     <div class="card col-12">
         <h5 class="card-header">User Report</h5>
         <div class="card-body">
+            <form action="{{ route('report.index') }}" method="GET">
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label for="user">Users</label>
+                        <select name="user_id" id="" class="form-control">
+                            <option value="">Select User</option>
+                            @foreach (App\User::all() as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="">Date from</label>
+                        <input name="from" type="date" class="form-control">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="">Date to</label>
+                        <input name="to" type="date" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="submit" class="btn btn-primary mt-4" value="Go">
+                    </div>
+                </div>
+            </form>
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>

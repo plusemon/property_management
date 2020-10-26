@@ -109,6 +109,10 @@
                     </li>
                     @endcanany
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('report.index') }}"><i class="fas fa-handshake"></i>User Reports</a>
+                    </li>
+
                     {{-- @canany(['expense view','expense manage']) --}}
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
