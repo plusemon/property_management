@@ -83,28 +83,25 @@
                         <table id="example" class="table table-striped table-bordered " style="width:100%">
                             <thead>
                                 <tr>
-                                    {{-- <th scope="col">#</th> --}}
-                                    {{-- <th scope="col">Return Date</th> --}}
-                                    <th scope="col">Loan #</th>
+
+                                    <th scope="col">Loan No.</th>
                                     <th scope="col">Taker</th>
-                                    <th scope="col">Amount</th>
+                                    <th scope="col">Return Amount</th>
                                     <th scope="col">Remain Amount</th>
                                     <th scope="col">Accually Loan</th>
-                                    {{-- <th scope="col">Description</th> --}}
+
                                     {{-- <th scope="col">Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($returns as $return)
                                 <tr>
-                                    {{-- <td scope="row">{{ $return->id }}</td> --}}
-                                    {{-- <td scope="row">{{ $return->created_at->format('d-m-Y') }}</td> --}}
+
                                     <td scope="row">{{ $return->loancounter }}</td>
                                     <td scope="row">{{ $return->user->name }}</td>
                                     <td scope="row" class="text-success">{{ $return->amount }}</td>
                                     <td scope="row" class="text-danger">{{ $return->remain }}</td>
                                     <td scope="row">{{ $return->loan->amount }}</td>
-                                    {{-- <td scope="row">{{  $return->description }}</td> --}}
 
                                     {{-- <td class="text-right"> --}}
                                     {{-- <a href="{{ route('return.edit', $return->id)}}" class="btn btn-sm

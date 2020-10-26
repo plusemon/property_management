@@ -29,6 +29,7 @@ class DashboardController extends Controller
 
         $loanReturns = LoanReturn::all()->each(function ($data) {
             $data->type = 'Loan Return';
+            $data->state = 'add';
         });
 
         $wellparts = Wellpart::all()->each(function ($data) {
@@ -41,6 +42,7 @@ class DashboardController extends Controller
 
         $paymentRefunds = PaymentReturn::all()->each(function ($data) {
             $data->type = 'Payment Return';
+            $data->state = 'add';
         });
 
         $data = $expenses
