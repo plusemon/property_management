@@ -28,7 +28,7 @@ class TypeController extends Controller
         return view('type.index', compact('types'));
     }
 
-    public function report()
+    public function report(Request $request)
     {
         $expenses = Expense::all()->each(function ($data) {
             $data->type = 'Expense';
@@ -68,6 +68,15 @@ class TypeController extends Controller
             ->mergeRecursive($payments)
             ->mergeRecursive($paymentRefunds);
 
+            if ($request->filled('user_id')) {
+                $data = $data->where('user_id', $request->user_id);
+            }
+            if ($request->filled('from')) {
+                $data = $data->where('created_at','>=', $request->from);
+            }
+            if ($request->filled('to')) {
+                $data = $data->where('created_at','<=', $request->to);
+            }
         $reports = $data->sortBy('updated_at');
 
         return view('report.index', compact('reports'));

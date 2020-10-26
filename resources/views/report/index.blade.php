@@ -14,17 +14,17 @@
                         <select name="user_id" id="" class="form-control">
                             <option value="">Select User</option>
                             @foreach (App\User::all() as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                <option value="{{ $user->id }}" {{ request()->user_id == $user->id ?'selected':'' }}>{{ $user->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="">Date from</label>
-                        <input name="from" type="date" class="form-control">
+                        <input name="from" type="date" class="form-control" value="{{request()->from}}">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="">Date to</label>
-                        <input name="to" type="date" class="form-control">
+                        <input name="to" type="date" class="form-control" value="{{request()->to}}">
                     </div>
                     <div class="form-group col-md-2">
                         <input type="submit" class="btn btn-primary mt-4" value="Go">
