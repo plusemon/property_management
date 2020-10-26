@@ -33,6 +33,7 @@
 
                 </div>
             </form>
+            @if ($reports)
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
@@ -82,6 +83,7 @@
                     </tr>
                 </tbody>
             </table>
+            @endif
         </div>
     </div>
 </div>

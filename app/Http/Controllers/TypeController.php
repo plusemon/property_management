@@ -30,54 +30,58 @@ class TypeController extends Controller
 
     public function report(Request $request)
     {
-        $expenses = Expense::all()->each(function ($data) {
-            $data->type = 'Expense';
-        });
+        if ($request->filled('user_id')) {
+            $expenses = Expense::all()->each(function ($data) {
+                $data->type = 'Expense';
+            });
 
-        $borrows = Borrow::all()->each(function ($data) {
-            $data->type = 'Borrow';
-        });
+            $borrows = Borrow::all()->each(function ($data) {
+                $data->type = 'Borrow';
+            });
 
-        $loans = Loan::all()->each(function ($data) {
-            $data->type = 'Loan';
-        });
+            $loans = Loan::all()->each(function ($data) {
+                $data->type = 'Loan';
+            });
 
-        $loanReturns = LoanReturn::all()->each(function ($data) {
-            $data->type = 'Loan Return';
-            $data->state = 'add';
-        });
+            $loanReturns = LoanReturn::all()->each(function ($data) {
+                $data->type = 'Loan Return';
+                $data->state = 'add';
+            });
 
-        $wellparts = Wellpart::all()->each(function ($data) {
-            $data->type = 'Well Part';
-        });
+            $wellparts = Wellpart::all()->each(function ($data) {
+                $data->type = 'Well Part';
+            });
 
-        $payments = Payment::all()->each(function ($data) {
-            $data->type = 'Payment';
-        });
+            $payments = Payment::all()->each(function ($data) {
+                $data->type = 'Payment';
+            });
 
-        $paymentRefunds = PaymentReturn::all()->each(function ($data) {
-            $data->type = 'Payment Return';
-            $data->state = 'add';
-        });
+            $paymentRefunds = PaymentReturn::all()->each(function ($data) {
+                $data->type = 'Payment Return';
+                $data->state = 'add';
+            });
 
-        $data = $expenses
-            ->mergeRecursive($borrows)
-            ->mergeRecursive($loans)
-            ->mergeRecursive($loanReturns)
-            ->mergeRecursive($wellparts)
-            ->mergeRecursive($payments)
-            ->mergeRecursive($paymentRefunds);
+            $data = $expenses
+                ->mergeRecursive($borrows)
+                ->mergeRecursive($loans)
+                ->mergeRecursive($loanReturns)
+                ->mergeRecursive($wellparts)
+                ->mergeRecursive($payments)
+                ->mergeRecursive($paymentRefunds);
 
-            if ($request->filled('user_id')) {
-                $data = $data->where('user_id', $request->user_id);
-            }
+
+            $data = $data->where('user_id', $request->user_id);
+
             if ($request->filled('from')) {
-                $data = $data->where('created_at','>=', $request->from);
+                $data = $data->where('created_at', '>=', $request->from);
             }
             if ($request->filled('to')) {
-                $data = $data->where('created_at','<=', $request->to);
+                $data = $data->where('created_at', '<=', $request->to);
             }
-        $reports = $data->sortBy('updated_at');
+            $reports = $data->sortBy('updated_at');
+        }else{
+            $reports = [];
+        }
 
         return view('report.index', compact('reports'));
     }
