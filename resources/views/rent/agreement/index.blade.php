@@ -182,6 +182,18 @@
 
                 <div class="row">
                     <div class="col-md form-group">
+                        <label class="col-form-label">Duration</label>
+                        <select name="duration" id="" class="form-control">
+                            <option value="6m">6 Months</option>
+                            <option value="1y">1 Year</option>
+                            <option value="2y">2 Years</option>
+                            <option value="3y">1 Years</option>
+                            <option value="4y">1 Years</option>
+                            <option value="5y">1 Years</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md form-group">
                         <label class="col-form-label">Start Date</label>
                         <input id="created_at" name="created_at" type="date" value="{{ date('Y-m-d') }}"
                             class="form-control">
