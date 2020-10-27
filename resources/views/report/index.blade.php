@@ -32,6 +32,50 @@
                     </div>
 
                 </div>
+                <div class="row">
+                    <div class="form-group col-md">
+                        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
+                            <label class="custom-control-label" for="item">Item 1</label>
+                          </div>
+                    </div>
+                    <div class="form-group col-md">
+                        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
+                            <label class="custom-control-label" for="item">Item 1</label>
+                          </div>
+                    </div>
+                    <div class="form-group col-md">
+                        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
+                            <label class="custom-control-label" for="item">Item 1</label>
+                          </div>
+                    </div>
+                    <div class="form-group col-md">
+                        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
+                            <label class="custom-control-label" for="item">Item 1</label>
+                          </div>
+                    </div>
+                    <div class="form-group col-md">
+                        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
+                            <label class="custom-control-label" for="item">Item 1</label>
+                          </div>
+                    </div>
+                    <div class="form-group col-md">
+                        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
+                            <label class="custom-control-label" for="item">Item 1</label>
+                          </div>
+                    </div>
+                    <div class="form-group col-md">
+                        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
+                            <label class="custom-control-label" for="item">Item 1</label>
+                          </div>
+                    </div>
+                </div>
             </form>
             @if ($reports)
             <table class="table table-striped table-bordered" style="width:100%">
