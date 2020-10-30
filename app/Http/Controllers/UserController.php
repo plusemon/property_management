@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Loan;
 use App\User;
+use App\Borrow;
+use App\Expense;
+use App\Payment;
+use App\Wellpart;
+use App\LoanReturn;
+use App\PaymentReturn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -81,4 +90,64 @@ class UserController extends Controller
         $user->delete();
         return redirect()->back()->with('success', 'Deleted Succefully');
     }
+
+
+    public function report(Request $request)
+    {
+        if ($request->filled('user_id')) {
+            $expenses = Expense::all()->each(function ($data) {
+                $data->type = 'Expense';
+            });
+
+            $borrows = Borrow::all()->each(function ($data) {
+                $data->type = 'Borrow';
+            });
+
+            $loans = Loan::all()->each(function ($data) {
+                $data->type = 'Loan';
+            });
+
+            $loanReturns = LoanReturn::all()->each(function ($data) {
+                $data->type = 'Loan Return';
+                $data->state = 'add';
+            });
+
+            $wellparts = Wellpart::all()->each(function ($data) {
+                $data->type = 'Well Part';
+            });
+
+            $payments = Payment::all()->each(function ($data) {
+                $data->type = 'Payment';
+            });
+
+            $paymentRefunds = PaymentReturn::all()->each(function ($data) {
+                $data->type = 'Payment Return';
+                $data->state = 'add';
+            });
+
+            $data = $expenses
+                ->mergeRecursive($borrows)
+                ->mergeRecursive($loans)
+                ->mergeRecursive($loanReturns)
+                ->mergeRecursive($wellparts)
+                ->mergeRecursive($payments)
+                ->mergeRecursive($paymentRefunds);
+
+
+            $data = $data->where('user_id', $request->user_id);
+
+            if ($request->filled('from')) {
+                $data = $data->where('created_at', '>=', $request->from);
+            }
+            if ($request->filled('to')) {
+                $data = $data->where('created_at', '<=', Carbon::createFromFormat('Y-m-d', $request->to)->addDays(1));
+            }
+            $reports = $data->sortBy('updated_at');
+        }else{
+            $reports = [];
+        }
+
+        return view('report.index', compact('reports'));
+    }
+
 }

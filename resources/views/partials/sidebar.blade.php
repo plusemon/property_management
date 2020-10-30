@@ -12,27 +12,23 @@
                         Menu
                     </li>
 
-                    {{-- @can('dashboard') --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard.index') }}"><i
                                 class="fab fa-fw fa-wpforms"></i>Dashboard <span class="badge badge-success">6</span>
                         </a>
                     </li>
-                    {{-- @endcan --}}
 
-                    {{-- @canany(['property view','property manage','agreement view','agreement
-                    manage','payment view','payment manage','tent view','tent manage']) --}}
+                    {{-- @canany(['property view','property manage','tent view','tent manage','agreement view','agreement
+                    manage','payment view','payment manage']) --}}
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-1" aria-controls="submenu-1"><i class="fas fa-home"></i>Rent</a>
                         <div id="submenu-1" class="collapse submenu" style="">
                             <ul class="nav flex-column">
+                                @canany(['property view','property manage'])
                                 <li class="nav-item">
-                                    @canany(['property view','property manage'])
                                     <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="true"
                                         data-target="#submenu-11" aria-controls="submenu-11">Properties</a>
-
-
                                     <div id="submenu-11" class="submenu collapse show" style="">
                                         <ul class="nav flex-column">
 
@@ -47,21 +43,18 @@
                                             </li>
                                         </ul>
                                     </div>
-
-                                    @endcan
                                 </li>
+                                @endcan
                                 @canany(['tent view','tent manage'])
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('tent.index') }}">Tent</a>
                                 </li>
                                 @endcan
-
                                 @canany(['agreement view','agreement manage'])
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('agreement.index') }}">Agreement</a>
                                 </li>
                                 @endcan
-
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('payment.index') }}">Payment</a>
                                 </li>
@@ -92,9 +85,11 @@
                                 class="fas fa-list-alt"></i>Expenses</a>
                         <div id="submenu-4" class="collapse submenu" style="">
                             <ul class="nav flex-column">
+                                @can('expense manage')
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('type.index') }}?filter=expense">Type</a>
                                 </li>
+                                @endcan
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('expense.index') }}">Expenses</a>
                                 </li>
@@ -109,11 +104,7 @@
                     </li>
                     @endcanany
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('report.index') }}"><i class="fas fa-handshake"></i>User Reports</a>
-                    </li>
-
-                    {{-- @canany(['expense view','expense manage']) --}}
+                    @role('super-admin')
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-14" aria-controls="submenu-14"><i
@@ -121,45 +112,37 @@
                         <div id="submenu-14" class="collapse submenu" style="">
                             <ul class="nav flex-column">
 
-                                @canany(['user manage'])
+                                @can('user manage')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                                        data-target="#submenu-10" aria-controls="submenu-10"><i class=" fas fa-user"></i>User</a>
-                                    <div id="submenu-10" class="collapse submenu" style="">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="{{ route('user.index') }}">Manage User</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="{{ route('role.index') }}">Role & Permission </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <a class="nav-link" href="{{ route('user.index') }}">Manage User</a>
                                 </li>
-                                @endcanany
-
-                                {{-- @can('backup manage') --}}
+                                @endcan
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('setting.index') }}"><i class="fas fa-hockey-puck"></i>Bacup
+                                    <a class="nav-link" href="{{ route('report.index') }}">User
+                                        Reports</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('role.index') }}">Role & Permission
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('setting.index') }}">Bacup
                                         & Restore</a>
                                 </li>
-                                {{-- @endcan --}}
 
-                                {{-- @can('setting manage') --}}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('setting.index') }}"><i
-                                            class="fas fa-sliders-h"></i>Settings</a>
+                                    <a class="nav-link" href="{{ route('setting.index') }}">Settings</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('accountant') }}"><i
                                             class="fas fa-user"></i>Accounted Assigned</a>
                                 </li>
-                                {{-- @endcan --}}
                             </ul>
                         </div>
                     </li>
-                    {{-- @endcanany --}}
+                    @endrole
 
 
 
@@ -168,5 +151,3 @@
         </nav>
     </div>
 </div>
-
-
