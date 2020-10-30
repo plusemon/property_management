@@ -1,8 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('content')
-
-
 <div class="col-12">
     <div class="section-block">
         <h3 class="section-title text-capitalize">{{ request()->filter }} Types</h3>
@@ -14,10 +12,12 @@
                 <a class="nav-link border-left-0 active show" data-toggle="tab" href="#list"
                     role="tab" aria-controls="list" aria-selected="true">List</a>
             </li>
+            @can('property manage')
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#add" role="tab"
                     aria-controls="add" aria-selected="false">Add</a>
             </li>
+            @endcan
         </ul>
 
         <div class="tab-content">
@@ -30,7 +30,9 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Type</th>
                                     <th scope="col">Created</th>
+                                    @can('property manage')
                                     <th scope="col">Action</th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,7 +42,7 @@
                                     <td>{{$type->name}}</td>
                                     <td>{{ $type->created_at->format('d-m-Y') }}</td>
                                     <td class="text-right">
-                                        @can('type entry')
+                                        @can('property manage')
                                         <a href="{{ route('type.edit', $type->id)}}" class="btn btn-sm btn-warning"><i
                                                 class="fas fa-edit"></i></a>
                                         <form class="d-inline" action="{{route('type.destroy', $type->id)}}"
@@ -59,7 +61,7 @@
                     </div>
                 </div>
             </div>
-
+            @can('property manage')
             <div class="tab-pane fade" id="add" role="tabpanel" aria-labelledby="add">
                 <div class="card">
                     <div class="card-body">
@@ -90,6 +92,7 @@
                     </div>
                 </div>
             </div>
+            @endcan
 
         </div>
     </div>

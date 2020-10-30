@@ -13,9 +13,11 @@
                 <a class="nav-link border-left-0 active show" data-toggle="tab" href="#list" role="tab"
                     aria-selected="true">List</a>
             </li>
+            @can('wellpart manage')
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#add" role="tab" aria-selected="false">Add</a>
             </li>
+            @endcan
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade active show" id="list" role="tabpanel">
@@ -30,7 +32,9 @@
                                         <th scope="col">Borrower</th>
                                         <th scope="col">Description</th>
                                         <th scope="col">Amount</th>
+                                        @can('wellpart manage')
                                         <th scope="col">Action</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,6 +46,7 @@
                                         <td>{{$wellpart->description}}</td>
                                         <td>{{$wellpart->amount}}</td>
                                         <td>{{ $wellpart->created_at->format('d-m-Y') }}</td>
+                                        @can('wellpart manage')
                                         <td class="text-right">
                                             <a href="{{ route('wellpart.edit', $wellpart->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -53,6 +58,7 @@
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
                                         </td>
+                                        @endcan
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -62,7 +68,7 @@
                 </div>
             </div>
 
-
+            @can('wellpart manage')
             <div class="tab-pane fade" id="add" role="tabpanel">
                 <div class="card">
                     <div class="card-body">
@@ -121,6 +127,7 @@
                     </div>
                 </div>
             </div>
+            @endcan
         </div>
     </div>
 </div>

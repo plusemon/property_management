@@ -18,9 +18,11 @@
                 <a class="nav-link" data-toggle="tab" href="#return_list" role="tab" aria-selected="false">Return
                     list</a>
             </li>
+            @can('loan manage')
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#add" role="tab" aria-selected="false">Loan</a>
             </li>
+            @endcan
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#return" role="tab" aria-selected="false">Return</a>
             </li>
@@ -121,6 +123,7 @@
                     </div>
                 </div>
             </div>
+            @can('loan manage')
 
             <div class="tab-pane fade" id="add" role="tabpanel">
                 <div class="card">
@@ -188,6 +191,7 @@
                     </div>
                 </div>
             </div>
+            @endcan
 
             <div class="tab-pane fade" id="return" role="tabpanel">
                 <div class="card">

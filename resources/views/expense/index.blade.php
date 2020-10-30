@@ -14,10 +14,13 @@
                 <a class="nav-link border-left-0 active show" id="home-tab-simple" data-toggle="tab" href="#home-simple"
                     role="tab" aria-controls="home" aria-selected="true">List</a>
             </li>
+            @can('expense manage')
+
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#profile-simple" role="tab"
                     aria-controls="profile" aria-selected="false">Entry</a>
             </li>
+            @endcan
         </ul>
 
         <div class="tab-content" id="myTabContent5">
@@ -33,7 +36,10 @@
                                     <th scope="col">Amount</th>
                                     <th scope="col">Invoice</th>
                                     <th scope="col">Description</th>
+                                @can('expense manage')
+
                                     <th scope="col">Action</th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,6 +52,7 @@
                                     <td scope="row">{{ $expense->invoice}}</td>
                                     <td scope="row">{{ $expense->description }}</td>
 
+                                @can('expense manage')
                                     <td class="text-right">
                                         <a href="{{ route('expense.edit', $expense->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -57,6 +64,7 @@
                                                     class="fas fa-trash-alt"></i></button>
                                         </form>
                                     </td>
+                                    @endcan
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -64,7 +72,7 @@
                     </div>
                 </div>
             </div>
-
+            @can('expense manage')
             <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
                 <div class="card">
                     <div class="card-body">
@@ -126,6 +134,8 @@
                     </div>
                 </div>
             </div>
+            @endcan
+
         </div>
     </div>
 </div>

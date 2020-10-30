@@ -13,10 +13,12 @@
                 <a class="nav-link border-left-0 active show" id="home-tab-simple" data-toggle="tab" href="#home-simple"
                     role="tab" aria-controls="home" aria-selected="true">List</a>
             </li>
+            @can('borrow manage')
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#profile-simple" role="tab"
                     aria-controls="profile" aria-selected="false">Add</a>
             </li>
+            @endcan
         </ul>
         <div class="tab-content" id="myTabContent5">
             <div class="tab-pane fade active show" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
@@ -31,7 +33,9 @@
                                         <th scope="col">Borrower</th>
                                         <th scope="col">Description</th>
                                         <th scope="col">Amount</th>
+                                        @can('borrow manage')
                                         <th scope="col">Action</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,6 +46,7 @@
                                         <td>{{$borrow->user->name}}</td>
                                         <td>{{$borrow->description}}</td>
                                         <td>{{$borrow->amount}}</td>
+                                        @can('borrow manage')
                                         <td class="text-right">
                                             <a href="{{ route('borrow.edit', $borrow->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -53,6 +58,7 @@
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
                                         </td>
+                                        @endcan
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -62,7 +68,7 @@
                 </div>
             </div>
 
-
+            @can('borrow manage')
             <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
                 <div class="card">
                     <div class="card-body">
@@ -121,6 +127,7 @@
                     </div>
                 </div>
             </div>
+            @endcan
         </div>
     </div>
 </div>

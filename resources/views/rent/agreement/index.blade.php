@@ -16,10 +16,13 @@
                 <a class="nav-link border-left-0 active show" id="" data-toggle="tab" href="#list" role="tab"
                     aria-controls="list" aria-selected="true">List</a>
             </li>
+            @can('agreement manage')
+
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#add" role="tab"
                     aria-controls="profile" aria-selected="false">Add</a>
             </li>
+            @endcan
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade active show" id="list" role="tabpanel" aria-labelledby="list">
@@ -42,7 +45,9 @@
                                         {{-- <th scope="col">Start Date</th> --}}
                                         {{-- <th scope="col">Month Paid</th> --}}
                                         {{-- <th scope="col">Attachment</th> --}}
+                                        @can('agreement manage')
                                         <th scope="col">Action</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,6 +61,7 @@
                                         <td>{{ $agreement->tent ? $agreement->tent->fname.' '.$agreement->tent->lname:'Deleted' }}
                                         </td>
                                         <td>
+                                            @can('agreement manage')
                                             <form class="d-inline"
                                                 action="{{route('agreement.update', $agreement->id)}}" method="POST">
                                                 @csrf
@@ -68,6 +74,9 @@
                                                 <button type="submit" class="btn btn-sm btn-danger">Inactived</button>
                                                 @endif
                                             </form>
+                                            @else
+                                                {{ $agreement->status ? 'Active':'Inactive'}}
+                                            @endcan
                                         </td>
                                         {{-- <td>{{ $agreement->advance }}</td> --}}
                                         {{-- <td>{{ $agreement->payments->where('type','security')->sum('amount')}}</td>
@@ -83,6 +92,7 @@
                                             <a href="{{ url('public/storage/'.$agreement->attachment) }}"
                                         class="badge badge-secondary p-1">Download</a><br>
                                         </td> --}}
+                                        @can('agreement manage')
                                         <td class="text-right">
                                             <a href="#" data-toggle="modal" data-target="#details"
                                                 class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
@@ -98,6 +108,7 @@
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
                                         </td>
+                                        @endcan
                                     </tr>
                                     @endforeach
 
@@ -110,7 +121,7 @@
 
 
 
-
+            @can('agreement manage')
             <div class="tab-pane fade" id="add" role="tabpanel" aria-labelledby="add">
                 <div class="card-body">
                     <form action="{{ route('agreement.store') }}" method="POST" enctype="multipart/form-data">
@@ -251,6 +262,7 @@
 
                 </form>
             </div>
+            @endcan
         </div>
     </div>
 </div>

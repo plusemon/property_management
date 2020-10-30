@@ -9,75 +9,81 @@
     <div class="simple-card">
         <ul class="nav nav-tabs" id="myTab5" role="tablist">
             <li class="nav-item">
-                <a class="nav-link border-left-0 active show" id="" data-toggle="tab" href="#list"
-                    role="tab" aria-controls="list" aria-selected="true">List</a>
+                <a class="nav-link border-left-0 active show" id="" data-toggle="tab" href="#list" role="tab"
+                    aria-controls="list" aria-selected="true">List</a>
             </li>
+            @can('tent manage')
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#add" role="tab"
                     aria-controls="profile" aria-selected="false">Add</a>
             </li>
+            @endcan
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade active show" id="list" role="tabpanel" aria-labelledby="add">
-               <div class="table-responsive">
-                <table id="example" class="table table-striped table-bordered second">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">T-Full Name</th>
-                            <th scope="col">Contact</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">City</th>
-                            <th scope="col">Courtry</th>
-                            <th scope="col">T-Attachment</th>
-                            <th scope="col">G-Name</th>
-                            {{-- <th scope="col">Contact</th>
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered second">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">T-Full Name</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Courtry</th>
+                                <th scope="col">T-Attachment</th>
+                                <th scope="col">G-Name</th>
+                                {{-- <th scope="col">Contact</th>
                             <th scope="col">City</th>
                             <th scope="col">Country</th>
                             <th scope="col">G-Attachment</th> --}}
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($tents as $tent)
-                        <tr>
-                            <th scope="row">{{ $tent->id }}</th>
-                            <td>{{ $tent->fname.' '.$tent->lname }}</td>
-                            <td>
-                                {{ $tent->contact1 }}<br>
-                                {{ $tent->contact2 }}<br>
-                                {{ $tent->contact3 }}<br>
-                            </td>
-                            <td>{{ $tent->address}}</td>
-                            <td>{{ $tent->city }}</td>
-                            <td>{{ $tent->country }}</td>
-                            <td class="text-center">
-                                @if ($tent->cnica)
-                                <a href="{{ url('public/storage/'.$tent->cnica) }}" class="badge badge-secondary mb-1">Download</a>
-                                @endif
-                            </td>
-                          <td>
-                                {{ $tent->g1_fname.' '.$tent->g1_lname }}<br>
-                                {{ $tent->g2_fname.' '.$tent->g2_lname }}<br>
-                            </td>
-                           {{--    <td>
+                                @can('tent manage')
+
+                                <th scope="col">Action</th>
+                                @endcan
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($tents as $tent)
+                            <tr>
+                                <th scope="row">{{ $tent->id }}</th>
+                                <td>{{ $tent->fname.' '.$tent->lname }}</td>
+                                <td>
+                                    {{ $tent->contact1 }}<br>
+                                    {{ $tent->contact2 }}<br>
+                                    {{ $tent->contact3 }}<br>
+                                </td>
+                                <td>{{ $tent->address}}</td>
+                                <td>{{ $tent->city }}</td>
+                                <td>{{ $tent->country }}</td>
+                                <td class="text-center">
+                                    @if ($tent->cnica)
+                                    <a href="{{ url('public/storage/'.$tent->cnica) }}"
+                                        class="badge badge-secondary mb-1">Download</a>
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $tent->g1_fname.' '.$tent->g1_lname }}<br>
+                                    {{ $tent->g2_fname.' '.$tent->g2_lname }}<br>
+                                </td>
+                                {{--    <td>
                                 {{ $tent->g1_contact1 }}<br>
                                 {{ $tent->g1_contact2 }}<br>
                                 {{ $tent->g1_contact3 }}<br>
                                 {{ $tent->g2_contact1 }}<br>
                                 {{ $tent->g2_contact2 }}<br>
                                 {{ $tent->g2_contact3 }}<br>
-                            </td>
-                            <td>
-                                {{ $tent->g1_city }}<br>
-                            </td>
-                            <td>
-                                {{ $tent->g1_country }}<br>
-                            </td> --}}
-                            {{-- <td class="text-center">
+                                </td>
+                                <td>
+                                    {{ $tent->g1_city }}<br>
+                                </td>
+                                <td>
+                                    {{ $tent->g1_country }}<br>
+                                </td> --}}
+                                {{-- <td class="text-center">
                                 @if ($tent->g1_cnica)
                                      <a href="{{ url('public/storage/'.$tent->g1_cnica) }}"
-                                    class="badge badge-secondary mb-1">Granter</a><br>
+                                class="badge badge-secondary mb-1">Granter</a><br>
                                 @endif
 
                                 @if ($tent->g2_cnica)
@@ -85,25 +91,27 @@
                                     class="badge badge-secondary mb-1">Granter 2</a>
                                 @endif
 
-                            </td> --}}
-                            <td class="text-right">
-                                {{-- <a href="{{ route('tent.edit', $tent->id)}}" class="btn btn-sm btn-warning"><i
+                                </td> --}}
+                                @can('tent manage')
+                                <td class="text-right">
+                                    {{-- <a href="{{ route('tent.edit', $tent->id)}}" class="btn btn-sm btn-warning"><i
                                         class="fas fa-edit"></i></a> --}}
-                                        <a href="#" data-toggle="modal" data-target="#details"
+                                    <a href="#" data-toggle="modal" data-target="#details"
                                         class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
-                                <form class="d-inline" action="{{route('tent.destroy', $tent->id)}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i
-                                            class="fas fa-trash-alt"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
+                                    <form class="d-inline" action="{{route('tent.destroy', $tent->id)}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger"><i
+                                                class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                </td>
+                                @endcan
+                            </tr>
+                            @endforeach
 
-                    </tbody>
-                </table>
-               </div>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="tab-pane fade" id="add" role="tabpanel" aria-labelledby="add">
@@ -127,7 +135,8 @@
                                 <div class="row">
                                     <div class="form-group col-6">
                                         <label class="col-form-label">CNIC</label>
-                                        <input name="tent[cnic]" type="number" class="form-control" maxlength="15" required>
+                                        <input name="tent[cnic]" type="number" class="form-control" maxlength="15"
+                                            required>
                                     </div>
                                     <div class="form-group col-6">
                                         <label class="col-form-label">CNIC Attachment</label>

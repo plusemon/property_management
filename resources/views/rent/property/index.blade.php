@@ -13,10 +13,12 @@
                 <a class="nav-link border-left-0 active show" id="" data-toggle="tab" href="#list"
                     role="tab" aria-controls="list" aria-selected="true">List</a>
             </li>
+            @can('property manage')
             <li class="nav-item">
                 <a class="nav-link" id="" data-toggle="tab" href="#add" role="tab"
                     aria-controls="add" aria-selected="false">Add</a>
             </li>
+            @endcan
         </ul>
 
         <div class="tab-content">
@@ -33,7 +35,9 @@
                                     <th scope="col">City</th>
                                     <th scope="col">Country</th>
                                     <th scope="col">Status</th>
+                                    @can('property manage')
                                     <th scope="col">Action</th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,6 +50,7 @@
                                     <td>{{ $property->city }}</td>
                                     <td>{{ $property->country }}</td>
                                     <td class="{{ $property->agreements->count() ? 'text-success':'text-danger' }}">{{ $property->agreements->count() ? 'Occupied':'Vacant' }}</td>
+                                    @can('property manage')
                                     <td class="text-right">
                                         <a href="{{ route('property.edit', $property->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -57,6 +62,7 @@
                                                     class="fas fa-trash-alt"></i></button>
                                         </form>
                                     </td>
+                                    @endcan
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -66,7 +72,7 @@
             </div>
 
 
-
+            @can('property manage')
             <div class="tab-pane fade" id="add" role="tabpanel" aria-labelledby="add">
                 <div class="card-body">
                     <form action="{{ route('property.store') }}" method="POST">
@@ -143,6 +149,7 @@
                     </form>
                 </div>
             </div>
+            @endcan
         </div>
     </div>
 </div>
