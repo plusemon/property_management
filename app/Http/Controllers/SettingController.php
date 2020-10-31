@@ -27,25 +27,11 @@ class SettingController extends Controller
     {
         $request->validate([
             'name' => 'string|min:3',
-            'serial' => 'integer'
         ]);
 
         $setting->name = $request->name;
-        $setting->serial = $request->serial;
         $setting->save();
 
         return redirect()->back()->with('success','Saved Successfully');
     }
-
-
-    public function accountant()
-    {
-        return view('accountant.index');
-    }
-
-    public function accountantStore(Request $request)
-    {
-        return $request;
-    }
-
 }

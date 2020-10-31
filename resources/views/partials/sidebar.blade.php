@@ -117,11 +117,14 @@
                                     <a class="nav-link" href="{{ route('user.index') }}">Manage User</a>
                                 </li>
                                 @endcan
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('report.index') }}">User
                                         Reports</a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('accountant.index') }}">Accounted Assigned</a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('role.index') }}">Role & Permission
                                     </a>
@@ -134,10 +137,6 @@
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('setting.index') }}">Settings</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('accountant') }}"><i
-                                            class="fas fa-user"></i>Accounted Assigned</a>
                                 </li>
                             </ul>
                         </div>
