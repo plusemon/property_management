@@ -35,44 +35,44 @@
                 <div class="row">
                     <div class="form-group col-md">
                         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
-                            <label class="custom-control-label" for="item">Item 1</label>
+                            <input type="checkbox" class="custom-control-input" name="expense" id="expense" {{ request()->expense ? 'checked':'' }}>
+                            <label class="custom-control-label" for="expense">Expense</label>
                           </div>
                     </div>
                     <div class="form-group col-md">
                         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
-                            <label class="custom-control-label" for="item">Item 1</label>
+                            <input type="checkbox" class="custom-control-input" name="borrow" id="borrow" {{ request()->borrow ? 'checked':'' }}>
+                            <label class="custom-control-label" for="borrow">Borrow</label>
                           </div>
                     </div>
                     <div class="form-group col-md">
                         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
-                            <label class="custom-control-label" for="item">Item 1</label>
+                            <input type="checkbox" class="custom-control-input" name="loan" id="loan" {{ request()->loan ? 'checked':'' }}>
+                            <label class="custom-control-label" for="loan">Loan</label>
                           </div>
                     </div>
                     <div class="form-group col-md">
                         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
-                            <label class="custom-control-label" for="item">Item 1</label>
+                            <input type="checkbox" class="custom-control-input" name="return" id="return" {{ request()->return ? 'checked':'' }}>
+                            <label class="custom-control-label" for="return">Loan Return</label>
                           </div>
                     </div>
                     <div class="form-group col-md">
                         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
-                            <label class="custom-control-label" for="item">Item 1</label>
+                            <input type="checkbox" class="custom-control-input" name="wellpart" id="wellpart" {{ request()->wellpart ? 'checked':'' }}>
+                            <label class="custom-control-label" for="wellpart">Well Part</label>
                           </div>
                     </div>
                     <div class="form-group col-md">
                         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
-                            <label class="custom-control-label" for="item">Item 1</label>
+                            <input type="checkbox" class="custom-control-input" name="payment" id="payment" {{ request()->payment ? 'checked':'' }}>
+                            <label class="custom-control-label" for="payment">Payment</label>
                           </div>
                     </div>
                     <div class="form-group col-md">
                         <div class="custom-control custom-checkbox my-1 mr-sm-2">
-                            <input type="checkbox" class="custom-control-input" name="item" value="item" id="item">
-                            <label class="custom-control-label" for="item">Item 1</label>
+                            <input type="checkbox" class="custom-control-input" name="refund" id="refund" {{ request()->refund ? 'checked':'' }}>
+                            <label class="custom-control-label" for="refund">Payment Refund</label>
                           </div>
                     </div>
                 </div>

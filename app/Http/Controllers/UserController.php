@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Type;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 
@@ -94,6 +96,7 @@ class UserController extends Controller
 
     public function report(Request $request)
     {
+        $data = new Collection();
         if ($request->filled('user_id')) {
             $expenses = Expense::all()->each(function ($data) {
                 $data->type = 'Expense';
@@ -125,15 +128,29 @@ class UserController extends Controller
                 $data->state = 'add';
             });
 
-            $data = $expenses
-                ->mergeRecursive($borrows)
-                ->mergeRecursive($loans)
-                ->mergeRecursive($loanReturns)
-                ->mergeRecursive($wellparts)
-                ->mergeRecursive($payments)
-                ->mergeRecursive($paymentRefunds);
+            if ($request->expense) {
+               $data = $data->mergeRecursive($expenses);
+            }
+            if ($request->borrow) {
+               $data = $data->mergeRecursive($borrows);
+            }
+            if ($request->loan) {
+               $data = $data->mergeRecursive($loans);
+            }
+            if ($request->return) {
+               $data = $data->mergeRecursive($loanReturns);
+            }
+            if ($request->wellpart) {
+               $data = $data->mergeRecursive($wellparts);
+            }
+            if ($request->payment) {
+               $data = $data->mergeRecursive($payments);
+            }
+            if ($request->refund) {
+               $data = $data->mergeRecursive($paymentRefunds);
+            }
 
-
+            // return $data->all();
             $data = $data->where('user_id', $request->user_id);
 
             if ($request->filled('from')) {
