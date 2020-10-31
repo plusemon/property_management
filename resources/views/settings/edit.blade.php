@@ -15,10 +15,10 @@
                         <input name="name" type="text" class="form-control" value="{{ $setting->name }}">
                     </div>
 
-                    <div class="form-group col-6">
+                    {{-- <div class="form-group col-6">
                         <label class="col-form-label">Serial Number Start from</label>
                         <input name="serial" type="number" class="form-control" value="{{ $setting->serial }}">
-                    </div>
+                    </div> --}}
 
                 </div>
                 <div class="form-group text-right mt-4">
