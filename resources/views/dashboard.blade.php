@@ -219,7 +219,7 @@
 
 @section('scripts')
 <script>
-    var whatsnew = {{ App\Setting::first()->whatsnew }};
+    var whatsnew = {{ App\Setting::first()->whatsnew ?? '' }};
     $(document).ready(function() {
        if (whatsnew) {
             $('#updateModal').modal();
