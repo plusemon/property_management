@@ -50,7 +50,8 @@
                                     <tr>
                                         <td>{{ $payment->id }}</td>
                                         <td>{{ $payment->created_at->format('d-m-y') }}</td>
-                                        <td>{{ $payment->agreement->tent->fname ?? 'deleted' }} {{ $payment->agreement->tent->lname ?? ''}}
+                                        <td>
+                                        <a class="badge badge-light" href="{{ route('tent.show', $payment->agreement->tent->id ) }}" target="_blank">{{ $payment->agreement->tent->fname." ".$payment->agreement->tent->lname }}</a>
                                         </td>
                                         <td>{{ $payment->agreement->property->name }}</td>
                                         <td>{{ $payment->type }}</td>
@@ -59,12 +60,13 @@
                                         <td>{{ $payment->tnxid }}</td>
 
                                         <td class="text-right">
+                                            <button class="btn badge badge-secondary" onclick="window.open('{{ route('payment.show',$payment->id)}}', '_blank')"><i class="fas fa-eye"></i> View</button>
 
                                             {{-- <a href="{{ route('payment.edit', $payment->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
 
-                                            <a href="#" data-toggle="modal" data-target="#details"
-                                                class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+                                            {{-- <a href="#" data-toggle="modal" data-target="#details"
+                                                class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a> --}}
 
                                             {{-- <form class="d-inline" action="{{route('payment.destroy', $payment->id)}}"
                                                 method="POST">

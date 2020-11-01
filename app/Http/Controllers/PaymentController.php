@@ -67,8 +67,16 @@ class PaymentController extends Controller
     }
 
 
+
+    public function show(Payment $payment)
+    {
+        // return $payment;
+        return view('rent.payment.show',compact('payment'));
+    }
+
     public function edit(Payment $payment)
     {
+
         return view('rent.payment.edit', compact('payment'));
     }
 
