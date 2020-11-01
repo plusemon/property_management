@@ -9,7 +9,7 @@ class Accountant extends Model
 
     public static function get()
     {
-        return self::where('status', 1 )->first();
+        return self::where('status', 1 )->first() ?? redirect(route('accountant.index'))->with('info','Set an Accountant first');
     }
 
     public function user()
