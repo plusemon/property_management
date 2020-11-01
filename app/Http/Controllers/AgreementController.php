@@ -53,6 +53,12 @@ class AgreementController extends Controller
     }
 
 
+    public function show(Agreement $agreement)
+    {
+        // return $agreement;
+        return view('rent.agreement.show',compact('agreement'));
+    }
+
     public function edit(Agreement $agreement)
     {
         $types = Type::all();

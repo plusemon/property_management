@@ -52,7 +52,7 @@
                                         <td>{{ $agreement->property->type->name ?? 'Deleted' }}</td>
                                         <td>{{ $agreement->property->name ?? 'Deleted'}}</td>
                                         <td>{{ $agreement->property->rate ?? 'Deleted' }}</td>
-                                        <td>{{ $agreement->tent ? $agreement->tent->fname.' '.$agreement->tent->lname:'Deleted' }}
+                                        <td><a class="badge badge-light" href="{{ route('tent.show', $agreement->tent->id ) }}" target="_blank">{{ $agreement->tent->fname." ".$agreement->tent->lname }} <i class="fas fa-eye"></i></a>
                                         </td>
                                         <td>
                                             @can('agreement manage')
@@ -62,10 +62,10 @@
                                                 @method('PUT')
                                                 @if ($agreement->status)
                                                 <input type="hidden" name="status" value="0">
-                                                <button type="submit" class="badge badge-success">Actived</button>
+                                                <button type="submit" class="btn badge badge-success">Actived</button>
                                                 @else
                                                 <input type="hidden" name="status" value="1">
-                                                <button type="submit" class="badge badge-secondary">Inactived</button>
+                                                <button type="submit" class="btn badge badge-secondary">Inactived</button>
                                                 @endif
                                             </form>
                                             @else
@@ -74,19 +74,20 @@
                                         </td>
                                         @can('agreement manage')
                                         <td class="text-right">
-                                            <a href="#" data-toggle="modal" data-target="#details"
-                                                class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+                                            {{-- <a href="#" data-toggle="modal" data-target="#details"
+                                                class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a> --}}
                                             {{-- <a href="{{ route('agreement.edit', $agreement->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             --}}
 
-                                            <form class="d-inline"
+                                            <button class="btn badge badge-secondary" onclick="window.open('{{ route('agreement.show',$agreement->id)}}', '_blank')"><i class="fas fa-eye"></i> View</button>
+                                            {{-- <form class="d-inline"
                                                 action="{{route('agreement.destroy', $agreement->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger"><i
                                                         class="fas fa-trash-alt"></i></button>
-                                            </form>
+                                            </form> --}}
                                         </td>
                                         @endcan
                                     </tr>
@@ -250,7 +251,7 @@
 
 
 
-<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-hidden="true">
+{{-- <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -268,7 +269,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
 
 @section('scripts')
