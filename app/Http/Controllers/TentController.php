@@ -101,6 +101,11 @@ class TentController extends Controller
         return redirect(route('tent.index'))->with('success', 'Added Succefully');
     }
 
+    public function show(Tent $tent)
+    {
+        return view('rent.tent.show',compact('tent'));
+    }
+
     public function edit(Tent $tent)
     {
         return view('rent.tent.edit');

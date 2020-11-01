@@ -31,8 +31,7 @@
                                 <th scope="col">Address</th>
                                 <th scope="col">City</th>
                                 <th scope="col">Courtry</th>
-                                <th scope="col">T-Attachment</th>
-                                <th scope="col">Granter</th>
+                                <th scope="col">Details</th>
                                 {{-- @can('tent manage')
                                 <th scope="col">Action</th>
                                 @endcan --}}
@@ -51,17 +50,9 @@
                                 <td>{{ $tent->address}}</td>
                                 <td>{{ $tent->city }}</td>
                                 <td>{{ $tent->country }}</td>
-                                <td class="text-center">
-                                    @if ($tent->cnica)
-                                    <a href="{{ url('public/storage/'.$tent->cnica) }}"
-                                        class="badge badge-secondary mb-1"><i class="fas fa-eye"></i> View</a>
-                                    @endif
-                                </td>
                                 <td>
-                                    <a href="#" data-toggle="modal" data-target="#details"
-                                    class="badge badge-secondary mb-1"><i class="fas fa-eye"></i> Details</a>
+                                    <button class="btn badge badge-secondary" onclick="window.open('{{ route('tent.show',$tent->id)}}', '_blank')"><i class="fas fa-eye"></i> View</button>
                                 </td>
-
                                 {{-- @can('tent manage')
                                 <td class="text-right">
                                     <form class="d-inline" action="{{route('tent.destroy', $tent->id)}}" method="POST">
