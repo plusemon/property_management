@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Accountant;
 use App\Borrow;
 use Illuminate\Http\Request;
 use App\User;
@@ -49,11 +50,16 @@ class BorrowController extends Controller
         $borrow = new Borrow();
         $borrow->id = $request->serial;
         $borrow->user_id = $request->user_id;
+        $borrow->accountant_id = Accountant::get()->user->id;
         $borrow->amount = $request->amount;
         $borrow->description = $request->description;
-        $borrow->entry = $request->entry;
         $borrow->created_at = $request->created_at;
         $borrow->save();
+
+        $accountant = Accountant::get();
+        $accountant->balance += $request->amount;
+        $accountant->save();
+
         return redirect()->back()->with('success','Added Successfully');
     }
 

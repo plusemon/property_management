@@ -104,6 +104,11 @@
                     </li>
                     @endcanany
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('report.index') }}">User
+                            Reports</a>
+                    </li>
+
                     @role('super-admin')
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
@@ -119,21 +124,17 @@
                                 @endcan
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('report.index') }}">User
-                                        Reports</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" href="{{ route('accountant.index') }}">Accounted Assigned</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('role.index') }}">Role & Permission
                                     </a>
                                 </li>
-
+{{--
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('setting.index') }}">Bacup
                                         & Restore</a>
-                                </li>
+                                </li> --}}
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('setting.index') }}">Settings</a>

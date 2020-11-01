@@ -80,10 +80,10 @@
                                         <option value="expense" {{request()->filter == 'expense' ? 'selected':''}}>Expense</option>
                                     </select>
                                 </div> --}}
-                                <div class="form-group  col-md">
+                                {{-- <div class="form-group  col-md">
                                     <label class="col-form-label">Entry Date</label>
                                     <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}">
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="form-group text-right mt-4">
                                 <button type="submit" class="btn btn-primary">Save</button>

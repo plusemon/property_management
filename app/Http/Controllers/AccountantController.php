@@ -42,6 +42,7 @@ class AccountantController extends Controller
             $actived->status = 0;
             $actived->end = today();
             $actived->ebalance = $actived->balance;
+            $actived->balance = 0;
             $actived->save();
         }
 

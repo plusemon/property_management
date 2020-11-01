@@ -113,7 +113,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label class="col-form-label">Enter by</label>
-                                    <input name="entry" class="form-control" value="{{ auth()->user()->name }}">
+                                    <input name="accountant_id" class="form-control" value="{{ App\Accountant::get()->name }}" disabled>
                                 </div>
                             </div>
 

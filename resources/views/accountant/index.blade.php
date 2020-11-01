@@ -46,6 +46,7 @@
                     <th scope="col">Start Date</th>
                     <th scope="col">End Date</th>
                     <th scope="col">Start Balance</th>
+                    <th scope="col">Current Balance</th>
                     <th scope="col">End Balance</th>
                     <th scope="col">Status</th>
                 </tr>
@@ -58,6 +59,7 @@
                     <td scope="row">{{ $accountant->start->format('d-m-Y') }}</td>
                     <td scope="row">{{ $accountant->end ? $accountant->end->format('d-m-Y'):'' }}</td>
                     <td scope="row">{{ $accountant->sbalance }}</td>
+                    <td scope="row">{{ $accountant->balance }}</td>
                     <td scope="row">{{ $accountant->ebalance }}</td>
                     <td scope="row">{{ $accountant->status ? 'Actived':'Inactived' }}</td>
                 </tr>
