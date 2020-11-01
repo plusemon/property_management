@@ -15,7 +15,8 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->default('Property Management System');
+            $table->string('name')->default('Admin Panel');
+            $table->integer('whatsnew')->default(1);
             $table->timestamps();
         });
     }

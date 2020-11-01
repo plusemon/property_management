@@ -8,7 +8,8 @@
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Rent Payment</h4>
                 <h3 class="mb-1 ">
-                    {{ App\Payment::whereType('rent')->count() }} | Total <span class="float-right text-success">${{ $rentPayment = App\Payment::whereType('rent')->sum('amount') }}</span>
+                    {{ App\Payment::whereType('rent')->count() }} | Total <span
+                        class="float-right text-success">${{ $rentPayment = App\Payment::whereType('rent')->sum('amount') }}</span>
                 </h3>
                 <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
 
@@ -20,7 +21,8 @@
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Rent Refund</h4>
                 <h3 class="mb-1 ">
-                    {{ App\PaymentReturn::count() }} | Total <span class="float-right text-danger">${{ $rentReturn = App\PaymentReturn::sum('amount') }}</span>
+                    {{ App\PaymentReturn::count() }} | Total <span
+                        class="float-right text-danger">${{ $rentReturn = App\PaymentReturn::sum('amount') }}</span>
                 </h3>
                 <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
 
@@ -32,7 +34,8 @@
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Borrow</h4>
                 <h3 class="mb-1 ">
-                    {{ App\Borrow::count() }} | Total <span class="float-right text-danger">${{ $borro = App\Borrow::sum('amount') }}</span>
+                    {{ App\Borrow::count() }} | Total <span
+                        class="float-right text-danger">${{ $borro = App\Borrow::sum('amount') }}</span>
                 </h3>
                 <div class="text-right"><a href="{{ route('borrow.index') }}">View</a></div>
 
@@ -44,7 +47,8 @@
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Loan</h4>
                 <h3 class="mb-1 ">
-                    {{ App\Loan::count() }} | Total <span class="float-right text-danger">${{ $loan = App\Loan::sum('amount') }}</span>
+                    {{ App\Loan::count() }} | Total <span
+                        class="float-right text-danger">${{ $loan = App\Loan::sum('amount') }}</span>
                 </h3>
                 <div class="text-right"><a href="{{ route('loan.index') }}">View</a></div>
 
@@ -56,7 +60,8 @@
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Loan Return</h4>
                 <h3 class="mb-1 ">
-                    {{  App\LoanReturn::count() }} | Total <span class="float-right text-success">${{ $loanReturn =  App\LoanReturn::sum('amount') }}</span>
+                    {{  App\LoanReturn::count() }} | Total <span
+                        class="float-right text-success">${{ $loanReturn =  App\LoanReturn::sum('amount') }}</span>
                 </h3>
                 <div class="text-right"><a href="{{ route('loan.index') }}">View</a></div>
 
@@ -68,7 +73,8 @@
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Expense</h4>
                 <h3 class="mb-1 ">
-                    {{ App\Expense::count() }} | Total <span class="float-right text-danger">${{ $expense = App\Expense::sum('amount') }}</span>
+                    {{ App\Expense::count() }} | Total <span
+                        class="float-right text-danger">${{ $expense = App\Expense::sum('amount') }}</span>
                 </h3>
                 <div class="text-right"><a href="{{ route('expense.index') }}">View</a></div>
 
@@ -80,7 +86,8 @@
             <div class="card-body">
                 <h4 class="text-muted text-uppercase">Well Part</h4>
                 <h3 class="mb-1 ">
-                    {{ App\WellPart::count() }} | Total <span class="float-right text-danger">${{ $wellPart = App\WellPart::sum('amount') }}</span>
+                    {{ App\WellPart::count() }} | Total <span
+                        class="float-right text-danger">${{ $wellPart = App\WellPart::sum('amount') }}</span>
                 </h3>
                 <div class="text-right"><a href="{{ route('wellpart.index') }}">View</a></div>
 
@@ -105,7 +112,7 @@
                 <h4 class="text-muted text-uppercase">Cash on hand</h4>
                 <h2 class="mb-1 ">
                     <span class="float-right text-primary">
-                    ${{ ($rentPayment+$loanReturn)-($rentReturn+$borro+$loan+$expense+$wellPart) }}</span>
+                        ${{ ($rentPayment+$loanReturn)-($rentReturn+$borro+$loan+$expense+$wellPart) }}</span>
                 </h2>
             </div>
         </div>
@@ -133,8 +140,8 @@
                 </thead>
                 <tbody>
                     @php
-                        $i = 1;
-                        $add = 0;
+                    $i = 1;
+                    $add = 0;
                     @endphp
                     @foreach ($reports as $report)
                     <tr>
@@ -146,7 +153,7 @@
                         <td scope="row">{{  $report->description }}</td>
                         <td scope="row" class="text-success">{{ $report->state == 'add' ? $report->amount:'0' }}
                             @php
-                               $add += $report->amount;
+                            $add += $report->amount;
                             @endphp
                         </td>
                         <td scope="row" class="text-danger">{{ $report->state != 'add' ? $report->amount:'0' }}</td>
@@ -170,12 +177,51 @@
     </div>
 </div>
 
+<a class="float-right" href="#" data-toggle="modal" data-target="#updateModal">Whats New?</a>
+
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalHeader">Whats new ?</h5>
+                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>User Permission Updated</li>
+                    <li>All User Report View</li>
+                    <li>Accountant Assign, History View</li>
+                    <li>Single Tent information view </li>
+                    <li>Single Agreeement information view</li>
+                    <li>Single Payment information view </li>
+                    <li>Dashboard Whats new board added</li>
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-light" data-dismiss="modal">Close</a>
+                <form action="{{ route('setting.update', 1) }}" method="POST">
+                    @method('PUT')
+                    @csrf
+                    <input name="whatsnew" type="hidden" value="0">
+                    <button type="submit" class="btn btn-warning">Don't show again</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 
 
 @section('scripts')
 <script>
-    // alert('Loan return and Payment refund select option added.');
+    var whatsnew = {{ App\Setting::first()->whatsnew }};
+    $(document).ready(function() {
+       if (whatsnew) {
+            $('#updateModal').modal();
+        }
+    });
 </script>
 @endsection

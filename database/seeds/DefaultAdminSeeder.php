@@ -20,6 +20,7 @@ class DefaultAdminSeeder extends Seeder
         ];
 
         $admin = User::create($admin);
+        
 
         $admin->assignRole('super-admin');
     }
