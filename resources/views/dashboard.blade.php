@@ -197,8 +197,9 @@
                     <li>Single Agreeement information view</li>
                     <li>Single Payment information view </li>
                     <li>Dashboard Whats new board added</li>
+                    <li>Accountant Sectin applied in borrow section</li>
                 </ol>
-                <p class="alert alert-info">Before test run: <code>php artisan migrate:refresh --seed</code> </p>
+                <p class="alert alert-info">Run: <code>php artisan migrate:fresh --seed</code> </p>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-light" data-dismiss="modal">Close</a>
