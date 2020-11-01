@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Loan;
 use App\User;
@@ -8,7 +8,7 @@ use App\Payment;
 use App\Property;
 use App\Agreement;
 use Illuminate\Http\Request;
-use Illuminate\Queue\Events\Looping;
+use App\Http\Controllers\Controller;
 
 class ApiController extends Controller
 {
