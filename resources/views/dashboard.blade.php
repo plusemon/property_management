@@ -198,6 +198,7 @@
                     <li>Single Payment information view </li>
                     <li>Dashboard Whats new board added</li>
                 </ol>
+                <p class="alert alert-info">Before test run: <code>php artisan migrate:refresh --seed</code> </p>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-light" data-dismiss="modal">Close</a>
