@@ -25,7 +25,7 @@
                         <input name="name" type="text" class="form-control" value="{{ $property->name }}" required>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-4 form-group">
                         <label class="col-form-label">Rent (Per Month)</label>
@@ -50,16 +50,16 @@
                     <div class="col-4 form-group">
                         <label class="col-form-label">Country</label>
                         <input name="country" type="text" class="form-control" value="{{ $property->country }}" required>
-                    </div> 
+                    </div>
 
                     <div class="col-4 form-group">
                         <label class="col-form-label">Entry Date</label>
                         <input id="created_at" name="created_at" type="date" value="{{ $property->created_at->format('Y-m-d') }}" class="form-control">
-                    </div>    
+                    </div>
                 </div>
 
                 <div class="form-group text-right mt-4">
-                    <a href="{{ url('admin/property') }}" class="btn btn-info">Close</a>
+                    <a href="{{ route('property.index') }}" class="btn btn-info">Close</a>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </div>
 
