@@ -12,7 +12,7 @@
                     <div class="form-group col-md-3">
                         <label for="user">Users</label>
                         <select name="user_id" id="" class="form-control">
-                            <option value="">Select User</option>
+                            <option value="">All User</option>
                             @foreach (App\User::all() as $user)
                                 <option value="{{ $user->id }}" {{ request()->user_id == $user->id ?'selected':'' }}>{{ $user->name }}</option>
                             @endforeach

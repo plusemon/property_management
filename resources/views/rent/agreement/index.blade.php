@@ -39,12 +39,6 @@
                                         <th scope="col">Rent(M)</th>
                                         <th scope="col">Tent</th>
                                         <th scope="col">Status</th>
-                                        {{-- <th scope="col">Sec. Money</th>
-                                        <th scope="col">Paid</th> --}}
-                                        {{-- <th scope="col">Yr Incr. %</th> --}}
-                                        {{-- <th scope="col">Start Date</th> --}}
-                                        {{-- <th scope="col">Month Paid</th> --}}
-                                        {{-- <th scope="col">Attachment</th> --}}
                                         @can('agreement manage')
                                         <th scope="col">Action</th>
                                         @endcan
@@ -68,30 +62,16 @@
                                                 @method('PUT')
                                                 @if ($agreement->status)
                                                 <input type="hidden" name="status" value="0">
-                                                <button type="submit" class="btn btn-sm btn-success">Actived</button>
+                                                <button type="submit" class="badge badge-success">Actived</button>
                                                 @else
                                                 <input type="hidden" name="status" value="1">
-                                                <button type="submit" class="btn btn-sm btn-danger">Inactived</button>
+                                                <button type="submit" class="badge badge-secondary">Inactived</button>
                                                 @endif
                                             </form>
                                             @else
                                                 {{ $agreement->status ? 'Active':'Inactive'}}
                                             @endcan
                                         </td>
-                                        {{-- <td>{{ $agreement->advance }}</td> --}}
-                                        {{-- <td>{{ $agreement->payments->where('type','security')->sum('amount')}}</td>
-                                        --}}
-                                        {{-- <td>{{ $agreement->yearly_percent }}%</td> --}}
-                                        {{-- <td>{{ $agreement->created_at->format('d/m/Y') }}</td> --}}
-                                        {{-- <td>
-                                            @foreach ($agreement->payments as $payment)
-                                            {{ $payment->month }},
-                                        @endforeach
-                                        </td> --}}
-                                        {{-- <td>
-                                            <a href="{{ url('public/storage/'.$agreement->attachment) }}"
-                                        class="badge badge-secondary p-1">Download</a><br>
-                                        </td> --}}
                                         @can('agreement manage')
                                         <td class="text-right">
                                             <a href="#" data-toggle="modal" data-target="#details"

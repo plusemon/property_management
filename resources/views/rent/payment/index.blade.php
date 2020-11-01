@@ -41,11 +41,8 @@
                                         <th scope="col">Payment</th>
                                         <th scope="col">Amount</th>
                                         <th scope="col">Method</th>
-                                        {{-- <th scope="col">Agreement</th> --}}
-                                        {{-- <th scope="col">Type</th> --}}
                                         <th scope="col">Tnx No</th>
-                                        {{-- <th scope="col">State</th> --}}
-                                        {{-- <th scope="col">Action</th> --}}
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,13 +57,7 @@
                                         <td class="text-success">{{ $payment->amount }}</td>
                                         <td>{{ $payment->method }}</td>
                                         <td>{{ $payment->tnxid }}</td>
-                                        {{-- <td>{{ $payment->state }}</td> --}}
-                                        {{-- <td>(@foreach ($payment->month as $month)
-                                            {{$month}},
-                                        @endforeach)
-                                        </td> --}}
-                                        {{-- <td>{{ $payment->agreement->name }}</td> --}}
-                                        {{-- <td>{{ $payment->agreement->property->type->name ?? 'Deleted' }}</td> --}}
+
                                         <td class="text-right">
 
                                             {{-- <a href="{{ route('payment.edit', $payment->id)}}"
@@ -112,27 +103,15 @@
                                 <tbody>
                                     @foreach ($refunds as $refund)
                                     <tr>
-                                        {{-- <td>{{ $refund->id }}</td> --}}
                                         <td>{{ $refund->created_at->format('d-m-y') }}</td>
                                         <td>{{ $refund->payment_id }}</td>
                                         <td>{{ $refund->payment->agreement->tent->fname ?? 'deleted' }}
                                             {{ $refund->payment->agreement->tent->lname ?? ''}}
                                         </td>
-                                        {{-- <td>{{ $refund->agreement->property->name }}</td> --}}
                                         <td>{{ $refund->payment->type }}</td>
                                         <td class="text-danger">{{ $refund->amount }}</td>
                                         <td>{{ $refund->description }}</td>
-                                        {{-- class="{{  $refund->state == 'refund' ? 'text-success':'text-secondary' }}"> --}}
-                                        {{-- <td>{{ $refund->tnxid }}</td> --}}
-                                        {{-- <td>{{ $refund->state }}</td> --}}
-                                        {{-- <td>(@foreach ($refund->month as $month)
-                                            {{$month}},
-                                        @endforeach)
-                                        </td> --}}
-                                        {{-- <td>{{ $refund->agreement->name }}</td> --}}
-                                        {{-- <td>{{ $refund->agreement->property->type->name ?? 'Deleted' }}</td> --}}
                                         {{-- <td class="text-right"> --}}
-
                                             {{-- <a href="{{ route('refund.edit', $refund->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
 

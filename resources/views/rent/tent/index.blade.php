@@ -32,15 +32,10 @@
                                 <th scope="col">City</th>
                                 <th scope="col">Courtry</th>
                                 <th scope="col">T-Attachment</th>
-                                <th scope="col">G-Name</th>
-                                {{-- <th scope="col">Contact</th>
-                            <th scope="col">City</th>
-                            <th scope="col">Country</th>
-                            <th scope="col">G-Attachment</th> --}}
-                                @can('tent manage')
-
+                                <th scope="col">Granter</th>
+                                {{-- @can('tent manage')
                                 <th scope="col">Action</th>
-                                @endcan
+                                @endcan --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -59,45 +54,16 @@
                                 <td class="text-center">
                                     @if ($tent->cnica)
                                     <a href="{{ url('public/storage/'.$tent->cnica) }}"
-                                        class="badge badge-secondary mb-1">Download</a>
+                                        class="badge badge-secondary mb-1"><i class="fas fa-eye"></i> View</a>
                                     @endif
                                 </td>
                                 <td>
-                                    {{ $tent->g1_fname.' '.$tent->g1_lname }}<br>
-                                    {{ $tent->g2_fname.' '.$tent->g2_lname }}<br>
-                                </td>
-                                {{--    <td>
-                                {{ $tent->g1_contact1 }}<br>
-                                {{ $tent->g1_contact2 }}<br>
-                                {{ $tent->g1_contact3 }}<br>
-                                {{ $tent->g2_contact1 }}<br>
-                                {{ $tent->g2_contact2 }}<br>
-                                {{ $tent->g2_contact3 }}<br>
-                                </td>
-                                <td>
-                                    {{ $tent->g1_city }}<br>
-                                </td>
-                                <td>
-                                    {{ $tent->g1_country }}<br>
-                                </td> --}}
-                                {{-- <td class="text-center">
-                                @if ($tent->g1_cnica)
-                                     <a href="{{ url('public/storage/'.$tent->g1_cnica) }}"
-                                class="badge badge-secondary mb-1">Granter</a><br>
-                                @endif
-
-                                @if ($tent->g2_cnica)
-                                <a href="{{ url('public/storage/'.$tent->g2_cnica) }}"
-                                    class="badge badge-secondary mb-1">Granter 2</a>
-                                @endif
-
-                                </td> --}}
-                                @can('tent manage')
-                                <td class="text-right">
-                                    {{-- <a href="{{ route('tent.edit', $tent->id)}}" class="btn btn-sm btn-warning"><i
-                                        class="fas fa-edit"></i></a> --}}
                                     <a href="#" data-toggle="modal" data-target="#details"
-                                        class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+                                    class="badge badge-secondary mb-1"><i class="fas fa-eye"></i> Details</a>
+                                </td>
+
+                                {{-- @can('tent manage')
+                                <td class="text-right">
                                     <form class="d-inline" action="{{route('tent.destroy', $tent->id)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -105,7 +71,7 @@
                                                 class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
-                                @endcan
+                                @endcan --}}
                             </tr>
                             @endforeach
 
@@ -253,7 +219,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailsLabel">Detailed Information</h5>
+                <h5 class="modal-title" id="detailsLabel">Granter Information</h5>
                 <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </a>

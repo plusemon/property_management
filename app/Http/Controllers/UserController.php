@@ -97,7 +97,6 @@ class UserController extends Controller
     public function report(Request $request)
     {
         $data = new Collection();
-        if ($request->filled('user_id')) {
             $expenses = Expense::all()->each(function ($data) {
                 $data->type = 'Expense';
             });
@@ -150,8 +149,9 @@ class UserController extends Controller
                $data = $data->mergeRecursive($paymentRefunds);
             }
 
-            // return $data->all();
-            $data = $data->where('user_id', $request->user_id);
+            if ($request->filled('user_id')) {
+                $data = $data->where('user_id', $request->user_id);
+            }
 
             if ($request->filled('from')) {
                 $data = $data->where('created_at', '>=', $request->from);
@@ -159,10 +159,9 @@ class UserController extends Controller
             if ($request->filled('to')) {
                 $data = $data->where('created_at', '<=', Carbon::createFromFormat('Y-m-d', $request->to)->addDays(1));
             }
+
             $reports = $data->sortBy('updated_at');
-        }else{
-            $reports = [];
-        }
+
 
         return view('report.index', compact('reports'));
     }
