@@ -1,6 +1,8 @@
 <?php
 
+use App\Accountant;
 use App\User;
+use App\Setting;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,15 +15,30 @@ class DefaultAdminSeeder extends Seeder
      */
     public function run()
     {
-        $admin = [
+        User::create([
             'name' => 'Super Admin',
             'email' => 'admin@mail.com',
             'password' => Hash::make('admin')
-        ];
+        ])->assignRole('super-admin');
 
-        $admin = User::create($admin);
-        
+        $accountant =
+        User::create([
+            'name' => 'Accountant',
+            'email' => 'accountant@mail.com',
+            'password' => Hash::make('accountant')
+        ]);
 
-        $admin->assignRole('super-admin');
+        Accountant::create([
+            'user_id' => $accountant->id,
+            'start' => today(),
+            'sbalance' => 0,
+            'balance' => 0,
+            'status' => 1,
+        ]);
+
+        Setting::create([
+            'name' => 'Admin Panel',
+            'whatsnew' => 1,
+        ]);
     }
 }
