@@ -15,8 +15,9 @@ class CreateBorrowsTable extends Migration
     {
         Schema::create('borrows', function (Blueprint $table) {
             $table->id();
-            $table->integer('accountant_id');
             $table->integer('user_id');
+            $table->integer('accountant_id');
+            $table->integer('entry_id');
             $table->integer('amount');
             $table->string('description')->nullable();
             $table->softDeletes();

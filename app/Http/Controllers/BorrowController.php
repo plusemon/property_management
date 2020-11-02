@@ -51,6 +51,7 @@ class BorrowController extends Controller
         $borrow->id = $request->serial;
         $borrow->user_id = $request->user_id;
         $borrow->accountant_id = Accountant::get()->user->id;
+        $borrow->entry_id = auth()->user()->id;
         $borrow->amount = $request->amount;
         $borrow->description = $request->description;
         $borrow->created_at = $request->created_at;
