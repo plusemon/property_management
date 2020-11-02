@@ -13,7 +13,7 @@
                         <label for="user">Users</label>
                         <select name="user_id" id="" class="form-control">
                             <option value="">All User</option>
-                            @foreach (App\User::all() as $user)
+                            @foreach (App\User::role('user')->get() as $user)
                                 <option value="{{ $user->id }}" {{ request()->user_id == $user->id ?'selected':'' }}>{{ $user->name }}</option>
                             @endforeach
                         </select>

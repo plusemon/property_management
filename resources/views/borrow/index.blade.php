@@ -33,9 +33,9 @@
                                         <th scope="col">Borrower</th>
                                         <th scope="col">Description</th>
                                         <th scope="col">Amount</th>
-                                        @can('borrow manage')
+                                        @role('super-admin')
                                         <th scope="col">Action</th>
-                                        @endcan
+                                        @endrole
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,7 +46,7 @@
                                         <td>{{$borrow->user->name}}</td>
                                         <td>{{$borrow->description}}</td>
                                         <td>{{$borrow->amount}}</td>
-                                        @can('borrow manage')
+                                        @role('super-admin')
                                         <td class="text-right">
                                             <a href="{{ route('borrow.edit', $borrow->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -58,7 +58,7 @@
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
                                         </td>
-                                        @endcan
+                                        @endrole
                                     </tr>
                                     @endforeach
                                 </tbody>

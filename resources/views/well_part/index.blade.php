@@ -32,9 +32,9 @@
                                         <th scope="col">Borrower</th>
                                         <th scope="col">Description</th>
                                         <th scope="col">Amount</th>
-                                        @can('wellpart manage')
+                                        @role('super-admin')
                                         <th scope="col">Action</th>
-                                        @endcan
+                                        @endrole
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,8 +45,7 @@
                                         <td>{{$wellpart->user->name}}</td>
                                         <td>{{$wellpart->description}}</td>
                                         <td>{{$wellpart->amount}}</td>
-                                        <td>{{ $wellpart->created_at->format('d-m-Y') }}</td>
-                                        @can('wellpart manage')
+                                        @role('super-admin')
                                         <td class="text-right">
                                             <a href="{{ route('wellpart.edit', $wellpart->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -58,7 +57,7 @@
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
                                         </td>
-                                        @endcan
+                                        @endrole
                                     </tr>
                                     @endforeach
                                 </tbody>

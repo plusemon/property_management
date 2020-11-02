@@ -35,9 +35,9 @@
                                     <th scope="col">City</th>
                                     <th scope="col">Country</th>
                                     <th scope="col">Status</th>
-                                    @can('property manage')
+                                    @role('super-admin')
                                     <th scope="col">Action</th>
-                                    @endcan
+                                    @endrole
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,7 +50,7 @@
                                     <td>{{ $property->city }}</td>
                                     <td>{{ $property->country }}</td>
                                     <td class="{{ $property->agreements->count() ? 'text-success':'text-danger' }}">{{ $property->agreements->count() ? 'Occupied':'Vacant' }}</td>
-                                    @can('property manage')
+                                    @role('super-admin')
                                     <td class="text-right">
                                         <a href="{{ route('property.edit', $property->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -62,7 +62,7 @@
                                                     class="fas fa-trash-alt"></i></button>
                                         </form>
                                     </td>
-                                    @endcan
+                                    @endrole
                                 </tr>
                                 @endforeach
                             </tbody>

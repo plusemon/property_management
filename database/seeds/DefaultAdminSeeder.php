@@ -10,11 +10,19 @@ class DefaultAdminSeeder extends Seeder
 {
     public function run()
     {
+        // SUPER ADMIN
         User::create([
             'name' => 'Super Admin',
             'email' => 'admin@mail.com',
             'password' => Hash::make('admin')
         ])->assignRole('super-admin');
+
+        // SAMPLE USER
+        User::create([
+            'name' => 'Simple User',
+            'email' => 'user@mail.com',
+            'password' => Hash::make('user')
+        ])->assignRole('user');
 
         Setting::create([
             'name' => 'Admin Panel',

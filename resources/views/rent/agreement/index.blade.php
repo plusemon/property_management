@@ -39,9 +39,10 @@
                                         <th scope="col">Rent(M)</th>
                                         <th scope="col">Tent</th>
                                         <th scope="col">Status</th>
-                                        @can('agreement manage')
+                                        <th scope="col">Details</th>
+                                        @role('super-admin')
                                         <th scope="col">Action</th>
-                                        @endcan
+                                        @endrole
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,24 +73,25 @@
                                                 {{ $agreement->status ? 'Active':'Inactive'}}
                                             @endcan
                                         </td>
-                                        @can('agreement manage')
-                                        <td class="text-right">
-                                            {{-- <a href="#" data-toggle="modal" data-target="#details"
-                                                class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a> --}}
-                                            {{-- <a href="{{ route('agreement.edit', $agreement->id)}}"
-                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                            --}}
-
+                                        <td>
                                             <button class="btn badge badge-secondary" onclick="window.open('{{ route('agreement.show',$agreement->id)}}', '_blank')"><i class="fas fa-eye"></i> View</button>
-                                            {{-- <form class="d-inline"
+
+                                        </td>
+                                        @role('super-admin')
+                                        <td class="text-right">
+                                            <a href="{{ route('agreement.edit', $agreement->id)}}"
+                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+
+
+                                            <form class="d-inline"
                                                 action="{{route('agreement.destroy', $agreement->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger"><i
                                                         class="fas fa-trash-alt"></i></button>
-                                            </form> --}}
+                                            </form>
                                         </td>
-                                        @endcan
+                                        @endrole
                                     </tr>
                                     @endforeach
 

@@ -104,12 +104,13 @@
                     </li>
                     @endcanany
 
+                    @hasanyrole('super-admin|accountant|admin')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('report.index') }}">User
                             Reports</a>
-                    </li>
-
-                    @role('super-admin')
+                        </li>
+                    @endhasanyrole
+                    @role('super-admin|admin')
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-14" aria-controls="submenu-14"><i

@@ -32,9 +32,9 @@
                                 <th scope="col">City</th>
                                 <th scope="col">Courtry</th>
                                 <th scope="col">Details</th>
-                                {{-- @can('tent manage')
+                                @role('super-admin')
                                 <th scope="col">Action</th>
-                                @endcan --}}
+                                @endrole
                             </tr>
                         </thead>
                         <tbody>
@@ -53,7 +53,7 @@
                                 <td>
                                     <button class="btn badge badge-secondary" onclick="window.open('{{ route('tent.show',$tent->id)}}', '_blank')"><i class="fas fa-eye"></i> View</button>
                                 </td>
-                                {{-- @can('tent manage')
+                                @role('super-admin')
                                 <td class="text-right">
                                     <form class="d-inline" action="{{route('tent.destroy', $tent->id)}}" method="POST">
                                         @csrf
@@ -62,7 +62,7 @@
                                                 class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
-                                @endcan --}}
+                                @endrole
                             </tr>
                             @endforeach
 

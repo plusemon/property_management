@@ -36,10 +36,9 @@
                                     <th scope="col">Amount</th>
                                     <th scope="col">Invoice</th>
                                     <th scope="col">Description</th>
-                                @can('expense manage')
-
+                                    @role('super-admin')
                                     <th scope="col">Action</th>
-                                    @endcan
+                                    @endrole
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,7 +51,7 @@
                                     <td scope="row">{{ $expense->invoice}}</td>
                                     <td scope="row">{{ $expense->description }}</td>
 
-                                @can('expense manage')
+                                    @role('super-admin')
                                     <td class="text-right">
                                         <a href="{{ route('expense.edit', $expense->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
@@ -64,7 +63,7 @@
                                                     class="fas fa-trash-alt"></i></button>
                                         </form>
                                     </td>
-                                    @endcan
+                                    @endrole
                                 </tr>
                                 @endforeach
                             </tbody>
