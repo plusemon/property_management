@@ -96,7 +96,7 @@ class BorrowController extends Controller
     public function update(Request $request, Borrow $borrow)
     {
         $borrow->update($request->all());
-        return redirect('admin/borrow')->with('success','Updated Successfully');
+        return redirect(route('borrow.index'))->with('success','Updated Successfully');
     }
 
     /**
