@@ -104,13 +104,20 @@
                     </li>
                     @endcanany
 
-                    @hasanyrole('super-admin|accountant|admin')
+                    @hasanyrole('super-admin|admin')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('report.index') }}">User
                             Reports</a>
                         </li>
                     @endhasanyrole
-                    @role('super-admin|admin')
+
+                    @role('user')
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="alert('Suggest me what will give here')">Contact</a>
+                        </li>
+                    @endrole
+
+                    @hasanyrole('super-admin|admin')
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                             data-target="#submenu-14" aria-controls="submenu-14"><i
@@ -144,6 +151,7 @@
                         </div>
                     </li>
                     @endrole
+
 
 
 
