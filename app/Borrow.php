@@ -12,9 +12,11 @@ class Borrow extends Model
 
     protected $guarded = [];
 
-    protected static $logAttributes = ['amount','description'];
+    protected static $logAttributes = ['*'];
+    protected static $logAttributesToIgnore = ['created_at','updated_at'];
     protected static $logOnlyDirty = true;
     protected static $recordEvents = ['updated','deleted'];
+
 
 
     public static function nextId(int $increment = 1 )
