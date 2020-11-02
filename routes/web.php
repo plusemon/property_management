@@ -40,6 +40,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('report', 'UserController@report')->name('report.index');
     Route::resource('setting', 'SettingController');
     Route::resource('accountant', 'AccountantController');
+    Route::get('activity', 'ActivityController@index')->name('activity');
+    Route::get('activity/{activity}', 'ActivityController@show')->name('activity.show');
 
 
 });

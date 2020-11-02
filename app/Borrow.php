@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Borrow extends Model
 {
     use SoftDeletes, LogsActivity;
-    protected static $logAttributes = ['*'];
+
+    protected $guarded = [];
+
+    protected static $logAttributes = ['amount','description'];
     protected static $logOnlyDirty = true;
     protected static $recordEvents = ['updated','deleted'];
 
-    protected $guarded = [];
 
     public static function nextId(int $increment = 1 )
     {

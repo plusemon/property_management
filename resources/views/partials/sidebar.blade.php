@@ -106,11 +106,16 @@
 
                     @hasanyrole('super-admin|admin')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('report.index') }}">User
+                        <a class="nav-link" href="{{ route('report.index') }}"><i class="fas fa-newspaper"></i>
                             Reports</a>
                         </li>
                     @endhasanyrole
 
+                    {{-- @role('user') --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('activity') }}"><i class="fas fa-pencil-alt"></i>Activity Log</a>
+                        </li>
+                    {{-- @endrole --}}
                     @role('user')
                     <li class="nav-item">
                         <a class="nav-link" href="#" onclick="alert('Suggest me what will give here')">Contact</a>
