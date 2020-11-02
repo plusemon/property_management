@@ -3,12 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Borrow extends Model
 {
-
-    use SoftDeletes;
+    use SoftDeletes, LogsActivity;
+    protected static $logAttributes = ['*'];
+    protected static $logOnlyDirty = true;
+    protected static $recordEvents = ['updated','deleted'];
 
     protected $guarded = [];
 
@@ -18,7 +21,6 @@ class Borrow extends Model
             return parent::withTrashed()->get()->last()->id + $increment;
         }
     }
-
 
     public function user()
     {

@@ -6,7 +6,7 @@
     <div class="card">
         <h5 class="card-header">Edit Borrow</h5>
         <div class="card-body">
-            <form action="{{ route('borrow.store') }}" method="POST">
+            <form action="{{ route('borrow.update',$borrow->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="form-group text-right mt-4">
-                    <button type="submit" class="btn btn-primary">Add Borrow</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </div>
 
 

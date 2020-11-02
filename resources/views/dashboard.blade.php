@@ -186,11 +186,7 @@
             </div>
             <div class="modal-body">
                 <ol>
-                    <li>Default admin and default user added</li>
-                    <li><code>user: user@mail.com | pass: user</code></li>
-                    <li>Only User list in some section</li>
-                    <li>Edit Delete permission only for Super Admin</li>
-                    <li>Accountant only for borrow now for experiment/li>
+                    <li>Borrow Section Updated</li>
 
                 </ol>
                 <p class="alert alert-info">Run: <code>php artisan migrate:fresh --seed</code> </p>
