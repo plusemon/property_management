@@ -12,7 +12,6 @@
                         class="float-right text-success">${{ $rentPayment = App\Payment::whereType('rent')->sum('amount') }}</span>
                 </h3>
                 <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
-
             </div>
         </div>
     </div>
@@ -25,7 +24,6 @@
                         class="float-right text-danger">${{ $rentReturn = App\PaymentReturn::sum('amount') }}</span>
                 </h3>
                 <div class="text-right"><a href="{{ route('payment.index') }}">View</a></div>
-
             </div>
         </div>
     </div>
@@ -51,7 +49,6 @@
                         class="float-right text-danger">${{ $loan = App\Loan::sum('amount') }}</span>
                 </h3>
                 <div class="text-right"><a href="{{ route('loan.index') }}">View</a></div>
-
             </div>
         </div>
     </div>
@@ -64,7 +61,6 @@
                         class="float-right text-success">${{ $loanReturn =  App\LoanReturn::sum('amount') }}</span>
                 </h3>
                 <div class="text-right"><a href="{{ route('loan.index') }}">View</a></div>
-
             </div>
         </div>
     </div>
@@ -190,14 +186,12 @@
             </div>
             <div class="modal-body">
                 <ol>
-                    <li>User Permission Updated</li>
-                    <li>All User Report View</li>
-                    <li>Accountant Assign, History View</li>
-                    <li>Single Tent information view </li>
-                    <li>Single Agreeement information view</li>
-                    <li>Single Payment information view </li>
-                    <li>Dashboard Whats new board added</li>
-                    <li>Accountant Sectin applied in borrow section</li>
+                    <li>Default admin and default user added</li>
+                    <li><code>user: user@mail.com | pass: user</code></li>
+                    <li>Only User list in some section</li>
+                    <li>Edit Delete permission only for Super Admin</li>
+                    <li>Accountant only for borrow now for experiment/li>
+
                 </ol>
                 <p class="alert alert-info">Run: <code>php artisan migrate:fresh --seed</code> </p>
             </div>
