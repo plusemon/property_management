@@ -61,7 +61,7 @@
                     <td scope="row">{{ $accountant->sbalance }}</td>
                     <td scope="row">{{ $accountant->balance }}</td>
                     <td scope="row">{{ $accountant->ebalance }}</td>
-                    <td scope="row">{{ $accountant->status ? 'Actived':'Inactived' }}</td>
+                    <td scope="row" class="{{ $accountant->status ? 'text-success':'text-danger' }}">{{ $accountant->status ? 'Actived':'Inactived' }}</td>
                 </tr>
                 @endforeach
             </tbody>
