@@ -47,7 +47,7 @@ class LoanController extends Controller
 
     public function edit(Loan $loan)
     {
-        $users = User::all();
+        $users = User::role('user')->get();
         return view('loan.edit', compact('loan', 'users'));
     }
 

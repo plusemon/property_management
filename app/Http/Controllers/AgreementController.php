@@ -13,7 +13,7 @@ class AgreementController extends Controller
     public function index()
     {
         $agreements = Agreement::all();
-        $types = Type::all();
+        $types = Type::where('type', 'property')->get();
         $tents = Tent::all();
         return view('rent.agreement.index', compact('agreements', 'types', 'tents'));
     }
