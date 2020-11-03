@@ -9,7 +9,7 @@ class ActivityController extends Controller
 {
     public function index()
     {
-    //    return Activity::all()->first()->changes['old'];
+    //    return Activity::all()->first()->subject_type;
         $activities = Activity::all();
         return view('activity.index',compact('activities'));
     }

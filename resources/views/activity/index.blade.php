@@ -11,20 +11,22 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>User</th>
+                        <th>Section</th>
                         <th>Action</th>
-                        <th>Date and Time</th>
-                        <th>Details</th>
+                        <th>By</th>
+                        <th>At</th>
+                        <th>Changes</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($activities as $activity)
 
                     <tr>
-                        <td>{{ $activity->causer->name }}</td>
+                        <td>{{ trim($activity->subject_type,"App\\") }}</td>
                         <td><span class="badge badge-{{  $activity->description == 'updated' ? 'info':'danger' }}">{{ $activity->description }}</span></td>
+                        <td>{{ $activity->causer->name }}</td>
                         <td>{{ $activity->created_at->format('d-m-Y h:s A') }}</td>
-                        <td><a href="{{ route('activity.show',$activity->id) }}" class="btn btn-sm btn-rounded btn-dark">Show</a></td>
+                        <td><button onclick="window.open('{{ route('activity.show',$activity->id) }}', '_blank')" class="btn btn-sm btn-rounded btn-dark">Show</button></td>
                     </tr>
                     @endforeach
                 </tbody>
