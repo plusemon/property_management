@@ -4,10 +4,9 @@
 
 
 
-<div class="row">
-    
-</div>
-
+@if (!App\Accountant::get())
+    <div class="alert alert-warning">Please assign an <a href="{{ route('accountant.index') }}">Accountant</a> first...!</div>
+@endif
 
 <div class="row">
     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">

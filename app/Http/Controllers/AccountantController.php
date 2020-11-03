@@ -37,6 +37,12 @@ class AccountantController extends Controller
      */
     public function store(Request $request)
     {
+
+    //     // check if alredy assigned the requested user
+    //    if ($request->user_id == Accountant::get()->user_id) {
+
+    //    }
+
        $actived = Accountant::where('status',1)->first();
         if ($actived) {
             $actived->status = 0;
