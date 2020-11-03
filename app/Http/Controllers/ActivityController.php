@@ -16,6 +16,7 @@ class ActivityController extends Controller
 
     public function show(Activity $activity)
     {
+        // return $activity;
         return view('activity.show', compact('activity'));
     }
 }
