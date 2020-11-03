@@ -185,17 +185,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalHeader">Whats new ?</h5>
+                <h5 class="modal-title" id="modalHeader">Updated Information</h5>
                 <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </a>
             </div>
             <div class="modal-body">
                 <ol>
-                    <li>Borrow Section Updated</li>
-
+                    <li>Every update will perfecly work with borrow at this time. </li>
+                    <li>I will implement those to another section if worked properly.</li>
+                    <li>For get update: <code>git pull</code></li>
+                    <li>After get update: <code>php artisan migrate:fresh --seed</code></li>
                 </ol>
-                <p class="alert alert-info">Run: <code>php artisan migrate:fresh --seed</code> </p>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-light" data-dismiss="modal">Close</a>
