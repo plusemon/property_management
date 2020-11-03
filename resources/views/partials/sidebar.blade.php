@@ -8,9 +8,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav flex-column">
-                    <li class="nav-divider">
+                    {{-- <li class="nav-divider">
                         Menu
-                    </li>
+                    </li> --}}
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dashboard.index') }}"><i
@@ -142,6 +142,7 @@
                                     <a class="nav-link" href="{{ route('role.index') }}">Role & Permission
                                     </a>
                                 </li>
+
 {{--
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('setting.index') }}">Bacup
@@ -151,14 +152,13 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('setting.index') }}">Settings</a>
                                 </li>
+                               <br><br>
                             </ul>
                         </div>
                     </li>
                     @endrole
 
-
-
-
+                    <br><br><br>
                 </ul>
             </div>
         </nav>
