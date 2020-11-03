@@ -140,7 +140,7 @@
                                 <div class="form-group col-md-3">
                                     <label class="col-form-label">Loan Taker</label>
                                     <select name="user_id" class="form-control" required>
-                                        @foreach (App\User::role('user')->get() as $user)
+                                        @foreach (App\User::all() as $user)
                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>

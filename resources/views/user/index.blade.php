@@ -13,10 +13,12 @@
                 <a class="nav-link border-left-0 active show" id="home-tab-simple" data-toggle="tab" href="#home-simple"
                     role="tab" aria-controls="home" aria-selected="true">List</a>
             </li>
+            @role('super-admin')
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#profile-simple" role="tab"
                     aria-controls="profile" aria-selected="false">Add</a>
             </li>
+            @endrole
         </ul>
         <div class="tab-content" id="myTabContent5">
             <div class="tab-pane fade active show" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
@@ -51,8 +53,10 @@
                                             @endforeach
                                         </th>
                                         <td class="text-right">
-                                            <a href="{{ route('user.edit', $user->id)}}"
-                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+
+                                            @role('super-admin')
+                                                <a href="{{ route('user.edit', $user->id)}}"
+                                                    class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form class="d-inline" action="{{route('user.destroy', $user->id)}}"
                                                 method="POST">
                                                 @csrf
@@ -60,6 +64,7 @@
                                                 <button type="submit" class="btn btn-sm btn-danger"><i
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
+                                            @endrole
                                         </td>
                                     </tr>
                                     @endforeach
@@ -69,6 +74,7 @@
                     </div>
                 </div>
             </div>
+            @role('super-admin')
             <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
                 <div class="card">
                     <div class="card-body">
@@ -143,6 +149,7 @@
                     </div>
                 </div>
             </div>
+            @endrole
         </div>
     </div>
 </div>

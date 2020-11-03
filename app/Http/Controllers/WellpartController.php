@@ -16,8 +16,7 @@ class WellpartController extends Controller
     public function index()
     {
         $wellparts = Wellpart::all();
-        $users = User::role('user')->get();
-        return view('well_part.index', compact('wellparts','users'));
+        return view('well_part.index', compact('wellparts'));
     }
 
     /**

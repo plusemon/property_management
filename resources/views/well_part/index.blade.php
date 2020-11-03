@@ -84,7 +84,7 @@
                                     <label class="col-form-label">Borrowers</label>
                                     <select class="form-control" name="user_id" required
                                         <option value="">Select User</option>
-                                        @foreach ($users as $user)
+                                        @foreach (App\User::all() as $user)
                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>

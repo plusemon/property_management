@@ -17,8 +17,7 @@ class BorrowController extends Controller
     public function index()
     {
         $borrows = Borrow::all();
-        $users = User::role('user')->get();
-        return view('borrow.index', compact('borrows','users'));
+        return view('borrow.index', compact('borrows'));
     }
 
     /**
