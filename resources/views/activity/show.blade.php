@@ -5,7 +5,7 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <h3>{{ trim($activity->subject_type,"App\\") }} (#{{ $activity->subject_id }}) Updated By <span
+            <h3>{{ trim($activity->subject_type,"App\\") }} (#{{ $activity->subject_id }}) <span class="badge badge-{{  $activity->description == 'updated' ? 'info':'danger' }}">{{ $activity->description }}</span> By <span
                     class="text-info">{{ $activity->causer->name }}</span> at <span
                     class="text-info">{{ $activity->created_at->format('d-m-Y h:s A') }}</span> </h3>
         </div>

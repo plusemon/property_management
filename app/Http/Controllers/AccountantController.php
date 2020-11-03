@@ -54,15 +54,22 @@ class AccountantController extends Controller
 
         $accountant = new Accountant();
         $accountant->user_id = $request->user_id;
+
         if ($request->filled('start')) {
             $accountant->start = $request->start;
         }else{
             $accountant->start = today();
         }
-        if ($request->filled('sbalance')) {
-            $accountant->sbalance = $request->sbalance;
-        }else{
+        if ($actived) {
             $accountant->sbalance = $actived->ebalance;
+        }else{
+            $accountant->sbalance = $request->sbalance;
+        }
+
+        if ($actived) {
+            $accountant->balance = $actived->ebalance;
+        }else{
+            $accountant->balance = $request->sbalance;
         }
 
         $accountant->status = 1;

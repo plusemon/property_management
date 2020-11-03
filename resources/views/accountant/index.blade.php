@@ -13,7 +13,7 @@
                         <label class="col-form-label">User</label>
                         <select name="user_id" id="user" class="form-control" required>
                             <option name="" id="">Select</option>
-                            @foreach (App\User::role('user')->get() as $user)
+                            @foreach (App\User::all() as $user)
                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
                         </select>
@@ -57,10 +57,10 @@
                     <td scope="row">{{ $accountant->id }}</td>
                     <td scope="row">{{ $accountant->user->name }}</td>
                     <td scope="row">{{ $accountant->start->format('d-m-Y') }}</td>
-                    <td scope="row">{{ $accountant->end ? $accountant->end->format('d-m-Y'):'' }}</td>
+                    <td scope="row">{{ $accountant->end ? $accountant->end->format('d-m-Y'):'N/A' }}</td>
                     <td scope="row">{{ $accountant->sbalance }}</td>
                     <td scope="row">{{ $accountant->balance }}</td>
-                    <td scope="row">{{ $accountant->ebalance }}</td>
+                    <td scope="row">{{ $accountant->ebalance ?? 'N/A' }}</td>
                     <td scope="row" class="{{ $accountant->status ? 'text-success':'text-danger' }}">{{ $accountant->status ? 'Actived':'Inactived' }}</td>
                 </tr>
                 @endforeach
