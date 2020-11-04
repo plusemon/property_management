@@ -5,7 +5,7 @@
 
 
 @if (!App\Accountant::get())
-    <div class="alert alert-warning">Please assign an <a href="{{ route('accountant.index') }}">Accountant</a> first...!</div>
+    <div class="alert alert-danger"><span class="text-danger">Acction Required: </span> Please assign an <a href="{{ route('accountant.index') }}">Accountant</a> before get started!</div>
 @endif
 
 <div class="row">
@@ -194,6 +194,7 @@
                 <ol>
                     <li>Every update will perfecly work with borrow at this time. </li>
                     <li>I will implement those to another section if worked properly.</li>
+                    <li>Added - Registred User Approval by Admin</li>
                     <li>For get update: <code>git pull</code></li>
                     <li>After get update: <code>php artisan migrate:fresh --seed</code></li>
                 </ol>
