@@ -64,6 +64,19 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
+
+        // ONLY FOR STATUS UPDATE AND RETURN
+        if ($request->has('status')) {
+            if ($user->email_verified_at) {
+                $user->email_verified_at = null;
+            }else{
+                $user->email_verified_at = now();
+            }
+            $user->save();
+           return redirect()->back()->with('success','User status updated');
+        }
+
+        // FOR UPDATE A USER INFORMATION
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['email', 'max:255'],
@@ -78,12 +91,9 @@ class UserController extends Controller
         if ($request->filled('password')) {
             $user->password = Hash::make($request['password']);
         }
-
         $user->syncPermissions($request->permissions);
         $user->syncRoles($request->roles);
-
         $user->save();
-
         return redirect(route('user.index'))->with('success', 'Updated Succefully');
     }
 

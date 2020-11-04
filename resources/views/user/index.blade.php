@@ -32,7 +32,7 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Roles</th>
-                                        <th scope="col">Permissions</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -48,15 +48,28 @@
                                             @endforeach
                                         </th>
                                         <th>
+                                            <form class="d-inline" action="{{route('user.update', $user->id)}}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="status">
+                                                <button type="submit" class="btn btn-sm btn-{{$user->email_verified_at ? 'success' : 'danger'}}">
+                                                    {{$user->email_verified_at ? 'Actived' : 'Inactived'}}
+                                                </button>
+                                            </form>
+
+                                        </th>
+                                        {{-- <th>
                                             @foreach ($user->getAllPermissions() as $permission)
                                             {{ $permission->name }},
-                                            @endforeach
-                                        </th>
+                                        @endforeach
+                                        </th> --}}
                                         <td class="text-right">
 
                                             @role('super-admin')
-                                                <a href="{{ route('user.edit', $user->id)}}"
-                                                    class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                            <a href="{{ route('user.edit', $user->id)}}"
+                                                class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+
                                             <form class="d-inline" action="{{route('user.destroy', $user->id)}}"
                                                 method="POST">
                                                 @csrf

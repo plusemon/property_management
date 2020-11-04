@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
     return redirect('login');
@@ -14,7 +14,7 @@ Route::get('/home', function () {
 });
 
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','verified']], function () {
 
     //DASHBOARD
     Route::resource('dashboard', 'DashboardController');
