@@ -48,6 +48,7 @@
                                             @endforeach
                                         </th>
                                         <th>
+                                            @if (Auth::user()->id != $user->id)
                                             <form class="d-inline" action="{{route('user.update', $user->id)}}"
                                                 method="POST">
                                                 @csrf
@@ -57,6 +58,11 @@
                                                     {{$user->email_verified_at ? 'Actived' : 'Inactived'}}
                                                 </button>
                                             </form>
+                                            @else
+                                            <button onclick="toastr.error('You cant change your status yourself!')" class="btn badge badge-{{$user->email_verified_at ? 'success' : 'danger'}}">
+                                                    {{$user->email_verified_at ? 'Actived' : 'Inactived'}}
+                                                </button>
+                                            @endif
 
                                         </th>
                                         {{-- <th>
@@ -70,6 +76,7 @@
                                             <a href="{{ route('user.edit', $user->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
 
+                                            @if (Auth::user()->id != $user->id)
                                             <form class="d-inline" action="{{route('user.destroy', $user->id)}}"
                                                 method="POST">
                                                 @csrf
@@ -77,6 +84,7 @@
                                                 <button type="submit" class="btn btn-sm btn-danger"><i
                                                         class="fas fa-trash-alt"></i></button>
                                             </form>
+                                            @endif
                                             @endrole
                                         </td>
                                     </tr>
