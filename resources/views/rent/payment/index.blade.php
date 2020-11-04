@@ -141,7 +141,7 @@
             {{-- Payment --}}
             <div class="tab-pane fade" id="pay" role="tabpanel" aria-labelledby="pay">
                 <div class="card-body">
-                    <form action="{{ route('payment.store') }}" method="POST">
+                    <form action="{{ route('payment.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
@@ -205,7 +205,7 @@
                             <div class="form-group col-md-2">
                                 <label class="col-form-label">Year</label>
                                 <select name="year" class="form-control">
-                                    @foreach (range(2020, strftime("%Y", time()+10)) as $year)
+                                    @foreach (range(2015, strftime("%Y", time())+30) as $year)
                                     <option value="{{ $year }}">{{ $year }}</option>
                                     @endforeach
                                 </select>

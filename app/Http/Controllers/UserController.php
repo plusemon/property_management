@@ -121,7 +121,7 @@ class UserController extends Controller
 
             $loanReturns = LoanReturn::all()->each(function ($data) {
                 $data->type = 'Loan Return';
-                $data->state = 'add';
+                $data->state = true;
             });
 
             $wellparts = Wellpart::all()->each(function ($data) {
@@ -130,11 +130,11 @@ class UserController extends Controller
 
             $payments = Payment::all()->each(function ($data) {
                 $data->type = 'Payment';
+                $data->state = true;
             });
 
             $paymentRefunds = PaymentReturn::all()->each(function ($data) {
                 $data->type = 'Payment Return';
-                $data->state = 'add';
             });
 
             if ($request->expense) {

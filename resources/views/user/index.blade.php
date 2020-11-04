@@ -53,7 +53,7 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <input type="hidden" name="status">
-                                                <button type="submit" class="btn btn-sm btn-{{$user->email_verified_at ? 'success' : 'danger'}}">
+                                                <button type="submit" class="btn badge badge-{{$user->email_verified_at ? 'success' : 'danger'}}">
                                                     {{$user->email_verified_at ? 'Actived' : 'Inactived'}}
                                                 </button>
                                             </form>

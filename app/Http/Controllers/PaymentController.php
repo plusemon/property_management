@@ -130,10 +130,11 @@ class PaymentController extends Controller
         $payment->account = $request->account;
         $payment->branch = $request->branch;
         $payment->cheque = $request->cheque;
-        if ($request->has('attachment')) {
+        if ($request->file('attachment')) {
             $payment->attachment = $request->attachment->store('/cheque');
         }
     }
+
     public function cashPayment()
     {
         //

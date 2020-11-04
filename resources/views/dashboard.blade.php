@@ -153,12 +153,12 @@
                         <td scope="row">{{ $report->type }}</td>
                         <td scope="row">{{ $report->user->name ?? 'a' }}</td>
                         <td scope="row">{{  $report->description }}</td>
-                        <td scope="row" class="text-success">{{ $report->state == 'add' ? $report->amount:'0' }}
+                        <td scope="row" class="text-success">{{ $report->state ? $report->amount:'0' }}
                             @php
                             $add += $report->amount;
                             @endphp
                         </td>
-                        <td scope="row" class="text-danger">{{ $report->state != 'add' ? $report->amount:'0' }}</td>
+                        <td scope="row" class="text-danger">{{ !$report->state ? $report->amount:'0' }}</td>
                         <td scope="row">{{ $add }}</td>
                     </tr>
                     @endforeach
@@ -169,8 +169,8 @@
                         <td></td>
                         <td></td>
                         <td><b>Total</td>
-                        <td><b>{{ $reports->where('state','add')->sum('amount') }}</b></td>
-                        <td><b>{{ $reports->where('state','!=','add')->sum('amount') }}</b></td>
+                        <td><b>{{ $reports->where('state', true)->sum('amount') }}</b></td>
+                        <td><b>{{ $reports->where('state',false)->sum('amount') }}</b></td>
                         <td><b></b></td>
                     </tr>
                 </tbody>
@@ -195,6 +195,8 @@
                     <li>Every update will perfecly work with borrow at this time. </li>
                     <li>I will implement those to another section if worked properly.</li>
                     <li>Added - Registred User Approval by Admin</li>
+                    <li>Fixes - Payment year and bank payment errors</li>
+                    <li>Fixes - Dashboard overall report</li>
                     <li>For get update: <code>git pull</code></li>
                     <li>After get update: <code>php artisan migrate:fresh --seed</code></li>
                 </ol>
