@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2020 at 12:28 PM
+-- Generation Time: Nov 04, 2020 at 03:16 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -45,8 +45,35 @@ CREATE TABLE `accountants` (
 --
 
 INSERT INTO `accountants` (`id`, `user_id`, `start`, `end`, `sbalance`, `ebalance`, `balance`, `status`, `created_at`, `updated_at`) VALUES
-(1, 2, '2020-11-02', '2020-11-02', 100, 10000, 0, '0', '2020-11-02 04:35:03', '2020-11-02 04:35:42'),
-(2, 2, '2020-11-02', NULL, 10000, NULL, 0, '1', '2020-11-02 04:35:43', '2020-11-02 04:35:43');
+(1, 2, '2020-11-04', '2020-11-04', 100, 100, 0, '0', '2020-11-04 07:41:12', '2020-11-04 07:41:19'),
+(2, 3, '2020-11-04', NULL, 100, NULL, 100, '1', '2020-11-04 07:41:19', '2020-11-04 07:41:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `activity_log`
+--
+
+CREATE TABLE `activity_log` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `log_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subject_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `causer_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `causer_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `properties` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`properties`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `activity_log`
+--
+
+INSERT INTO `activity_log` (`id`, `log_name`, `description`, `subject_type`, `subject_id`, `causer_type`, `causer_id`, `properties`, `created_at`, `updated_at`) VALUES
+(1, 'default', 'updated', 'App\\Borrow', 100, 'App\\User', 1, '{\"attributes\":{\"amount\":547897,\"description\":\"This description update for checking activities log changes and the amount also\"},\"old\":{\"amount\":12000,\"description\":\"this is the description\"}}', '2020-11-03 12:24:25', '2020-11-03 12:24:25'),
+(2, 'default', 'deleted', 'App\\Borrow', 100, 'App\\User', 1, '{\"attributes\":{\"id\":100,\"user_id\":2,\"accountant_id\":2,\"entry_id\":1,\"amount\":547897,\"description\":\"This description update for checking activities log changes and the amount also\",\"deleted_at\":\"2020-11-03T19:18:30.000000Z\"}}', '2020-11-03 13:18:30', '2020-11-03 13:18:30');
 
 -- --------------------------------------------------------
 
@@ -75,7 +102,7 @@ CREATE TABLE `agreements` (
 --
 
 INSERT INTO `agreements` (`id`, `user_id`, `property_id`, `tent_id`, `duration`, `status`, `name`, `advance`, `yearly_percent`, `attachment`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, 1, '6m', 1, 'Shop Agreement', 50000, 10, 'agreement/i1LmX9kj8C3kFWmvyNWeW6RBjFKAl1TV2s8VZXsk.png', NULL, '2020-11-01 18:00:00', '2020-11-02 04:49:12');
+(1, 1, 1, 1, '6m', 1, 'Shop', 333, 10, 'agreement/og7c1ovlF8EnnslrCJ6eZ9yO9rCpuKiFKZTVVGMC.png', NULL, '2020-11-03 18:00:00', '2020-11-04 07:45:48');
 
 -- --------------------------------------------------------
 
@@ -85,8 +112,9 @@ INSERT INTO `agreements` (`id`, `user_id`, `property_id`, `tent_id`, `duration`,
 
 CREATE TABLE `borrows` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `accountant_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `accountant_id` int(11) NOT NULL,
+  `entry_id` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -98,8 +126,13 @@ CREATE TABLE `borrows` (
 -- Dumping data for table `borrows`
 --
 
-INSERT INTO `borrows` (`id`, `accountant_id`, `user_id`, `amount`, `description`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(100, 2, 2, 10000, 'abc', NULL, '2020-11-01 18:00:00', '2020-11-02 04:35:32');
+INSERT INTO `borrows` (`id`, `user_id`, `accountant_id`, `entry_id`, `amount`, `description`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(100, 2, 2, 1, 547897, 'This description update for checking activities log changes and the amount also', '2020-11-03 13:18:30', '2020-11-02 18:00:00', '2020-11-03 13:18:30'),
+(101, 2, 2, 1, 120047, 'asd', NULL, '2020-11-02 18:00:00', '2020-11-03 13:35:08'),
+(102, 2, 2, 1, 1000, 'jkbh', NULL, '2020-11-02 18:00:00', '2020-11-03 13:36:50'),
+(103, 2, 2, 1, 5000, 'kjiok', NULL, '2020-11-02 18:00:00', '2020-11-03 13:46:32'),
+(104, 2, 2, 1, 500, 'df', NULL, '2020-11-02 18:00:00', '2020-11-03 13:49:35'),
+(105, 2, 2, 1, 5454, 'dfg', NULL, '2020-11-02 18:00:00', '2020-11-03 13:56:47');
 
 -- --------------------------------------------------------
 
@@ -118,13 +151,6 @@ CREATE TABLE `expenses` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `expenses`
---
-
-INSERT INTO `expenses` (`id`, `type_id`, `user_id`, `invoice`, `description`, `amount`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(100, 2, 2, '1234566', 'f', 12000, NULL, '2020-11-01 18:00:00', '2020-11-02 04:59:47');
 
 -- --------------------------------------------------------
 
@@ -161,13 +187,6 @@ CREATE TABLE `loans` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `loans`
---
-
-INSERT INTO `loans` (`id`, `user_id`, `type`, `amount`, `return_amount`, `description`, `return_date`, `entry`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(100, 2, 'loan', 10000, 10000, 'a', '2020-11-20 00:00:00', 2, NULL, '2020-11-01 18:00:00', '2020-11-02 05:01:11');
-
 -- --------------------------------------------------------
 
 --
@@ -187,13 +206,6 @@ CREATE TABLE `loan_returns` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `loan_returns`
---
-
-INSERT INTO `loan_returns` (`id`, `user_id`, `loan_id`, `loancounter`, `type`, `amount`, `remain`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 2, 100, '100-1', 'return', 5000, 5000, 'sdf', '2020-11-01 18:00:00', '2020-11-02 05:10:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -228,7 +240,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (14, '2020_10_20_182046_create_wellparts_table', 1),
 (15, '2020_10_21_164010_create_loan_returns_table', 1),
 (16, '2020_10_21_171420_create_payment_returns_table', 1),
-(17, '2020_10_31_144225_create_accountants_table', 1);
+(17, '2020_10_31_144225_create_accountants_table', 1),
+(18, '2020_11_02_155322_create_activity_log_table', 1);
 
 -- --------------------------------------------------------
 
@@ -241,27 +254,6 @@ CREATE TABLE `model_has_permissions` (
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `model_has_permissions`
---
-
-INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
-(1, 'App\\User', 2),
-(2, 'App\\User', 2),
-(3, 'App\\User', 2),
-(4, 'App\\User', 2),
-(5, 'App\\User', 2),
-(6, 'App\\User', 2),
-(7, 'App\\User', 2),
-(8, 'App\\User', 2),
-(9, 'App\\User', 2),
-(10, 'App\\User', 2),
-(11, 'App\\User', 2),
-(12, 'App\\User', 2),
-(13, 'App\\User', 2),
-(14, 'App\\User', 2),
-(15, 'App\\User', 2);
 
 -- --------------------------------------------------------
 
@@ -329,7 +321,7 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`id`, `agreement_id`, `user_id`, `type`, `state`, `year`, `month`, `method`, `amount`, `tnxid`, `gst`, `bank`, `account`, `branch`, `cheque`, `attachment`, `description`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(100, 1, 2, 'rent', 'payment', 2020, '[\"1\",\"2\"]', 'cash', 700, '5f9fe495b145e', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-02 04:51:01', '2020-11-02 04:51:01');
+(100, 1, 1, 'rent', 'payment', 2015, '[\"9\",\"10\"]', 'bank', 1000, '5fa2b3bc7a801', NULL, 'NCB', 500, 'Balid', '45458465', 'cheque/ztW9SyS7DuLfhjOJHNfrF21HwAZn6EScxXPcX7tU.png', NULL, NULL, '2020-11-04 07:59:24', '2020-11-04 07:59:24');
 
 -- --------------------------------------------------------
 
@@ -368,21 +360,21 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'property manage', 'web', '2020-11-02 04:33:46', '2020-11-02 04:33:46'),
-(2, 'property view', 'web', '2020-11-02 04:33:46', '2020-11-02 04:33:46'),
-(3, 'tent manage', 'web', '2020-11-02 04:33:46', '2020-11-02 04:33:46'),
-(4, 'tent view', 'web', '2020-11-02 04:33:46', '2020-11-02 04:33:46'),
-(5, 'agreement manage', 'web', '2020-11-02 04:33:46', '2020-11-02 04:33:46'),
-(6, 'agreement view', 'web', '2020-11-02 04:33:47', '2020-11-02 04:33:47'),
-(7, 'borrow manage', 'web', '2020-11-02 04:33:47', '2020-11-02 04:33:47'),
-(8, 'borrow view', 'web', '2020-11-02 04:33:47', '2020-11-02 04:33:47'),
-(9, 'wellpart manage', 'web', '2020-11-02 04:33:47', '2020-11-02 04:33:47'),
-(10, 'wellpart view', 'web', '2020-11-02 04:33:47', '2020-11-02 04:33:47'),
-(11, 'expense manage', 'web', '2020-11-02 04:33:47', '2020-11-02 04:33:47'),
-(12, 'expense view', 'web', '2020-11-02 04:33:47', '2020-11-02 04:33:47'),
-(13, 'loan manage', 'web', '2020-11-02 04:33:47', '2020-11-02 04:33:47'),
-(14, 'loan view', 'web', '2020-11-02 04:33:47', '2020-11-02 04:33:47'),
-(15, 'user manage', 'web', '2020-11-02 04:33:47', '2020-11-02 04:33:47');
+(1, 'property manage', 'web', '2020-11-03 10:36:17', '2020-11-03 10:36:17'),
+(2, 'property view', 'web', '2020-11-03 10:36:17', '2020-11-03 10:36:17'),
+(3, 'tent manage', 'web', '2020-11-03 10:36:17', '2020-11-03 10:36:17'),
+(4, 'tent view', 'web', '2020-11-03 10:36:17', '2020-11-03 10:36:17'),
+(5, 'agreement manage', 'web', '2020-11-03 10:36:17', '2020-11-03 10:36:17'),
+(6, 'agreement view', 'web', '2020-11-03 10:36:17', '2020-11-03 10:36:17'),
+(7, 'borrow manage', 'web', '2020-11-03 10:36:17', '2020-11-03 10:36:17'),
+(8, 'borrow view', 'web', '2020-11-03 10:36:18', '2020-11-03 10:36:18'),
+(9, 'wellpart manage', 'web', '2020-11-03 10:36:18', '2020-11-03 10:36:18'),
+(10, 'wellpart view', 'web', '2020-11-03 10:36:18', '2020-11-03 10:36:18'),
+(11, 'expense manage', 'web', '2020-11-03 10:36:18', '2020-11-03 10:36:18'),
+(12, 'expense view', 'web', '2020-11-03 10:36:18', '2020-11-03 10:36:18'),
+(13, 'loan manage', 'web', '2020-11-03 10:36:18', '2020-11-03 10:36:18'),
+(14, 'loan view', 'web', '2020-11-03 10:36:18', '2020-11-03 10:36:18'),
+(15, 'user manage', 'web', '2020-11-03 10:36:18', '2020-11-03 10:36:18');
 
 -- --------------------------------------------------------
 
@@ -409,7 +401,7 @@ CREATE TABLE `properties` (
 --
 
 INSERT INTO `properties` (`id`, `type_id`, `name`, `rate`, `district`, `street`, `city`, `country`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Super', 1000, 'Dhaka', 'Ashulia', 'dhaka', 'Bangladesh', NULL, '2020-11-01 18:00:00', '2020-11-02 04:45:40');
+(1, 1, 'Super', 1000, 'Dhaka', 'Ashulia', 'dhaka', 'Bangladesh', NULL, '2020-11-03 18:00:00', '2020-11-04 07:43:47');
 
 -- --------------------------------------------------------
 
@@ -430,9 +422,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'user', 'web', '2020-11-02 04:33:47', '2020-11-02 04:33:47'),
-(2, 'admin', 'web', '2020-11-02 04:33:48', '2020-11-02 04:33:48'),
-(3, 'super-admin', 'web', '2020-11-02 04:33:48', '2020-11-02 04:33:48');
+(1, 'user', 'web', '2020-11-03 10:36:19', '2020-11-03 10:36:19'),
+(2, 'admin', 'web', '2020-11-03 10:36:19', '2020-11-03 10:36:19'),
+(3, 'super-admin', 'web', '2020-11-03 10:36:19', '2020-11-03 10:36:19');
 
 -- --------------------------------------------------------
 
@@ -485,7 +477,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `name`, `whatsnew`, `created_at`, `updated_at`) VALUES
-(1, 'Admin Panel', 1, '2020-11-02 04:33:50', '2020-11-02 04:33:50');
+(1, 'Admin Panel', 0, '2020-11-03 10:36:22', '2020-11-03 14:29:01');
 
 -- --------------------------------------------------------
 
@@ -535,7 +527,7 @@ CREATE TABLE `tents` (
 --
 
 INSERT INTO `tents` (`id`, `fname`, `lname`, `cnic`, `cnica`, `address`, `city`, `country`, `contact1`, `contact2`, `contact3`, `g1_fname`, `g1_lname`, `g1_cnic`, `g1_cnica`, `g1_address`, `g1_city`, `g1_country`, `g1_contact1`, `g1_contact2`, `g1_contact3`, `g2_fname`, `g2_lname`, `g2_cnic`, `g2_cnica`, `g2_address`, `g2_city`, `g2_country`, `g2_contact1`, `g2_contact2`, `g2_contact3`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'abc', 'def', '1234567891234', NULL, 'Ashulia', 'dhaka', 'Bangladesh', '111', NULL, NULL, 'dsg', 'tghy', '123456', NULL, 'Ashulia', 'dhaka', 'Bangladesh', '111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-02 04:48:03', '2020-11-02 04:48:03');
+(1, 'Super', 'Khan', '1234567891234', NULL, 'Ashulia', 'dhaka', 'Bangladesh', '111', NULL, NULL, 'Super', 'Emon', '54445', NULL, 'Ashulia', 'dhaka', 'Bangladesh', '111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-11-04 07:44:12', '2020-11-04 07:44:12');
 
 -- --------------------------------------------------------
 
@@ -557,8 +549,7 @@ CREATE TABLE `types` (
 --
 
 INSERT INTO `types` (`id`, `name`, `type`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Shop', 'property', NULL, '2020-11-02 04:41:53', '2020-11-02 04:41:53'),
-(2, 'expense type', 'expense', NULL, '2020-11-02 04:59:31', '2020-11-02 04:59:31');
+(1, 'Shop', 'property', NULL, '2020-11-04 07:43:31', '2020-11-04 07:43:31');
 
 -- --------------------------------------------------------
 
@@ -583,8 +574,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `wallet`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 0, 'Super Admin', 'admin@mail.com', NULL, '$2y$10$v4na.RWh8ceYZYQqnqdALeiNPzJugk4CQYV6x7MIwJ1ziMXN0dJdO', NULL, '2020-11-02 04:33:49', '2020-11-02 04:33:49'),
-(2, 0, 'Simple User', 'user@mail.com', NULL, '$2y$10$tibleTY.WQZKCpFxvuI5ZOgc0GoM8W/3ej.L9lksINlzYF9xcM2gu', NULL, '2020-11-02 04:33:50', '2020-11-02 04:33:50');
+(1, 0, 'Super Admin', 'admin@mail.com', '2020-11-04 13:31:34', '$2y$10$uYzg.fnInPtgWPGh23/3QuQ3FXvPWWJ8BMAjwiGgb6eGyh4NanKs2', NULL, '2020-11-03 10:36:21', '2020-11-04 07:29:49'),
+(2, 0, 'Simple User', 'user@mail.com', '2020-11-04 13:06:52', '$2y$10$iOyotz29txA7GXvVKJmXfOWZX1IbUXhb8GgA41mW7TkgZ2oWqD0O.', NULL, '2020-11-03 10:36:22', '2020-11-03 10:36:22'),
+(3, 0, 'Emon', 'bdemon00@gmail.com', '2020-11-04 07:33:46', '$2y$10$WSScIWn10SquJ1Sh4NGEjuoL.O/mhJXAhA7BxOF8mWeaflIVSHrwW', NULL, '2020-11-04 04:14:35', '2020-11-04 07:33:46');
 
 -- --------------------------------------------------------
 
@@ -604,13 +596,6 @@ CREATE TABLE `wellparts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `wellparts`
---
-
-INSERT INTO `wellparts` (`id`, `user_id`, `amount`, `entry`, `description`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(100, 2, 5000, 'Simple User', 'abc', NULL, '2020-11-01 18:00:00', '2020-11-02 04:57:49');
-
---
 -- Indexes for dumped tables
 --
 
@@ -619,6 +604,15 @@ INSERT INTO `wellparts` (`id`, `user_id`, `amount`, `entry`, `description`, `del
 --
 ALTER TABLE `accountants`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `activity_log`
+--
+ALTER TABLE `activity_log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subject` (`subject_type`,`subject_id`),
+  ADD KEY `causer` (`causer_type`,`causer_id`),
+  ADD KEY `activity_log_log_name_index` (`log_name`);
 
 --
 -- Indexes for table `agreements`
@@ -761,6 +755,12 @@ ALTER TABLE `accountants`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `activity_log`
+--
+ALTER TABLE `activity_log`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `agreements`
 --
 ALTER TABLE `agreements`
@@ -770,13 +770,13 @@ ALTER TABLE `agreements`
 -- AUTO_INCREMENT for table `borrows`
 --
 ALTER TABLE `borrows`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -788,19 +788,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `loans`
 --
 ALTER TABLE `loans`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `loan_returns`
 --
 ALTER TABLE `loan_returns`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -848,19 +848,19 @@ ALTER TABLE `tents`
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `wellparts`
 --
 ALTER TABLE `wellparts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
