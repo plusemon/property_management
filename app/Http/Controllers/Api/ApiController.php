@@ -96,7 +96,7 @@ class ApiController extends Controller
         $payment = Payment::findOrFail($request->payment);
         $data['paid'] = $payment->amount;
         $data['for'] = $payment->type;
-        $data['method'] = $payment->method;
+        $data['wallet'] = $payment->agreement->wallet ?? 0;
         if($data){
             return response()->json($data);
         }

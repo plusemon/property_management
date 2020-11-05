@@ -51,7 +51,9 @@
                                         <td>{{ $payment->id }}</td>
                                         <td>{{ $payment->created_at->format('d-m-y') }}</td>
                                         <td>
-                                        <a class="badge badge-light" href="{{ route('tent.show', $payment->agreement->tent->id ) }}" target="_blank">{{ $payment->agreement->tent->fname." ".$payment->agreement->tent->lname }}</a>
+                                            <a class="badge badge-light"
+                                                href="{{ route('tent.show', $payment->agreement->tent->id ) }}"
+                                                target="_blank">{{ $payment->agreement->tent->fname." ".$payment->agreement->tent->lname }}</a>
                                         </td>
                                         <td>{{ $payment->agreement->property->name }}</td>
                                         <td>{{ $payment->type }}</td>
@@ -60,7 +62,9 @@
                                         <td>{{ $payment->tnxid }}</td>
 
                                         <td class="text-right">
-                                            <button class="btn badge badge-secondary" onclick="window.open('{{ route('payment.show',$payment->id)}}', '_blank')"><i class="fas fa-eye"></i> View</button>
+                                            <button class="btn badge badge-secondary"
+                                                onclick="window.open('{{ route('payment.show',$payment->id)}}', '_blank')"><i
+                                                    class="fas fa-eye"></i> View</button>
 
                                             {{-- <a href="{{ route('payment.edit', $payment->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
@@ -69,11 +73,11 @@
                                                 class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a> --}}
 
                                             {{-- <form class="d-inline" action="{{route('payment.destroy', $payment->id)}}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i
-                                                        class="fas fa-trash-alt"></i></button>
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"><i
+                                                    class="fas fa-trash-alt"></i></button>
                                             </form> --}}
                                         </td>
                                     </tr>
@@ -114,19 +118,19 @@
                                         <td class="text-danger">{{ $refund->amount }}</td>
                                         <td>{{ $refund->description }}</td>
                                         {{-- <td class="text-right"> --}}
-                                            {{-- <a href="{{ route('refund.edit', $refund->id)}}"
-                                            class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
+                                        {{-- <a href="{{ route('refund.edit', $refund->id)}}"
+                                        class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a> --}}
 
-                                            {{-- <a href="#" data-toggle="modal" data-target="#details"
+                                        {{-- <a href="#" data-toggle="modal" data-target="#details"
                                                 class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
 
                                             <form class="d-inline" action="{{route('payment.destroy', $payment->id)}}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"><i
-                                                        class="fas fa-trash-alt"></i></button>
-                                            </form>
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger"><i
+                                                class="fas fa-trash-alt"></i></button>
+                                        </form>
                                         </td> --}}
                                     </tr>
                                     @endforeach
@@ -347,68 +351,110 @@
             {{-- Refund --}}
             <div class="tab-pane fade" id="refund" role="tabpanel" aria-labelledby="refund">
                 <div class="card-body">
-                    <form action="{{ route('refund.store') }}" method="POST">
+                    <form action="{{ route('refund.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
 
-                        <div class="form-group col-md-3">
-                            <label class="col-form-label">Payment #</label>
-                            <select name="payment_id" id="payment_id" class="form-control">
-                                <option value="">Select</option>
-                                @foreach (App\Payment::all() as $payment)
-                                <option value="{{ $payment->id }}">{{ $payment->id }}</option>
-                                @endforeach
-                            </select>
+                            <div class="form-group col-md-3">
+                                <label class="col-form-label">Payment #</label>
+                                <select name="payment_id" id="payment_id" class="form-control" required>
+                                    <option value="">Select</option>
+                                    @foreach (App\Payment::all() as $payment)
+                                    <option value="{{ $payment->id }}">{{ $payment->id }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="col-form-label">Paid</label>
+                                <input id="paid" class="form-control" disabled>
+                                <input type="hidden" name="paid" id="paid2">
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="col-form-label">For</label>
+                                <input id="for" class="form-control" disabled>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="col-form-label">Wallet balance</label>
+                                <input id="by" class="form-control" disabled>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label class="col-form-label">Return Amount</label>
+                                <input name="amount" type="number" class="form-control"
+                                    onkeyup="word3.innerHTML=toWord(this.value)" autocomplete required>
+                                <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
+                                        id="word3"></span></div>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="col-form-label">Payment Method</label>
+                                <select class="form-control" name="method" id="method2" required>
+                                    <option value="cash">Cash</option>
+                                    <option value="bank">Bank</option>
+                                    <option value="wallet">Wallet/Advance</option>
+                                </select>
+                            </div>
+                        </div>
+                        {{-- Bank Row --}}
+                        <div id="bank-row2">
+                            <div class="row">
+                                <div class="form-group col-md">
+                                    <label class="col-form-label">Bank Name</label>
+                                    <input name="bank" type="text" class="form-control">
+                                </div>
+
+                                <div class="form-group col-md">
+                                    <label class="col-form-label">Bank A/C</label>
+                                    <input name="account" type="number" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md">
+                                    <label class="col-form-label">Branch</label>
+                                    <input name="branch" type="text" class="form-control">
+                                </div>
+
+                                <div class="form-group col-md">
+                                    <label class="col-form-label">Cheque No</label>
+                                    <input name="cheque" type="text" class="form-control">
+                                </div>
+
+                                <div class="form-group col-md">
+                                    <label class="col-form-label">Cheque scan copy</label>
+                                    <input name="attachment" type="file" class="form-control">
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group col-md-3">
-                            <label class="col-form-label">Paid</label>
-                            <input id="paid" class="form-control" disabled>
-                        </div>
+                        <div class="row">
 
-                        <div class="form-group col-md-3">
-                            <label class="col-form-label">For</label>
-                            <input id="for" class="form-control" disabled>
-                        </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-form-label">Description</label>
+                                <textarea name="description" class="form-control" id="" cols="15" rows="5"></textarea>
+                            </div>
 
-                        <div class="form-group col-md-3">
-                            <label class="col-form-label">method</label>
-                            <input id="by" class="form-control" disabled>
+                            <div class="form-group col-md-4">
+                                <label class="col-form-label">Date</label>
+                                <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}"
+                                    required>
+                            </div>
+                            <div class="form-group  col-md-4">
+                                <label class="col-form-label">Refund by</label>
+                                <input name="entry" type="text" class="form-control" value="{{ Auth::user()->name }}"
+                                    disabled>
+                            </div>
                         </div>
-
-                        <div class="form-group col-md-12">
-                            <label class="col-form-label">Return Amount</label>
-                            <input name="amount" type="number" class="form-control"
-                                onkeyup="word3.innerHTML=toWord(this.value)" autocomplete required>
-                            <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
-                                    id="word3"></span></div>
+                        <div class="form-group text-right mt-4">
+                            <button type="submit" class="btn btn-primary rounded">Refund</button>
                         </div>
-
-
-                        <div class="form-group col-md-12">
-                            <label class="col-form-label">Description</label>
-                            <textarea name="description" class="form-control" id="" cols="15" rows="5"></textarea>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label class="col-form-label">Date</label>
-                            <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}"
-                                required>
-                        </div>
-                        <div class="form-group  col-md-4">
-                            <label class="col-form-label">Refund by</label>
-                            <input name="entry" type="text" class="form-control" value="{{ Auth::user()->name }}"
-                                disabled>
-                        </div>
-                    </div>
-                    <div class="form-group text-right mt-4">
-                        <button type="submit" class="btn btn-primary rounded">Refund</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 
@@ -427,6 +473,8 @@
         $('#gst').slideUp();
         $('#bank-row').fadeOut();
         $('#wallet').fadeOut();
+        // Refund
+        $('#bank-row2').fadeOut();
     })
     // Get and show agreement information - payment
     $('#agreements').on('change', function() {
@@ -449,20 +497,12 @@
     });
     // type for rent show month list
     $('#pay-type').on('change', function() {
-        // $('#payment-info').slideDown();
         var type = $(this).val();
         if ( type == 'rent' || type == 'bill' ) {
             $('#rent-row').slideDown();
         }else{
             $('#rent-row').slideUp();
         }
-
-        // {{-- if (type != 'wallet') {
-        //     $('#payment-info').fadeIn();
-        // }else{
-        //     $('#payment-info').fadeOut();
-        // }
-        // --}}
 
     });
 
@@ -510,16 +550,28 @@
             dataType: 'json',
             success: function (data,status) {
                 $('#paid').val(data.paid);
+                $('#paid2').val(data.paid);
                 $('#for').val(data.for);
-                $('#by').val(data.method);
+                $('#by').val(data.wallet);
             },
             error: function () {
                 toastr.warning('No payments found');
                 $('#paid').val('');
+                $('#paid2').val('');
                 $('#for').val('');
                 $('#by').val('');
             }
         });
+    });
+
+    $('#method2').on('change', function() {
+        var method = $(this).val();
+        if (method == 'bank') {
+            $('#bank-row2').fadeIn();
+        }else{
+            $('#bank-row2').fadeOut();
+        }
+
     });
 
 </script>

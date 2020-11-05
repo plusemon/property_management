@@ -19,6 +19,14 @@ class CreatePaymentReturnsTable extends Migration
             $table->integer('user_id');
             $table->string('type')->default('return');
             $table->integer('amount');
+            $table->string('method');
+
+            $table->string('bank')->nullable();
+            $table->integer('account')->nullable();
+            $table->string('branch')->nullable();
+            $table->string('cheque')->nullable();
+            $table->string('attachment')->nullable();
+
             $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();

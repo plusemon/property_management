@@ -39,11 +39,12 @@ class PaymentReturnController extends Controller
     {
         $request->validate([
             'payment_id' => 'required|integer',
-            'amount' => 'required|integer|gt:0',
+            'amount' => 'required|integer|lte:paid',
+            'method' => 'required',
         ]);
 
         if (!Payment::find($request->payment_id)) {
-            return redirect()->back()->with('info','Payment not found');
+            return redirect()->back()->with('info', 'Payment not found');
         }
 
         $refund = new PaymentReturn();
@@ -51,9 +52,38 @@ class PaymentReturnController extends Controller
         $refund->user_id = Auth::id();
         $refund->amount = $request->amount;
         $refund->description = $request->description;
+        $refund->method = $request->method;
+
+        if ($request->method == 'bank') {
+            $request->validate([
+                'bank' => 'required|string',
+                'account' => 'required|integer',
+                'branch' => 'required|string',
+                'cheque' => 'required|string',
+            ]);
+
+            $refund->bank = $request->bank;
+            $refund->account = $request->account;
+            $refund->branch = $request->branch;
+            $refund->cheque = $request->cheque;
+            $refund->attachment = $request->attachment;
+        }
+        elseif ($request->method == 'wallet') {
+
+            $agreement = Payment::findOrFail($request->payment_id)->agreement;
+
+            if ($agreement->wallet >= $request->amount) {
+                $agreement->wallet -= $request->amount;
+            }
+            else{
+                return redirect()->back()->with('info', 'Amount should not be greater then the wallet balace');
+            }
+
+            $agreement->save();
+        }
+
         $refund->save();
         return redirect()->back()->with('success', 'Payment Refund Successfull');
-
     }
 
     /**
