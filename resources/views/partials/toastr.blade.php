@@ -1,14 +1,12 @@
 {{-- Toastr Notification Alert --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
-
     // Global errors Notifications
     @if ($errors->any())
         @foreach ($errors->all() as $error)
         toastr["error"]("{{ $error }}")
         @endforeach
     @endif
-
 
     // Custom Notifications
     @if(Session::has('success'))

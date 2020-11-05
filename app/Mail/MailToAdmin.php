@@ -7,15 +7,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class AddUserByAdminNotify extends Mailable
+class MailToAdmin extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public $data;
 
-    public function __construct($user = null)
+    public function __construct($request)
     {
-        $this->user = $user;
+        $this->data = $request;
     }
 
     /**
@@ -25,6 +25,6 @@ class AddUserByAdminNotify extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.welcome');
+        return $this->from($this->data->email)->markdown('emails.to-admin');
     }
 }

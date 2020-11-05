@@ -9,12 +9,27 @@
             <div class="card-body">
                 <section class="mb-4">
                     <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
-                    <p class="text-center w-responsive mx-auto mb-5 h5">Do you have any questions? Please do not hesitate to
+                    <p class="text-center w-responsive mx-auto mb-5 h5">Do you have any questions? Please do not
+                        hesitate to
                         contact us directly. Our team will come back to you within
                         a matter of hours to help you.</p>
 
-                    <div class="row">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    @if (Session::has('success'))
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
+                    </div>
+                    @endif
 
+                    <div class="row">
                         <div class="col-md-9 mb-md-0 mb-5">
                             <form action="{{route('contact.admin')}}" method="POST">
                                 @csrf
