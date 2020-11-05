@@ -350,11 +350,7 @@
                     <form action="{{ route('refund.store') }}" method="POST">
                         @csrf
                         <div class="row">
-                            {{-- <div class="form-group col-md-2">
-                                <label class="col-form-label">Serial No. </label>
-                                <input type="number" name="serial" value="{{ $id = App\Return::nextId() }}"
-                            class="form-control" {{ $id ? 'disabled':'' }}>
-                            </div> --}}
+
                         <div class="form-group col-md-3">
                             <label class="col-form-label">Payment #</label>
                             <select name="payment_id" id="payment_id" class="form-control">
@@ -459,6 +455,12 @@
             $('#rent-row').slideDown();
         }else{
             $('#rent-row').slideUp();
+        }
+
+        if (type != 'advance') {
+            $('#payment-info').fadeIn();
+        }else{
+            $('#payment-info').fadeOut();
         }
     });
 

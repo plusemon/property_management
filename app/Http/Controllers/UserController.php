@@ -17,6 +17,7 @@ use App\Mail\NewRegistredUserMail;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Mail\AddUserByAdminNotify;
+use App\Mail\RegUserAdminNotify;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
@@ -50,7 +51,7 @@ class UserController extends Controller
         ]);
 
         if ($user) {
-            Mail::to($user->email)->send(new NewRegistredUserMail);
+            Mail::to($user->email)->send(new RegUserAdminNotify());
         }
 
         return redirect()->back()->with('success', 'Added succefully and a mail has been sent to the user');
