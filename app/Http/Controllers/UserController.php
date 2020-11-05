@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Loan;
+use App\Type;
 use App\User;
 use App\Borrow;
 use App\Expense;
@@ -12,12 +13,14 @@ use App\LoanReturn;
 use App\PaymentReturn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Mail\NewRegistredUserMail;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
-use App\Type;
-use Illuminate\Database\Eloquent\Collection;
+use App\Mail\AddUserByAdminNotify;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserController extends Controller
 {
@@ -30,7 +33,6 @@ class UserController extends Controller
 
     public function create()
     {
-
     }
 
     public function store(Request $request)
@@ -42,12 +44,16 @@ class UserController extends Controller
         ]);
 
         $user = User::create([
-        'name' => $request['name'],
-        'email' => $request['email'],
-        'password' => Hash::make($request['password']),
-       ]);
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
 
-        return redirect()->back()->with('success', 'Added Succefully');
+        if ($user) {
+            Mail::to($user->email)->send(new NewRegistredUserMail);
+        }
+
+        return redirect()->back()->with('success', 'Added succefully and a mail has been sent to the user');
     }
 
     public function show(User $user)
@@ -59,7 +65,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $permissions = Permission::all();
-        return view('user.edit', compact('user','roles','permissions'));
+        return view('user.edit', compact('user', 'roles', 'permissions'));
     }
 
     public function update(Request $request, User $user)
@@ -69,11 +75,14 @@ class UserController extends Controller
         if ($request->has('status')) {
             if ($user->email_verified_at) {
                 $user->email_verified_at = null;
-            }else{
+            } else {
                 $user->email_verified_at = now();
+                if ($user) {
+                    Mail::to($user->email)->send(new AddUserByAdminNotify($user));
+                }
             }
             $user->save();
-           return redirect()->back()->with('success','User status updated');
+            return redirect()->back()->with('success', 'User status updated and Notified the user');
         }
 
         // FOR UPDATE A USER INFORMATION
@@ -107,73 +116,72 @@ class UserController extends Controller
     public function report(Request $request)
     {
         $data = new Collection();
-            $expenses = Expense::all()->each(function ($data) {
-                $data->type = 'Expense';
-            });
+        $expenses = Expense::all()->each(function ($data) {
+            $data->type = 'Expense';
+        });
 
-            $borrows = Borrow::all()->each(function ($data) {
-                $data->type = 'Borrow';
-            });
+        $borrows = Borrow::all()->each(function ($data) {
+            $data->type = 'Borrow';
+        });
 
-            $loans = Loan::all()->each(function ($data) {
-                $data->type = 'Loan';
-            });
+        $loans = Loan::all()->each(function ($data) {
+            $data->type = 'Loan';
+        });
 
-            $loanReturns = LoanReturn::all()->each(function ($data) {
-                $data->type = 'Loan Return';
-                $data->state = true;
-            });
+        $loanReturns = LoanReturn::all()->each(function ($data) {
+            $data->type = 'Loan Return';
+            $data->state = true;
+        });
 
-            $wellparts = Wellpart::all()->each(function ($data) {
-                $data->type = 'Well Part';
-            });
+        $wellparts = Wellpart::all()->each(function ($data) {
+            $data->type = 'Well Part';
+        });
 
-            $payments = Payment::all()->each(function ($data) {
-                $data->type = 'Payment';
-                $data->state = true;
-            });
+        $payments = Payment::all()->each(function ($data) {
+            $data->type = 'Payment';
+            $data->state = true;
+        });
 
-            $paymentRefunds = PaymentReturn::all()->each(function ($data) {
-                $data->type = 'Payment Return';
-            });
+        $paymentRefunds = PaymentReturn::all()->each(function ($data) {
+            $data->type = 'Payment Return';
+        });
 
-            if ($request->expense) {
-               $data = $data->mergeRecursive($expenses);
-            }
-            if ($request->borrow) {
-               $data = $data->mergeRecursive($borrows);
-            }
-            if ($request->loan) {
-               $data = $data->mergeRecursive($loans);
-            }
-            if ($request->return) {
-               $data = $data->mergeRecursive($loanReturns);
-            }
-            if ($request->wellpart) {
-               $data = $data->mergeRecursive($wellparts);
-            }
-            if ($request->payment) {
-               $data = $data->mergeRecursive($payments);
-            }
-            if ($request->refund) {
-               $data = $data->mergeRecursive($paymentRefunds);
-            }
+        if ($request->expense) {
+            $data = $data->mergeRecursive($expenses);
+        }
+        if ($request->borrow) {
+            $data = $data->mergeRecursive($borrows);
+        }
+        if ($request->loan) {
+            $data = $data->mergeRecursive($loans);
+        }
+        if ($request->return) {
+            $data = $data->mergeRecursive($loanReturns);
+        }
+        if ($request->wellpart) {
+            $data = $data->mergeRecursive($wellparts);
+        }
+        if ($request->payment) {
+            $data = $data->mergeRecursive($payments);
+        }
+        if ($request->refund) {
+            $data = $data->mergeRecursive($paymentRefunds);
+        }
 
-            if ($request->filled('user_id')) {
-                $data = $data->where('user_id', $request->user_id);
-            }
+        if ($request->filled('user_id')) {
+            $data = $data->where('user_id', $request->user_id);
+        }
 
-            if ($request->filled('from')) {
-                $data = $data->where('created_at', '>=', $request->from);
-            }
-            if ($request->filled('to')) {
-                $data = $data->where('created_at', '<=', Carbon::createFromFormat('Y-m-d', $request->to)->addDays(1));
-            }
+        if ($request->filled('from')) {
+            $data = $data->where('created_at', '>=', $request->from);
+        }
+        if ($request->filled('to')) {
+            $data = $data->where('created_at', '<=', Carbon::createFromFormat('Y-m-d', $request->to)->addDays(1));
+        }
 
-            $reports = $data->sortBy('updated_at');
+        $reports = $data->sortBy('updated_at');
 
 
         return view('report.index', compact('reports'));
     }
-
 }

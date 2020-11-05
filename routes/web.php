@@ -1,6 +1,8 @@
 <?php
 
+use App\Mail\NewRegistredUserMail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
