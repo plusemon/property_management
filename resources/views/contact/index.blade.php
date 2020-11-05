@@ -9,10 +9,7 @@
             <div class="card-body">
                 <section class="mb-4">
                     <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
-                    <p class="text-center w-responsive mx-auto mb-5 h5">Do you have any questions? Please do not
-                        hesitate to
-                        contact us directly. Our team will come back to you within
-                        a matter of hours to help you.</p>
+                    <p class="text-center w-responsive mx-auto mb-5 h5">Get in touch</p>
 
                     @if ($errors->any())
                     <div class="alert alert-danger">
@@ -30,7 +27,7 @@
                     @endif
 
                     <div class="row">
-                        <div class="col-md-9 mb-md-0 mb-5">
+                        <div class="col-md-12 mb-md-0 mb-5">
                             <form action="{{route('contact.admin')}}" method="POST">
                                 @csrf
                                 <div class="row">
@@ -79,7 +76,7 @@
                             </form>
                         </div>
 
-                        <div class="col-md-3 text-center">
+                        {{-- <div class="col-md-3 text-center">
                             <ul class="list-unstyled mb-0">
                                 <li><i class="fas fa-map-marker-alt fa-2x"></i>
                                     <p>San Francisco, CA 94126, USA</p>
@@ -93,7 +90,7 @@
                                     <p>contact@mdbootstrap.com</p>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
 
                     </div>
 

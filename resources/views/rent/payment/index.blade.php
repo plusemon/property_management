@@ -193,8 +193,9 @@
                                 <select class="form-control" name="type" id="pay-type" required>
                                     <option value="">Select</option>
                                     <option value="rent">Rent</option>
-                                    <option value="modification">Modification or damage or paint</option>
                                     <option value="bill">Utility Bills</option>
+                                    <option value="modification">Modification or damage or paint</option>
+                                    <option value="advance">Advance</option>
                                     <option value="security">Security Deposit</option>
                                 </select>
                             </div>
@@ -416,28 +417,6 @@
 
 
 
-<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="detailsLabel">Detailed Information</h5>
-                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </a>
-            </div>
-            <div class="modal-body">
-                Another information will show here
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
-                {{-- <a href="#" class="btn btn-primary">Save changes</a> --}}
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 
 @endsection
 
@@ -476,10 +455,10 @@
     $('#pay-type').on('change', function() {
         // $('#payment-info').slideDown();
         var type = $(this).val();
-        if ( type == 'security' || type == 'modification' ) {
-            $('#rent-row').slideUp();
-        }else{
+        if ( type == 'rent' || type == 'bill' ) {
             $('#rent-row').slideDown();
+        }else{
+            $('#rent-row').slideUp();
         }
     });
 
