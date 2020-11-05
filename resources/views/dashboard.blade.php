@@ -192,11 +192,9 @@
             </div>
             <div class="modal-body">
                 <ol>
-                    <li>Every update will perfecly work with borrow at this time. </li>
-                    <li>I will implement those to another section if worked properly.</li>
-                    <li>Added - Registred User Approval by Admin</li>
-                    <li>Fixes - Payment year and bank payment errors</li>
-                    <li>Fixes - Dashboard overall report</li>
+                    <li>If signup a user, admin will notify by email and can approve the user</li>
+                    <li>If signup by a super admin, it will auto approve and user will get notifiyed</li>
+                    <li>Contact Section Added</li>
                     <li>For get update: <code>git pull</code></li>
                     <li>After get update: <code>php artisan migrate:fresh --seed</code></li>
                 </ol>
