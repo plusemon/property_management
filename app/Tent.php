@@ -4,11 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Tent extends Model
 {
 
-    use SoftDeletes;
+    use SoftDeletes, LogsActivity;
 
+    protected static $logAttributes = ['*'];
+    protected static $logAttributesToIgnore = ['email_verified_at','created_at','updated_at','deleted_at'];
+    protected static $logOnlyDirty = true;
+    protected static $recordEvents = ['created','updated','deleted'];
 
 }

@@ -12,13 +12,6 @@ class Borrow extends Model
 
     protected $guarded = [];
 
-    protected static $logAttributes = ['*'];
-    protected static $logAttributesToIgnore = ['created_at','updated_at'];
-    protected static $logOnlyDirty = true;
-    protected static $recordEvents = ['updated','deleted'];
-
-
-
     public static function nextId(int $increment = 1 )
     {
         if (parent::withTrashed()->count()) {
@@ -40,4 +33,10 @@ class Borrow extends Model
     {
         return $this->belongsTo(User::class,'entry_id');
     }
+
+    protected static $logAttributes = ['*'];
+    protected static $logAttributesToIgnore = ['email_verified_at','created_at','updated_at','deleted_at'];
+    protected static $logOnlyDirty = true;
+    protected static $recordEvents = ['created','updated','deleted'];
+
 }

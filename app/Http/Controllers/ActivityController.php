@@ -10,7 +10,7 @@ class ActivityController extends Controller
     public function index()
     {
     //    return Activity::all()->first()->subject_type;
-        $activities = Activity::all();
+        $activities = Activity::latest()->get();
         return view('activity.index',compact('activities'));
     }
 

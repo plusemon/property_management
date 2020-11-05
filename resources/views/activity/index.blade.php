@@ -26,7 +26,7 @@
                         <td>{{ $activity->created_at->format('d-m-Y h:s A') }}</td>
                         <td>{{ trim($activity->subject_type,"App\\") }}</td>
                         <td>{{ $activity->subject_id }}</td>
-                        <td><span class="badge badge-{{  $activity->description == 'updated' ? 'info':'danger' }}">{{ $activity->description }}</span></td>
+                        <td><span class="badge badge-{{ $activity->description == 'updated' ? 'info': ($activity->description == 'deleted' ? 'danger':'success') }}">{{ $activity->description }}</span></td>
                         <td>{{ $activity->causer->name }}</td>
                         <td><button onclick="window.open('{{ route('activity.show',$activity->id) }}', '_blank')" class="btn btn-sm btn-rounded btn-dark">Show</button></td>
                     </tr>

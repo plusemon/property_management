@@ -7,10 +7,11 @@ use App\User;
 use App\Property;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Agreement extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, LogsActivity;
 
     public function property()
     {
@@ -31,4 +32,12 @@ class Agreement extends Model
     {
        return $this->hasMany(Payment::class);
     }
+
+
+
+    protected static $logAttributes = ['*'];
+    protected static $logAttributesToIgnore = ['email_verified_at','created_at','updated_at','deleted_at'];
+    protected static $logOnlyDirty = true;
+    protected static $recordEvents = ['created','updated','deleted'];
+
 }
