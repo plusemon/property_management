@@ -126,6 +126,7 @@
     <div class="card col-12">
         <h5 class="card-header">Over All Reports</h5>
         <div class="card-body">
+            @if ($reports)
             <table class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
@@ -142,8 +143,8 @@
                 </thead>
                 <tbody>
                     @php
-                    $i = 1;
-                    $add = 0;
+                        $i = 1;
+                        $add = 0;
                     @endphp
                     @foreach ($reports as $report)
                     <tr>
@@ -153,12 +154,12 @@
                         <td scope="row">{{ $report->type }}</td>
                         <td scope="row">{{ $report->user->name ?? 'a' }}</td>
                         <td scope="row">{{  $report->description }}</td>
-                        <td scope="row" class="text-success">{{ $report->state ? $report->amount:'0' }}
+                        <td scope="row" class="text-success">{{ $report->state == 'add' ? $report->amount:'0' }}
                             @php
-                            $add += $report->amount;
+                               $add += $report->amount;
                             @endphp
                         </td>
-                        <td scope="row" class="text-danger">{{ !$report->state ? $report->amount:'0' }}</td>
+                        <td scope="row" class="text-danger">{{ $report->state != 'add' ? $report->amount:'0' }}</td>
                         <td scope="row">{{ $add }}</td>
                     </tr>
                     @endforeach
@@ -169,12 +170,13 @@
                         <td></td>
                         <td></td>
                         <td><b>Total</td>
-                        <td><b>{{ $reports->where('state', true)->sum('amount') }}</b></td>
-                        <td><b>{{ $reports->where('state',false)->sum('amount') }}</b></td>
+                        <td><b>{{ $reports->where('state','add')->sum('amount') }}</b></td>
+                        <td><b>{{ $reports->where('state','!=','add')->sum('amount') }}</b></td>
                         <td><b></b></td>
                     </tr>
                 </tbody>
             </table>
+            @endif
         </div>
     </div>
 </div>
