@@ -14,6 +14,7 @@ class DefaultAdminSeeder extends Seeder
         User::create([
             'name' => 'Super Admin',
             'email' => 'admin@mail.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('admin')
         ])->assignRole('super-admin');
 
@@ -21,6 +22,7 @@ class DefaultAdminSeeder extends Seeder
         User::create([
             'name' => 'Simple User',
             'email' => 'user@mail.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('user')
         ])->assignRole('user');
 

@@ -81,7 +81,7 @@
     </div>
 
         <!-- Bootstrap core JavaScript-->
-        <script src="{{ asset('public/dashboard/vendor/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('public/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{asset('public')}}/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+        <script src="{{asset('public')}}/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 </body>
 </html>
