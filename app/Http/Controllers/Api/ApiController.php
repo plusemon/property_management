@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Loan;
-use App\User;
 use App\Payment;
 use App\Property;
 use App\Agreement;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,17 +28,20 @@ class ApiController extends Controller
     {
         if($request->has('agreement')){
             $agreement = Agreement::find($request->agreement);
-            // $paid = [];
-            // foreach ($agreement->payments as $payment) {
-            //    $paid[] += $payment->month;
-            // }
-            // return $paid;
+
             $data = [];
             $data['type'] = $agreement->property->type->name ?? 'Deleted';
             $data['property'] = $agreement->property->name;
             $data['tent'] = $agreement->tent->fname.' '.$agreement->tent->lname;
             $data['rent'] = $agreement->property->rate;
-            // $data['paid'] = $paid;
+            $data['incr'] = $agreement->yearly_percent;
+            $data['start'] = $agreement->created_at->diffForHumans();
+
+            $data['duration'] = $agreement->duration;
+            $data['left'] = $agreement->duration - $agreement->created_at->diffInMonths(now());
+
+
+
             if($data){
                 return response()->json($data);
             }

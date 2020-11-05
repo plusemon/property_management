@@ -49,6 +49,7 @@ class ExpenseController extends Controller
         $loan = new Expense();
         $loan->id = $request->serial;
         $loan->type_id = $request->type_id;
+        $loan->taker_id = $request->taker_id;
         $loan->user_id = Auth::id();
         $loan->invoice = $request->invoice;
         $loan->amount = $request->amount;
@@ -56,7 +57,7 @@ class ExpenseController extends Controller
         $loan->created_at = $request->created_at;
         $loan->save();
 
-        return redirect()->back()->with('success', 'Oparation Successfull');
+        return redirect()->back()->with('success', 'Added Successfull');
     }
 
     /**

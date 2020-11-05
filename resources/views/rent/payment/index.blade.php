@@ -185,9 +185,31 @@
                                 <input id="tent" type="text" class="form-control" disabled>
                             </div>
                             <div class="form-group col-3">
-                                <label class="col-form-label">Rent(Montly)</label>
+                                <label class="col-form-label">Rent</label>
                                 <input id="rent" type="text" class="form-control" disabled>
                             </div>
+
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Yearly Inc. Rate</label>
+                                <input id="incr" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Period</label>
+                                <input id="duration" type="text" class="form-control" disabled>
+                            </div>
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Started</label>
+                                <input id="start" type="text" class="form-control" disabled>
+                            </div>
+
+                            <div class="form-group col-3">
+                                <label class="col-form-label">Period Left</label>
+                                <input id="left" type="text" class="form-control" disabled>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-danger" id="incr-alert">
+                            Rent will be increase <span id="incr2"></span>% when this period is over.
                         </div>
 
                         <div class="row">
@@ -473,6 +495,8 @@
         $('#gst').slideUp();
         $('#bank-row').fadeOut();
         $('#wallet').fadeOut();
+
+        $('#incr-alert').fadeOut();
         // Refund
         $('#bank-row2').fadeOut();
     })
@@ -487,11 +511,22 @@
             success: function (data,status) {
                 $('#pay-for').slideDown();
                 $('#agreement-info').slideDown();
+
                 $('#type').val(data.type);
                 $('#property').val(data.property);
                 $('#tent').val(data.tent);
                 $('#rent').val(data.rent);
                 $('#amount').val(data.rent);
+
+                $('#incr').val(data.incr +'%');
+                $('#incr2').html(data.incr);
+                $('#start').val(data.start);
+                $('#duration').val(data.duration +' months');
+                $('#left').val(data.left +' months');
+
+                if (data.left < 3) {
+                    $('#incr-alert').fadeIn();
+                }
             }
         });
     });

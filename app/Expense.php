@@ -28,6 +28,11 @@ class Expense extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function taker()
+    {
+        return $this->belongsTo(User::class,'taker_id');
+    }
+
     protected static $logAttributes = ['*'];
     protected static $logAttributesToIgnore = ['email_verified_at', 'created_at', 'updated_at', 'deleted_at'];
     protected static $logOnlyDirty = true;

@@ -33,6 +33,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Type</th>
+                                    <th scope="col">Taker</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Invoice</th>
                                     <th scope="col">Description</th>
@@ -47,6 +48,7 @@
                                     <td scope="row">{{ $expense->id }}</td>
                                     <td scope="row">{{ $expense->created_at->format('d-m-Y') }}</td>
                                     <td scope="row">{{ $expense->type->name}}</td>
+                                    <td scope="row">{{ $expense->taker->name}}</td>
                                     <td scope="row" class="text-danger">{{ $expense->amount }}</td>
                                     <td scope="row">{{ $expense->invoice}}</td>
                                     <td scope="row">{{ $expense->description }}</td>
@@ -94,6 +96,14 @@
                                     <select name="type_id" class="form-control" required>
                                         @foreach ($types as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-md">
+                                    <label class="col-form-label">Taker</label>
+                                    <select name="taker_id" class="form-control" required>
+                                        @foreach (App\User::all() as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
