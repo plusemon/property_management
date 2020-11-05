@@ -104,22 +104,24 @@
                     </li>
                     @endcanany
 
-                    @hasanyrole('super-admin|admin')
+                    @can('roport view')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('report.index') }}"><i class="fas fa-newspaper"></i>
                             Reports</a>
-                        </li>
+                    </li>
+                    @endcan
 
+                    @hasanyrole('super-admin|admin')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('activity') }}"><i class="fas fa-pencil-alt"></i>Activity Log</a>
                     </li>
                     @endhasanyrole
 
-                    {{-- @role('user') --}}
+                    @unlessrole('super-admin')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('contact.admin') }}"><i class="fas fa-phone"></i> Contact</a>
                         </li>
-                    {{-- @endrole --}}
+                    @endunlessrole
 
                     @hasanyrole('super-admin|admin')
                     <li class="nav-item">

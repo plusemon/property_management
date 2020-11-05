@@ -22,6 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('properties', 'ApiController@properties');
 Route::get('agreement-info', 'ApiController@agreementInfo');
 Route::get('payment-status', 'ApiController@paymentMonthStatus');
-Route::get('balance', 'ApiController@walletBalance');
+Route::get('wallet', 'ApiController@walletBalance');
 Route::get('loan-info', 'ApiController@loanInfo');
 Route::get('payment-info', 'ApiController@paymentInfo');

@@ -41,6 +41,7 @@ class RolesPermissionSeeder extends Seeder
         Permission::create(['name' => 'loan manage']);
         Permission::create(['name' => 'loan view']);
 
+        Permission::create(['name' => 'report view']);
         Permission::create(['name' => 'user manage']);
 
         // create roles

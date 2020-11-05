@@ -111,12 +111,6 @@
                         @csrf
                         <div class="row">
 
-                            {{-- <div class="form-group col-md">
-                                <label class="col-form-label">Serial No. </label>
-                                <input type="hidden" name="serial" value="{{ $id = App\Agreement::nextId() }}">
-                            <input value="{{ $id }}" class="form-control" disabled>
-                        </div> --}}
-
                         <div class="form-group col-md">
                             <label class="col-form-label">Agreement Name</label>
                             <input name="name" type="text" class="form-control" required>
@@ -178,12 +172,12 @@
                     <div class="col-md form-group">
                         <label class="col-form-label">Duration</label>
                         <select name="duration" id="" class="form-control">
-                            <option value="6m">6 Months</option>
-                            <option value="1y">1 Year</option>
-                            <option value="2y">2 Years</option>
-                            <option value="3y">1 Years</option>
-                            <option value="4y">1 Years</option>
-                            <option value="5y">1 Years</option>
+                            <option value="6">6 Months</option>
+                            <option value="12">1 Year</option>
+                            <option value="24">2 Years</option>
+                            <option value="36">3 Years</option>
+                            <option value="48">4 Years</option>
+                            <option value="60">5 Years</option>
 
                         </select>
                     </div>

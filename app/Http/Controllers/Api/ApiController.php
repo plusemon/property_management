@@ -70,7 +70,7 @@ class ApiController extends Controller
     // GET WALLET BALANCE
     public function walletBalance(Request $request)
     {
-       return $data = User::find($request->user)->wallet;
+       return $data = Agreement::find($request->agreement)->wallet;
         if($data){
             return response()->json($data);
         }

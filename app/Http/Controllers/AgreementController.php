@@ -34,7 +34,7 @@ class AgreementController extends Controller
         // $agreement->id = $request->serial;
         $agreement->name = $request->name;
         $agreement->user_id = Auth::id();
-        $agreement->status = 0;
+        $agreement->status = 1;
         $agreement->duration = $request->duration;
         $agreement->property_id = $request->property_id;
         $agreement->tent_id = $request->tent_id;

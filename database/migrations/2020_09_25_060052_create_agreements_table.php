@@ -22,6 +22,7 @@ class CreateAgreementsTable extends Migration
             $table->boolean('status')->default(0);
             $table->string('name');
             $table->integer('advance');
+            $table->integer('wallet')->default(0);
             $table->integer('yearly_percent');
             $table->string('attachment');
             $table->softDeletes();

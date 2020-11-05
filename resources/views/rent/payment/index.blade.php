@@ -195,7 +195,7 @@
                                     <option value="rent">Rent</option>
                                     <option value="bill">Utility Bills</option>
                                     <option value="modification">Modification or damage or paint</option>
-                                    <option value="advance">Advance</option>
+                                    <option value="wallet">Wallet / Advance</option>
                                     <option value="security">Security Deposit</option>
                                 </select>
                             </div>
@@ -457,11 +457,13 @@
             $('#rent-row').slideUp();
         }
 
-        if (type != 'advance') {
-            $('#payment-info').fadeIn();
-        }else{
-            $('#payment-info').fadeOut();
-        }
+        // {{-- if (type != 'wallet') {
+        //     $('#payment-info').fadeIn();
+        // }else{
+        //     $('#payment-info').fadeOut();
+        // }
+        // --}}
+
     });
 
     // show related field by method
@@ -476,7 +478,8 @@
 
         if (method == 'wallet') {
             $('#wallet').fadeIn();
-            var url = '{{ url('api/balance'.'?user='.Auth::id()) }}';
+            var agreement =  $('#agreements').val();
+            var url = "{{ url('api/wallet') }}?agreement="+agreement;
             $.ajax({
             type: "GET",
             url: url,

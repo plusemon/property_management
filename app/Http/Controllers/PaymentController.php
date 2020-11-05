@@ -21,8 +21,9 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
-        // return $request;
-        // PAYMENT
+
+        $agreement = Agreement::findOrFail($request->agreement_id);
+
         $payment = new Payment();
         $payment->id = $request->serial;
         $payment->agreement_id = $request->agreement_id;
@@ -51,13 +52,17 @@ class PaymentController extends Controller
             $this->bankPayment( $request, $payment );
         }
         elseif ($request->method == 'wallet') {
-            if (Auth::user()->wallet >= $request->amount) {
-                $user = Auth::user();
-                $user->wallet -= $request->amount;
-                $user->save();
+            if ($agreement->wallet >= $request->amount) {
+                $agreement->wallet -= $request->amount;
+                $agreement->save();
             } else {
                 return redirect()->back()->with('warning', 'Dont have enough balace in wallet');
             }
+        }
+
+        if ($request->type == 'wallet') {
+            $agreement->wallet += $request->amount;
+            $agreement->save();
         }
 
 
@@ -108,8 +113,7 @@ class PaymentController extends Controller
 
     public function rentPayment($request, $payment)
     {
-        // rent payment
-        $request->validate([
+      return $request->validate([
             "agreement_id" => "required|integer",
             "type" => "required|string",
             "year" => "required|integer",
