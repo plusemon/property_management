@@ -15,6 +15,9 @@ Route::get('/home', function () {
     return redirect(route('dashboard'));
 });
 
+Route::get('contact', 'ContactController@index')->name('contact.admin');
+    Route::post('contact', 'ContactController@store');
+
 
 Route::group(['middleware' => ['auth','verified']], function () {
 
@@ -44,6 +47,7 @@ Route::group(['middleware' => ['auth','verified']], function () {
     Route::resource('accountant', 'AccountantController');
     Route::get('activity', 'ActivityController@index')->name('activity');
     Route::get('activity/{activity}', 'ActivityController@show')->name('activity.show');
+
 
 
 });

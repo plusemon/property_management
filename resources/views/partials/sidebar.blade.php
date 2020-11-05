@@ -115,11 +115,11 @@
                     </li>
                     @endhasanyrole
 
-                    @role('user')
+                    {{-- @role('user') --}}
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="alert('Suggest me what will give here')">Contact</a>
+                        <a class="nav-link" href="{{ route('contact.admin') }}"><i class="fas fa-phone"></i> Contact</a>
                         </li>
-                    @endrole
+                    {{-- @endrole --}}
 
                     @hasanyrole('super-admin|admin')
                     <li class="nav-item">
