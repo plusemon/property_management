@@ -13,7 +13,6 @@ use App\LoanReturn;
 use App\PaymentReturn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use App\Mail\NewRegistredUserMail;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Mail\AddUserByAdminNotify;

@@ -7,14 +7,16 @@ use App\User;
 use App\Borrow;
 use App\Expense;
 use App\Payment;
+use App\Wellpart;
 use App\LoanReturn;
 use App\PaymentReturn;
-use App\Wellpart;
+use Illuminate\Database\Eloquent\Collection;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+        $data = new Collection();
         $expenses = Expense::all()->each(function ($data) {
             $data->type = 'Expense';
         });
@@ -29,7 +31,7 @@ class DashboardController extends Controller
 
         $loanReturns = LoanReturn::all()->each(function ($data) {
             $data->type = 'Loan Return';
-            $data->state = 'add';
+            $data->state = true;
         });
 
         $wellparts = Wellpart::all()->each(function ($data) {
@@ -38,20 +40,34 @@ class DashboardController extends Controller
 
         $payments = Payment::all()->each(function ($data) {
             $data->type = 'Payment';
+            $data->state = true;
         });
 
         $paymentRefunds = PaymentReturn::all()->each(function ($data) {
             $data->type = 'Payment Return';
-            $data->state = 'add';
         });
 
-        $data = $expenses
-            ->mergeRecursive($borrows)
-            ->mergeRecursive($loans)
-            ->mergeRecursive($loanReturns)
-            ->mergeRecursive($wellparts)
-            ->mergeRecursive($payments)
-            ->mergeRecursive($paymentRefunds);
+        // if ($request->expense) {
+            $data = $data->mergeRecursive($expenses);
+        // }
+        // if ($request->borrow) {
+            $data = $data->mergeRecursive($borrows);
+        // }
+        // if ($request->loan) {
+            $data = $data->mergeRecursive($loans);
+        // }
+        // if ($request->return) {
+            $data = $data->mergeRecursive($loanReturns);
+        // }
+        // if ($request->wellpart) {
+            $data = $data->mergeRecursive($wellparts);
+        // }
+        // if ($request->payment) {
+            $data = $data->mergeRecursive($payments);
+        // }/
+        // if ($request->refund) {
+            $data = $data->mergeRecursive($paymentRefunds);
+        // }
 
         $reports = $data->sortBy('updated_at');
 
