@@ -48,7 +48,7 @@
                                         <td>{{$borrow->amount}}</td>
                                         @role('super-admin')
                                         <td class="text-right">
-                                        <a href="#" onclick="window.open('{{ route('activity',['borrow', $property->id]) }}', '_blank')" class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
+                                        <a href="#" onclick="window.open('{{ route('activity',['borrow', $borrow->id]) }}', '_blank')" class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
                                         <a href="{{ route('borrow.edit', $borrow->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form class="d-inline" action="{{route('borrow.destroy', $borrow->id)}}"
