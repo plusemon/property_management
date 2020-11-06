@@ -190,7 +190,7 @@
                             </div>
 
                             <div class="form-group col-3">
-                                <label class="col-form-label">Yearly Inc. Rate</label>
+                                <label class="col-form-label"> Increment Rate</label>
                                 <input id="incr" type="text" class="form-control" disabled>
                             </div>
                             <div class="form-group col-3">

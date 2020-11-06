@@ -150,11 +150,6 @@
                                     <a class="nav-link" href="{{ route('setting.index') }}">Bacup
                                         & Restore</a>
                                 </li> --}}
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('setting.index') }}">Settings</a>
-                                </li>
-                               <br><br>
                             </ul>
                         </div>
                     </li>
