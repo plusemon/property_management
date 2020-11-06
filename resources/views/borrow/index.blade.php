@@ -48,7 +48,8 @@
                                         <td>{{$borrow->amount}}</td>
                                         @role('super-admin')
                                         <td class="text-right">
-                                            <a href="{{ route('borrow.edit', $borrow->id)}}"
+                                        <a href="#" onclick="window.open('{{ route('activity',['borrow', $property->id]) }}', '_blank')" class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
+                                        <a href="{{ route('borrow.edit', $borrow->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form class="d-inline" action="{{route('borrow.destroy', $borrow->id)}}"
                                                 method="POST">
@@ -103,7 +104,7 @@
 
                             <div class="form-group">
                                 <label for="textarea">Description</label>
-                                <textarea name="description" class="form-control" rows="3" required></textarea>
+                                <textarea name="description" class="form-control" rows="3"></textarea>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-3">
@@ -124,8 +125,6 @@
                             <div class="form-group text-right mt-4">
                                 <button type="submit" class="btn btn-primary">Add Borrow</button>
                             </div>
-
-
 
                         </form>
                     </div>

@@ -102,7 +102,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="textarea">Description</label>
-                                <textarea name="description" class="form-control" rows="3" required></textarea>
+                                <textarea name="description" class="form-control" rows="3"></textarea>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-3">

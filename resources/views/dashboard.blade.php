@@ -216,12 +216,12 @@
 
 
 @section('scripts')
-<script>
-    var whatsnew = {{ App\Setting::first()->whatsnew ?? '' }};
-    $(document).ready(function() {
-       if (whatsnew) {
-            $('#updateModal').modal();
-        }
-    });
-</script>
+{{-- <script>
+    // var whatsnew = {{ App\Setting::first()->whatsnew ?? '' }};
+    // $(document).ready(function() {
+    //    if (whatsnew) {
+    //         $('#updateModal').modal();
+    //     }
+    // });
+</script> --}}
 @endsection

@@ -42,7 +42,7 @@
                                     <div class="col-md-6">
                                         <div class="md-form mb-2">
                                             <label for="email" class="">Your email</label>
-                                            <input type="text" id="email" name="email" class="form-control">
+                                            <input type="text" id="email" name="email" value="{{ Auth::user()->email ?? '' }}" class="form-control">
                                         </div>
                                     </div>
 

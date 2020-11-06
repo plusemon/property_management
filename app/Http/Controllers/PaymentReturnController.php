@@ -50,7 +50,9 @@ class PaymentReturnController extends Controller
 
         $refund = new PaymentReturn();
         $refund->payment_id = $request->payment_id;
-        $refund->accountant_id = Accountant::active()->id;
+        if (!($refund->accountant_id = Accountant::active())) {
+            return redirect(route('accountant.index'))->with('info','Set an accountant first');
+        }
         $refund->entry_id = Auth::id();
         $refund->amount = $request->amount;
         $refund->description = $request->description;

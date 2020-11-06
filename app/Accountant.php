@@ -13,7 +13,7 @@ class Accountant extends Model
 
     public static function active()
     {
-        return self::where('status', 1)->first();
+        return self::whereStatus(1)->first();
     }
 
     public function user()

@@ -45,11 +45,11 @@ class LoanReturnController extends Controller
         ]);
 
         // check if request loan found or not
-        if (!Loan::find($request->loan_id)) {
+        if (!(Loan::find($request->loan_id))) {
             return redirect()->back()->with('info','Loan not found');
         }
 
-        $return = new LoanReturn();
+            $return = new LoanReturn();
 
             // find or fail get loan
             $loan = Loan::findOrFail($request->loan_id);
@@ -76,7 +76,9 @@ class LoanReturnController extends Controller
             }
 
             $return->loan_id = $request->loan_id;
-            $return->accountant_id = Accountant::active()->id;
+            if (!($return->accountant_id = Accountant::active())) {
+                return redirect(route('accountant.index'))->with('info','Set an accountant first');
+            }
             $return->entry_id = Auth::id();
         $return->amount = $request->amount;
         $return->description = $request->description;

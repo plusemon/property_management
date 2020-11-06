@@ -42,13 +42,14 @@ class WellpartController extends Controller
         $request->validate([
             'user_id' => 'required|integer',
             'amount' => 'required|integer|gt:0',
-            'description' => 'required',
         ]);
 
         $wellpart = new Wellpart();
         $wellpart->id = $request->serial;
         $wellpart->user_id = $request->user_id;
-        $wellpart->accountant_id = Accountant::active()->id;
+        if (!($wellpart->accountant_id = Accountant::active())) {
+            return redirect(route('accountant.index'))->with('info','Set an accountant first');
+        }
         $wellpart->entry_id = Auth::id();
         $wellpart->amount = $request->amount;
         $wellpart->description = $request->description;
