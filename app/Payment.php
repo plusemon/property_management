@@ -29,9 +29,9 @@ class Payment extends Model
         return $this->hasMany(PaymentReturn::class);
     }
 
-    public function user()
+    public function entry()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'entry_id');
     }
 
     protected $casts = [

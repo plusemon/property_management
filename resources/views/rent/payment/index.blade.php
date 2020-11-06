@@ -356,6 +356,11 @@
                                     class="form-control">
                             </div>
 
+                            <div class="form-group col-md">
+                                <label class="col-form-label">Accountant</label>
+                                <input  class="form-control" value="{{ App\Accountant::get()->user->name ?? 'Not set' }}" disabled>
+                            </div>
+
                             <div class="col-md form-group">
                                 <label class="col-form-label">Entry by</label>
                                 <input value="{{ Auth::user()->name }}" class="form-control" disabled>
@@ -463,10 +468,13 @@
                                 <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}"
                                     required>
                             </div>
+                            <div class="form-group col-md">
+                                <label class="col-form-label">Accountant</label>
+                                <input class="form-control" value="{{ App\Accountant::get()->user->name ?? 'Not set' }}" disabled>
+                            </div>
                             <div class="form-group  col-md-4">
-                                <label class="col-form-label">Refund by</label>
-                                <input name="entry" type="text" class="form-control" value="{{ Auth::user()->name }}"
-                                    disabled>
+                                <label class="col-form-label">Entry by</label>
+                                <input type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
                             </div>
                         </div>
                         <div class="form-group text-right mt-4">

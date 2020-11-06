@@ -24,9 +24,9 @@ class PaymentReturn extends Model
     }
 
 
-    public function user()
+    public function entry()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'entry_id');
     }
 
     protected static $logAttributes = ['*'];

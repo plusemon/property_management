@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Payment;
+use App\Accountant;
 use App\PaymentReturn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +50,8 @@ class PaymentReturnController extends Controller
 
         $refund = new PaymentReturn();
         $refund->payment_id = $request->payment_id;
-        $refund->user_id = Auth::id();
+        $refund->accountant_id = Accountant::get()->user->id;
+        $refund->entry_id = Auth::id();
         $refund->amount = $request->amount;
         $refund->description = $request->description;
         $refund->method = $request->method;

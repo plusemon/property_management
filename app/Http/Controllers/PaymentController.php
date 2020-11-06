@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Payment;
 use App\Agreement;
+use App\Accountant;
 use App\PaymentReturn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,8 @@ class PaymentController extends Controller
         $payment = new Payment();
         $payment->id = $request->serial;
         $payment->agreement_id = $request->agreement_id;
-        $payment->user_id = auth()->id();
+        $payment->accountant_id = Accountant::get()->user->id;
+        $payment->entry_id = Auth::id();
         $payment->type = $request->type;
         $payment->state = 'payment';
         $payment->amount = $request->amount;
