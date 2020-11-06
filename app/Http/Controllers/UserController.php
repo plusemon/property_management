@@ -180,8 +180,6 @@ class UserController extends Controller
         }
 
         $reports = $data->sortBy('updated_at');
-
-
         return view('report.index', compact('reports'));
     }
 }

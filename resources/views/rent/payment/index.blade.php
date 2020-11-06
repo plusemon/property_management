@@ -415,7 +415,7 @@
                                 <select class="form-control" name="method" id="method2" required>
                                     <option value="cash">Cash</option>
                                     <option value="bank">Bank</option>
-                                    <option value="wallet">Wallet/Advance</option>
+                                    {{-- <option value="wallet">Wallet/Advance</option> --}}
                                 </select>
                             </div>
                         </div>
