@@ -12,6 +12,14 @@ class Property extends Model
 
     use SoftDeletes, LogsActivity;
 
+    protected static $logName = 'property';
+    protected static $recordEvents = ['updated'];
+    protected static $logAttributes = ['*','type.name'];
+    protected static $logAttributesToIgnore = ['updated_at','created_at','type_id'];
+    protected static $logOnlyDirty = true;
+    protected static $submitEmptyLogs = false;
+
+
     public function type()
     {
         return $this->belongsTo(Type::class);
@@ -21,10 +29,4 @@ class Property extends Model
     {
         return $this->hasMany(Agreement::class);
     }
-
-
-    protected static $logAttributes = ['*'];
-    protected static $logAttributesToIgnore = ['email_verified_at','created_at','updated_at','deleted_at'];
-    protected static $logOnlyDirty = true;
-    protected static $recordEvents = ['created','updated','deleted'];
 }

@@ -111,11 +111,11 @@
                     </li>
                     @endcan
 
-                    @hasanyrole('super-admin|admin')
+                    {{-- @hasanyrole('super-admin|admin')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('activity') }}"><i class="fas fa-pencil-alt"></i>Activity Log</a>
                     </li>
-                    @endhasanyrole
+                    @endhasanyrole --}}
 
                     @unlessrole('super-admin')
                     <li class="nav-item">

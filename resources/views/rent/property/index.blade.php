@@ -29,7 +29,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Properties</th>
+                                    <th scope="col">Property</th>
                                     <th scope="col">Type</th>
                                     <th scope="col">District</th>
                                     <th scope="col">City</th>
@@ -52,6 +52,7 @@
                                     <td class="{{ $property->agreements->count() ? 'text-success':'text-danger' }}">{{ $property->agreements->count() ? 'Occupied':'Vacant' }}</td>
                                     @role('super-admin')
                                     <td class="text-right">
+                                        <a href="#" onclick="window.open('{{ route('activity',['property', $property->id]) }}', '_blank')" class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
                                         <a href="{{ route('property.edit', $property->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                         <form class="d-inline" action="{{route('property.destroy', $property->id)}}"
