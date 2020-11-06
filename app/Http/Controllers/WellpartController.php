@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Accountant;
 use App\User;
 use App\Wellpart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WellpartController extends Controller
 {
@@ -46,9 +48,10 @@ class WellpartController extends Controller
         $wellpart = new Wellpart();
         $wellpart->id = $request->serial;
         $wellpart->user_id = $request->user_id;
+        $wellpart->accountant_id = Accountant::get()->user->id;
+        $wellpart->entry_id = Auth::id();
         $wellpart->amount = $request->amount;
         $wellpart->description = $request->description;
-        $wellpart->entry = $request->entry;
         $wellpart->created_at = $request->created_at;
         $wellpart->save();
         return redirect()->back()->with('success','Added Successfully');

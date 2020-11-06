@@ -27,4 +27,14 @@ class Wellpart extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function accountant()
+    {
+        return $this->belongsTo(User::class,'accountant_id');
+    }
+    public function entry()
+    {
+        return $this->belongsTo(User::class,'entry_id');
+    }
+
 }

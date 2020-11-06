@@ -56,10 +56,6 @@ class BorrowController extends Controller
         $borrow->created_at = $request->created_at;
         $borrow->save();
 
-        $accountant = Accountant::get();
-        $accountant->balance += $request->amount;
-        $accountant->save();
-
         return redirect()->back()->with('success','Added Successfully');
     }
 

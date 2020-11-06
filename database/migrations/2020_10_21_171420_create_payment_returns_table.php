@@ -16,6 +16,7 @@ class CreatePaymentReturnsTable extends Migration
         Schema::create('payment_returns', function (Blueprint $table) {
             $table->id();
             $table->integer('payment_id');
+            $table->integer('accountant_id');
             $table->integer('entry_id');
             $table->string('type')->default('return');
             $table->integer('amount');

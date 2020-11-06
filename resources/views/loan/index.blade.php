@@ -54,7 +54,7 @@
                                     {{-- <td scope="row">{{ $loan->return_date ? $loan->return_date->format('d-m-Y'):'' }}
                                     --}}
                                     {{-- <td scope="row">{{ $loan->created_at->format('d-m-Y') }}</td> --}}
-                                    <td scope="row">{{ $loan->user->name }}</td>
+                                    <td scope="row">{{ $loan->taker->name }}</td>
                                     <td scope="row">{{ $loan->amount }}</td>
                                     <td scope="row" class="text-danger">{{ $loan->return_amount ?? '' }}</td>
                                     {{-- <td scope="row" class="text-danger">{{ ($loan->return_amount)-($loan->returns->sum('amount')) }}
@@ -101,7 +101,7 @@
                                 <tr>
 
                                     <td scope="row">{{ $return->loancounter }}</td>
-                                    <td scope="row">{{ $return->user->name }}</td>
+                                    <td scope="row">{{ $return->loan->taker->name }}</td>
                                     <td scope="row" class="text-success">{{ $return->amount }}</td>
                                     <td scope="row" class="text-danger">{{ $return->remain }}</td>
                                     <td scope="row">{{ $return->loan->amount }}</td>
@@ -132,12 +132,12 @@
                             @csrf
                             <div class="row">
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label class="col-form-label">Serial No. </label>
                                     <input type="number" name="serial" value="{{ $id = App\Loan::nextId() }}"
                                         class="form-control" {{ $id ? 'disabled':'' }}>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label class="col-form-label">Loan Taker</label>
                                     <select name="user_id" class="form-control" required>
                                         @foreach (App\User::all() as $user)
@@ -146,16 +146,11 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-3">
-                                    <label class="col-form-label">Entry Date</label>
-                                    <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}"
-                                        required>
-                                </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label class="col-form-label">Loan Return Date</label>
                                     <input name="return_date" type="date" class="form-control" required>
                                 </div>
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label class="col-form-label">Amount</label>
                                     <input name="amount" type="number" class="form-control"
                                         onkeyup="word.innerHTML=toWord(this.value)" autocomplete required>
@@ -163,7 +158,7 @@
                                             id="word"></span></div>
                                 </div>
 
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <label class="col-form-label">Return Amount</label>
                                     <input name="return_amount" type="number" class="form-control"
                                         onkeyup="word2.innerHTML=toWord(this.value)" autocomplete required>
@@ -176,13 +171,23 @@
                                     <textarea name="description" class="form-control" id="" cols="15"
                                         rows="5"></textarea>
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label class="col-form-label">Entry Date</label>
+                                    <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}"
+                                        required>
+                                </div>
 
-
+                                <div class="form-group col-md-4">
+                                    <label class="col-form-label">Accountant</label>
+                                    <input name="accountant_id" class="form-control"
+                                        value="{{ App\Accountant::get()->user->name ?? 'Not set' }}" disabled>
+                                </div>
                                 <div class="form-group  col-md-4">
                                     <label class="col-form-label">Entry by</label>
                                     <input name="entry" type="text" class="form-control"
                                         value="{{ Auth::user()->name }}" disabled>
                                 </div>
+
                             </div>
                             <div class="form-group text-right mt-4">
                                 <button type="submit" class="btn btn-primary">Enter</button>
@@ -242,6 +247,11 @@
                                     <label class="col-form-label">Entry Date</label>
                                     <input name="created_at" type="date" class="form-control" value="{{date('Y-m-d')}}"
                                         required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="col-form-label">Accountant</label>
+                                    <input name="accountant_id" class="form-control"
+                                        value="{{ App\Accountant::get()->user->name ?? 'Not set' }}" disabled>
                                 </div>
                                 <div class="form-group  col-md-4">
                                     <label class="col-form-label">Entry by</label>

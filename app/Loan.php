@@ -23,9 +23,14 @@ class Loan extends Model
         return $this->hasMany(LoanReturn::class);
     }
 
-    public function user()
+    public function taker()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'taker_id');
+    }
+
+    public function accountant()
+    {
+        return $this->belongsTo(User::class,'accountant_id');
     }
 
     protected $casts = [

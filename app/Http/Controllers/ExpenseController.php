@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Accountant;
 use App\Expense;
 use App\Type;
 use Illuminate\Http\Request;
@@ -50,7 +51,9 @@ class ExpenseController extends Controller
         $loan->id = $request->serial;
         $loan->type_id = $request->type_id;
         $loan->taker_id = $request->taker_id;
-        $loan->user_id = Auth::id();
+        $loan->accountant_id = Accountant::get()->user->id;
+        $loan->entry_id = Auth::id();
+
         $loan->invoice = $request->invoice;
         $loan->amount = $request->amount;
         $loan->description = $request->description;

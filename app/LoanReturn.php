@@ -23,9 +23,14 @@ class LoanReturn extends Model
         return $this->belongsTo(Loan::class);
     }
 
-    public function user()
+    public function entry()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'entry_id');
+    }
+
+    public function accountant()
+    {
+        return $this->belongsTo(User::class,'accountant_id');
     }
 
     protected static $logAttributes = ['*'];

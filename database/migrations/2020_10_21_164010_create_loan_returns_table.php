@@ -16,8 +16,9 @@ class CreateLoanReturnsTable extends Migration
         Schema::create('loan_returns', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('user_id');
             $table->integer('loan_id');
+            $table->integer('accountant_id');
+            $table->integer('entry_id');
             $table->string('loancounter');
             $table->string('type')->default('return');
             $table->integer('amount');

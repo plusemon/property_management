@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Accountant;
 use App\Loan;
 use App\LoanReturn;
 use App\User;
@@ -32,14 +33,14 @@ class LoanController extends Controller
 
         $loan = new Loan();
         $loan->id = $request->serial;
-        // $loan->type = $request->type;
-        $loan->user_id = $request->user_id;
+        $loan->taker_id = $request->user_id;
+        $loan->accountant_id = Accountant::get()->user->id;
+        $loan->entry_id = Auth::id();
         $loan->description = $request->description;
         $loan->amount = $request->amount;
         $loan->return_amount = $request->return_amount;
         $loan->return_date = $request->return_date;
         $loan->created_at = $request->created_at;
-        $loan->entry = Auth::id();
         $loan->save();
         return redirect()->back()->with('success', 'Oparation Successfull');
     }

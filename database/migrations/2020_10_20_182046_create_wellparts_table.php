@@ -16,8 +16,9 @@ class CreateWellpartsTable extends Migration
         Schema::create('wellparts', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->integer('accountant_id');
+            $table->integer('entry_id');
             $table->integer('amount');
-            $table->string('entry');
             $table->string('description')->nullable();
             $table->softDeletes();
             $table->timestamps();

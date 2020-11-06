@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Accountant;
 use App\Loan;
 use App\LoanReturn;
 use Illuminate\Http\Request;
@@ -52,7 +53,6 @@ class LoanReturnController extends Controller
 
             // find or fail get loan
             $loan = Loan::findOrFail($request->loan_id);
-
             $return->remain = ($loan->return_amount)-($loan->returns->sum('amount'));
 
             // check if loan completed
@@ -75,8 +75,9 @@ class LoanReturnController extends Controller
                 $return->remain = ($return->remain) - ($request->amount);
             }
 
-        $return->user_id = Auth::id();
-        $return->loan_id = $request->loan_id;
+            $return->loan_id = $request->loan_id;
+            $return->accountant_id = Accountant::get()->user->id;
+            $return->entry_id = Auth::id();
         $return->amount = $request->amount;
         $return->description = $request->description;
         $return->created_at = $request->created_at;
