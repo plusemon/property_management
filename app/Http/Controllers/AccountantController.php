@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Accountant;
+use App\Payment;
 use Illuminate\Http\Request;
 
 class AccountantController extends Controller
@@ -15,8 +16,10 @@ class AccountantController extends Controller
     public function index()
     {
         $accountants = Accountant::all();
-        $actived = $accountants->where('status',1)->first();
-        return view('accountant.index',compact('accountants','actived'));
+        $active = $accountants->where('status',1)->first();
+        $balance = $active ? Accountant::balance($active->id):0;
+
+        return view('accountant.index', compact('accountants','active','balance'));
     }
 
     /**
@@ -38,18 +41,13 @@ class AccountantController extends Controller
     public function store(Request $request)
     {
 
-    //     // check if alredy assigned the requested user
-    //    if ($request->user_id == Accountant::get()->user_id) {
-
-    //    }
-
-       $actived = Accountant::where('status',1)->first();
-        if ($actived) {
-            $actived->status = 0;
-            $actived->end = today();
-            $actived->ebalance = $actived->balance;
-            $actived->balance = 0;
-            $actived->save();
+       $active = Accountant::active();
+        if ($active) {
+            $active->status = 0;
+            $active->balance = 0;
+            $active->end = now();
+            $active->ebalance = Accountant::balance($active->id)['now'];
+            $active->save();
         }
 
         $accountant = new Accountant();
@@ -58,18 +56,12 @@ class AccountantController extends Controller
         if ($request->filled('start')) {
             $accountant->start = $request->start;
         }else{
-            $accountant->start = today();
+            $accountant->start = now();
         }
-        if ($actived) {
-            $accountant->sbalance = $actived->ebalance;
+        if ($active) {
+            $accountant->sbalance = $active->ebalance;
         }else{
             $accountant->sbalance = $request->sbalance;
-        }
-
-        if ($actived) {
-            $accountant->balance = $actived->ebalance;
-        }else{
-            $accountant->balance = $request->sbalance;
         }
 
         $accountant->status = 1;

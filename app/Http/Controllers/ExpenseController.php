@@ -51,7 +51,7 @@ class ExpenseController extends Controller
         $loan->id = $request->serial;
         $loan->type_id = $request->type_id;
         $loan->taker_id = $request->taker_id;
-        $loan->accountant_id = Accountant::get()->user->id;
+        $loan->accountant_id = Accountant::active()->id;
         $loan->entry_id = Auth::id();
 
         $loan->invoice = $request->invoice;

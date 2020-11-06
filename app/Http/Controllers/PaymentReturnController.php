@@ -50,7 +50,7 @@ class PaymentReturnController extends Controller
 
         $refund = new PaymentReturn();
         $refund->payment_id = $request->payment_id;
-        $refund->accountant_id = Accountant::get()->user->id;
+        $refund->accountant_id = Accountant::active()->id;
         $refund->entry_id = Auth::id();
         $refund->amount = $request->amount;
         $refund->description = $request->description;

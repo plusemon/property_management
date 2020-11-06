@@ -6,6 +6,7 @@ use App\Accountant;
 use App\Borrow;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class BorrowController extends Controller
 {
@@ -49,8 +50,8 @@ class BorrowController extends Controller
         $borrow = new Borrow();
         $borrow->id = $request->serial;
         $borrow->user_id = $request->user_id;
-        $borrow->accountant_id = Accountant::get()->user->id;
-        $borrow->entry_id = auth()->user()->id;
+        $borrow->accountant_id = Accountant::active()->id;
+        $borrow->entry_id = Auth::id();
         $borrow->amount = $request->amount;
         $borrow->description = $request->description;
         $borrow->created_at = $request->created_at;

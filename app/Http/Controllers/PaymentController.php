@@ -28,7 +28,7 @@ class PaymentController extends Controller
         $payment = new Payment();
         $payment->id = $request->serial;
         $payment->agreement_id = $request->agreement_id;
-        $payment->accountant_id = Accountant::get()->user->id;
+        $payment->accountant_id = Accountant::active()->id;
         $payment->entry_id = Auth::id();
         $payment->type = $request->type;
         $payment->state = 'payment';

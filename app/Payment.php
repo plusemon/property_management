@@ -34,6 +34,11 @@ class Payment extends Model
         return $this->belongsTo(User::class,'entry_id');
     }
 
+    public function accountant()
+    {
+        return $this->belongsTo(User::class,'accountant_id');
+    }
+
     protected $casts = [
         'month' => 'json',
     ];

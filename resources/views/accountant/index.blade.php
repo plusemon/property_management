@@ -12,7 +12,7 @@
                     <div class="form-group col-4">
                         <label class="col-form-label">User</label>
                         <select name="user_id" id="user" class="form-control" required>
-                            <option name="" id="">Select</option>
+                            <option value="">Select</option>
                             @foreach (App\User::all() as $user)
                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
@@ -24,7 +24,7 @@
                     </div>
                     <div class="form-group col-4">
                         <label class="col-form-label">Begening Balance</label>
-                        <input name="sbalance" type="number" value="{{ $actived->balance ?? '' }}" class="form-control" required {{ App\Accountant::count() ? 'disabled':'' }}>
+                        <input name="sbalance" type="number" value="{{ $balance['now'] ?? '' }}" class="form-control" required {{ App\Accountant::count() ? 'disabled':'' }}>
                     </div>
                 </div>
                 <div class="form-group text-right mt-4">
@@ -59,7 +59,7 @@
                     <td scope="row">{{ $accountant->start->format('d-m-Y') }}</td>
                     <td scope="row">{{ $accountant->end ? $accountant->end->format('d-m-Y'):'N/A' }}</td>
                     <td scope="row">{{ $accountant->sbalance }}</td>
-                    <td scope="row">{{ $accountant->balance }}</td>
+                    <td scope="row">{{ $accountant->status ? $balance['now']:$accountant->balance }}</td>
                     <td scope="row">{{ $accountant->ebalance ?? 'N/A' }}</td>
                     <td scope="row" class="{{ $accountant->status ? 'text-success':'text-danger' }}">{{ $accountant->status ? 'Actived':'Inactived' }}</td>
                 </tr>

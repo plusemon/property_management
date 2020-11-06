@@ -48,7 +48,7 @@ class WellpartController extends Controller
         $wellpart = new Wellpart();
         $wellpart->id = $request->serial;
         $wellpart->user_id = $request->user_id;
-        $wellpart->accountant_id = Accountant::get()->user->id;
+        $wellpart->accountant_id = Accountant::active()->id;
         $wellpart->entry_id = Auth::id();
         $wellpart->amount = $request->amount;
         $wellpart->description = $request->description;

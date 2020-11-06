@@ -76,7 +76,7 @@ class LoanReturnController extends Controller
             }
 
             $return->loan_id = $request->loan_id;
-            $return->accountant_id = Accountant::get()->user->id;
+            $return->accountant_id = Accountant::active()->id;
             $return->entry_id = Auth::id();
         $return->amount = $request->amount;
         $return->description = $request->description;

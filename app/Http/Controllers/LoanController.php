@@ -34,7 +34,7 @@ class LoanController extends Controller
         $loan = new Loan();
         $loan->id = $request->serial;
         $loan->taker_id = $request->user_id;
-        $loan->accountant_id = Accountant::get()->user->id;
+        $loan->accountant_id = Accountant::active()->id;
         $loan->entry_id = Auth::id();
         $loan->description = $request->description;
         $loan->amount = $request->amount;
