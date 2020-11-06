@@ -34,7 +34,7 @@ class LoanController extends Controller
         $loan = new Loan();
         $loan->id = $request->serial;
         $loan->taker_id = $request->user_id;
-        if (!($loan->accountant_id = Accountant::active())) {
+        if (!($loan->accountant_id = Accountant::active()->id)) {
             return redirect(route('accountant.index'))->with('info','Set an accountant first');
         }
         $loan->entry_id = Auth::id();

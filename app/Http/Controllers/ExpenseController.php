@@ -51,7 +51,7 @@ class ExpenseController extends Controller
         $loan->id = $request->serial;
         $loan->type_id = $request->type_id;
         $loan->taker_id = $request->taker_id;
-        if (!($loan->accountant_id = Accountant::active())) {
+        if (!($loan->accountant_id = Accountant::active()->id)) {
             return redirect(route('accountant.index'))->with('info','Set an accountant first');
         }
         $loan->entry_id = Auth::id();

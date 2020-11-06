@@ -49,7 +49,7 @@ class BorrowController extends Controller
         $borrow = new Borrow();
         $borrow->id = $request->serial;
         $borrow->user_id = $request->user_id;
-        if (!($borrow->accountant_id = Accountant::active())) {
+        if (!($borrow->accountant_id = Accountant::active()->id)) {
             return redirect(route('accountant.index'))->with('info','Set an accountant first');
         }
         $borrow->entry_id = Auth::id();

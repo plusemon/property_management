@@ -41,7 +41,7 @@ class AccountantController extends Controller
     public function store(Request $request)
     {
 
-       $active = Accountant::active();
+       $active = Accountant::active()->id;
         if ($active) {
             $active->status = 0;
             $active->balance = 0;

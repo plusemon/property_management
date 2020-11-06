@@ -4,7 +4,7 @@
 
 
 
-@if (!App\Accountant::active())
+@if (!App\Accountant::active()->id)
     <div class="alert alert-danger"><span class="text-danger">Acction Required: </span> Please assign an <a href="{{ route('accountant.index') }}">Accountant</a> before get started!</div>
 @endif
 

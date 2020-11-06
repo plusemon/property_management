@@ -28,7 +28,7 @@ class PaymentController extends Controller
         $payment = new Payment();
         $payment->id = $request->serial;
         $payment->agreement_id = $request->agreement_id;
-        if (!($payment->accountant_id = Accountant::active())) {
+        if (!($payment->accountant_id = Accountant::active()->id)) {
             return redirect(route('accountant.index'))->with('info','Set an accountant first');
         }
         $payment->entry_id = Auth::id();

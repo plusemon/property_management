@@ -180,7 +180,7 @@
                                 <div class="form-group col-md-4">
                                     <label class="col-form-label">Accountant</label>
                                     <input name="accountant_id" class="form-control"
-                                        value="{{ App\Accountant::active()->user->name ?? 'Not set' }}" disabled>
+                                        value="{{ App\Accountant::active()->id->user->name ?? 'Not set' }}" disabled>
                                 </div>
                                 <div class="form-group  col-md-4">
                                     <label class="col-form-label">Entry by</label>
@@ -251,7 +251,7 @@
                                 <div class="form-group col-md-4">
                                     <label class="col-form-label">Accountant</label>
                                     <input name="accountant_id" class="form-control"
-                                        value="{{ App\Accountant::active()->user->name ?? 'Not set' }}" disabled>
+                                        value="{{ App\Accountant::active()->id->user->name ?? 'Not set' }}" disabled>
                                 </div>
                                 <div class="form-group  col-md-4">
                                     <label class="col-form-label">Entry by</label>

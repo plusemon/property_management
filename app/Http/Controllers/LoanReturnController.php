@@ -76,7 +76,7 @@ class LoanReturnController extends Controller
             }
 
             $return->loan_id = $request->loan_id;
-            if (!($return->accountant_id = Accountant::active())) {
+            if (!($return->accountant_id = Accountant::active()->id)) {
                 return redirect(route('accountant.index'))->with('info','Set an accountant first');
             }
             $return->entry_id = Auth::id();

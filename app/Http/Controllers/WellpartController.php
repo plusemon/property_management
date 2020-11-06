@@ -47,7 +47,7 @@ class WellpartController extends Controller
         $wellpart = new Wellpart();
         $wellpart->id = $request->serial;
         $wellpart->user_id = $request->user_id;
-        if (!($wellpart->accountant_id = Accountant::active())) {
+        if (!($wellpart->accountant_id = Accountant::active()->id)) {
             return redirect(route('accountant.index'))->with('info','Set an accountant first');
         }
         $wellpart->entry_id = Auth::id();
