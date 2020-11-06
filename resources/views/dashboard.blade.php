@@ -4,7 +4,7 @@
 
 
 
-@if (!App\Accountant::get())
+@if (!App\Accountant::active())
     <div class="alert alert-danger"><span class="text-danger">Acction Required: </span> Please assign an <a href="{{ route('accountant.index') }}">Accountant</a> before get started!</div>
 @endif
 
@@ -194,9 +194,7 @@
             </div>
             <div class="modal-body">
                 <ol>
-                    <li>If signup a user, admin will notify by email and can approve the user</li>
-                    <li>If signup by a super admin, it will auto approve and user will get notifiyed</li>
-                    <li>Contact Section Added</li>
+                    <li>Accountant Completed</li>
                     <li>For get update: <code>git pull</code></li>
                     <li>After get update: <code>php artisan migrate:fresh --seed</code></li>
                 </ol>

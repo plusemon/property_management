@@ -132,7 +132,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label class="col-form-label">Accountant</label>
-                                    <input class="form-control" value="{{ App\Accountant::get()->user->name ?? 'Not set' }}" disabled>
+                                    <input class="form-control" value="{{ App\Accountant::active()->user->name ?? 'Not set' }}" disabled>
                                 </div>
                                 <div class="form-group  col-md">
                                     <label class="col-form-label">Entry by</label>
