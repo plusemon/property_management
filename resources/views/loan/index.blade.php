@@ -133,12 +133,12 @@
                             @csrf
                             <div class="row">
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label class="col-form-label">Serial No. </label>
                                     <input type="number" name="serial" value="{{ $id = App\Loan::nextId() }}"
                                         class="form-control" {{ $id ? 'disabled':'' }}>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label class="col-form-label">Loan Taker</label>
                                     <select name="user_id" class="form-control" required>
                                         @foreach (App\User::all() as $user)
@@ -147,7 +147,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label class="col-form-label">Loan Return Date</label>
                                     <input name="return_date" type="date" class="form-control" required>
                                 </div>
@@ -159,7 +159,7 @@
                                             id="word"></span></div>
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md">
                                     <label class="col-form-label">Return Amount</label>
                                     <input name="return_amount" type="number" class="form-control"
                                         onkeyup="word2.innerHTML=toWord(this.value)" autocomplete required>

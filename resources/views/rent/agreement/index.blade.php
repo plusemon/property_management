@@ -47,7 +47,7 @@
                                         <th scope="col">Aagreement</th>
                                         {{-- <th scope="col">Type</th> --}}
                                         <th scope="col">Property</th>
-                                        <th scope="col">Rent(M)</th>
+                                        <th scope="col">Rent</th>
                                         <th scope="col">Tent</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Details</th>
@@ -63,7 +63,7 @@
                                         <td>{{ $agreement->name }}</td>
                                         {{-- <td>{{ $agreement->property->type->name ?? 'Deleted' }}</td> --}}
                                         <td>{{ $agreement->property->name ?? 'Deleted'}}</td>
-                                        <td>{{ $agreement->property->rate ?? 'Deleted' }}</td>
+                                        <td>{{ $agreement->rent ?? 'Deleted' }}</td>
                                         <td><a class="badge badge-light"
                                                 href="{{ route('tent.show', $agreement->tent->id ) }}"
                                                 target="_blank">{{ $agreement->tent->fname." ".$agreement->tent->lname }}
@@ -139,10 +139,6 @@
                                 <label class="col-form-label">Agreement Name</label>
                                 <input name="name" type="text" class="form-control" required>
                             </div>
-
-                        </div>
-
-                        <div class="row">
                             <div class="col-md form-group">
                                 <label class="col-form-label">Property Type</label>
                                 <select id="types" class="form-control">
@@ -161,6 +157,33 @@
                         </div>
 
                         <div class="row">
+
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-8">
+                                <label class="col-form-label">Rent</label>
+                                <input name="rent" type="number" class="form-control"
+                                    onkeyup="word2.innerHTML=toWord(this.value)" autocomplete required>
+                                <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
+                                        id="word2"></span>
+                                </div>
+                            </div>
+                            <div class="col-md form-group">
+                                <label class="col-form-label">Increment (%)</label>
+                                <input name="incr" type="number" class="form-control" max="99" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-8">
+                                <label class="col-form-label">Security Money</label>
+                                <input name="security" type="number" class="form-control"
+                                    onkeyup="word.innerHTML=toWord(this.value)" autocomplete required>
+                                <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
+                                        id="word"></span>
+                                </div>
+                            </div>
                             <div class="col-md form-group">
                                 <label class="col-form-label">Tent</label>
                                 <select class="form-control" name="tent_id" required>
@@ -170,33 +193,14 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md form-group">
-                                <label class="col-form-label">Attachment</label>
-                                <input name="attachment" type="file" class="form-control" required>
-                            </div>
-                            <div class="col-md form-group">
-                                <label class="col-form-label">Yearly Increment (%)</label>
-                                <input name="yearly_percent" type="number" class="form-control" max="99" required>
-                            </div>
-
 
                         </div>
 
                         <div class="row">
-                            <div class="form-group col">
-                                <label class="col-form-label">Security Money</label>
-                                <input name="advance" type="number" class="form-control"
-                                    onkeyup="word.innerHTML=toWord(this.value)" autocomplete required>
-                                <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
-                                        id="word"></span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
                             <div class="col-md form-group">
                                 <label class="col-form-label">Duration</label>
-                                <select name="duration" id="" class="form-control">
+                                <select name="period" id="" class="form-control">
                                     <option value="6">6 Months</option>
                                     <option value="12">1 Year</option>
                                     <option value="24">2 Years</option>
@@ -205,6 +209,10 @@
                                     <option value="60">5 Years</option>
 
                                 </select>
+                            </div>
+                            <div class="col-md form-group">
+                                <label class="col-form-label">Attachment</label>
+                                <input name="attachment" type="file" class="form-control" required>
                             </div>
                             <div class="col-md form-group">
                                 <label class="col-form-label">Start Date</label>

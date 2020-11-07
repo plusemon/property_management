@@ -24,22 +24,22 @@ class AgreementController extends Controller
             'name' => 'required|unique:agreements',
             'property_id' => 'required',
             'tent_id' => 'required',
-            'advance' => 'required',
-            'yearly_percent' => 'required',
-            'attachment' => 'required',
+            'security' => 'required|integer',
+            'rent' => 'required|integer',
+            'period' => 'required|integer',
         ]);
 
         $agreement = new Agreement();
 
         // $agreement->id = $request->serial;
-        $agreement->name = $request->name;
-        $agreement->user_id = Auth::id();
-        $agreement->status = 1;
-        $agreement->duration = $request->duration;
         $agreement->property_id = $request->property_id;
         $agreement->tent_id = $request->tent_id;
-        $agreement->advance = $request->advance;
-        $agreement->yearly_percent = $request->yearly_percent;
+        $agreement->entry_id = Auth::id();
+        $agreement->name = $request->name;
+        $agreement->rent = $request->rent;
+        $agreement->period = $request->period;
+        $agreement->security = $request->security;
+        $agreement->incr = $request->incr;
 
         if ($request->attachment) {
             $url = $request->attachment->store('/agreement');
@@ -75,20 +75,21 @@ class AgreementController extends Controller
            return redirect()->back()->with('success','Updated Succefully');
         }
 
-        $agreement->name = $request->name;
-        $agreement->user_id = auth()->id();
         $agreement->property_id = $request->property_id;
         $agreement->tent_id = $request->tent_id;
-        $agreement->advance = $request->advance;
-        $agreement->yearly_percent = $request->yearly_percent;
+        $agreement->entry_id = Auth::id();
+        $agreement->name = $request->name;
+        $agreement->rent = $request->rent;
+        $agreement->period = $request->period;
+        $agreement->security = $request->security;
+        $agreement->incr = $request->incr;
 
         if ($request->attachment) {
             $url = $request->attachment->store('/agreement');
             $agreement->attachment = $url;
         }
 
-        if ($request->created_at) {$agreement->created_at = $request->created_at;}
-
+        $agreement->created_at = $request->created_at;
         $agreement->save();
 
         return redirect(route('agreement.index'))->with('success','Saved Succefully');

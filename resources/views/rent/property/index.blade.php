@@ -29,8 +29,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Property</th>
-                                    <th scope="col">Rent</th>
+                                    <th scope="col">Name</th>
                                     <th scope="col">Type</th>
                                     <th scope="col">District</th>
                                     <th scope="col">City</th>
@@ -46,7 +45,6 @@
                                 <tr>
                                     <td>{{ $property->id }}</td>
                                     <td>{{ $property->name }}</td>
-                                    <td>{{ $property->rate }}</td>
                                     <td>{{ $property->type->name ?? 'Deleted' }}</td>
                                     <td>{{ $property->district }}</td>
                                     <td>{{ $property->city }}</td>
@@ -98,20 +96,11 @@
                             </div>
 
                             <div class="form-group col-md">
-                                <label class="col-form-label">Property</label>
+                                <label class="col-form-label">Property Name</label>
                                 <input name="name" type="text" class="form-control" value="" required>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="form-group col">
-                                <label class="col-form-label">Rent (Per Month)</label>
-                                <input name="rate" type="number" value="1000" class="form-control"
-                                    onkeyup="word.innerHTML=toWord(this.value)" autocomplete required>
-                                <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
-                                        id="word"></span></div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md form-group">
                                 <label class="col-form-label">District</label>
@@ -133,6 +122,16 @@
                             </div>
 
                         </div>
+                        {{-- <div class="row">
+                            <div class="form-group col">
+                                <label class="col-form-label">Rent (Per Month)</label>
+                                <input name="rate" type="number" value="1000" class="form-control"
+                                    onkeyup="word.innerHTML=toWord(this.value)" autocomplete required>
+                                <div class="border-bottom bg-light p-2">In Word: <span class="text-secondary"
+                                        id="word"></span></div>
+                            </div>
+                        </div> --}}
+
                         <div class="row">
                             <div class="col-md form-group">
                                 <label class="col-form-label">Entry Date</label>

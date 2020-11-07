@@ -81,7 +81,7 @@
                                         class="form-control" {{ $id ? 'disabled':'' }}>
                                 </div>
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     <label class="col-form-label">Borrowers</label>
                                     <select class="form-control" name="user_id" required
                                         <option value="">Select User</option>
@@ -90,10 +90,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="form-group col">
+                                <div class="form-group col-md-7">
                                     <label class="col-form-label">Amount</label>
                                     <input name="amount" type="number" class="form-control"
                                         onkeyup="word.innerHTML=toWord(this.value)" autocomplete required>
@@ -106,16 +104,16 @@
                                 <textarea name="description" class="form-control" rows="3"></textarea>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md">
                                     <label class="col-form-label">Entry Date</label>
                                     <input type="date" name="created_at" class="form-control"
                                         value="{{ date("Y-m-d") }}">
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md">
                                     <label class="col-form-label">Accountant</label>
                                     <input class="form-control" value="{{ App\Accountant::active()->user->name ?? 'Not set' }}" disabled>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md">
                                     <label class="col-form-label">Enter by</label>
                                     <input class="form-control" value="{{ auth()->user()->name }}" disabled>
                                 </div>

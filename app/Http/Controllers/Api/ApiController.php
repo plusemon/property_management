@@ -33,11 +33,11 @@ class ApiController extends Controller
             $data['type'] = $agreement->property->type->name ?? 'Deleted';
             $data['property'] = $agreement->property->name;
             $data['tent'] = $agreement->tent->fname.' '.$agreement->tent->lname;
-            $data['rent'] = $agreement->property->rate;
-            $data['incr'] = $agreement->yearly_percent;
+            $data['rent'] = $agreement->rent;
+            $data['incr'] = $agreement->incr;
             $data['start'] = $agreement->created_at->diffForHumans();
 
-            $data['duration'] = $agreement->duration;
+            $data['duration'] = $agreement->period;
             $data['left'] = $agreement->duration - $agreement->created_at->diffInMonths(now());
 
 
@@ -53,7 +53,7 @@ class ApiController extends Controller
     {
         $agreement = Agreement::findOrFail($request->agreement);
         $payments = $agreement->payments->where('month',$request->month)->pluck('amount')->sum();
-        $rent = $agreement->property->rate;
+        $rent = $agreement->rent;
 
         if ($payments == $rent) {
            $data = 'Paid';

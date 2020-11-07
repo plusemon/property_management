@@ -15,18 +15,18 @@ class CreateAgreementsTable extends Migration
     {
         Schema::create('agreements', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
             $table->integer('property_id');
             $table->integer('tent_id');
-            $table->string('duration');
-            $table->sting('status')->default(0);
+            $table->integer('entry_id');
             $table->string('name');
             $table->integer('rent');
-            $table->integer('security');
-            $table->integer('wallet')->default(0);
             $table->integer('incr');
+            $table->string('period');
+            $table->integer('security');
             $table->string('attachment');
-            $table->dateTime('incr_at');
+            $table->integer('wallet')->default(0);
+            $table->integer('status')->default(0);
+            $table->dateTime('incr_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
