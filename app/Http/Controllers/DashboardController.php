@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Agreement;
 use App\Loan;
 use App\Borrow;
 use App\Expense;
@@ -16,7 +15,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return Agreement::all();
 
         $data = new Collection();
         $expenses = Expense::all()->each(function ($data) {

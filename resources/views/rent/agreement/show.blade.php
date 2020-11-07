@@ -19,16 +19,21 @@
                                     action="{{route('agreement.update', $agreement->id)}}" method="POST">
                                     @csrf
                                     @method('PUT')
+                                    @if ($agreement->incr_at)
+                                    <p class="btn badge badge-danger">Expired</p>
+                                    @else
                                     @if ($agreement->status)
                                     <input type="hidden" name="status" value="0">
                                     <button type="submit" class="btn badge badge-success">Actived</button>
                                     @else
                                     <input type="hidden" name="status" value="1">
-                                    <button type="submit" class="btn badge badge-secondary">Inactived</button>
+                                    <button type="submit"
+                                        class="btn badge badge-secondary">Inactived</button>
+                                    @endif
                                     @endif
                                 </form>
                                 @else
-                                    {{ $agreement->status ? 'Active':'Inactive'}}
+                                {{ $agreement->status ? 'Active':'Inactive'}}
                                 @endcan
                             </td>
                         </tr>

@@ -48,4 +48,14 @@ class Agreement extends Model
         $end = $start->addMonths($agreement->duration-1);
         return now()->diffInDays($end,false) < 1 ? true:false;
     }
+
+    public static function getValid()
+    {
+        return self::whereNull('incr_at')->get();
+    }
+    public static function getExpired()
+    {
+        return self::whereNotNull('incr_at')->get();
+    }
+
 }

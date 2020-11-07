@@ -19,11 +19,12 @@ class CreateAgreementsTable extends Migration
             $table->integer('property_id');
             $table->integer('tent_id');
             $table->string('duration');
-            $table->boolean('status')->default(0);
+            $table->sting('status')->default(0);
             $table->string('name');
-            $table->integer('advance');
+            $table->integer('rent');
+            $table->integer('security');
             $table->integer('wallet')->default(0);
-            $table->integer('yearly_percent');
+            $table->integer('incr');
             $table->string('attachment');
             $table->dateTime('incr_at');
             $table->softDeletes();

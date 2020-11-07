@@ -30,6 +30,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Property</th>
+                                    <th scope="col">Rent</th>
                                     <th scope="col">Type</th>
                                     <th scope="col">District</th>
                                     <th scope="col">City</th>
@@ -45,6 +46,7 @@
                                 <tr>
                                     <td>{{ $property->id }}</td>
                                     <td>{{ $property->name }}</td>
+                                    <td>{{ $property->rate }}</td>
                                     <td>{{ $property->type->name ?? 'Deleted' }}</td>
                                     <td>{{ $property->district }}</td>
                                     <td>{{ $property->city }}</td>

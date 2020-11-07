@@ -63,7 +63,7 @@
 
 
                 <div class="col-4 form-group">
-                    <label class="col-form-label">Entry Date</label>
+                    <label class="col-form-label">Start Date</label>
                     <input id="created_at" name="created_at" type="date"
                         value="{{$agreement->created_at->format("Y-m-d")}}" class="form-control" required>
                 </div>
