@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Agreement;
 use App\Loan;
-use App\User;
 use App\Borrow;
 use App\Expense;
 use App\Payment;
@@ -16,6 +16,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        return Agreement::all();
+
         $data = new Collection();
         $expenses = Expense::all()->each(function ($data) {
             $data->type = 'Expense';
@@ -48,25 +50,25 @@ class DashboardController extends Controller
         });
 
         // if ($request->expense) {
-            $data = $data->mergeRecursive($expenses);
+        $data = $data->mergeRecursive($expenses);
         // }
         // if ($request->borrow) {
-            $data = $data->mergeRecursive($borrows);
+        $data = $data->mergeRecursive($borrows);
         // }
         // if ($request->loan) {
-            $data = $data->mergeRecursive($loans);
+        $data = $data->mergeRecursive($loans);
         // }
         // if ($request->return) {
-            $data = $data->mergeRecursive($loanReturns);
+        $data = $data->mergeRecursive($loanReturns);
         // }
         // if ($request->wellpart) {
-            $data = $data->mergeRecursive($wellparts);
+        $data = $data->mergeRecursive($wellparts);
         // }
         // if ($request->payment) {
-            $data = $data->mergeRecursive($payments);
+        $data = $data->mergeRecursive($payments);
         // }/
         // if ($request->refund) {
-            $data = $data->mergeRecursive($paymentRefunds);
+        $data = $data->mergeRecursive($paymentRefunds);
         // }
 
         $reports = $data->sortBy('updated_at');

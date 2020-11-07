@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Agreement;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+        // Check and expire agreements when period is over
+        Agreement::whereNull('incr_at')->each(function ($agreement) {
+            if (Agreement::isExpired($agreement->id)) {
+                $agreement->incr_at = today();
+                $agreement->save();
+            }
+        });
     }
 }

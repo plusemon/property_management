@@ -25,6 +25,7 @@ class CreateAgreementsTable extends Migration
             $table->integer('wallet')->default(0);
             $table->integer('yearly_percent');
             $table->string('attachment');
+            $table->dateTime('incr_at');
             $table->softDeletes();
             $table->timestamps();
         });
