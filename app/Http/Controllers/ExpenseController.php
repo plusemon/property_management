@@ -47,20 +47,20 @@ class ExpenseController extends Controller
             "amount" => "required|integer|gt:0",
         ]);
 
-        $loan = new Expense();
-        $loan->id = $request->serial;
-        $loan->type_id = $request->type_id;
-        $loan->taker_id = $request->taker_id;
-        if (!($loan->accountant_id = Accountant::active()->id)) {
+        $expense = new Expense();
+        $expense->id = $request->serial;
+        $expense->type_id = $request->type_id;
+        $expense->taker_id = $request->taker_id;
+        if (!($expense->accountant_id = Accountant::active()->id)) {
             return redirect(route('accountant.index'))->with('info','Set an accountant first');
         }
-        $loan->entry_id = Auth::id();
+        $expense->entry_id = Auth::id();
 
-        $loan->invoice = $request->invoice;
-        $loan->amount = $request->amount;
-        $loan->description = $request->description;
-        $loan->created_at = $request->created_at;
-        $loan->save();
+        $expense->invoice = $request->invoice;
+        $expense->amount = $request->amount;
+        $expense->description = $request->description;
+        $expense->created_at = $request->created_at;
+        $expense->save();
 
         return redirect()->back()->with('success', 'Added Successfull');
     }
@@ -73,7 +73,7 @@ class ExpenseController extends Controller
      */
     public function show(Expense $expense)
     {
-        //
+        //return view('expense.show',compact('expense'))
     }
 
     /**
@@ -84,7 +84,8 @@ class ExpenseController extends Controller
      */
     public function edit(Expense $expense)
     {
-        //
+        $types = Type::whereType('expense')->get();
+        return view('expense.edit', compact('expense','types'));
     }
 
     /**
@@ -96,7 +97,23 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, Expense $expense)
     {
-        //
+        // return $request;
+        $request->validate([
+            "invoice" => "required|string",
+            "type_id" => "required|integer",
+            "amount" => "required|integer|gt:0",
+        ]);
+
+        $expense->type_id = $request->type_id;
+        $expense->taker_id = $request->taker_id;
+
+        $expense->invoice = $request->invoice;
+        $expense->amount = $request->amount;
+        $expense->description = $request->description;
+        $expense->created_at = $request->created_at;
+        $expense->save();
+
+        return redirect(route('expense.index'))->with('success', 'Updated Successfull');
     }
 
     /**

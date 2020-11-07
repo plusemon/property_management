@@ -55,6 +55,7 @@
 
                                     @role('super-admin')
                                     <td class="text-right">
+                                        <a href="#" onclick="window.open('{{ route('activity',['expense', $expense->id]) }}', '_blank')" class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
                                         <a href="{{ route('expense.edit', $expense->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                         <form class="d-inline" action="{{route('expense.destroy', $expense->id)}}"
@@ -132,7 +133,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label class="col-form-label">Accountant</label>
-                                    <input class="form-control" value="{{ App\Accountant::active()->id->user->name ?? 'Not set' }}" disabled>
+                                    <input class="form-control" value="{{ App\Accountant::active()->user->name ?? 'Not set' }}" disabled>
                                 </div>
                                 <div class="form-group  col-md">
                                     <label class="col-form-label">Entry by</label>
