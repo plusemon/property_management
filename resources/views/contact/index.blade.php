@@ -8,8 +8,7 @@
         <div class="card">
             <div class="card-body">
                 <section class="mb-4">
-                    <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
-                    <p class="text-center w-responsive mx-auto mb-5 h5">Get in touch</p>
+                    <h2 class="h1-responsive font-weight-bold text-center my-4">Get in touch</h2>
 
                     @if ($errors->any())
                     <div class="alert alert-danger">
@@ -34,15 +33,18 @@
 
                                     <div class="col-md-6">
                                         <div class="md-form mb-2">
-                                            <label for="name" class="">Your name</label>
+                                            <label for="name" class="">Name</label>
                                             <input type="text" id="name" name="name" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="md-form mb-2">
-                                            <label for="email" class="">Your email</label>
-                                            <input type="text" id="email" name="email" value="{{ Auth::user()->email ?? '' }}" class="form-control">
+                                            <label for="email" class="">Email</label>
+                                            <input type="text" id="email" name="email" value="{{ Auth::check() ? Auth::user()->email:'' }}" class="form-control"{{ Auth::check() ? 'disabled':'' }}>
+                                            @auth
+                                            <input type="hidden" id="email" name="email" value="{{ Auth::user()->email}}">
+                                            @endauth
                                         </div>
                                     </div>
 
@@ -62,7 +64,7 @@
                                     <div class="col-md-12">
 
                                         <div class="md-form">
-                                            <label for="message">Your message</label>
+                                            <label for="message"> Message</label>
                                             <textarea type="text" id="message" name="message" rows="2"
                                                 class="form-control md-textarea"></textarea>
                                         </div>

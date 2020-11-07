@@ -40,7 +40,9 @@
                                     <th scope="col">Loan Taker</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Return Amount</th>
+                                    @can('loan manage')
                                     <th scope="col">Action</th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,6 +54,7 @@
                                     <td scope="row">{{ $loan->amount }}</td>
                                     <td scope="row" class="text-danger">{{ $loan->return_amount ?? '' }}</td>
 
+                                    @can('loan manage')
                                     <td class="text-right">
                                         <a href="#" onclick="window.open('{{ route('activity',['loan', $loan->id]) }}', '_blank')" class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
                                     <a href="{{ route('loan.edit', $loan->id)}}" class="btn btn-sm
@@ -64,6 +67,7 @@
                                             class="fas fa-trash-alt"></i></button>
                                     </form>
                                     </td>
+                                    @endcan
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -83,7 +87,9 @@
                                     <th scope="col">Return Amount</th>
                                     <th scope="col">Remain Amount</th>
                                     <th scope="col">Accually Loan</th>
+                                    @can('loan manage')
                                     <th scope="col">Action</th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -95,6 +101,9 @@
                                     <td scope="row" class="text-success">{{ $return->amount }}</td>
                                     <td scope="row" class="text-danger">{{ $return->remain }}</td>
                                     <td scope="row">{{ $return->loan->amount }}</td>
+
+                                    @can('loan manage')
+
 
                                     <td class="text-right">
                                         <a href="#" onclick="window.open('{{ route('activity',['return', $return->id]) }}', '_blank')" class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
@@ -108,6 +117,7 @@
                                             class="fas fa-trash-alt"></i></button>
                                     </form>
                                     </td>
+                                    @endcan
                                 </tr>
                                 @endforeach
                             </tbody>

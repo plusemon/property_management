@@ -16,6 +16,7 @@
                 <a class="nav-link" id="" data-toggle="tab" href="#refund_list" role="tab" aria-controls="pay"
                     aria-selected="false">Refund List</a>
             </li>
+            @can('payment manage')
             <li class="nav-item">
                 <a class="nav-link" id="" data-toggle="tab" href="#pay" role="tab" aria-controls="pay"
                     aria-selected="false">Payment</a>
@@ -24,6 +25,7 @@
                 <a class="nav-link" id="" data-toggle="tab" href="#refund" role="tab" aria-controls="refund"
                     aria-selected="false">Refund</a>
             </li>
+            @endcan
         </ul>
         <div class="tab-content">
             {{-- List of payments  --}}
