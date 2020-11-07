@@ -35,6 +35,7 @@
             </table>
         </div>
     </div>
+    <button onclick="window.close('_self')" class="btn btn-brand btn-block">Close</button>
 </div>
 
 @endsection
