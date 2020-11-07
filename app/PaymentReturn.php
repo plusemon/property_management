@@ -8,7 +8,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class PaymentReturn extends Model
 {
-    use SoftDeletes, LogsActivity;
+    use SoftDeletes;
 
     public static function nextId(int $increment = 1 )
     {
@@ -29,9 +29,6 @@ class PaymentReturn extends Model
         return $this->belongsTo(User::class,'entry_id');
     }
 
-    protected static $logAttributes = ['*'];
-    protected static $logAttributesToIgnore = ['email_verified_at','created_at','updated_at','deleted_at'];
-    protected static $logOnlyDirty = true;
-    protected static $recordEvents = ['created','updated','deleted'];
+
 
 }

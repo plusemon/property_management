@@ -11,6 +11,14 @@ class Loan extends Model
 
     use SoftDeletes, LogsActivity;
 
+    protected static $logName = 'loan';
+    protected static $recordEvents = ['updated'];
+    protected static $logAttributes = ['*','taker.name'];
+    protected static $logAttributesToIgnore = ['updated_at','created_at','taker_id'];
+    protected static $logOnlyDirty = true;
+    protected static $submitEmptyLogs = false;
+
+    
     public static function nextId(int $increment = 1)
     {
         if (parent::withTrashed()->count()) {
@@ -37,9 +45,4 @@ class Loan extends Model
         'return_date' => 'datetime',
     ];
 
-
-    protected static $logAttributes = ['*'];
-    protected static $logAttributesToIgnore = ['email_verified_at', 'created_at', 'updated_at', 'deleted_at'];
-    protected static $logOnlyDirty = true;
-    protected static $recordEvents = ['created', 'updated', 'deleted'];
 }

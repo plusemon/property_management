@@ -37,42 +37,33 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    {{-- <th scope="col">Date</th> --}}
-                                    {{-- <th scope="col">R Date</th> --}}
                                     <th scope="col">Loan Taker</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Return Amount</th>
-                                    {{-- <th scope="col">Remain Amount</th> --}}
-                                    {{-- <th scope="col">Description</th> --}}
-                                    {{-- <th scope="col">Action</th> --}}
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($loans as $loan)
                                 <tr>
                                     <td scope="row">{{ $loan->id }}</td>
-                                    {{-- <td scope="row">{{ $loan->return_date ? $loan->return_date->format('d-m-Y'):'' }}
-                                    --}}
-                                    {{-- <td scope="row">{{ $loan->created_at->format('d-m-Y') }}</td> --}}
+
                                     <td scope="row">{{ $loan->taker->name }}</td>
                                     <td scope="row">{{ $loan->amount }}</td>
                                     <td scope="row" class="text-danger">{{ $loan->return_amount ?? '' }}</td>
-                                    {{-- <td scope="row" class="text-danger">{{ ($loan->return_amount)-($loan->returns->sum('amount')) }}
-                                    </td> --}}
-                                    </td>
-                                    {{-- <td scope="row">{{  $loan->description }}</td> --}}
 
-                                    {{-- <td class="text-right"> --}}
-                                    {{-- <a href="{{ route('loan.edit', $loan->id)}}" class="btn btn-sm
-                                    btn-warning"><i class="fas fa-edit"></i></a> --}}
-                                    {{-- <form class="d-inline" action="{{route('loan.destroy', $loan->id)}}"
+                                    <td class="text-right">
+                                        <a href="#" onclick="window.open('{{ route('activity',['loan', $loan->id]) }}', '_blank')" class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
+                                    <a href="{{ route('loan.edit', $loan->id)}}" class="btn btn-sm
+                                    btn-warning"><i class="fas fa-edit"></i></a>
+                                    <form class="d-inline" action="{{route('loan.destroy', $loan->id)}}"
                                     method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger"><i
                                             class="fas fa-trash-alt"></i></button>
-                                    </form> --}}
-                                    {{-- </td> --}}
+                                    </form>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -92,8 +83,7 @@
                                     <th scope="col">Return Amount</th>
                                     <th scope="col">Remain Amount</th>
                                     <th scope="col">Accually Loan</th>
-
-                                    {{-- <th scope="col">Action</th> --}}
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -106,17 +96,18 @@
                                     <td scope="row" class="text-danger">{{ $return->remain }}</td>
                                     <td scope="row">{{ $return->loan->amount }}</td>
 
-                                    {{-- <td class="text-right"> --}}
-                                    {{-- <a href="{{ route('return.edit', $return->id)}}" class="btn btn-sm
-                                    btn-warning"><i class="fas fa-edit"></i></a> --}}
-                                    {{-- <form class="d-inline" action="{{route('return.destroy', $loan->id)}}"
+                                    <td class="text-right">
+                                        <a href="#" onclick="window.open('{{ route('activity',['return', $return->id]) }}', '_blank')" class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
+                                    <a href="{{ route('return.edit', $return->id)}}" class="btn btn-sm
+                                    btn-warning"><i class="fas fa-edit"></i></a>
+                                    <form class="d-inline" action="{{route('return.destroy', $return->id)}}"
                                     method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger"><i
                                             class="fas fa-trash-alt"></i></button>
-                                    </form> --}}
-                                    {{-- </td> --}}
+                                    </form>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -180,7 +171,7 @@
                                 <div class="form-group col-md-4">
                                     <label class="col-form-label">Accountant</label>
                                     <input name="accountant_id" class="form-control"
-                                        value="{{ App\Accountant::active()->id->user->name ?? 'Not set' }}" disabled>
+                                        value="{{ App\Accountant::active()->user->name ?? 'Not set' }}" disabled>
                                 </div>
                                 <div class="form-group  col-md-4">
                                     <label class="col-form-label">Entry by</label>
@@ -251,7 +242,7 @@
                                 <div class="form-group col-md-4">
                                     <label class="col-form-label">Accountant</label>
                                     <input name="accountant_id" class="form-control"
-                                        value="{{ App\Accountant::active()->id->user->name ?? 'Not set' }}" disabled>
+                                        value="{{ App\Accountant::active()->user->name ?? 'Not set' }}" disabled>
                                 </div>
                                 <div class="form-group  col-md-4">
                                     <label class="col-form-label">Entry by</label>

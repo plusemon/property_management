@@ -7,8 +7,9 @@
         <h5 class="card-header">Edit Loan</h5>
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('loan.store') }}" method="POST">
+                <form action="{{ route('loan.update', $loan->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
                     <div class="row">
                         @if (!App\Loan::count())
                             <div class="form-group col-6">
@@ -19,8 +20,8 @@
                         <div class="form-group col-6">
                             <label class="col-form-label">Loan Taker</label>
                             <select name="user_id" class="form-control" required>
-                                @foreach ($users as $user)
-                                <option value="{{ $user->id }}" {{ $loan->user->id == $user->id ? 'selected':'' }}>{{ $user->name }}</option>
+                                @foreach (App\User::all() as $user)
+                                <option value="{{ $user->id }}" {{ $loan->taker->id == $user->id ? 'selected':'' }}>{{ $user->name }}</option>
                                 @endforeach
                             </select>
                         </div>

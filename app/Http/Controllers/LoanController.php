@@ -60,28 +60,20 @@ class LoanController extends Controller
 
         $request->validate([
             'user_id' => 'required',
-            'amount' => 'required',
-            'return_amount' => 'required',
-            'return_date' => 'required',
+            'amount' => 'required|integer|gt:0',
+            'return_amount' => 'required|integer|gte:amount',
+            'return_date' => 'required|date',
         ]);
 
-        if ($request->has('id')) {
-            $loan->id = $request->id;
-        }
-        $loan->user_id = $request->user_id;
-
-        if ($request->has('id')) {
-            $loan->description = $request->description;
-        }
-
+        $loan->taker_id = $request->user_id;
+        $loan->description = $request->description;
         $loan->amount = $request->amount;
         $loan->return_amount = $request->return_amount;
         $loan->return_date = $request->return_date;
         $loan->created_at = $request->created_at;
-        $loan->entry = Auth::id();
         $loan->save();
 
-        return redirect()->back()->with('success', 'Updated Successfull');
+        return redirect(route('loan.index'))->with('success', 'Updated Successfull');
     }
 
 

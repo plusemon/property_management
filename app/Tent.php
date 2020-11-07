@@ -8,12 +8,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Tent extends Model
 {
-
-    use SoftDeletes, LogsActivity;
-
-    protected static $logAttributes = ['*'];
-    protected static $logAttributesToIgnore = ['email_verified_at','created_at','updated_at','deleted_at'];
-    protected static $logOnlyDirty = true;
-    protected static $recordEvents = ['created','updated','deleted'];
+    use SoftDeletes;
 
 }
