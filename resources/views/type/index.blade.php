@@ -43,6 +43,7 @@
                                     <td>{{ $type->created_at->format('d-m-Y') }}</td>
                                     <td class="text-right">
                                         @role('super-admin')
+                                        <a href="#" onclick="window.open('{{ route('activity',['type', $type->id]) }}', '_blank')" class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
                                         <a href="{{ route('type.edit', $type->id)}}" class="btn btn-sm btn-warning"><i
                                                 class="fas fa-edit"></i></a>
                                         <form class="d-inline" action="{{route('type.destroy', $type->id)}}"
