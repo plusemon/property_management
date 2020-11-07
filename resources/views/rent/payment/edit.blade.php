@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="row">
-                    
+
 
                     <div class="form-group col-3">
                         <label class="col-form-label">Type</label>
@@ -62,16 +62,16 @@
                         <input name="remarks" type="text" class="form-control" value="{{ $payment->remarks }}">
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-4 form-group">
                         <label class="col-form-label">Entry Date</label>
                         <input id="created_at" name="created_at" type="date" value="{{ $payment->created_at->format('Y-m-d') }}" class="form-control">
-                    </div> 
+                    </div>
                     <div class="col-4 form-group">
                         <label class="col-form-label">Enter By</label>
-                        <input value="{{$payment->user->name}}" class="form-control" disabled>
-                    </div>      
+                        <input value="{{$payment->entry->name ?? ''}}" class="form-control" disabled>
+                    </div>
                 </div>
 
 

@@ -10,11 +10,14 @@ class Wellpart extends Model
 {
     use SoftDeletes, LogsActivity;
 
-
-    protected static $logAttributes = ['*'];
-    protected static $logAttributesToIgnore = ['email_verified_at','created_at','updated_at','deleted_at'];
+    protected static $logName = 'wellpart';
+    protected static $recordEvents = ['updated'];
+    protected static $logAttributes = ['*','user.name'];
+    protected static $logAttributesToIgnore = ['updated_at','created_at','user_id'];
     protected static $logOnlyDirty = true;
-    protected static $recordEvents = ['created','updated','deleted'];
+    protected static $submitEmptyLogs = false;
+
+    
 
     public static function nextId(int $increment = 1 )
     {

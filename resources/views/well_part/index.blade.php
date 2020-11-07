@@ -47,7 +47,8 @@
                                         <td>{{$wellpart->amount}}</td>
                                         @role('super-admin')
                                         <td class="text-right">
-                                            <a href="{{ route('wellpart.edit', $wellpart->id)}}"
+                                        <a href="#" onclick="window.open('{{ route('activity',['wellpart', $wellpart->id]) }}', '_blank')" class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
+                                        <a href="{{ route('wellpart.edit', $wellpart->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                             <form class="d-inline" action="{{route('wellpart.destroy', $wellpart->id)}}"
                                                 method="POST">
@@ -112,7 +113,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label class="col-form-label">Accountant</label>
-                                    <input class="form-control" value="{{ App\Accountant::active()->id->user->name ?? 'Not set' }}" disabled>
+                                    <input class="form-control" value="{{ App\Accountant::active()->user->name ?? 'Not set' }}" disabled>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label class="col-form-label">Enter by</label>

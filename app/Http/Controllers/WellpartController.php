@@ -90,8 +90,13 @@ class WellpartController extends Controller
      */
     public function update(Request $request, Wellpart $wellpart)
     {
-        $wellpart->update($request->all());
-        return redirect('admin/well_part')->with('success','Updated Successfully');
+
+        $wellpart->user_id = $request->user_id;
+        $wellpart->amount = $request->amount;
+        $wellpart->description = $request->description;
+        $wellpart->created_at = $request->created_at;
+        $wellpart->save();
+        return redirect(route('wellpart.index'))->with('success','Updated Successfully');
     }
 
     /**

@@ -10,6 +10,13 @@ class Borrow extends Model
 {
     use SoftDeletes, LogsActivity;
 
+    protected static $logName = 'borrow';
+    protected static $recordEvents = ['updated'];
+    protected static $logAttributes = ['*','user.name'];
+    protected static $logAttributesToIgnore = ['updated_at','created_at','user_id'];
+    protected static $logOnlyDirty = true;
+    protected static $submitEmptyLogs = false;
+
     protected $guarded = [];
 
     public static function nextId(int $increment = 1 )
@@ -33,10 +40,5 @@ class Borrow extends Model
     {
         return $this->belongsTo(User::class,'entry_id');
     }
-
-    protected static $logAttributes = ['*'];
-    protected static $logAttributesToIgnore = ['email_verified_at','created_at','updated_at','deleted_at'];
-    protected static $logOnlyDirty = true;
-    protected static $recordEvents = ['created','updated','deleted'];
 
 }

@@ -209,7 +209,7 @@
                         </div>
 
                         <div class="alert alert-danger" id="incr-alert">
-                            Rent will be increase <span id="incr2"></span>% when this period is over.
+                           This Agreement period almost over, The rent will be increase <span id="incr2"></span>% when this period is over.
                         </div>
 
                         <div class="row">
