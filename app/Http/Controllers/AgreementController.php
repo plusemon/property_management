@@ -91,7 +91,7 @@ class AgreementController extends Controller
 
         $agreement->save();
 
-        return redirect('admin/agreement')->with('success','Saved Succefully');
+        return redirect(route('agreement.index'))->with('success','Saved Succefully');
     }
 
 

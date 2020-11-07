@@ -13,6 +13,13 @@ class Agreement extends Model
 {
     use SoftDeletes, LogsActivity;
 
+    protected static $logName = 'agreement';
+    protected static $recordEvents = ['updated'];
+    protected static $logAttributes = ['*','user.name','property.name','tent.fname'];
+    protected static $logAttributesToIgnore = ['updated_at','created_at'];
+    protected static $logOnlyDirty = true;
+    protected static $submitEmptyLogs = false;
+
     public function property()
     {
        return $this->belongsTo(Property::class);
@@ -33,11 +40,5 @@ class Agreement extends Model
        return $this->hasMany(Payment::class);
     }
 
-
-
-    protected static $logAttributes = ['*'];
-    protected static $logAttributesToIgnore = ['email_verified_at','created_at','updated_at','deleted_at'];
-    protected static $logOnlyDirty = true;
-    protected static $recordEvents = ['created','updated','deleted'];
 
 }

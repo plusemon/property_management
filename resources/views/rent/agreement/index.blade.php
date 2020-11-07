@@ -34,7 +34,7 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Aagreement</th>
-                                        <th scope="col">Type</th>
+                                        {{-- <th scope="col">Type</th> --}}
                                         <th scope="col">Property</th>
                                         <th scope="col">Rent(M)</th>
                                         <th scope="col">Tent</th>
@@ -50,7 +50,7 @@
                                     <tr>
                                         <td>{{ $agreement->id }}</td>
                                         <td>{{ $agreement->name }}</td>
-                                        <td>{{ $agreement->property->type->name ?? 'Deleted' }}</td>
+                                        {{-- <td>{{ $agreement->property->type->name ?? 'Deleted' }}</td> --}}
                                         <td>{{ $agreement->property->name ?? 'Deleted'}}</td>
                                         <td>{{ $agreement->property->rate ?? 'Deleted' }}</td>
                                         <td><a class="badge badge-light" href="{{ route('tent.show', $agreement->tent->id ) }}" target="_blank">{{ $agreement->tent->fname." ".$agreement->tent->lname }} <i class="fas fa-eye"></i></a>
@@ -79,6 +79,7 @@
                                         </td>
                                         @role('super-admin')
                                         <td class="text-right">
+                                            <a href="#" onclick="window.open('{{ route('activity',['agreement', $agreement->id]) }}', '_blank')" class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
                                             <a href="{{ route('agreement.edit', $agreement->id)}}"
                                             class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
 
