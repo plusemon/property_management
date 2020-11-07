@@ -27,6 +27,9 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
+        if ($role->name == 'super-admin') {
+            return redirect()->back()->with('error', 'Super Admin cant be edit');
+        }
         $permissions = Permission::all();
         return view('user.roles.edit', compact('role', 'permissions'));
     }
@@ -42,6 +45,9 @@ class RoleController extends Controller
 
     public function destroy(Role $role)
     {
+        if ($role->name == 'super-admin') {
+            return redirect()->back()->with('error', 'Super Admin cant be delete');
+        }
         $role->delete();
         return redirect()->back()->with('success', 'Deleted Succefully');
     }

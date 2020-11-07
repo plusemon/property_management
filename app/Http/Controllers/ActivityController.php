@@ -9,7 +9,7 @@ class ActivityController extends Controller
 {
     public function index($name , $id)
     {
-        $activities = Activity::whereLogName($name)->whereSubjectId($id)->get();
+        $activities = Activity::orderByDesc('created_at')->whereLogName($name)->whereSubjectId($id)->get();
         return view('activity.index', compact('activities'));
     }
 

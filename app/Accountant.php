@@ -55,7 +55,7 @@ class Accountant extends Model
 
     public static function balance($id)
     {
-        $accountant = Accountant::find($id);
+        $accountant = self::find($id);
         if ($accountant) {
             $payments = $accountant->payments->sum('amount');
             $refunds = $accountant->refunds->sum('amount');
@@ -67,8 +67,9 @@ class Accountant extends Model
             $balance['total'] = $payments + $refunds + $borrows + $expenses + $loans + $returns;
             $balance['send'] = $refunds + $returns;
             $balance['received'] = $balance['total'] - $balance['send'];
-            $balance['now'] = ($balance['received'] - $balance['send']) + $accountant->sbalance;
+            $balance['now'] =  $accountant->sbalance+($balance['received'] - $balance['send']) ;
             return $balance;
+            // return dd($balance);
         }
     }
 

@@ -187,16 +187,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalHeader">Updated Information</h5>
+                <h5 class="modal-title" id="modalHeader">Whats New?</h5>
                 <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </a>
             </div>
             <div class="modal-body">
                 <ol>
-                    <li>Accountant Completed</li>
-                    <li>For get update: <code>git pull</code></li>
-                    <li>After get update: <code>php artisan migrate:fresh --seed</code></li>
+                    <li>Complete v1.0.0</li>
+                    {{-- <li>For get update: <code>git pull</code></li>
+                    <li>After get update: <code>php artisan migrate:fresh --seed</code></li> --}}
                 </ol>
             </div>
             <div class="modal-footer">
@@ -205,7 +205,7 @@
                     @method('PUT')
                     @csrf
                     <input name="whatsnew" type="hidden" value="0">
-                    <button type="submit" class="btn btn-warning">Don't show again</button>
+                    <button type="submit" class="btn btn-secondary">Don't show again</button>
                 </form>
             </div>
         </div>
@@ -216,12 +216,12 @@
 
 
 @section('scripts')
-{{-- <script>
-    // var whatsnew = {{ App\Setting::first()->whatsnew ?? '' }};
-    // $(document).ready(function() {
-    //    if (whatsnew) {
-    //         $('#updateModal').modal();
-    //     }
-    // });
-</script> --}}
+<script>
+    var whatsnew = {{ App\Setting::first()->whatsnew ?? '' }};
+    $(document).ready(function() {
+       if (whatsnew) {
+            $('#updateModal').modal();
+        }
+    });
+</script>
 @endsection

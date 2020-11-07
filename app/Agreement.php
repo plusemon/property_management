@@ -16,7 +16,7 @@ class Agreement extends Model
     protected static $logName = 'agreement';
     protected static $recordEvents = ['updated'];
     protected static $logAttributes = ['*', 'user.name', 'property.name', 'tent.fname'];
-    protected static $logAttributesToIgnore = ['updated_at', 'created_at'];
+    protected static $logAttributesToIgnore = ['updated_at', 'created_at','incr_at','status'];
     protected static $logOnlyDirty = true;
     protected static $submitEmptyLogs = false;
 
@@ -45,7 +45,7 @@ class Agreement extends Model
     {
         $agreement = self::find($id);
         $start = $agreement->created_at;
-        $end = $start->addMonths($agreement->duration-1);
+        $end = $start->addMonths($agreement->period-1);
         return now()->diffInDays($end,false) < 1 ? true:false;
     }
 

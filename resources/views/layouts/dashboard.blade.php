@@ -23,7 +23,7 @@
         rel="stylesheet">
 </head>
 
-<body>
+<body onload="startTime()">
     <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
@@ -43,8 +43,8 @@
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
 
-                        <li class="nav-item mt-3 px-2">
-                            {{ date('d M, Y').' | '.date('h:i A') }}<br>
+                        <li class="nav-item mt-3 px-2 text-right">
+                            {{ date('l').', '.date('d M, Y') }} | <span id="clock"></span> <br>
                             Welcome, <b>{{ Auth::user()->name }}</b>
                         </li>
 
@@ -154,6 +154,15 @@
     <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
     @yield('scripts')
     @include('partials.toastr')
+
+    <script>
+        window.onload = displayClock();
+        function displayClock(){
+            var display = new Date().toLocaleTimeString();
+            document.querySelector('#clock').innerHTML = display;
+            setTimeout(displayClock, 1000);
+        }
+    </script>
 </body>
 
 </html>

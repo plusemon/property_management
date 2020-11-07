@@ -210,7 +210,7 @@
                             </div>
                         </div>
 
-                        <div class="alert alert-danger" id="incr-alert">
+                        <div class="alert alert-danger text-danger" id="incr-alert">
                            This Agreement period almost over, The rent will be increase <span id="incr2"></span>% when this period is over.
                         </div>
 
@@ -348,7 +348,7 @@
                         <div class="row">
                             <div class="col-md form-group">
                                 <label class="col-form-label">Description</label>
-                                <textarea name="remarks" class="form-control" rows="5"></textarea>
+                                <textarea name="description" class="form-control" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -532,7 +532,7 @@
                 $('#incr2').html(data.incr);
                 $('#start').val(data.start);
                 $('#duration').val(data.duration +' months');
-                $('#left').val(data.left +' months');
+                $('#left').val(data.left == 0 ? 'Some days':data.left  +' months');
 
                 if (data.left < 3) {
                     $('#incr-alert').fadeIn();

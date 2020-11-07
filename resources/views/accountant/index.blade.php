@@ -59,7 +59,7 @@
                     <td scope="row">{{ $accountant->start->format('d-m-Y') }}</td>
                     <td scope="row">{{ $accountant->end ? $accountant->end->format('d-m-Y'):'N/A' }}</td>
                     <td scope="row">{{ $accountant->sbalance }}</td>
-                    <td scope="row">{{ $accountant->status ? $balance['now']:$accountant->balance }}</td>
+                    <td scope="row">{{ $accountant->status ? $balance['now']:'---' }}</td>
                     <td scope="row">{{ $accountant->ebalance ?? 'N/A' }}</td>
                     <td scope="row" class="{{ $accountant->status ? 'text-success':'text-danger' }}">{{ $accountant->status ? 'Actived':'Inactived' }}</td>
                 </tr>

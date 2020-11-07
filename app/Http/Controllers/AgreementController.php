@@ -3,19 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Tent;
-use App\Type;
 use App\Agreement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AgreementController extends Controller
 {
+
+    public function __construct()
+    {
+        // Check and expire agreements when period is over
+        Agreement::whereNull('incr_at')->each(function ($agreement) {
+            if (Agreement::isExpired($agreement->id)) {
+                $agreement->incr_at = today();
+                $agreement->status = false;
+                $agreement->rent += ($agreement->rent * $agreement->incr)/100;
+                $agreement->save();
+
+            }
+        });
+    }
+
     public function index()
     {
         $agreements = Agreement::all();
-        $types = Type::where('type', 'property')->get();
         $tents = Tent::all();
-        return view('rent.agreement.index', compact('agreements', 'types', 'tents'));
+        return view('rent.agreement.index', compact('agreements', 'tents'));
     }
 
     public function store(Request $request)
@@ -61,19 +74,29 @@ class AgreementController extends Controller
 
     public function edit(Agreement $agreement)
     {
-        $types = Type::all();
         $tents = Tent::all();
-        return view('rent.agreement.edit', compact('agreement', 'types', 'tents'));
+        return view('rent.agreement.edit', compact('agreement', 'tents'));
     }
 
 
     public function update(Request $request, Agreement $agreement)
     {
+        # for update status only
         if ($request->has('status')) {
            $agreement->status = $request->status;
            $agreement->save();
            return redirect()->back()->with('success','Updated Succefully');
         }
+
+        # for renew a agreement
+        if (request()->expired) {
+            $agreement->created_at = now();
+            $agreement->status = 1;
+            $agreement->incr_at = null;
+            $agreement->save();
+            return redirect(route('agreement.index'))->with('success','Agreement Renewed Successfully');
+        }
+
 
         $agreement->property_id = $request->property_id;
         $agreement->tent_id = $request->tent_id;
@@ -84,6 +107,7 @@ class AgreementController extends Controller
         $agreement->security = $request->security;
         $agreement->incr = $request->incr;
 
+        # if attachment available
         if ($request->attachment) {
             $url = $request->attachment->store('/agreement');
             $agreement->attachment = $url;

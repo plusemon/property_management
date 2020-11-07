@@ -30,15 +30,24 @@
                 <div class="card">
 
                     <div class="card-body">
+
                         @foreach (App\Agreement::getExpired() as $agreement)
                         <div class="alert alert-danger">
                             <span class="text-danger"> Action Required: </span><a
                                 href="{{ route('agreement.show', $agreement->id) }}"
                                 target="_blank">#{{ $agreement->id }}</a> agreement's period has been over and rent
-                            incremented to <span class="text-danger">{{ $agreement->yearly_percent }}%</span> . <a
-                                href="{{ route('agreement.edit', $agreement->id) }}" class="text-success">Renew Now!</a>
+                            incremented to <span class="text-danger">{{ $agreement->incr }}%</span> .
+                            <a href="#" onclick="form{{ $agreement->id }}.submit()" class="text-success">Renew Now!</a>
+
+                            <form id="form{{ $agreement->id }}" action="{{ route('agreement.update', $agreement->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="expired" value="true">
+                            </form>
+
                         </div>
                         @endforeach
+
                         <div class="table-responsive ">
                             <table id="example" class="table table-striped table-bordered second" style="width:100%">
                                 <thead>
@@ -103,9 +112,10 @@
                                             <a href="#"
                                                 onclick="window.open('{{ route('activity',['agreement', $agreement->id]) }}', '_blank')"
                                                 class="btn btn-sm btn-dark"><i class="fas fa-history"></i></a>
-                                            <a href="{{ route('agreement.edit', $agreement->id)}}"
+                                             @if (!$agreement->incr_at)
+                                             <a href="{{ route('agreement.edit', $agreement->id)}}"
                                                 class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-
+                                            @endif
 
                                             <form class="d-inline"
                                                 action="{{route('agreement.destroy', $agreement->id)}}" method="POST">
@@ -143,7 +153,7 @@
                                 <label class="col-form-label">Property Type</label>
                                 <select id="types" class="form-control">
                                     <option>Select type</option>
-                                    @foreach ($types as $type)
+                                    @foreach (App\Type::getProperties() as $type)
                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
                                 </select>
@@ -199,7 +209,7 @@
                         <div class="row">
 
                             <div class="col-md form-group">
-                                <label class="col-form-label">Duration</label>
+                                <label class="col-form-label">Period</label>
                                 <select name="period" id="" class="form-control">
                                     <option value="6">6 Months</option>
                                     <option value="12">1 Year</option>

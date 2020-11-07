@@ -21,5 +21,10 @@ class Type extends Model
         return $this->hasMany(Property::class);
     }
 
+    public static function getProperties()
+    {
+       return self::where('type', 'property')->get();
+    }
+
 
 }

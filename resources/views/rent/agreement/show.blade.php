@@ -43,8 +43,8 @@
                         </tr>
 
                         <tr>
-                            <td>Duration</td>
-                            <td>: {{ $agreement->duration }}</td>
+                            <td>Period</td>
+                            <td>: {{ $agreement->period }} Months</td>
                         </tr>
                         <tr>
                             <td>Tent Name</td>
@@ -60,19 +60,19 @@
                         </tr>
                         <tr>
                             <td>Security Money</td>
-                            <td>: {{ $agreement->advance }}</td>
+                            <td>: {{ $agreement->security }}</td>
                         </tr>
                         <tr>
-                            <td>Yearly Increment</td>
-                            <td>: {{ $agreement->yearly_percent }}</td>
+                            <td>Increment %</td>
+                            <td>: {{ $agreement->incr }}</td>
                         </tr>
                         <tr>
                             <td>Attachement</td>
                             <td>: <a class="badge badge-secondary" href="{{ url('public/storage/'.$agreement->attachment) }}" target="_blank">View</a></td>
                         </tr>
                         <tr>
-                            <td>Created at</td>
-                            <td>: {{ $agreement->created_at }}</td>
+                            <td>Started</td>
+                            <td>: {{ $agreement->created_at->format('d-m-Y') }}</td>
                         </tr>
                     </table>
                 </div>

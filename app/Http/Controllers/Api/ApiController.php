@@ -38,7 +38,7 @@ class ApiController extends Controller
             $data['start'] = $agreement->created_at->diffForHumans();
 
             $data['duration'] = $agreement->period;
-            $data['left'] = $agreement->duration - $agreement->created_at->diffInMonths(now());
+            $data['left'] = $agreement->period - $agreement->created_at->diffInMonths(now());
 
 
 
